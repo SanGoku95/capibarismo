@@ -136,67 +136,142 @@ All colors MUST be HSL.
   /* Fighting game UI elements */
   .fighting-game-bg {
     background: 
-      radial-gradient(circle at 20% 50%, hsla(343.8, 75.5%, 50.2%, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, hsla(201.3, 79.4%, 48.6%, 0.1) 0%, transparent 50%),
-      linear-gradient(135deg, hsl(240, 4.8%, 97%) 0%, hsl(240, 4.8%, 93%) 100%);
+      radial-gradient(circle at 20% 50%, hsla(343.8, 75.5%, 50.2%, 0.15) 0%, transparent 60%),
+      radial-gradient(circle at 80% 50%, hsla(201.3, 79.4%, 48.6%, 0.15) 0%, transparent 60%),
+      linear-gradient(135deg, hsl(240, 8%, 12%) 0%, hsl(240, 15%, 8%) 50%, hsl(240, 8%, 12%) 100%);
   }
 
   .fighting-game-card {
-    background: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(240, 4.8%, 97%) 100%);
-    border: 2px solid hsl(240, 5.9%, 90%);
+    background: 
+      linear-gradient(145deg, hsl(240, 12%, 15%) 0%, hsl(240, 8%, 10%) 100%);
+    border: 2px solid hsl(240, 20%, 25%);
     box-shadow: 
-      inset 0 1px 0 hsl(0, 0%, 100%),
-      0 4px 8px hsla(240, 10%, 3.9%, 0.1),
-      0 2px 4px hsla(240, 10%, 3.9%, 0.06);
+      inset 0 1px 0 hsl(240, 15%, 20%),
+      0 8px 24px hsla(240, 50%, 5%, 0.4),
+      0 4px 12px hsla(240, 50%, 5%, 0.3);
   }
 
-  .fighting-game-selector {
-    background: linear-gradient(145deg, hsl(240, 4.8%, 98%) 0%, hsl(240, 4.8%, 94%) 100%);
-    border: 2px solid hsl(240, 5.9%, 85%);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  .fighting-game-header {
+    background: 
+      linear-gradient(90deg, 
+        hsla(343.8, 75.5%, 50.2%, 0.1) 0%, 
+        transparent 30%, 
+        transparent 70%, 
+        hsla(201.3, 79.4%, 48.6%, 0.1) 100%),
+      linear-gradient(135deg, hsl(240, 12%, 18%) 0%, hsl(240, 8%, 12%) 100%);
+    border-bottom: 2px solid hsl(240, 25%, 30%);
+    position: relative;
   }
 
-  .fighting-game-selector:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-      0 8px 16px hsla(240, 10%, 3.9%, 0.15),
-      0 4px 8px hsla(240, 10%, 3.9%, 0.1);
-  }
-
-  .fighting-game-selector-selected {
-    border: 3px solid hsl(var(--team-left));
-    box-shadow: 
-      0 0 0 2px hsl(var(--team-left) / 0.2),
-      0 8px 16px hsla(240, 10%, 3.9%, 0.15);
-  }
-
-  .fighting-game-selector-selected-right {
-    border: 3px solid hsl(var(--team-right));
-    box-shadow: 
-      0 0 0 2px hsl(var(--team-right) / 0.2),
-      0 8px 16px hsla(240, 10%, 3.9%, 0.15);
+  .fighting-game-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      hsl(var(--team-left)) 0%, 
+      transparent 30%, 
+      transparent 70%, 
+      hsl(var(--team-right)) 100%);
+    opacity: 0.6;
   }
 
   .fighting-game-vs {
-    background: linear-gradient(135deg, hsl(240, 5.9%, 10%) 0%, hsl(240, 3.7%, 15.9%) 100%);
-    color: hsl(0, 0%, 98%);
-    text-shadow: 0 2px 4px hsla(240, 10%, 3.9%, 0.5);
-    border: 2px solid hsl(240, 5.9%, 20%);
+    background: 
+      radial-gradient(circle, hsl(45, 100%, 60%) 0%, hsl(30, 100%, 50%) 70%);
+    color: hsl(240, 10%, 5%);
+    text-shadow: 
+      0 1px 2px hsla(0, 0%, 100%, 0.8),
+      0 -1px 1px hsla(240, 10%, 5%, 0.3);
+    border: 3px solid hsl(45, 100%, 70%);
     box-shadow: 
-      inset 0 1px 0 hsl(240, 5%, 30%),
-      0 4px 8px hsla(240, 10%, 3.9%, 0.3);
+      inset 0 2px 4px hsla(0, 0%, 100%, 0.3),
+      inset 0 -2px 4px hsla(240, 10%, 5%, 0.2),
+      0 0 0 2px hsl(30, 100%, 40%),
+      0 6px 16px hsla(30, 100%, 30%, 0.4);
+    font-weight: 900;
+    letter-spacing: 0.1em;
   }
 
-  .fighting-game-grid {
+  .fighting-game-section {
     background: 
-      linear-gradient(90deg, hsl(240, 5.9%, 90%) 1px, transparent 1px),
-      linear-gradient(hsl(240, 5.9%, 90%) 1px, transparent 1px);
-    background-size: 20px 20px;
+      linear-gradient(135deg, hsl(240, 10%, 14%) 0%, hsl(240, 6%, 10%) 100%);
+    border: 1px solid hsl(240, 15%, 20%);
+    border-radius: 8px;
+    position: relative;
   }
 
-  .metal-texture {
+  .fighting-game-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      hsl(240, 20%, 25%) 50%, 
+      transparent 100%);
+  }
+
+  .candidate-panel-left {
     background: 
-      linear-gradient(135deg, hsl(240, 4.8%, 96%) 0%, hsl(240, 4.8%, 92%) 25%, hsl(240, 4.8%, 96%) 50%, hsl(240, 4.8%, 92%) 75%, hsl(240, 4.8%, 96%) 100%);
-    background-size: 8px 8px;
+      linear-gradient(135deg, 
+        hsla(343.8, 75.5%, 50.2%, 0.15) 0%, 
+        hsla(343.8, 75.5%, 50.2%, 0.05) 100%);
+    border: 1px solid hsla(343.8, 75.5%, 50.2%, 0.3);
+    border-radius: 6px;
+    position: relative;
+  }
+
+  .candidate-panel-left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, 
+      hsl(var(--team-left)) 0%, 
+      hsla(343.8, 75.5%, 50.2%, 0.6) 100%);
+    border-radius: 6px 0 0 6px;
+  }
+
+  .candidate-panel-right {
+    background: 
+      linear-gradient(135deg, 
+        hsla(201.3, 79.4%, 48.6%, 0.15) 0%, 
+        hsla(201.3, 79.4%, 48.6%, 0.05) 100%);
+    border: 1px solid hsla(201.3, 79.4%, 48.6%, 0.3);
+    border-radius: 6px;
+    position: relative;
+  }
+
+  .candidate-panel-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, 
+      hsl(var(--team-right)) 0%, 
+      hsla(201.3, 79.4%, 48.6%, 0.6) 100%);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .section-title {
+    background: linear-gradient(90deg, 
+      hsl(45, 100%, 60%) 0%, 
+      hsl(30, 100%, 50%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 4px hsla(240, 10%, 5%, 0.3);
   }
 }
