@@ -27,10 +27,10 @@ function ComparisonRow({ label, leftValue, rightValue, leftCandidate, rightCandi
   
   return (
     <div className={cn(
-      "grid grid-cols-[120px_1fr_1fr] gap-2 py-3 border-b border-border/50",
+      "grid grid-cols-[60px_1fr_1fr] gap-2 py-3 border-b border-border/50",
       highlight && "bg-accent/20"
     )}>
-      <div className="text-xs font-semibold text-muted-foreground sticky left-0 bg-background/80 backdrop-blur-sm pr-2">
+      <div className="text-lg text-center sticky left-0 bg-background/80 backdrop-blur-sm pr-2 flex items-center justify-center">
         {label}
       </div>
       <div className={cn(
@@ -56,7 +56,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
       <div className="sticky top-0 z-10 bg-background/90 backdrop-blur-sm">
         <Card className="fighting-game-card">
           <CardHeader className="pb-3">
-            <div className="grid grid-cols-[120px_1fr_1fr] gap-2">
+            <div className="grid grid-cols-[60px_1fr_1fr] gap-2">
               <div className="flex items-center justify-center">
                 <span className="text-xs font-bold text-primary">VS</span>
               </div>
@@ -126,14 +126,14 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
       {/* Scrollable Comparison Grid */}
       <Card className="fighting-game-card">
         <CardContent className="p-0">
-          <div className="max-h-[60vh] overflow-y-auto">
+          <div className="max-w-full">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
               <ComparisonRow
-                label="Propuesta"
+                label="💡"
                 leftValue={leftCandidate?.summary || "Selecciona un candidato"}
                 rightValue={rightCandidate?.summary || "Selecciona un candidato"}
                 leftCandidate={leftCandidate}
@@ -142,7 +142,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               />
               
               <ComparisonRow
-                label="Profesión"
+                label="👔"
                 leftValue={leftCandidate?.profession || "—"}
                 rightValue={rightCandidate?.profession || "—"}
                 leftCandidate={leftCandidate}
@@ -151,7 +151,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               />
               
               <ComparisonRow
-                label="Creencias"
+                label="🎯"
                 leftValue={
                   leftCandidate ? (
                     <div className="flex flex-wrap gap-1">
@@ -179,23 +179,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               />
               
               <ComparisonRow
-                label="Actividad"
-                leftValue={
-                  leftCandidate ? (
-                    <MiniTimelineChart data={leftCandidate.timeline} side="left" />
-                  ) : "—"
-                }
-                rightValue={
-                  rightCandidate ? (
-                    <MiniTimelineChart data={rightCandidate.timeline} side="right" />
-                  ) : "—"
-                }
-                leftCandidate={leftCandidate}
-                rightCandidate={rightCandidate}
-              />
-              
-              <ComparisonRow
-                label="Últimos Clips"
+                label="📺"
                 leftValue={
                   leftCandidate ? (
                     <div className="space-y-1">
@@ -223,7 +207,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               />
               
               <ComparisonRow
-                label="Trayectoria"
+                label="📈"
                 leftValue={
                   leftCandidate ? (
                     <div className="space-y-1">
