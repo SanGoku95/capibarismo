@@ -19,7 +19,7 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
   
   if (!candidate) {
     return (
-      <Card className={`h-full ${borderColor} border-l-4`}>
+      <Card className={`h-full ${borderColor} border-l-4 fighting-game-card`}>
         <CardContent className="flex items-center justify-center h-full p-8">
           <div className="text-center text-muted-foreground">
             <div className={cn(
@@ -46,7 +46,7 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className={`h-full ${borderColor} border-l-4 shadow-lg`}>
+      <Card className={`h-full ${borderColor} border-l-4 fighting-game-card`}>
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="flex-1">

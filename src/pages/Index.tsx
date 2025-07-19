@@ -3,7 +3,7 @@ import { CandidatePicker } from '@/components/CandidatePicker';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen fighting-game-bg">
       {/* Mobile: Vertical flow */}
       <div className="lg:hidden">
         <CompareView />

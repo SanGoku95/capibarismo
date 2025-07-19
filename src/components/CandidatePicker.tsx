@@ -32,14 +32,14 @@ export function CandidatePicker() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={cn(
-          "relative p-2 lg:p-3 rounded-2xl border-2 transition-all duration-200",
+          "fighting-game-selector relative p-2 lg:p-3 rounded-2xl transition-all duration-200",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
           "flex-shrink-0 w-20 lg:w-24",
           selected
             ? side === 'left'
-              ? "border-team-left bg-team-left/20 shadow-lg shadow-team-left/30"
-              : "border-team-right bg-team-right/20 shadow-lg shadow-team-right/30"
-            : "border-border hover:border-primary hover:shadow-md"
+              ? "fighting-game-selector-selected"
+              : "fighting-game-selector-selected-right"
+            : ""
         )}
         aria-label={`Seleccionar a ${candidate.nombre} para comparar`}
         tabIndex={0}
@@ -58,7 +58,7 @@ export function CandidatePicker() {
           <img
             src={candidate.headshot}
             alt={`Retrato de ${candidate.nombre}`}
-            className="w-12 h-12 lg:w-16 lg:h-16 rounded-full object-cover mx-auto"
+            className="w-12 h-12 lg:w-16 lg:h-16 rounded-full object-cover mx-auto ring-2 ring-border"
           />
           <div className="mt-1 text-xs font-medium max-w-full truncate">
             {candidate.nombre.split(' ')[0]}
@@ -72,7 +72,7 @@ export function CandidatePicker() {
   };
 
   return (
-    <div className="w-full bg-card border-t border-border">
+    <div className="w-full metal-texture border-t-2 border-border">
       <div className="container mx-auto p-4">
         {/* Header with instructions */}
         <div className="flex items-center justify-between mb-4">
@@ -95,7 +95,7 @@ export function CandidatePicker() {
                 <img src={leftCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />
                 <span className="text-sm font-semibold">{leftCandidate.nombre.split(' ')[0]}</span>
               </div>
-              <div className="text-xl font-bold text-primary">VS</div>
+              <div className="fighting-game-vs text-xl font-bold">VS</div>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-semibold">{rightCandidate.nombre.split(' ')[0]}</span>
                 <img src={rightCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />
