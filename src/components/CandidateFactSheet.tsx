@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Candidate } from '@/data/candidates';
 import { TagPill } from './TagPill';
@@ -20,8 +21,14 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
       <Card className={`h-full ${borderColor} border-l-4`}>
         <CardContent className="flex items-center justify-center h-full p-8">
           <div className="text-center text-muted-foreground">
+            <div className={cn(
+              "w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold text-xl",
+              side === 'left' ? 'bg-team-left' : 'bg-team-right'
+            )}>
+              {side === 'left' ? '1' : '2'}
+            </div>
             <h3 className="text-lg font-semibold mb-2">
-              {side === 'left' ? 'Candidato Izquierda' : 'Candidato Derecha'}
+              Candidato {side === 'left' ? '1' : '2'}
             </h3>
             <p className="text-sm">Selecciona un candidato para comparar</p>
           </div>
@@ -42,8 +49,16 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <CardTitle className="text-lg font-bold">{candidate.nombre}</CardTitle>
-              <Badge className={`mt-1 text-xs ${badgeColor}`}>
+              <div className="flex items-center gap-2 mb-1">
+                <div className={cn(
+                  "w-6 h-6 rounded-full flex items-center justify-center text-white font-bold text-xs",
+                  side === 'left' ? 'bg-team-left' : 'bg-team-right'
+                )}>
+                  {side === 'left' ? '1' : '2'}
+                </div>
+                <CardTitle className="text-lg font-bold">{candidate.nombre}</CardTitle>
+              </div>
+              <Badge className={`text-xs ${badgeColor}`}>
                 {candidate.ideologia}
               </Badge>
             </div>

@@ -1,3 +1,4 @@
+
 import { useCompareStore } from '@/store/useCompareStore';
 import { CandidateFullBody } from './CandidateFullBody';
 import { CandidateFactSheet } from './CandidateFactSheet';
@@ -8,15 +9,13 @@ export function CompareView() {
   return (
     <div className="w-full h-full p-4">
       <div className="h-full">
-        {/* Mobile: Vertical stack */}
+        {/* Mobile: Only fact sheets, no full body images */}
         <div className="lg:hidden space-y-4">
-          <CandidateFullBody candidate={leftCandidate} side="left" />
           <CandidateFactSheet candidate={leftCandidate} side="left" />
           <CandidateFactSheet candidate={rightCandidate} side="right" />
-          <CandidateFullBody candidate={rightCandidate} side="right" />
         </div>
 
-        {/* Desktop: 4-column grid */}
+        {/* Desktop: 4-column grid with full body images */}
         <div className="hidden lg:grid lg:grid-cols-4 lg:gap-4 lg:h-full">
           <div className="flex items-center justify-center">
             <CandidateFullBody candidate={leftCandidate} side="left" />
