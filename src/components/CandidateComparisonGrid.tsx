@@ -35,32 +35,16 @@ function ComparisonSection({ title, leftCandidate, rightCandidate, leftContent, 
       </h3>
       <div className="grid grid-cols-2 gap-4">
         <div className={cn(
-          "space-y-2 p-3 rounded-lg border",
-          hasLeftCandidate ? "bg-team-left/5 border-team-left/20" : "bg-muted/20 border-muted"
+          "p-3 rounded-lg border",
+          hasLeftCandidate ? "bg-team-left/5 border-team-left/20" : "bg-muted/20 border-muted text-muted-foreground italic"
         )}>
-          <div className="text-xs font-medium text-team-left">
-            {leftCandidate?.nombre || "Candidato 1"}
-          </div>
-          <div className={cn(
-            "text-sm",
-            !hasLeftCandidate && "text-muted-foreground italic"
-          )}>
-            {leftContent}
-          </div>
+          {leftContent}
         </div>
         <div className={cn(
-          "space-y-2 p-3 rounded-lg border",
-          hasRightCandidate ? "bg-team-right/5 border-team-right/20" : "bg-muted/20 border-muted"
+          "p-3 rounded-lg border", 
+          hasRightCandidate ? "bg-team-right/5 border-team-right/20" : "bg-muted/20 border-muted text-muted-foreground italic"
         )}>
-          <div className="text-xs font-medium text-team-right">
-            {rightCandidate?.nombre || "Candidato 2"}
-          </div>
-          <div className={cn(
-            "text-sm",
-            !hasRightCandidate && "text-muted-foreground italic"
-          )}>
-            {rightContent}
-          </div>
+          {rightContent}
         </div>
       </div>
     </div>
