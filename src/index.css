@@ -8,41 +8,41 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Vibrant fighting game backgrounds */
-    --background: 210 40% 8%;
-    --foreground: 210 40% 98%;
+    /* Light fighting game backgrounds */
+    --background: 210 30% 96%;
+    --foreground: 210 40% 8%;
 
-    --card: 210 25% 12%;
-    --card-foreground: 210 40% 98%;
+    --card: 210 20% 98%;
+    --card-foreground: 210 40% 8%;
 
-    --popover: 210 25% 12%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 210 20% 98%;
+    --popover-foreground: 210 40% 8%;
 
     /* Electric primary colors */
-    --primary: 270 100% 70%;
-    --primary-foreground: 240 15% 5%;
+    --primary: 270 80% 60%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 195 100% 50%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 195 70% 50%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 20% 18%;
-    --muted-foreground: 210 15% 65%;
+    --muted: 210 15% 88%;
+    --muted-foreground: 210 20% 40%;
 
-    --accent: 315 100% 65%;
-    --accent-foreground: 240 15% 5%;
+    --accent: 315 80% 60%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 75% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 210 25% 20%;
-    --input: 210 25% 15%;
-    --ring: 270 100% 70%;
+    --border: 210 20% 85%;
+    --input: 210 20% 92%;
+    --ring: 270 80% 60%;
 
     /* Dynamic team colors */
-    --team-left: 330 100% 60%;  /* Hot pink */
-    --team-left-foreground: 240 15% 5%;
-    --team-right: 195 100% 60%; /* Electric blue */
-    --team-right-foreground: 240 15% 5%;
+    --team-left: 330 85% 55%;  /* Hot pink */
+    --team-left-foreground: 0 0% 98%;
+    --team-right: 195 85% 55%; /* Electric blue */
+    --team-right-foreground: 0 0% 98%;
 
     /* Chart colors for timeline */
     --chart-primary: 330 100% 60%;
@@ -50,14 +50,14 @@ All colors MUST be HSL.
 
     --radius: 1rem;
 
-    --sidebar-background: 210 25% 12%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 270 100% 70%;
-    --sidebar-primary-foreground: 240 15% 5%;
-    --sidebar-accent: 210 20% 18%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 210 25% 20%;
-    --sidebar-ring: 270 100% 70%;
+    --sidebar-background: 210 20% 98%;
+    --sidebar-foreground: 210 40% 8%;
+    --sidebar-primary: 270 80% 60%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 210 15% 88%;
+    --sidebar-accent-foreground: 210 40% 8%;
+    --sidebar-border: 210 20% 85%;
+    --sidebar-ring: 270 80% 60%;
   }
 
   .dark {
@@ -129,19 +129,19 @@ All colors MUST be HSL.
   /* Fighting game UI elements */
   .fighting-game-bg {
     background: 
-      radial-gradient(circle at 20% 50%, hsla(330, 100%, 60%, 0.25) 0%, transparent 60%),
-      radial-gradient(circle at 80% 50%, hsla(195, 100%, 60%, 0.25) 0%, transparent 60%),
-      linear-gradient(135deg, hsl(210, 40%, 6%) 0%, hsl(210, 50%, 4%) 50%, hsl(210, 40%, 8%) 100%);
+      radial-gradient(circle at 20% 50%, hsla(330, 85%, 55%, 0.15) 0%, transparent 60%),
+      radial-gradient(circle at 80% 50%, hsla(195, 85%, 55%, 0.15) 0%, transparent 60%),
+      linear-gradient(135deg, hsl(210, 25%, 94%) 0%, hsl(210, 30%, 96%) 50%, hsl(210, 25%, 92%) 100%);
   }
 
   .fighting-game-selector {
     background: 
-      linear-gradient(145deg, hsl(210, 30%, 15%) 0%, hsl(210, 35%, 10%) 100%);
-    border: 2px solid hsl(210, 40%, 25%);
+      linear-gradient(145deg, hsl(210, 20%, 98%) 0%, hsl(210, 25%, 94%) 100%);
+    border: 2px solid hsl(210, 30%, 80%);
     box-shadow: 
-      inset 0 2px 4px hsla(210, 30%, 20%, 0.6),
-      0 4px 12px hsla(210, 50%, 5%, 0.4),
-      0 0 0 1px hsla(270, 100%, 70%, 0.1);
+      inset 0 2px 4px hsla(210, 20%, 90%, 0.8),
+      0 4px 12px hsla(210, 30%, 20%, 0.1),
+      0 0 0 1px hsla(270, 80%, 60%, 0.1);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
   }
@@ -163,12 +163,12 @@ All colors MUST be HSL.
 
   .fighting-game-selector:hover {
     transform: translateY(-2px);
-    border-color: hsl(270, 100%, 70%);
+    border-color: hsl(270, 80%, 60%);
     box-shadow: 
-      inset 0 2px 4px hsla(210, 30%, 25%, 0.6),
-      0 8px 20px hsla(270, 100%, 70%, 0.2),
-      0 0 0 2px hsla(270, 100%, 70%, 0.4),
-      0 0 20px hsla(270, 100%, 70%, 0.3);
+      inset 0 2px 4px hsla(210, 20%, 85%, 0.8),
+      0 8px 20px hsla(270, 80%, 60%, 0.2),
+      0 0 0 2px hsla(270, 80%, 60%, 0.4),
+      0 0 20px hsla(270, 80%, 60%, 0.3);
   }
 
   .fighting-game-header {
