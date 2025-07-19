@@ -52,6 +52,18 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				'team-left': {
+					DEFAULT: 'hsl(var(--team-left))',
+					foreground: 'hsl(var(--team-left-foreground))'
+				},
+				'team-right': {
+					DEFAULT: 'hsl(var(--team-right))',
+					foreground: 'hsl(var(--team-right-foreground))'
+				},
+				chart: {
+					'1': 'hsl(var(--chart-primary))',
+					'2': 'hsl(var(--chart-secondary))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
