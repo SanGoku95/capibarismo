@@ -6,8 +6,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Mobile: Vertical flow */}
       <div className="lg:hidden">
-        <CandidatePicker />
         <CompareView />
+        <CandidatePicker />
       </div>
 
       {/* Desktop: Grid layout with fixed height */}
