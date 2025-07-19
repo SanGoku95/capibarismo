@@ -2,6 +2,7 @@
 import { useCompareStore } from '@/store/useCompareStore';
 import { CandidateFullBody } from './CandidateFullBody';
 import { CandidateFactSheet } from './CandidateFactSheet';
+import { CandidateComparisonGrid } from './CandidateComparisonGrid';
 
 export function CompareView() {
   const { leftCandidate, rightCandidate } = useCompareStore();
@@ -9,10 +10,9 @@ export function CompareView() {
   return (
     <div className="w-full h-full p-4">
       <div className="h-full">
-        {/* Mobile: Only fact sheets, no full body images */}
-        <div className="lg:hidden space-y-4">
-          <CandidateFactSheet candidate={leftCandidate} side="left" />
-          <CandidateFactSheet candidate={rightCandidate} side="right" />
+        {/* Mobile: Side-by-side comparison with scrollable spec grid */}
+        <div className="lg:hidden">
+          <CandidateComparisonGrid leftCandidate={leftCandidate} rightCandidate={rightCandidate} />
         </div>
 
         {/* Desktop: 4-column grid with full body images */}
