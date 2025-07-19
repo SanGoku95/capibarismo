@@ -39,7 +39,7 @@ export function CandidatePicker() {
         className={cn(
           "fighting-game-selector relative transition-all duration-200",
           "focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-gray-900",
-          "aspect-[4/3] w-full max-w-[120px]",
+          "aspect-[4/3] w-full max-w-[120px] min-h-[90px]",
           selected && (side === 'left' ? "ring-2 ring-team-left shadow-team-left/50" : "ring-2 ring-team-right shadow-team-right/50")
         )}
         aria-label={`Seleccionar a ${candidate.nombre} para comparar`}
@@ -48,11 +48,11 @@ export function CandidatePicker() {
         {/* Selection overlay */}
         {selected && (
           <div className={cn(
-            "absolute inset-0 rounded-lg border-2 border-opacity-80",
+            "absolute inset-0 rounded-lg border-2 border-opacity-80 z-10",
             side === 'left' ? "border-team-left bg-team-left/10" : "border-team-right bg-team-right/10"
           )}>
             <div className={cn(
-              "absolute -top-2 -right-2 w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center text-white border-2 border-gray-800",
+              "absolute -top-2 -right-2 w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center text-white border-2 border-gray-800 z-20",
               side === 'left' ? "bg-team-left" : "bg-team-right"
             )}>
               {side === 'left' ? '1' : '2'}
@@ -66,14 +66,19 @@ export function CandidatePicker() {
             src={candidate.headshot}
             alt={`Retrato de ${candidate.nombre}`}
             className="w-full h-full object-cover rounded border border-gray-600"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = `https://images.unsplash.com/photo-${1500000000000 + Math.abs(candidate.nombre.charCodeAt(0) * 1000000)}?w=150&h=150&fit=crop&crop=face`;
+            }}
+            loading="lazy"
           />
           
           {/* Character name overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-            <div className="text-white text-xs font-bold truncate">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-2">
+            <div className="text-white text-xs font-bold truncate drop-shadow-sm">
               {candidate.nombre.split(' ')[0]}
             </div>
-            <div className="text-gray-300 text-xs truncate">
+            <div className="text-gray-300 text-xs truncate drop-shadow-sm">
               {candidate.nombre.split(' ').slice(1).join(' ')}
             </div>
           </div>

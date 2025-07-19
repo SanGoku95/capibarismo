@@ -40,8 +40,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 30 },
       { week: "2024-W06", clips: 28 }
     ],
-    headshot: "https://images.unsplash.com/photo-1494790108755-2616b612b789?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1494790108755-2616b612b789?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "veronika",
@@ -70,8 +70,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 32 },
       { week: "2024-W06", clips: 29 }
     ],
-    headshot: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "rafael",
@@ -100,8 +100,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 25 },
       { week: "2024-W06", clips: 23 }
     ],
-    headshot: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "yonhy",
@@ -130,8 +130,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 22 },
       { week: "2024-W06", clips: 20 }
     ],
-    headshot: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "antauro",
@@ -160,8 +160,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 18 },
       { week: "2024-W06", clips: 16 }
     ],
-    headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "patricia",
@@ -190,8 +190,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 20 },
       { week: "2024-W06", clips: 18 }
     ],
-    headshot: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1594736797933-d0200d27252c?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1594736797933-d0200d27252c?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "george",
@@ -220,8 +220,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 24 },
       { week: "2024-W06", clips: 22 }
     ],
-    headshot: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "ciro",
@@ -250,8 +250,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 16 },
       { week: "2024-W06", clips: 14 }
     ],
-    headshot: "https://images.unsplash.com/photo-1558492426-ad8470a9e54c?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1558492426-ad8470a9e54c?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "daniel",
@@ -280,8 +280,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 19 },
       { week: "2024-W06", clips: 17 }
     ],
-    headshot: "https://images.unsplash.com/photo-1556474835-a7ed57b0b9c7?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1556474835-a7ed57b0b9c7?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "julio",
@@ -310,8 +310,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 26 },
       { week: "2024-W06", clips: 24 }
     ],
-    headshot: "https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "alberto",
@@ -340,8 +340,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 15 },
       { week: "2024-W06", clips: 13 }
     ],
-    headshot: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "marco",
@@ -370,8 +370,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 14 },
       { week: "2024-W06", clips: 12 }
     ],
-    headshot: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "maria",
@@ -400,8 +400,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 21 },
       { week: "2024-W06", clips: 19 }
     ],
-    headshot: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "pedro",
@@ -430,8 +430,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 28 },
       { week: "2024-W06", clips: 26 }
     ],
-    headshot: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "luis",
@@ -460,8 +460,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 18 },
       { week: "2024-W06", clips: 16 }
     ],
-    headshot: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1556474835-a7ed57b0b9c7?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1556474835-a7ed57b0b9c7?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "carmen",
@@ -490,8 +490,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 29 },
       { week: "2024-W06", clips: 27 }
     ],
-    headshot: "https://images.unsplash.com/photo-1609205790067-0aad7a7e3d0e?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1609205790067-0aad7a7e3d0e?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "miguel",
@@ -520,8 +520,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 17 },
       { week: "2024-W06", clips: 15 }
     ],
-    headshot: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "ana",
@@ -550,8 +550,8 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 19 },
       { week: "2024-W06", clips: 17 }
     ],
-    headshot: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop&auto=format"
   },
   {
     id: "ricardo",
@@ -580,7 +580,7 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 25 },
       { week: "2024-W06", clips: 23 }
     ],
-    headshot: "https://images.unsplash.com/photo-1537511446984-935f663eb1f4?w=150&h=150&fit=crop&crop=face",
-    fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop"
+    headshot: "https://images.unsplash.com/photo-1537511446984-935f663eb1f4?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format"
   }
 ];
