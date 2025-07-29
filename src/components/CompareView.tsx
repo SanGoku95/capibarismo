@@ -11,7 +11,7 @@ export function CompareView() {
     <div className="w-full h-full p-4">
       <div className="h-full">
         {/* Mobile: Side-by-side comparison with scrollable spec grid */}
-        <div className="lg:hidden">
+        <div className="lg:hidden h-full">
           <CandidateComparisonGrid leftCandidate={leftCandidate} rightCandidate={rightCandidate} />
         </div>
 

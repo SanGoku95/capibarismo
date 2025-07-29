@@ -3,18 +3,9 @@ import { CandidatePicker } from '@/components/CandidatePicker';
 
 const Index = () => {
   return (
-    <div className="min-h-screen fighting-game-bg">
-      {/* Mobile: Vertical flow */}
-      <div className="lg:hidden">
-        <CompareView />
-        <CandidatePicker />
-      </div>
-
-      {/* Desktop: Grid layout with fixed height */}
-      <div className="hidden lg:grid lg:grid-rows-[1fr_auto] lg:h-screen">
-        <CompareView />
-        <CandidatePicker />
-      </div>
+    <div className="min-h-screen fighting-game-bg lg:grid lg:grid-rows-[1fr_auto] lg:h-screen">
+      <CompareView />
+      <CandidatePicker />
     </div>
   );
 };

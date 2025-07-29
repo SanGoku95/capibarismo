@@ -44,10 +44,12 @@ function ComparisonSection({ title, leftCandidate, rightCandidate, leftContent, 
 }
 
 export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: CandidateComparisonGridProps) {
+  const hasSelection = leftCandidate || rightCandidate;
+
   return (
-    <div className="fighting-game-bg min-h-screen">
+    <div className="fighting-game-bg flex flex-col h-screen overflow-hidden">
       {/* Fighting Game Header */}
-      <div className="sticky top-0 z-10 fighting-game-header backdrop-blur-sm">
+      <div className="flex-shrink-0 sticky top-0 z-10 fighting-game-header backdrop-blur-sm">
         <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-center py-4 px-6">
           {/* Left Candidate */}
           <div className="flex items-center gap-3 justify-end">
@@ -94,152 +96,159 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
         </div>
       </div>
 
-      {/* Comparison Sections */}
-      <div className="px-6 pb-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="max-w-6xl mx-auto"
-        >
-          <ComparisonSection
-            title="Propuesta Principal"
-            leftCandidate={leftCandidate}
-            rightCandidate={rightCandidate}
-            leftContent={
-              <div className="text-sm leading-relaxed">
-                {leftCandidate?.summary || "Selecciona un candidato"}
-              </div>
-            }
-            rightContent={
-              <div className="text-sm leading-relaxed">
-                {rightCandidate?.summary || "Selecciona un candidato"}
-              </div>
-            }
-          />
-          
-          <ComparisonSection
-            title="Ocupación"
-            leftCandidate={leftCandidate}
-            rightCandidate={rightCandidate}
-            leftContent={
-              <div className="text-sm font-medium">
-                {leftCandidate?.profession || "No especificada"}
-              </div>
-            }
-            rightContent={
-              <div className="text-sm font-medium">
-                {rightCandidate?.profession || "No especificada"}
-              </div>
-            }
-          />
-          
-          <ComparisonSection
-            title="Ideología"
-            leftCandidate={leftCandidate}
-            rightCandidate={rightCandidate}
-            leftContent={
-              <div className="text-sm font-medium">
-                {leftCandidate?.ideologia || "No especificada"}
-              </div>
-            }
-            rightContent={
-              <div className="text-sm font-medium">
-                {rightCandidate?.ideologia || "No especificada"}
-              </div>
-            }
-          />
-          
-          <ComparisonSection
-            title="Principales Creencias"
-            leftCandidate={leftCandidate}
-            rightCandidate={rightCandidate}
-            leftContent={
-              leftCandidate ? (
-                <div className="flex flex-wrap gap-2">
-                  {leftCandidate.keyBeliefs.slice(0, 4).map((belief, index) => (
-                    <TagPill key={index} variant="belief" className="text-xs">
-                      {belief}
-                    </TagPill>
-                  ))}
+      {/* Comparison Sections (conditionally rendered and scrollable) */}
+      <div className="flex-grow overflow-y-auto px-6 pb-6">
+        {hasSelection && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="max-w-6xl mx-auto"
+          >
+            <ComparisonSection
+              title="Propuesta Principal"
+              leftCandidate={leftCandidate}
+              rightCandidate={rightCandidate}
+              leftContent={
+                <div className="text-sm leading-relaxed">
+                  {leftCandidate?.summary || "Selecciona un candidato"}
                 </div>
-              ) : "No especificadas"
-            }
-            rightContent={
-              rightCandidate ? (
-                <div className="flex flex-wrap gap-2">
-                  {rightCandidate.keyBeliefs.slice(0, 4).map((belief, index) => (
-                    <TagPill key={index} variant="belief" className="text-xs">
-                      {belief}
-                    </TagPill>
-                  ))}
+              }
+              rightContent={
+                <div className="text-sm leading-relaxed">
+                  {rightCandidate?.summary || "Selecciona un candidato"}
                 </div>
-              ) : "No especificadas"
-            }
-          />
-          
-          <ComparisonSection
-            title="Contenido Reciente"
-            leftCandidate={leftCandidate}
-            rightCandidate={rightCandidate}
-            leftContent={
-              leftCandidate ? (
-                <div className="space-y-3">
-                  {leftCandidate.clips.slice(0, 3).map((clip, index) => (
-                    <div key={index} className="text-sm border-l-2 border-team-left/50 pl-3 text-gray-300">
-                      {clip.title}
-                    </div>
-                  ))}
+              }
+            />
+            
+            <ComparisonSection
+              title="Ocupación"
+              leftCandidate={leftCandidate}
+              rightCandidate={rightCandidate}
+              leftContent={
+                <div className="text-sm font-medium">
+                  {leftCandidate?.profession || "No especificada"}
                 </div>
-              ) : "Sin contenido"
-            }
-            rightContent={
-              rightCandidate ? (
-                <div className="space-y-3">
-                  {rightCandidate.clips.slice(0, 3).map((clip, index) => (
-                    <div key={index} className="text-sm border-l-2 border-team-right/50 pl-3 text-gray-300">
-                      {clip.title}
-                    </div>
-                  ))}
+              }
+              rightContent={
+                <div className="text-sm font-medium">
+                  {rightCandidate?.profession || "No especificada"}
                 </div>
-              ) : "Sin contenido"
-            }
-          />
-          
-          <ComparisonSection
-            title="Experiencia Política"
-            leftCandidate={leftCandidate}
-            rightCandidate={rightCandidate}
-            leftContent={
-              leftCandidate ? (
-                <div className="space-y-3">
-                  {leftCandidate.powerMap.slice(0, 3).map((position, index) => (
-                    <div key={index} className="border-l-2 border-team-left/50 pl-3">
-                      <div className="font-medium text-sm text-white">{position.role}</div>
-                      <div className="text-xs text-gray-400">
-                        {position.from} - {position.to}
+              }
+            />
+            
+            <ComparisonSection
+              title="Ideología"
+              leftCandidate={leftCandidate}
+              rightCandidate={rightCandidate}
+              leftContent={
+                <div className="text-sm font-medium">
+                  {leftCandidate?.ideologia || "No especificada"}
+                </div>
+              }
+              rightContent={
+                <div className="text-sm font-medium">
+                  {rightCandidate?.ideologia || "No especificada"}
+                </div>
+              }
+            />
+            
+            <ComparisonSection
+              title="Principales Creencias"
+              leftCandidate={leftCandidate}
+              rightCandidate={rightCandidate}
+              leftContent={
+                leftCandidate ? (
+                  <div className="flex flex-wrap gap-2">
+                    {leftCandidate.keyBeliefs.slice(0, 4).map((belief, index) => (
+                      <TagPill key={index} variant="belief" className="text-xs">
+                        {belief}
+                      </TagPill>
+                    ))}
+                  </div>
+                ) : "No especificadas"
+              }
+              rightContent={
+                rightCandidate ? (
+                  <div className="flex flex-wrap gap-2">
+                    {rightCandidate.keyBeliefs.slice(0, 4).map((belief, index) => (
+                      <TagPill key={index} variant="belief" className="text-xs">
+                        {belief}
+                      </TagPill>
+                    ))}
+                  </div>
+                ) : "No especificadas"
+              }
+            />
+            
+            <ComparisonSection
+              title="Contenido Reciente"
+              leftCandidate={leftCandidate}
+              rightCandidate={rightCandidate}
+              leftContent={
+                leftCandidate ? (
+                  <div className="space-y-3">
+                    {leftCandidate.clips.slice(0, 3).map((clip, index) => (
+                      <div key={index} className="text-sm border-l-2 border-team-left/50 pl-3 text-foreground/80">
+                        {clip.title}
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ) : "Sin experiencia registrada"
-            }
-            rightContent={
-              rightCandidate ? (
-                <div className="space-y-3">
-                  {rightCandidate.powerMap.slice(0, 3).map((position, index) => (
-                    <div key={index} className="border-l-2 border-team-right/50 pl-3">
-                      <div className="font-medium text-sm text-white">{position.role}</div>
-                      <div className="text-xs text-gray-400">
-                        {position.from} - {position.to}
+                    ))}
+                  </div>
+                ) : "Sin contenido"
+              }
+              rightContent={
+                rightCandidate ? (
+                  <div className="space-y-3">
+                    {rightCandidate.clips.slice(0, 3).map((clip, index) => (
+                      <div key={index} className="text-sm border-l-2 border-team-right/50 pl-3 text-foreground/80">
+                        {clip.title}
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ) : "Sin experiencia registrada"
-            }
-          />
-        </motion.div>
+                    ))}
+                  </div>
+                ) : "Sin contenido"
+              }
+            />
+            
+            <ComparisonSection
+              title="Experiencia Política"
+              leftCandidate={leftCandidate}
+              rightCandidate={rightCandidate}
+              leftContent={
+                leftCandidate ? (
+                  <div className="space-y-3">
+                    {leftCandidate.powerMap.slice(0, 3).map((position, index) => (
+                      <div key={index} className="border-l-2 border-team-left/50 pl-3">
+                        <div className="font-medium text-sm text-foreground">{position.role}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {position.from} - {position.to}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : "Sin experiencia registrada"
+              }
+              rightContent={
+                rightCandidate ? (
+                  <div className="space-y-3">
+                    {rightCandidate.powerMap.slice(0, 3).map((position, index) => (
+                      <div key={index} className="border-l-2 border-team-right/50 pl-3">
+                        <div className="font-medium text-sm text-foreground">{position.role}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {position.from} - {position.to}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : "Sin experiencia registrada"
+              }
+            />
+          </motion.div>
+        )}
+      </div>
+
+      {/* Candidate Picker (always visible at the bottom) */}
+      <div className="flex-shrink-0">
+        
       </div>
     </div>
   );
