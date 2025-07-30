@@ -40,7 +40,7 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 30 },
       { week: "2024-W06", clips: 28 }
     ],
-    headshot: "https://images.unsplash.com/photo-1494790108755-2616b612b789?w=150&h=150&fit=crop&crop=face&auto=format",
+    headshot: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&auto=format"
   },
   {
@@ -250,7 +250,7 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 16 },
       { week: "2024-W06", clips: 14 }
     ],
-    headshot: "https://images.unsplash.com/photo-1558492426-ad8470a9e54c?w=150&h=150&fit=crop&crop=face&auto=format",
+    headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&auto=format"
   },
   {
@@ -280,7 +280,7 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 19 },
       { week: "2024-W06", clips: 17 }
     ],
-    headshot: "https://images.unsplash.com/photo-1556474835-a7ed57b0b9c7?w=150&h=150&fit=crop&crop=face&auto=format",
+    headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=600&fit=crop&auto=format"
   },
   {
@@ -310,7 +310,7 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 26 },
       { week: "2024-W06", clips: 24 }
     ],
-    headshot: "https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=150&h=150&fit=crop&crop=face&auto=format",
+    headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format"
   },
   {
@@ -490,7 +490,7 @@ export const candidates: Candidate[] = [
       { week: "2024-W05", clips: 29 },
       { week: "2024-W06", clips: 27 }
     ],
-    headshot: "https://images.unsplash.com/photo-1609205790067-0aad7a7e3d0e?w=150&h=150&fit=crop&crop=face&auto=format",
+    headshot: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop&auto=format"
   },
   {

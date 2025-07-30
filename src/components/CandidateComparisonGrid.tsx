@@ -25,15 +25,15 @@ function ComparisonSection({ title, leftCandidate, rightCandidate, leftContent, 
       <h3 className="section-title text-base font-bold mb-4 text-center">
         {title}
       </h3>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-4 md:gap-6">
         <div className={cn(
-          "p-4 rounded-lg",
+          "p-3 md:p-4 rounded-lg break-words",
           hasLeftCandidate ? "candidate-panel-left text-white" : "bg-muted/20 border border-muted text-muted-foreground italic"
         )}>
           {leftContent}
         </div>
         <div className={cn(
-          "p-4 rounded-lg", 
+          "p-3 md:p-4 rounded-lg break-words", 
           hasRightCandidate ? "candidate-panel-right text-white" : "bg-muted/20 border border-muted text-muted-foreground italic"
         )}>
           {rightContent}
@@ -50,54 +50,40 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
     <div className="fighting-game-bg flex flex-col h-screen overflow-hidden">
       {/* Fighting Game Header */}
       <div className="flex-shrink-0 sticky top-0 z-10 fighting-game-header backdrop-blur-sm">
-        <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-center py-4 px-6">
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-2 md:gap-4 items-center py-2 px-2 md:py-4 md:px-6">
           {/* Left Candidate */}
-          <div className="flex items-center gap-3 justify-end">
+          <div className="text-right min-w-0">
             {leftCandidate ? (
               <>
-                <div className="text-right min-w-0">
-                  <div className="font-bold text-lg text-white truncate">{leftCandidate.nombre}</div>
-                  <div className="text-sm text-team-left font-medium">{leftCandidate.ideologia}</div>
-                </div>
-                <img
-                  src={leftCandidate.headshot}
-                  alt={leftCandidate.nombre}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-team-left shadow-lg"
-                />
+                <div className="font-bold text-xs md:text-lg text-white truncate">{leftCandidate.nombre}</div>
+                <div className="hidden md:block text-sm text-team-left font-medium truncate">{leftCandidate.ideologia}</div>
               </>
             ) : (
-              <span className="text-sm text-gray-400">Selecciona Candidato</span>
+              <span className="text-xs md:text-sm text-gray-400">Selecciona Candidato</span>
             )}
           </div>
           
           {/* VS Center */}
-          <div className="fighting-game-vs rounded-full w-16 h-16 flex items-center justify-center relative">
-            <span className="text-lg font-black">VS</span>
+          <div className="fighting-game-vs text-2xl md:text-4xl">
+            VS
           </div>
           
           {/* Right Candidate */}
-          <div className="flex items-center gap-3">
+          <div className="text-left min-w-0">
             {rightCandidate ? (
               <>
-                <img
-                  src={rightCandidate.headshot}
-                  alt={rightCandidate.nombre}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-team-right shadow-lg"
-                />
-                <div className="min-w-0">
-                  <div className="font-bold text-lg text-white truncate">{rightCandidate.nombre}</div>
-                  <div className="text-sm text-team-right font-medium">{rightCandidate.ideologia}</div>
-                </div>
+                <div className="font-bold text-xs md:text-lg text-white truncate">{rightCandidate.nombre}</div>
+                <div className="hidden md:block text-sm text-team-right font-medium truncate">{rightCandidate.ideologia}</div>
               </>
             ) : (
-              <span className="text-sm text-gray-400">Selecciona Candidato</span>
+              <span className="text-xs md:text-sm text-gray-400">Selecciona Candidato</span>
             )}
           </div>
         </div>
       </div>
 
       {/* Comparison Sections (conditionally rendered and scrollable) */}
-      <div className="flex-grow overflow-y-auto px-6 pb-6">
+      <div className="flex-grow overflow-y-auto px-4 md:px-6 pb-40 lg:pb-6">
         {hasSelection && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -110,12 +96,12 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftCandidate={leftCandidate}
               rightCandidate={rightCandidate}
               leftContent={
-                <div className="text-sm leading-relaxed">
+                <div className="text-xs md:text-sm leading-relaxed">
                   {leftCandidate?.summary || "Selecciona un candidato"}
                 </div>
               }
               rightContent={
-                <div className="text-sm leading-relaxed">
+                <div className="text-xs md:text-sm leading-relaxed">
                   {rightCandidate?.summary || "Selecciona un candidato"}
                 </div>
               }
@@ -126,12 +112,12 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftCandidate={leftCandidate}
               rightCandidate={rightCandidate}
               leftContent={
-                <div className="text-sm font-medium">
+                <div className="text-xs md:text-sm font-medium">
                   {leftCandidate?.profession || "No especificada"}
                 </div>
               }
               rightContent={
-                <div className="text-sm font-medium">
+                <div className="text-xs md:text-sm font-medium">
                   {rightCandidate?.profession || "No especificada"}
                 </div>
               }
@@ -142,12 +128,12 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftCandidate={leftCandidate}
               rightCandidate={rightCandidate}
               leftContent={
-                <div className="text-sm font-medium">
+                <div className="text-xs md:text-sm font-medium">
                   {leftCandidate?.ideologia || "No especificada"}
                 </div>
               }
               rightContent={
-                <div className="text-sm font-medium">
+                <div className="text-xs md:text-sm font-medium">
                   {rightCandidate?.ideologia || "No especificada"}
                 </div>
               }
@@ -189,7 +175,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 leftCandidate ? (
                   <div className="space-y-3">
                     {leftCandidate.clips.slice(0, 3).map((clip, index) => (
-                      <div key={index} className="text-sm border-l-2 border-team-left/50 pl-3 text-foreground/80">
+                      <div key={index} className="text-xs border-l-2 border-team-left/50 pl-3 text-foreground/80">
                         {clip.title}
                       </div>
                     ))}
@@ -200,7 +186,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 rightCandidate ? (
                   <div className="space-y-3">
                     {rightCandidate.clips.slice(0, 3).map((clip, index) => (
-                      <div key={index} className="text-sm border-l-2 border-team-right/50 pl-3 text-foreground/80">
+                      <div key={index} className="text-xs border-l-2 border-team-right/50 pl-3 text-foreground/80">
                         {clip.title}
                       </div>
                     ))}
@@ -218,8 +204,8 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   <div className="space-y-3">
                     {leftCandidate.powerMap.slice(0, 3).map((position, index) => (
                       <div key={index} className="border-l-2 border-team-left/50 pl-3">
-                        <div className="font-medium text-sm text-foreground">{position.role}</div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className="font-medium text-xs text-foreground">{position.role}</div>
+                        <div className="text-[10px] text-muted-foreground">
                           {position.from} - {position.to}
                         </div>
                       </div>
@@ -232,8 +218,8 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   <div className="space-y-3">
                     {rightCandidate.powerMap.slice(0, 3).map((position, index) => (
                       <div key={index} className="border-l-2 border-team-right/50 pl-3">
-                        <div className="font-medium text-sm text-foreground">{position.role}</div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className="font-medium text-xs text-foreground">{position.role}</div>
+                        <div className="text-[10px] text-muted-foreground">
                           {position.from} - {position.to}
                         </div>
                       </div>

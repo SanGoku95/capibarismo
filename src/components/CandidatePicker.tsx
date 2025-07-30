@@ -30,13 +30,19 @@ export function CandidatePicker() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={cn(
-          "fighting-game-selector relative p-1 lg:p-3 rounded-xl lg:rounded-2xl transition-all duration-200",
+          "relative aspect-square transition-all duration-200",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-          "flex-shrink-0 w-16 lg:w-24"
+          "flex-shrink-0 w-20 lg:w-24 overflow-hidden"
         )}
         aria-label={`Seleccionar a ${candidate.nombre} para comparar`}
         tabIndex={0}
       >
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center">
+          <div className="text-xs font-bold text-white truncate">
+            {candidate.nombre.split(' ')[0]}
+          </div>
+        </div>
         {selected && (
           <div className={cn(
             "absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center text-white",
@@ -46,19 +52,11 @@ export function CandidatePicker() {
           </div>
         )}
         
-        <div className="text-center">
-          <img
-            src={candidate.headshot}
-            alt={`Retrato de ${candidate.nombre}`}
-            className="w-10 h-10 lg:w-16 lg:h-16 rounded-full object-cover mx-auto ring-2 ring-border"
-          />
-          <div className="mt-1 text-xs font-medium max-w-full truncate">
-            {candidate.nombre.split(' ')[0]}
-          </div>
-          <div className="text-xs text-muted-foreground truncate hidden lg:block">
-            {candidate.nombre.split(' ').slice(1).join(' ')}
-          </div>
-        </div>
+        <img
+          src={candidate.headshot}
+          alt={`Retrato de ${candidate.nombre}`}
+          className="w-full h-full object-cover"
+        />
       </motion.button>
     );
   };
@@ -86,7 +84,7 @@ export function CandidatePicker() {
                 <img src={leftCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />
                 <span className="text-sm font-semibold">{leftCandidate.nombre.split(' ')[0]}</span>
               </div>
-              <div className="fighting-game-vs text-xl font-bold">VS</div>
+              <div className="fighting-game-vs">VS</div>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-semibold">{rightCandidate.nombre.split(' ')[0]}</span>
                 <img src={rightCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />

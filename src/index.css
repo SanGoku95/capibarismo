@@ -1,107 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* 
+  90s Video Game Theme 
+  - Pixel fonts
+  - High-contrast, vibrant colors
+  - Chunky, pixelated UI elements
 */
 
 @layer base {
   :root {
-    /* Light fighting game backgrounds */
-    --background: 210 30% 96%;
-    --foreground: 210 40% 8%;
+    /* Deep space blue background */
+    --background: 220 40% 10%;
+    --foreground: 0 0% 98%;
 
-    --card: 210 20% 98%;
-    --card-foreground: 210 40% 8%;
+    /* Neon-edged cards */
+    --card: 220 40% 15%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 210 20% 98%;
-    --popover-foreground: 210 40% 8%;
+    --popover: 220 40% 15%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Electric primary colors */
-    --primary: 270 80% 60%;
-    --primary-foreground: 0 0% 98%;
+    /* Primary action color - vibrant magenta */
+    --primary: 320 100% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 195 70% 50%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary action color - electric cyan */
+    --secondary: 180 100% 50%;
+    --secondary-foreground: 220 40% 10%;
 
-    --muted: 210 15% 88%;
-    --muted-foreground: 210 20% 40%;
+    /* Muted console gray */
+    --muted: 220 10% 40%;
+    --muted-foreground: 220 10% 80%;
 
-    --accent: 315 80% 60%;
-    --accent-foreground: 0 0% 98%;
+    /* Accent color - golden yellow */
+    --accent: 45 100% 50%;
+    --accent-foreground: 220 40% 10%;
 
-    --destructive: 0 75% 60%;
-    --destructive-foreground: 0 0% 98%;
+    /* Destructive action - bright red */
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 85%;
-    --input: 210 20% 92%;
-    --ring: 270 80% 60%;
+    /* Pixelated borders */
+    --border: 220 40% 30%;
+    --input: 220 40% 25%;
+    --ring: 180 100% 50%;
 
-    /* Dynamic team colors */
-    --team-left: 330 85% 55%;  /* Hot pink */
-    --team-left-foreground: 0 0% 98%;
-    --team-right: 195 85% 55%; /* Electric blue */
-    --team-right-foreground: 0 0% 98%;
+    /* Team colors - classic player 1 and 2 */
+    --team-left: 0 100% 50%;  /* P1 Red */
+    --team-left-foreground: 0 0% 100%;
+    --team-right: 240 100% 50%; /* P2 Blue */
+    --team-right-foreground: 0 0% 100%;
 
     /* Chart colors for timeline */
-    --chart-primary: 330 100% 60%;
-    --chart-secondary: 195 100% 60%;
+    --chart-primary: 0 100% 50%;
+    --chart-secondary: 240 100% 50%;
 
-    --radius: 1rem;
+    --radius: 0.25rem; /* Sharper corners */
 
-    --sidebar-background: 210 20% 98%;
-    --sidebar-foreground: 210 40% 8%;
-    --sidebar-primary: 270 80% 60%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 210 15% 88%;
-    --sidebar-accent-foreground: 210 40% 8%;
-    --sidebar-border: 210 20% 85%;
-    --sidebar-ring: 270 80% 60%;
+    /* Sidebar colors */
+    --sidebar-background: 220 40% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 320 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 40% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 220 40% 30%;
+    --sidebar-ring: 180 100% 50%;
   }
 
   .dark {
-    --background: 210 50% 4%;
-    --foreground: 210 40% 98%;
+    /* Dark theme is the default 90s theme */
+    --background: 220 40% 10%;
+    --foreground: 0 0% 98%;
 
-    --card: 210 40% 6%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 40% 15%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 210 40% 6%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 40% 15%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 270 100% 80%;
-    --primary-foreground: 240 20% 3%;
+    --primary: 320 100% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 195 100% 60%;
-    --secondary-foreground: 240 20% 3%;
+    --secondary: 180 100% 50%;
+    --secondary-foreground: 220 40% 10%;
 
-    --muted: 210 30% 10%;
-    --muted-foreground: 210 20% 70%;
+    --muted: 220 10% 40%;
+    --muted-foreground: 220 10% 80%;
 
-    --accent: 315 100% 75%;
-    --accent-foreground: 240 20% 3%;
+    --accent: 45 100% 50%;
+    --accent-foreground: 220 40% 10%;
 
-    --destructive: 0 80% 65%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 210 30% 12%;
-    --input: 210 30% 8%;
-    --ring: 270 100% 80%;
+    --border: 220 40% 30%;
+    --input: 220 40% 25%;
+    --ring: 180 100% 50%;
 
-    /* Enhanced dark mode team colors */
-    --team-left: 330 100% 70%;
-    --team-left-foreground: 240 20% 3%;
-    --team-right: 195 100% 70%;
-    --team-right-foreground: 240 20% 3%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --team-left: 0 100% 50%;
+    --team-left-foreground: 0 0% 100%;
+    --team-right: 240 100% 50%;
+    --team-right-foreground: 0 0% 100%;
+
+    --sidebar-background: 220 40% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 320 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 220 40% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 220 40% 30%;
+    --sidebar-ring: 180 100% 50%;
   }
 }
 
@@ -112,6 +125,10 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Press Start 2P', cursive;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed; /* More control over pixel font rendering */
   }
 }
 
@@ -126,32 +143,30 @@ All colors MUST be HSL.
     display: none;
   }
 
-  /* --- Elite Designer Overhaul v2 --- */
+  /* --- 90s Video Game UI Overhaul --- */
 
-  /* 1. Refined Background with a Smooth Gradient */
+  /* 1. Pixelated Grid Background */
   .fighting-game-bg {
-    background-color: hsl(var(--background)); /* Fallback */
-    background-image: 
-      /* Soft radial glows for team colors */
-      radial-gradient(circle at 15% 40%, hsl(var(--team-left) / 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 85% 60%, hsl(var(--team-right) / 0.12) 0%, transparent 50%),
-      /* Deep, subtle linear gradient for a premium feel */
-      linear-gradient(160deg, hsl(var(--muted) / 0.3) 0%, hsl(var(--background)) 80%);
+    background-color: hsl(var(--background));
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: -1px -1px;
   }
 
   .dark .fighting-game-bg {
     background-color: hsl(var(--background));
   }
 
-  /* 2. Cleaner, Modern Header */
+  /* 2. Chunky, Solid Header */
   .fighting-game-header {
-    background: hsl(var(--muted) / 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid hsl(var(--border));
+    background: hsl(var(--sidebar-background));
+    border-bottom: 4px solid hsl(var(--border));
     position: sticky;
     top: 0;
     z-index: 20;
+    box-shadow: 0 4px 15px hsl(var(--primary) / 0.2);
   }
 
   .fighting-game-header::before {
@@ -160,74 +175,67 @@ All colors MUST be HSL.
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
+    height: 4px;
     background: linear-gradient(90deg, 
       hsl(var(--team-left)) 0%, 
       hsl(var(--team-right)) 100%);
-    opacity: 0.8;
   }
 
   /* 3. Refined "VS" Element */
   .fighting-game-vs {
-    background: hsl(var(--border) / 0.5);
-    color: hsl(var(--foreground));
-    border: 1px solid hsl(var(--border));
-    font-weight: 600;
-    text-shadow: none;
-    box-shadow: none;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: hsl(var(--accent));
+    transform: skew(-15deg);
+    text-shadow:
+      -1px -1px 0 hsl(var(--border)),
+      1px -1px 0 hsl(var(--border)),
+      -1px 1px 0 hsl(var(--border)),
+      1px 1px 0 hsl(var(--border)),
+      3px 3px 0 hsl(var(--primary) / 0.7);
+    margin: 0 0.5rem; /* Give it some space */
+    padding: 0;
+    background: none;
+    border: none;
   }
 
-  /* 4. Sophisticated Section Styling */
+  /* 4. Section container with pixelated border */
   .fighting-game-section {
-    background: hsl(var(--muted) / 0.2);
-    border: 1px solid hsl(var(--border));
-    border-radius: 12px;
+    background: hsl(var(--card) / 0.8);
+    border: 4px solid hsl(var(--border));
+    border-radius: var(--radius);
     position: relative;
-    overflow: hidden;
+    box-shadow: 
+      inset 0 0 0 4px hsl(var(--background)),
+      0 8px 0 hsl(var(--background));
   }
 
-  .fighting-game-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      hsl(var(--border)) 50%, 
-      transparent 100%);
-  }
-
-  /* 5. Refined Candidate Panels (with improved text contrast) */
+  /* 5. Candidate Panels with Team Color Glow */
   .candidate-panel-left, .candidate-panel-right {
     background: transparent;
-    border: 1px solid transparent;
-    border-radius: 8px;
+    border: none;
     position: relative;
-    color: hsl(var(--foreground) / 0.9); /* Brighter base text color */
+    color: hsl(var(--foreground));
   }
 
   .candidate-panel-left {
-    border-color: hsl(var(--team-left) / 0.25);
-    background: radial-gradient(circle at 0% 50%, hsl(var(--team-left) / 0.1), transparent 70%);
+    box-shadow: inset 4px 0 0 hsl(var(--team-left));
   }
 
   .candidate-panel-right {
-    border-color: hsl(var(--team-right) / 0.25);
-    background: radial-gradient(circle at 100% 50%, hsl(var(--team-right) / 0.1), transparent 70%);
+    box-shadow: inset -4px 0 0 hsl(var(--team-right));
   }
 
-  /* 6. Readable Section Title */
+  /* 6. High-Visibility Section Title */
   .section-title {
-    color: hsl(var(--muted-foreground));
-    background: none;
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-    background-clip: unset;
-    font-weight: 600;
+    color: hsl(var(--accent));
+    font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 0.075em;
-    text-shadow: none;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px hsl(var(--background));
+    padding: 0.5rem;
+    background: hsl(var(--border));
+    display: inline-block;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px));
   }
 }
