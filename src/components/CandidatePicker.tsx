@@ -32,7 +32,7 @@ export function CandidatePicker() {
         className={cn(
           "relative aspect-square transition-all duration-200",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-          "flex-shrink-0 w-20 lg:w-24 overflow-hidden"
+          "flex-shrink-0 w-20 lg:w-20 overflow-hidden"
         )}
         aria-label={`Seleccionar a ${candidate.nombre} para comparar`}
         tabIndex={0}
@@ -62,19 +62,21 @@ export function CandidatePicker() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 lg:static w-full border-t-2 border-border bg-background/80 backdrop-blur-sm">
-      <div className="container mx-auto p-2 lg:p-4">
+    <div className="fixed bottom-0 left-0 right-0 z-30 lg:static w-full border-t-2 border-border bg-background/80 backdrop-blur-sm lg:flex-shrink-0 lg:h-auto">
+      <div className="container mx-auto p-2 lg:p-3">
         {/* Header with instructions */}
-        <div className="flex items-center justify-between mb-2 lg:mb-4">
+        <div className="flex items-center justify-between mb-2 lg:mb-3">
           <div>
-            <h2 className="text-base lg:text-lg font-bold">Candidatos</h2>
-            <p className="text-xs lg:text-sm text-muted-foreground">
-              {!leftCandidate && !rightCandidate 
-                ? "Elige dos para comparar" 
-                : leftCandidate && rightCandidate 
-                ? "Comparando. Haz clic para cambiar." 
-                : "Elige el segundo candidato"}
-            </p>
+            <h2 className="text-base lg:text-lg font-bold flex items-baseline">
+              <span>Candidatos:</span>
+              <span className="text-xs lg:text-sm text-muted-foreground font-normal ml-2">
+                {!leftCandidate && !rightCandidate 
+                  ? "Elige dos para comparar" 
+                  : leftCandidate && rightCandidate 
+                  ? "Comparando. Haz clic para cambiar." 
+                  : "Elige el segundo candidato"}
+              </span>
+            </h2>
           </div>
           
           {/* VS Indicator (Desktop) */}
