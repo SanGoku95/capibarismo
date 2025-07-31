@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Candidate } from '@/data/candidates';
 import { TagPill } from './TagPill';
@@ -7,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 interface CandidateFactSheetProps {
   candidate: Candidate | null;
@@ -57,7 +57,11 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
                 )}>
                   {side === 'left' ? '1' : '2'}
                 </div>
-                <CardTitle className="text-lg font-bold">{candidate.nombre}</CardTitle>
+                <CardTitle className="text-lg font-bold">
+                  <Link to={`/candidate/${candidate.id}`} className="hover:underline">
+                    {candidate.nombre}
+                  </Link>
+                </CardTitle>
               </div>
               <Badge className={`text-xs ${badgeColor}`}>
                 {candidate.ideologia}

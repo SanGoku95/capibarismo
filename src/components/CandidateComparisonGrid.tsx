@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Candidate } from '@/data/candidates';
 import { TagPill } from './TagPill';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 interface CandidateComparisonGridProps {
   leftCandidate: Candidate | null;
@@ -55,7 +56,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
           <div className="text-right min-w-0">
             {leftCandidate ? (
               <>
-                <div className="font-bold text-xs md:text-lg text-white truncate">{leftCandidate.nombre}</div>
+                <Link to={`/candidate/${leftCandidate.id}`} className="font-bold text-xs md:text-lg text-white truncate hover:underline">{leftCandidate.nombre}</Link>
                 <div className="hidden md:block text-sm text-team-left font-medium truncate">{leftCandidate.ideologia}</div>
               </>
             ) : (
@@ -72,7 +73,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
           <div className="text-left min-w-0">
             {rightCandidate ? (
               <>
-                <div className="font-bold text-xs md:text-lg text-white truncate">{rightCandidate.nombre}</div>
+                <Link to={`/candidate/${rightCandidate.id}`} className="font-bold text-xs md:text-lg text-white truncate hover:underline">{rightCandidate.nombre}</Link>
                 <div className="hidden md:block text-sm text-team-right font-medium truncate">{rightCandidate.ideologia}</div>
               </>
             ) : (
