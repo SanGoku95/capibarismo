@@ -34,7 +34,7 @@ type TableData = Subtopic & {
 const stanceColour = {
   pro: '#4ade80',      // green-400
   contra: '#f87171',   // red-400
-  neutral: '#e2e8f0',  // neutral-400
+  neutral: '#94a3b8',  // slate-400
 };
 
 function truncate(text: string, n = 35) {
@@ -119,25 +119,11 @@ export default function DebatePage() {
         accessorKey: 'name',
         header: 'Sub‑tema',
         size: 240,
-        muiTableHeadCellProps: {
-          sx: (theme) => ({
-            position: 'sticky',
-            left: 0,
-            zIndex: 3,
-            backgroundColor: alpha(theme.palette.background.paper, 0.8),
-            backdropFilter: 'blur(8px)',
-          }),
-        },
         muiTableBodyCellProps: {
-          sx: (theme) => ({
-            position: 'sticky',
-            left: 0,
-            zIndex: 2,
-            backgroundColor: alpha(theme.palette.background.default, 0.8),
-            backdropFilter: 'blur(8px)',
+          sx: {
             fontWeight: 600,
             minWidth: 140,
-          }),
+          },
         },
       },
       {
@@ -146,24 +132,6 @@ export default function DebatePage() {
         accessorFn: (row) => row.science,
         Cell: ({ cell }) => <StanceChip value={cell.getValue<StanceDetails>()} />,
         size: 200,
-        muiTableHeadCellProps: {
-          sx: (theme) => ({
-            position: 'sticky',
-            left: 240,
-            zIndex: 3,
-            backgroundColor: alpha(theme.palette.background.paper, 0.8),
-            backdropFilter: 'blur(8px)',
-          }),
-        },
-        muiTableBodyCellProps: {
-          sx: (theme) => ({
-            position: 'sticky',
-            left: 240,
-            zIndex: 2,
-            backgroundColor: alpha(theme.palette.background.default, 0.8),
-            backdropFilter: 'blur(8px)',
-          }),
-        },
       },
       ...candidateCols,
     ];
@@ -176,8 +144,8 @@ export default function DebatePage() {
         mode: 'dark',
         background: { default: '#020617', paper: '#0f172a' }, // slate-950, slate-900
         primary: { main: '#38bdf8' }, // sky-400
-        text: { primary: '#e2e8f0', secondary: '#e2e8f0' }, // slate-200, slate-400
-        divider: 'rgba(148,163,184,0.12)', // slate-400
+        text: { primary: '#e2e8f0', secondary: '#94a3b8' }, // slate-200, slate-400
+        divider: 'rgba(148, 163, 184, 0.2)', // slate-400/20%
       },
       typography: {
         fontFamily: 'Inter, sans-serif',
@@ -198,32 +166,32 @@ export default function DebatePage() {
         },
         MuiTableRow: {
           styleOverrides: {
-            root: {
+            root: ({ theme }) => ({
               transition: 'background-color 0.2s ease-in-out',
               '&:hover': {
-                backgroundColor: alpha(systemTheme.palette.primary.main, 0.1),
+                backgroundColor: alpha(theme.palette.primary.main, 0.08),
               },
-            },
+            }),
           },
         },
         MuiTableCell: {
           styleOverrides: {
-            head: {
-              color: '#e2e8f0',
-              backgroundColor: 'rgba(63, 86, 142, 0.7)', // slate-900
-              backdropFilter: 'blur(4px)',
-              borderBottom: `1px solid ${alpha(systemTheme.palette.divider, 0.2)}`,
+            head: ({ theme }) => ({
+              color: theme.palette.text.primary,
+              backgroundColor: alpha(theme.palette.background.paper, 0.7),
+              backdropFilter: 'blur(8px)',
+              borderBottom: `1px solid ${theme.palette.divider}`,
               fontWeight: 600,
               fontSize: '0.85rem',
               textTransform: 'none',
               letterSpacing: '0.2px',
-            },
-            root: {
-              borderBottom: `1px solid ${alpha(systemTheme.palette.divider, 0.12)}`,
+            }),
+            root: ({ theme }) => ({
+              borderBottom: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
               borderRight: 'none', // remove vertical borders
               padding: '12px 16px',
               fontSize: '0.93rem',
-            },
+            }),
           },
         },
         MuiChip: {
@@ -357,8 +325,11 @@ export default function DebatePage() {
               data={tableData}
               enableColumnResizing
               enableStickyHeader
-              enableStickyFooter
-              enableExpanding
+              enablePinning
+              initialState={{
+                density: 'compact',
+                columnPinning: { left: ['mrt-expand', 'name'] },
+              }}
               muiTableContainerProps={{ sx: { maxHeight: '70vh' } }}
               renderDetailPanel={({ row }) => (
                 <Box sx={{ p: { xs: 2, md: 3 }, display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: { xs: 3, md: 4 }, bgcolor: 'rgba(0,0,0,0.2)' }}>

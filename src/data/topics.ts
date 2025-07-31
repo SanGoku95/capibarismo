@@ -66,5 +66,41 @@ export const topics: Topic[] = [
       },
     ],
   },
-  // TODO: Add more topics like 'Reforma Política', 'Modelo Económico', etc.
+  {
+    id: 'modelo-economico',
+    name: 'Modelo Económico',
+    subtopics: [
+      {
+        id: 'mining-investment',
+        name: 'Inversión Minera y Conflictos Sociales',
+        science: {
+          stance: 'Mixto',
+          gist: 'Beneficios económicos vs. costos socioambientales.',
+          evidence: 'Estudios de caso muestran que si bien la inversión minera puede impulsar el PBI local y nacional, a menudo genera conflictos socioambientales y no se traduce en desarrollo sostenible sin una gobernanza fuerte, consulta previa y distribución equitativa de ingresos.',
+          source: 'World Development, 2021',
+        },
+      },
+      {
+        id: 'tax-reform',
+        name: 'Reforma Tributaria (Impuestos a grandes fortunas)',
+        science: {
+          stance: 'Mixto',
+          gist: 'Potencial recaudatorio vs. riesgo de fuga de capitales.',
+          evidence: 'La evidencia internacional sobre impuestos a la riqueza es mixta. Mientras algunos estudios sugieren un potencial para reducir la desigualdad, otros señalan dificultades administrativas y el riesgo de evasión fiscal y fuga de capitales, especialmente en economías con alta informalidad.',
+          source: 'Journal of Economic Perspectives, 2019',
+        },
+      },
+      {
+        id: 'informal-economy',
+        name: 'Formalización de la Economía Informal',
+        science: {
+          stance: 'A favor',
+          gist: 'Simplificación y beneficios superan a la fiscalización.',
+          evidence: 'RCTs en varios países en desarrollo indican que las estrategias de formalización más efectivas son aquellas que simplifican drásticamente el registro y el pago de impuestos, y lo combinan con el acceso a beneficios (crédito, seguridad social), en lugar de centrarse únicamente en la fiscalización.',
+          source: 'American Economic Review, 2020',
+        },
+      },
+    ],
+  },
+  // TODO: Add more topics like 'Reforma Política', etc.
 ];
