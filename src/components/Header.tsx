@@ -8,7 +8,13 @@ export function Header() {
         <Link to="/" className="text-lg font-bold text-primary transform -skew-x-12">
           CAPYBARISMO
         </Link>
-        <nav>
+        <nav className="flex items-center gap-2">
+          <Button asChild variant="link" className="text-foreground">
+            <Link to="/">Comparador</Link>
+          </Button>
+          <Button asChild variant="link" className="text-foreground">
+            <Link to="/debate">Debate</Link>
+          </Button>
           <Button asChild variant="link" className="text-foreground">
             <Link to="/about">Metodología</Link>
           </Button>

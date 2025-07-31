@@ -8,6 +8,7 @@ import { CandidateProfile } from "./pages/CandidateProfile";
 import NotFound from "./pages/NotFound";
 import { About } from "./pages/About";
 import { Header } from "./components/Header";
+import { DebatePage } from "./pages/Debate";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/candidate/:id" element={<CandidateProfile />} />
             <Route path="/about" element={<About />} />
+            <Route path="/debate" element={<DebatePage />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
