@@ -8,7 +8,7 @@ import { CandidateProfile } from "./pages/CandidateProfile";
 import NotFound from "./pages/NotFound";
 import { About } from "./pages/About";
 import { Header } from "./components/Header";
-import { DebatePage } from "./pages/Debate";
+import DebatePage  from "./pages/Debate";
 
 const queryClient = new QueryClient();
 
