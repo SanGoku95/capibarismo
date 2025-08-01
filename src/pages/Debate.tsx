@@ -17,9 +17,13 @@ import {
   SelectChangeEvent,
   Tooltip,
   Paper,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { alpha, lighten } from '@mui/material/styles';
-import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
+// import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table'; // No longer needed
 import { topics, type Subtopic, type StanceDetails } from '@/data/topics';
 import { candidateData, allCandidates } from '@/data/candidateStances';
 
@@ -88,6 +92,7 @@ export default function DebatePage() {
   const [selectedCandidateIds, setSelectedCandidateIds] = useState<string[]>(
     () => allCandidates.map((c) => c.id),
   );
+  const [expanded, setExpanded] = useState<string | false>(false);
   const systemTheme = useTheme();
 
   const selectedTopic = useMemo(() => topics.find((t) => t.id === selectedTopicId)!, [selectedTopicId]);
@@ -102,40 +107,10 @@ export default function DebatePage() {
     });
   }, [selectedTopic]);
 
-  const columns = useMemo<MRT_ColumnDef<TableData>[]>(() => {
-    const candidateCols: MRT_ColumnDef<TableData>[] = selectedCandidateIds.map((id) => {
-      const cand = allCandidates.find((c) => c.id === id)!;
-      return {
-        id: id,
-        header: cand.name,
-        accessorFn: (row) => row.stances[id],
-        Cell: ({ cell }) => <StanceChip value={cell.getValue<StanceDetails | undefined>()} />,
-        size: 190,
-      };
-    });
-
-    return [
-      {
-        accessorKey: 'name',
-        header: 'Sub‑tema',
-        size: 240,
-        muiTableBodyCellProps: {
-          sx: {
-            fontWeight: 600,
-            minWidth: 140,
-          },
-        },
-      },
-      {
-        id: 'science',
-        header: '🧪 Expertos (PCA)',
-        accessorFn: (row) => row.science,
-        Cell: ({ cell }) => <StanceChip value={cell.getValue<StanceDetails>()} />,
-        size: 200,
-      },
-      ...candidateCols,
-    ];
-  }, [selectedCandidateIds]);
+  const handleAccordionChange =
+    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+    };
 
   // — custom dark theme tweaks —
   const darkTheme = useMemo(() =>
@@ -164,36 +139,6 @@ export default function DebatePage() {
             }
           },
         },
-        MuiTableRow: {
-          styleOverrides: {
-            root: ({ theme }) => ({
-              transition: 'background-color 0.2s ease-in-out',
-              '&:hover': {
-                backgroundColor: alpha(theme.palette.primary.main, 0.08),
-              },
-            }),
-          },
-        },
-        MuiTableCell: {
-          styleOverrides: {
-            head: ({ theme }) => ({
-              color: theme.palette.text.primary,
-              backgroundColor: alpha(theme.palette.background.paper, 0.7),
-              backdropFilter: 'blur(8px)',
-              borderBottom: `1px solid ${theme.palette.divider}`,
-              fontWeight: 600,
-              fontSize: '0.85rem',
-              textTransform: 'none',
-              letterSpacing: '0.2px',
-            }),
-            root: ({ theme }) => ({
-              borderBottom: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
-              borderRight: 'none', // remove vertical borders
-              padding: '12px 16px',
-              fontSize: '0.93rem',
-            }),
-          },
-        },
         MuiChip: {
           styleOverrides: {
             root: { borderRadius: 6, paddingInline: 4 },
@@ -213,7 +158,18 @@ export default function DebatePage() {
               color: '#e2e8f0', // slate-400
             }
           }
-        }
+        },
+        MuiAccordion: {
+          styleOverrides: {
+            root: {
+              backgroundImage: 'none',
+              backgroundColor: 'background.paper',
+              '&:before': {
+                display: 'none',
+              },
+            },
+          },
+        },
       },
     }),
     [],
@@ -232,7 +188,7 @@ export default function DebatePage() {
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
-        <Box sx={{ maxWidth: '1600px', mx: 'auto' }}>
+        <Box sx={{ maxWidth: '1200px', mx: 'auto' }}>
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Typography
               variant="h1"
@@ -247,7 +203,7 @@ export default function DebatePage() {
               Debate Matrix
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Análisis comparativo de las posturas de los candidatos.
+              Compara qué opinan los candidatos sobre los temas más importantes
             </Typography>
           </Box>
 
@@ -308,67 +264,76 @@ export default function DebatePage() {
             </Stack>
           </Paper>
 
-          <Paper
-            elevation={12}
-            sx={{
-              borderRadius: 4,
-              overflow: 'hidden',
-              border: '1px solid',
-              borderColor: 'rgba(148, 163, 184, 0.2)',
-              bgcolor: 'background.default',
-              backgroundImage: 'none',
-              boxShadow: '0 20px 25px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.3)',
-            }}
-          >
-            <MaterialReactTable
-              columns={columns}
-              data={tableData}
-              enableColumnResizing
-              enableStickyHeader
-              enablePinning
-              initialState={{
-                density: 'compact',
-                columnPinning: { left: ['mrt-expand', 'name'] },
-              }}
-              muiTableContainerProps={{ sx: { maxHeight: '70vh' } }}
-              renderDetailPanel={({ row }) => (
-                <Box sx={{ p: { xs: 2, md: 3 }, display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: { xs: 3, md: 4 }, bgcolor: 'rgba(0,0,0,0.2)' }}>
-                  <div>
-                    <Typography variant="subtitle1" fontWeight={700} gutterBottom>
-                      Evidencia Científica (RCT)
-                    </Typography>
-                    <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', mb: 1, color: 'text.secondary' }}>
-                      {row.original.science.evidence}
-                    </Typography>
-                    <MuiLink href={row.original.science.source} target="_blank" rel="noopener" variant="caption">
-                      Fuente
-                    </MuiLink>
-                  </div>
-                  {selectedCandidateIds.map((id) => {
-                    const stance = row.original.stances[id];
-                    const cand = allCandidates.find((c) => c.id === id);
-                    if (!stance) return null;
-                    return (
-                      <div key={id}>
-                        <Typography variant="subtitle1" fontWeight={700} gutterBottom>
-                          {cand?.name}
-                        </Typography>
-                        <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', mb: 1, color: 'text.secondary' }}>
-                          {stance.evidence}
-                        </Typography>
-                        <MuiLink href={stance.source} target="_blank" rel="noopener" variant="caption">
-                          Fuente
-                        </MuiLink>
-                      </div>
-                    );
-                  })}
-                </Box>
-              )}
-            />
-          </Paper>
+          <Box sx={{ my: 4, textAlign: 'center' }}>
+            <Typography variant="h5" component="h2" sx={{ fontWeight: 600 }}>
+              Opiniones sobre {selectedTopic.name}
+            </Typography>
+            <Typography color="text.secondary" sx={{ mt: 0.5 }}>
+              Haz clic en una opinión para expandir y ver las posturas de los candidatos.
+            </Typography>
+          </Box>
+
+          <Stack spacing={1}>
+            {tableData.map((subtopic) => (
+              <Accordion
+                key={subtopic.id}
+                expanded={expanded === subtopic.id}
+                onChange={handleAccordionChange(subtopic.id)}
+                elevation={3}
+                sx={{ borderRadius: 3, overflow: 'hidden' }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls={`${subtopic.id}-content`}
+                  id={`${subtopic.id}-header`}
+                  sx={{
+                    '& .MuiAccordionSummary-content': {
+                      flexDirection: 'column',
+                    },
+                  }}
+                >
+                  <Typography variant="h6" component="h3" fontWeight={600}>{subtopic.name}</Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>{subtopic.description}</Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ borderTop: 1, borderColor: 'divider', bgcolor: 'rgba(0,0,0,0.1)' }}>
+                  <Box sx={{ p: 2, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: 3 }}>
+                    {/* Science Stance */}
+                    <div>
+                      <Typography variant="subtitle2" fontWeight={700} sx={{ mb: 1 }}>🧪 Expertos (PCA)</Typography>
+                      <StanceChip value={subtopic.science} />
+                      <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', mt: 1, color: 'text.secondary', fontSize: '0.8rem' }}>
+                        {subtopic.science.evidence}
+                      </Typography>
+                      <MuiLink href={subtopic.science.source} target="_blank" rel="noopener" variant="caption">
+                        Fuente
+                      </MuiLink>
+                    </div>
+                    {/* Candidate Stances */}
+                    {selectedCandidateIds.map(id => {
+                      const stance = subtopic.stances[id];
+                      const cand = allCandidates.find((c) => c.id === id);
+                      if (!stance || !cand) return null;
+                      return (
+                        <div key={id}>
+                          <Typography variant="subtitle2" fontWeight={700} sx={{ mb: 1 }}>{cand.name}</Typography>
+                          <StanceChip value={stance} />
+                          <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', mt: 1, color: 'text.secondary', fontSize: '0.8rem' }}>
+                            {stance.evidence}
+                          </Typography>
+                          <MuiLink href={stance.source} target="_blank" rel="noopener" variant="caption">
+                            Fuente
+                          </MuiLink>
+                        </div>
+                      );
+                    })}
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Stack>
 
           <Box component="footer" sx={{ textAlign: 'center', color: 'text.secondary', fontSize: '0.75rem', mt: 6 }}>
-            <p>Última actualización: 31 de julio de 2025</p>
+            <p>Última actualización: 1 de agosto de 2025</p>
             <Stack direction="row" spacing={1} justifyContent="center" alignItems="center" sx={{ mt: 1 }}>
               <Link to="/about" className="underline hover:text-sky-400 transition-colors">
                 Nuestra Metodología
