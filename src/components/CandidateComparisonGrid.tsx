@@ -146,29 +146,21 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftCandidate={leftCandidate}
               rightCandidate={rightCandidate}
               leftContent={
-                leftCandidate ? (
-                  <div className="flex flex-wrap gap-2">
-                    {leftCandidate.keyBeliefs.slice(0, 4).map((belief, index) => (
-                      <TagPill key={index} variant="belief" className="text-sm font-sans">
-                        {belief}
-                      </TagPill>
-                    ))}
-                  </div>
-                ) : <span className="font-sans">No especificadas</span>
+                <div className="text-base font-sans leading-relaxed">
+                  {leftCandidate
+                    ? leftCandidate.keyBeliefs.slice(0, 4).join(', ')
+                    : "No especificadas"}
+                </div>
               }
               rightContent={
-                rightCandidate ? (
-                  <div className="flex flex-wrap gap-2">
-                    {rightCandidate.keyBeliefs.slice(0, 4).map((belief, index) => (
-                      <TagPill key={index} variant="belief" className="text-sm font-sans">
-                        {belief}
-                      </TagPill>
-                    ))}
-                  </div>
-                ) : <span className="font-sans">No especificadas</span>
+                <div className="text-base font-sans leading-relaxed">
+                  {rightCandidate
+                    ? rightCandidate.keyBeliefs.slice(0, 4).join(', ')
+                    : "No especificadas"}
+                </div>
               }
             />
-            
+
             <ComparisonSection
               title="Contenido Reciente"
               leftCandidate={leftCandidate}
