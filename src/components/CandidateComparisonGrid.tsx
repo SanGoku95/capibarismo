@@ -3,6 +3,7 @@ import { Candidate } from '@/data/candidates';
 import { TagPill } from './TagPill';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import { CandidatePicker } from './CandidatePicker';
 
 interface CandidateComparisonGridProps {
   leftCandidate: Candidate | null;
@@ -84,7 +85,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
       </div>
 
       {/* Comparison Sections (conditionally rendered and scrollable) */}
-      <div className="flex-grow overflow-y-auto px-4 md:px-6 pb-40 lg:pb-6">
+      <main className="flex-grow overflow-y-auto px-4 md:px-6 pb-40 lg:pb-6">
         {hasSelection && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -97,12 +98,12 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftCandidate={leftCandidate}
               rightCandidate={rightCandidate}
               leftContent={
-                <div className="text-xs md:text-sm leading-relaxed">
+                <div className="text-base font-sans leading-relaxed">
                   {leftCandidate?.summary || "Selecciona un candidato"}
                 </div>
               }
               rightContent={
-                <div className="text-xs md:text-sm leading-relaxed">
+                <div className="text-base font-sans leading-relaxed">
                   {rightCandidate?.summary || "Selecciona un candidato"}
                 </div>
               }
@@ -113,12 +114,12 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftCandidate={leftCandidate}
               rightCandidate={rightCandidate}
               leftContent={
-                <div className="text-xs md:text-sm font-medium">
+                <div className="text-base font-sans font-medium">
                   {leftCandidate?.profession || "No especificada"}
                 </div>
               }
               rightContent={
-                <div className="text-xs md:text-sm font-medium">
+                <div className="text-base font-sans font-medium">
                   {rightCandidate?.profession || "No especificada"}
                 </div>
               }
@@ -129,42 +130,42 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftCandidate={leftCandidate}
               rightCandidate={rightCandidate}
               leftContent={
-                <div className="text-xs md:text-sm font-medium">
+                <div className="text-base font-sans font-medium">
                   {leftCandidate?.ideologia || "No especificada"}
                 </div>
               }
               rightContent={
-                <div className="text-xs md:text-sm font-medium">
+                <div className="text-base font-sans font-medium">
                   {rightCandidate?.ideologia || "No especificada"}
                 </div>
               }
             />
             
             <ComparisonSection
-              title="Principales Creencias"
+              title="Creencias Clave"
               leftCandidate={leftCandidate}
               rightCandidate={rightCandidate}
               leftContent={
                 leftCandidate ? (
                   <div className="flex flex-wrap gap-2">
                     {leftCandidate.keyBeliefs.slice(0, 4).map((belief, index) => (
-                      <TagPill key={index} variant="belief" className="text-xs">
+                      <TagPill key={index} variant="belief" className="text-sm font-sans">
                         {belief}
                       </TagPill>
                     ))}
                   </div>
-                ) : "No especificadas"
+                ) : <span className="font-sans">No especificadas</span>
               }
               rightContent={
                 rightCandidate ? (
                   <div className="flex flex-wrap gap-2">
                     {rightCandidate.keyBeliefs.slice(0, 4).map((belief, index) => (
-                      <TagPill key={index} variant="belief" className="text-xs">
+                      <TagPill key={index} variant="belief" className="text-sm font-sans">
                         {belief}
                       </TagPill>
                     ))}
                   </div>
-                ) : "No especificadas"
+                ) : <span className="font-sans">No especificadas</span>
               }
             />
             
@@ -176,23 +177,23 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 leftCandidate ? (
                   <div className="space-y-3">
                     {leftCandidate.clips.slice(0, 3).map((clip, index) => (
-                      <div key={index} className="text-xs border-l-2 border-team-left/50 pl-3 text-foreground/80">
+                      <div key={index} className="text-base font-sans border-l-2 border-team-left/50 pl-3 text-foreground/80">
                         {clip.title}
                       </div>
                     ))}
                   </div>
-                ) : "Sin contenido"
+                ) : <span className="font-sans">Sin contenido</span>
               }
               rightContent={
                 rightCandidate ? (
                   <div className="space-y-3">
                     {rightCandidate.clips.slice(0, 3).map((clip, index) => (
-                      <div key={index} className="text-xs border-l-2 border-team-right/50 pl-3 text-foreground/80">
+                      <div key={index} className="text-base font-sans border-l-2 border-team-right/50 pl-3 text-foreground/80">
                         {clip.title}
                       </div>
                     ))}
                   </div>
-                ) : "Sin contenido"
+                ) : <span className="font-sans">Sin contenido</span>
               }
             />
             
@@ -204,38 +205,38 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 leftCandidate ? (
                   <div className="space-y-3">
                     {leftCandidate.powerMap.slice(0, 3).map((position, index) => (
-                      <div key={index} className="border-l-2 border-team-left/50 pl-3">
-                        <div className="font-medium text-xs text-foreground">{position.role}</div>
-                        <div className="text-[10px] text-muted-foreground">
+                      <div key={index} className="border-l-2 border-team-left/50 pl-3 font-sans">
+                        <div className="font-medium text-base text-foreground">{position.role}</div>
+                        <div className="text-sm text-muted-foreground">
                           {position.from} - {position.to}
                         </div>
                       </div>
                     ))}
                   </div>
-                ) : "Sin experiencia registrada"
+                ) : <span className="font-sans">Sin experiencia registrada</span>
               }
               rightContent={
                 rightCandidate ? (
                   <div className="space-y-3">
                     {rightCandidate.powerMap.slice(0, 3).map((position, index) => (
-                      <div key={index} className="border-l-2 border-team-right/50 pl-3">
-                        <div className="font-medium text-xs text-foreground">{position.role}</div>
-                        <div className="text-[10px] text-muted-foreground">
+                      <div key={index} className="border-l-2 border-team-right/50 pl-3 font-sans">
+                        <div className="font-medium text-base text-foreground">{position.role}</div>
+                        <div className="text-sm text-muted-foreground">
                           {position.from} - {position.to}
                         </div>
                       </div>
                     ))}
                   </div>
-                ) : "Sin experiencia registrada"
+                ) : <span className="font-sans">Sin experiencia registrada</span>
               }
             />
           </motion.div>
         )}
-      </div>
+      </main>
 
-      {/* Candidate Picker (always visible at the bottom) */}
-      <div className="flex-shrink-0">
-        
+      {/* Candidate Picker (Footer) */}
+      <div className="flex-shrink-0 fixed bottom-0 left-0 right-0 z-20">
+        <CandidatePicker />
       </div>
     </div>
   );

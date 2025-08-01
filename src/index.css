@@ -14,50 +14,50 @@
 @layer base {
   :root {
     /* Deep space blue background */
-    --background: 220 40% 10%;
-    --foreground: 0 0% 98%;
+    --background: 222 47% 11%; /* Slightly softer dark blue */
+    --foreground: 210 40% 98%;
 
     /* Neon-edged cards */
-    --card: 220 40% 15%;
-    --card-foreground: 0 0% 98%;
+    --card: 222 47% 16%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 220 40% 15%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 222 47% 16%;
+    --popover-foreground: 210 40% 98%;
 
     /* Primary action color - vibrant magenta */
-    --primary: 320 100% 50%;
+    --primary: 320 90% 65%; /* Softer magenta */
     --primary-foreground: 0 0% 100%;
 
     /* Secondary action color - electric cyan */
-    --secondary: 180 100% 50%;
-    --secondary-foreground: 220 40% 10%;
+    --secondary: 180 85% 55%; /* Softer cyan */
+    --secondary-foreground: 222 47% 11%;
 
     /* Muted console gray */
-    --muted: 220 10% 40%;
-    --muted-foreground: 220 10% 80%;
+    --muted: 215 28% 47%;
+    --muted-foreground: 215 28% 87%;
 
     /* Accent color - golden yellow */
-    --accent: 45 100% 50%;
-    --accent-foreground: 220 40% 10%;
+    --accent: 45 90% 60%; /* Softer gold */
+    --accent-foreground: 222 47% 11%;
 
     /* Destructive action - bright red */
-    --destructive: 0 100% 50%;
+    --destructive: 0 84% 60%; /* Softer red */
     --destructive-foreground: 0 0% 100%;
 
     /* Pixelated borders */
-    --border: 220 40% 30%;
-    --input: 220 40% 25%;
-    --ring: 180 100% 50%;
+    --border: 217 33% 34%;
+    --input: 217 33% 27%;
+    --ring: 180 85% 55%;
 
     /* Team colors - classic player 1 and 2 */
-    --team-left: 0 100% 50%;  /* P1 Red */
+    --team-left: 0 84% 60%;  /* P1 Red */
     --team-left-foreground: 0 0% 100%;
-    --team-right: 240 100% 50%; /* P2 Blue */
+    --team-right: 217 89% 61%; /* P2 Blue */
     --team-right-foreground: 0 0% 100%;
 
     /* Chart colors for timeline */
-    --chart-primary: 0 100% 50%;
-    --chart-secondary: 240 100% 50%;
+    --chart-primary: 0 84% 60%;
+    --chart-secondary: 217 89% 61%;
 
     --radius: 0.25rem; /* Sharper corners */
 
@@ -148,11 +148,7 @@
   /* 1. Pixelated Grid Background */
   .fighting-game-bg {
     background-color: hsl(var(--background));
-    background-image:
-      linear-gradient(hsl(var(--border) / 0.5) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
-    background-size: 40px 40px;
-    background-position: -1px -1px;
+    /* The grid background is removed for better readability */
   }
 
   .dark .fighting-game-bg {

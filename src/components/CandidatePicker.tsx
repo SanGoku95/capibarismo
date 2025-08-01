@@ -73,7 +73,7 @@ export function CandidatePicker() {
                 {!leftCandidate && !rightCandidate 
                   ? "Elige dos para comparar" 
                   : leftCandidate && rightCandidate 
-                  ? "Comparando. Haz clic para cambiar." 
+                  ? "Haz clic para cambiar." 
                   : "Elige el segundo candidato"}
               </span>
             </h2>

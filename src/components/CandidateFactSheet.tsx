@@ -7,6 +7,12 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface CandidateFactSheetProps {
   candidate: Candidate | null;
@@ -57,13 +63,13 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
                 )}>
                   {side === 'left' ? '1' : '2'}
                 </div>
-                <CardTitle className="text-lg font-bold">
+                <CardTitle className="text-lg md:text-xl font-bold">
                   <Link to={`/candidate/${candidate.id}`} className="hover:underline">
                     {candidate.nombre}
                   </Link>
                 </CardTitle>
               </div>
-              <Badge className={`text-xs ${badgeColor}`}>
+              <Badge className={`text-xs md:text-sm ${badgeColor}`}>
                 {candidate.ideologia}
               </Badge>
             </div>
@@ -71,16 +77,15 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
               src={candidate.headshot}
               alt={`Retrato de ${candidate.nombre}`}
               className="w-12 h-12 rounded-full object-cover shadow-md"
-              aria-label={`Foto de perfil de ${candidate.nombre}`}
             />
           </div>
         </CardHeader>
         
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6 pt-4">
           {/* Summary */}
           <div>
-            <h4 className="text-sm font-semibold mb-1">Propuesta</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <h4 className="text-base font-semibold mb-2">Propuesta</h4>
+            <p className="text-base font-sans text-muted-foreground leading-relaxed">
               {candidate.summary}
             </p>
           </div>
@@ -89,14 +94,14 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
 
           {/* Profession */}
           <div>
-            <h4 className="text-sm font-semibold mb-1">Profesión</h4>
-            <p className="text-sm">{candidate.profession}</p>
+            <h4 className="text-base font-semibold mb-2">Profesión</h4>
+            <p className="text-base font-sans">{candidate.profession}</p>
           </div>
 
           {/* Key Beliefs */}
           <div>
-            <h4 className="text-sm font-semibold mb-2">Creencias Clave</h4>
-            <div className="flex flex-wrap gap-1">
+            <h4 className="text-base font-semibold mb-2">Creencias</h4>
+            <div className="flex flex-wrap gap-2">
               {candidate.keyBeliefs.map((belief, index) => (
                 <TagPill key={index} variant="belief">
                   {belief}
@@ -105,38 +110,41 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
             </div>
           </div>
 
-          {/* Timeline Chart */}
-          <div>
-            <h4 className="text-sm font-semibold mb-2">Actividad Mediática</h4>
-            <MiniTimelineChart data={candidate.timeline} side={side} />
-          </div>
-
-          {/* Recent Clips */}
-          <div>
-            <h4 className="text-sm font-semibold mb-2">Últimos Clips</h4>
-            <div className="space-y-1">
-              {candidate.clips.slice(0, 3).map((clip, index) => (
-                <div key={index} className="text-xs text-muted-foreground">
-                  • {clip.title}
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="media-activity">
+              <AccordionTrigger className="text-base font-semibold">Likes</AccordionTrigger>
+              <AccordionContent>
+                <MiniTimelineChart data={candidate.timeline} side={side} />
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="recent-clips">
+              <AccordionTrigger className="text-base font-semibold">Novedades</AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2 pt-2">
+                  {candidate.clips.slice(0, 3).map((clip, index) => (
+                    <div key={index} className="text-base font-sans text-muted-foreground">
+                      • {clip.title}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Power Map */}
-          <div>
-            <h4 className="text-sm font-semibold mb-2">Trayectoria</h4>
-            <div className="space-y-1">
-              {candidate.powerMap.slice(0, 3).map((position, index) => (
-                <div key={index} className="text-xs">
-                  <span className="font-medium">{position.role}</span>
-                  <span className="text-muted-foreground ml-1">
-                    ({position.from}-{position.to})
-                  </span>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="power-map">
+              <AccordionTrigger className="text-base font-semibold">Trayectoria</AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-3 pt-2">
+                  {candidate.powerMap.slice(0, 3).map((position, index) => (
+                    <div key={index} className="text-base font-sans">
+                      <span className="font-medium">{position.role}</span>
+                      <span className="text-muted-foreground ml-1">
+                        ({position.from}-{position.to})
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </CardContent>
       </Card>
     </motion.div>
