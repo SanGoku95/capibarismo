@@ -189,7 +189,7 @@ export default function DebatePage() {
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
         <Box sx={{ maxWidth: '1200px', mx: 'auto' }}>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Box sx={{ textAlign: 'center', mb: 1 }}>
             <Typography
               variant="h1"
               sx={{
@@ -197,21 +197,21 @@ export default function DebatePage() {
                 fontFamily: "'Press Start 2P', cursive",
                 textShadow: '0 0 4px #ec4899, 0 0 10px #ec4899, 0 0 20px #ec4899',
                 fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
-                mb: 1,
+                mb: 0.1,
               }}
             >
               Debate Matrix
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Compara qué opinan los candidatos sobre los temas más importantes
+              Compara qué opinan los candidatos sobre los temas clave
             </Typography>
           </Box>
 
           <Paper
             elevation={0}
             sx={{
-              p: { xs: 2, md: 3 },
-              mb: 4,
+              p: 2,
+              mb: 0.1,
               bgcolor: 'rgba(15, 23, 42, 0.5)', // slate-900
               backdropFilter: 'blur(12px)',
               border: '1px solid',
@@ -245,7 +245,7 @@ export default function DebatePage() {
                   onChange={handleCandidateChange}
                   input={<OutlinedInput label="Candidatos" />}
                   renderValue={(sel) => (
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.2 }}>
                       {sel.map((id) => {
                         const cand = allCandidates.find((c) => c.id === id);
                         return <Chip key={id} label={cand?.name} size="small" />;
@@ -264,12 +264,12 @@ export default function DebatePage() {
             </Stack>
           </Paper>
 
-          <Box sx={{ my: 4, textAlign: 'center' }}>
-            <Typography variant="h5" component="h2" sx={{ fontWeight: 600 }}>
+          <Box sx={{ mt: 1.0, mb: 0.5, textAlign: 'center' }}>
+            <Typography variant="h6" component="h2" sx={{ fontWeight: 600 }}>
               Opiniones sobre {selectedTopic.name}
             </Typography>
-            <Typography color="text.secondary" sx={{ mt: 0.5 }}>
-              Haz clic en una opinión para expandir y ver las posturas de los candidatos.
+            <Typography color="text.secondary" sx={{ mt: 0.1, fontSize: '0.9rem' }}>
+              Haz clic para ver las posturas de los candidatos.
             </Typography>
           </Box>
 
