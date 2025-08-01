@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Box } from "@mui/material";
+import { MobileNav } from "./MobileNav";
 
 export function Header() {
   return (
@@ -8,7 +10,9 @@ export function Header() {
         <Link to="/" className="text-lg font-bold text-primary transform -skew-x-12">
           CAPYBARISMO
         </Link>
-        <nav className="flex items-center gap-2">
+        
+        {/* Desktop Navigation */}
+        <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' } }} className="items-center gap-2">
           <Button asChild variant="link" className="text-foreground">
             <Link to="/">Comparador</Link>
           </Button>
@@ -18,7 +22,12 @@ export function Header() {
           <Button asChild variant="link" className="text-foreground">
             <Link to="/about">Metodología</Link>
           </Button>
-        </nav>
+        </Box>
+
+        {/* Mobile Navigation */}
+        <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+          <MobileNav />
+        </Box>
       </div>
     </header>
   );
