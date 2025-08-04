@@ -28,8 +28,8 @@ const MediaComment: React.FC<{ item: Coverage }> = ({ item }) => {
         {item.channel.charAt(0)}
       </div>
       <div className="flex-1">
-        <p className="font-semibold text-foreground leading-tight">{item.channel}</p>
-        <p className="text-sm text-muted-foreground font-sans leading-relaxed">
+        <p className="font-semibold text-foreground leading-tight font-sans">{item.channel}</p>
+        <p className="text-base text-muted-foreground font-sans leading-relaxed">
           {item.bullet}
         </p>
       </div>
@@ -43,7 +43,7 @@ const NewsEventCard: React.FC<NewsEventCardProps> = ({ event }) => {
       <Card className="fighting-game-card overflow-hidden">
         <AccordionTrigger className="p-4 text-left hover:no-underline">
           <CardHeader className="p-0 flex-1">
-            <CardTitle className="text-lg md:text-xl">{event.event_headline}</CardTitle>
+            <CardTitle className="text-lg md:text-xl font-sans text-left">{event.event_headline}</CardTitle>
           </CardHeader>
         </AccordionTrigger>
         <AccordionContent>
