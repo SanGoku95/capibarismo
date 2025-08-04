@@ -14,7 +14,7 @@ export function Header() {
         {/* Desktop Navigation */}
         <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' } }} className="items-center gap-2">
           <Button asChild variant="link" className="text-foreground">
-            <Link to="/">Comparador</Link>
+            <Link to="/compare">Comparador</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
             <Link to="/news">Prensa</Link>
@@ -23,7 +23,7 @@ export function Header() {
             <Link to="/debate">Debate</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
-            <Link to="/about">Metodología</Link>
+            <Link to="/about">Acerca de</Link>
           </Button>
         </Box>
 
