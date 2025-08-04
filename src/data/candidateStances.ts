@@ -45,20 +45,7 @@ export const candidateData: CandidateStances[] = [
       'tax-reform': { stance: 'En contra', gist: 'Bajar impuestos para invertir.', evidence: 'Propone reducir la carga tributaria a las empresas para fomentar la reinversión y el crecimiento económico.', source: 'Plan de Gobierno' },
       'informal-economy': { stance: 'Mixto', gist: 'Tolerancia cero con informalidad "criminal".', evidence: 'Propone un enfoque de "formalízate o desaparece", con incentivos de mercado pero también con mano dura contra la informalidad ligada a actividades ilícitas.', source: 'Declaraciones Públicas' },
     }
-  },
-  {
-    id: "julio",
-    actor: "Julio Guzmán",
-    stances: {
-      'military-police-support': { stance: 'En contra', gist: 'Reforma técnica, no militar.', evidence: 'Propone una reforma profunda de la policía basada en la tecnología y la inteligencia, oponiéndose a la participación militar.', source: 'Plan de Gobierno Partido Morado' },
-      'job-programs': { stance: 'A favor', gist: 'Capacitación y seguro de desempleo.', evidence: 'Propone un sistema de seguro de desempleo y programas de recapacitación laboral para jóvenes enfocados en la economía digital.', source: 'Plan de Gobierno Partido Morado' },
-      'community-policing': { stance: 'A favor', gist: 'Policía conectada con el ciudadano.', evidence: 'Enfatiza el uso de la tecnología para mejorar la relación y la respuesta de la policía a las necesidades de la comunidad.', source: 'Debates Públicos' },
-      'gun-control': { stance: 'A favor', gist: 'Control estricto y marcaje de municiones.', evidence: 'Propone implementar tecnología para el marcaje de municiones y un sistema de registro biométrico para la venta de armas.', source: 'Plan de Gobierno Partido Morado' },
-      'mining-investment': { stance: 'A favor', gist: 'Minería sostenible y con tecnología.', evidence: 'Apoya la inversión minera siempre que cumpla con altos estándares ambientales y sociales, y que se utilice tecnología para mitigar su impacto.', source: 'Entrevistas' },
-      'tax-reform': { stance: 'Mixto', gist: 'Reforma técnica, no ideológica.', evidence: 'Propone una reforma tributaria para simplificar el sistema y ampliar la base, sin enfocarse necesariamente en aumentar las tasas a los más ricos.', source: 'Plan de Gobierno Partido Morado' },
-      'informal-economy': { stance: 'A favor', gist: 'Formalización digital y simple.', evidence: 'Su propuesta central es un sistema de "monotributo" digital y extremadamente simple para que los informales se incorporen al sistema con facilidad.', source: 'Plan de Gobierno Partido Morado' },
-    }
-  },
+  }
   // TODO: Add more candidates here...
 ];
 

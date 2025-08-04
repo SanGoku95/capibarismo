@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -97,6 +97,15 @@ export default function DebatePage() {
 
   const selectedTopic = useMemo(() => topics.find((t) => t.id === selectedTopicId)!, [selectedTopicId]);
 
+  // Open the first subtopic by default when the topic changes
+  useEffect(() => {
+    if (selectedTopic?.subtopics?.[0]) {
+      setExpanded(selectedTopic.subtopics[0].id);
+    } else {
+      setExpanded(false);
+    }
+  }, [selectedTopic]);
+
   const tableData = useMemo<TableData[]>(() => {
     return selectedTopic.subtopics.map((subtopic) => {
       const stances: Record<string, StanceDetails | undefined> = {};
@@ -189,23 +198,6 @@ export default function DebatePage() {
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
         <Box sx={{ maxWidth: '1200px', mx: 'auto' }}>
-          <Box sx={{ textAlign: 'center', mb: 1 }}>
-            <Typography
-              variant="h1"
-              sx={{
-                color: '#f0f0f0',
-                fontFamily: "'Press Start 2P', cursive",
-                textShadow: '0 0 4px #ec4899, 0 0 10px #ec4899, 0 0 20px #ec4899',
-                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
-                mb: 0.1,
-              }}
-            >
-              Debate Matrix
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Compara qué opinan los candidatos sobre los temas clave
-            </Typography>
-          </Box>
 
           <Paper
             elevation={0}
@@ -264,12 +256,12 @@ export default function DebatePage() {
             </Stack>
           </Paper>
 
-          <Box sx={{ mt: 1.0, mb: 0.5, textAlign: 'center' }}>
-            <Typography variant="h6" component="h2" sx={{ fontWeight: 600 }}>
-              Opiniones sobre {selectedTopic.name}
+          <Box sx={{ mt: 4, mb: 2, textAlign: 'center' }}>
+            <Typography variant="h5" component="h2" sx={{ fontWeight: 600 }}>
+              Debate sobre: {selectedTopic.name}
             </Typography>
-            <Typography color="text.secondary" sx={{ mt: 0.1, fontSize: '0.9rem' }}>
-              Haz clic para ver las posturas de los candidatos.
+            <Typography color="text.secondary" sx={{ mt: 1 }}>
+              Escoge un tema y los candidatos que deseas para contrastar sus opiniones.
             </Typography>
           </Box>
 
@@ -297,17 +289,6 @@ export default function DebatePage() {
                 </AccordionSummary>
                 <AccordionDetails sx={{ borderTop: 1, borderColor: 'divider', bgcolor: 'rgba(0,0,0,0.1)' }}>
                   <Box sx={{ p: 2, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: 3 }}>
-                    {/* Science Stance */}
-                    <div>
-                      <Typography variant="subtitle2" fontWeight={700} sx={{ mb: 1 }}>🧪 Expertos (PCA)</Typography>
-                      <StanceChip value={subtopic.science} />
-                      <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', mt: 1, color: 'text.secondary', fontSize: '0.8rem' }}>
-                        {subtopic.science.evidence}
-                      </Typography>
-                      <MuiLink href={subtopic.science.source} target="_blank" rel="noopener" variant="caption">
-                        Fuente
-                      </MuiLink>
-                    </div>
                     {/* Candidate Stances */}
                     {selectedCandidateIds.map(id => {
                       const stance = subtopic.stances[id];
@@ -326,6 +307,17 @@ export default function DebatePage() {
                         </div>
                       );
                     })}
+                    {/* Science Stance */}
+                    <div>
+                      <Typography variant="subtitle2" fontWeight={700} sx={{ mb: 1 }}>🧪 Expertos (PCA)</Typography>
+                      <StanceChip value={subtopic.science} />
+                      <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', mt: 1, color: 'text.secondary', fontSize: '0.8rem' }}>
+                        {subtopic.science.evidence}
+                      </Typography>
+                      <MuiLink href={subtopic.science.source} target="_blank" rel="noopener" variant="caption">
+                        Fuente
+                      </MuiLink>
+                    </div>
                   </Box>
                 </AccordionDetails>
               </Accordion>
