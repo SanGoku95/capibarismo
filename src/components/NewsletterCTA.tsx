@@ -40,16 +40,16 @@ export function NewsletterCTA() {
   };
 
   return (
-    <Card className="fighting-game-card border-primary/50 border-2 mt-20">
+    <Card className="fighting-game-card border-primary/50 border-2">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl md:text-3xl font-display text-accent">
           Mira la Verdad Electoral
         </CardTitle>
-        <CardDescription className="max-w-xl mx-auto text-base mt-2">
+        <CardDescription className="max-w-xl mx-auto text-base mt-2 font-sans text-left">
           <p className="mb-4">
             Otros medios te muestran su versión de la historia, nosotros te damos el menú completo. Recibe en tu correo:
           </p>
-          <ul className="list-disc list-inside text-left space-y-1 inline-block">
+          <ul className="list-disc list-inside space-y-1">
             <li>Análisis imparciales.</li>
             <li>Alertas de noticias clave.</li>
             <li>Sin sesgos ni agendas ocultas.</li>

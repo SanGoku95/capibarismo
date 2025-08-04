@@ -82,7 +82,9 @@ export function HomePage() {
 				</div>
 
 				{/* Newsletter CTA */}
-				<NewsletterCTA />
+				<div className="max-w-6xl mx-auto mt-16">
+					<NewsletterCTA />
+				</div>
 			</main>
 		</div>
 	);
