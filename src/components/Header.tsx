@@ -17,6 +17,9 @@ export function Header() {
             <Link to="/">Comparador</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
+            <Link to="/news">Prensa</Link>
+          </Button>
+          <Button asChild variant="link" className="text-foreground">
             <Link to="/debate">Debate</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">

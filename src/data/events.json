@@ -1,0 +1,151 @@
+{
+  "events": [
+
+    {
+      "event_slug": "retornopatriciabenavides",
+      "event_headline": "Retorno de Patricia Benavides",
+      "coverage": [
+        {
+          "channel": "El Foco TV",
+          "bullet": "El enfoque se centra en el fallo judicial que anula la suspensión de Benavides y su contexto de manipulación política del sistema de justicia por parte del fujimorismo. Se percibe una crítica clara hacia la captura del sistema de justicia."
+        },
+        {
+          "channel": "PBO",
+          "bullet": "Se mencionan varios temas, pero la situación de Patricia Benavides se aborda superficialmente junto con otros eventos políticos. No hay un análisis profundo sobre su retorno."
+        },
+        {
+          "channel": "ATV Noticias",
+          "bullet": "El video resume eventos recientes, incluyendo el retorno de Benavides, pero es un segmento de menor relevancia entre otros temas de inseguridad."
+        }
+      ]
+    },
+    {
+      "event_slug": "alianzafujiserronista",
+      "event_headline": "Alianza Fujiserronista",
+      "coverage": [
+        {
+          "channel": "Exitosa Noticias",
+          "bullet": "El análisis sugiere una consolidación de la alianza fujiserronista y un copamiento institucional. El enfoque es pesimista respecto a la situación política y se percibe un sesgo negativo hacia la alianza."
+        }
+      ]
+    },
+    {
+      "event_slug": "mensajediscursodinaboluarte",
+      "event_headline": "Discurso de Dina Boluarte durante Fiestas Patrias",
+      "coverage": [
+        {
+          "channel": "La República - LR+",
+          "bullet": "Se critica el discurso de Boluarte por ser desconectado y victimista, haciendo énfasis en la falta de preparación del gobierno ante desastres naturales. Hay un enfoque en la crítica a su gestión y la política interna."
+        },
+        {
+          "channel": "PBO",
+          "bullet": "El comentario critica la larga duración del discurso de Boluarte, su falta de contenido relevante y ausencia de autocrítica. Se resalta una percepción negativa de la presidenta, con comentarios sobre promesas incumplidas."
+        },
+        {
+          "channel": "CARLOS ALVAREZ ¿QUE ES LO QUE PASA AQUI ?",
+          "bullet": "El discurso presidencial es reconocido por aceptar la baja popularidad del gobierno, mencionando errores en la administración y buscando una unidad nacional. Tiene un enfoque en críticas directas y un llamado a la mejora interna."
+        }
+      ]
+    },
+    {
+      "event_slug": "viajedinaboluartejaponindonesia",
+      "event_headline": "Viaje de Dina Boluarte a Japón e Indonesia",
+      "coverage": [
+        {
+          "channel": "PBO",
+          "bullet": "En el programa Combatters, el viaje se discute enfocándose en la falta de experiencia de Boluarte en política internacional y las tensiones internas. Se muestra desconfianza hacia el liderazgo de la presidenta."
+        },
+        {
+          "channel": "24 Horas",
+          "bullet": "El enfoque recae en la crítica hacia la gestión del transporte público y menciones a la debilidad de Boluarte, sin un análisis detallado de su viaje internacional."
+        }
+      ]
+    },
+    {
+      "event_slug": "influenciakeikofujimori",
+      "event_headline": "Influencia de Keiko Fujimori",
+      "coverage": [
+        {
+          "channel": "Carlos Orozco",
+          "bullet": "En el programa \"Nadie se salva\", se menciona una entrevista con Keiko Fujimori que aborda su vida personal y política. El enfoque es principalmente su figura generando opiniones encontradas. El tono del programa es ameno y humorístico, sin un análisis profundo de la política."
+        },
+        {
+          "channel": "Alacocina Tv",
+          "bullet": "El canal no cubre este evento, enfocándose más en temas de cocina y cultura de bebida."
+        },
+        {
+          "channel": "Peru News",
+          "bullet": "Se discute que no habrá un candidato Fujimori en las elecciones de 2026. El enfoque es un compromiso político claro hacia el futuro sin la participación de figuras Fujimoristas."
+        }
+      ]
+    },
+    {
+      "event_slug": "controversiascesaracuna",
+      "event_headline": "Controversias en la gestión de César Acuña",
+      "coverage": [
+        {
+          "channel": "El diario de Curwen",
+          "bullet": "Se aborda la gestión de Acuña bajo la crítica de otorgar contratos sin experiencia y posibles sobornos dentro del Congreso. Hay un enfoque claro en la percepción de corrupción y falta de transparencia."
+        },
+        {
+          "channel": "HTVPERU",
+          "bullet": "Destaca la firma de contratos por César Acuña con empresas vinculadas a personas bajo sospecha, resaltando posibles irregularidades y vínculos familiares. El enfoque es crítico hacia su administración."
+        }
+      ]
+    },
+    {
+      "event_slug": "proyectosrafaellopezaliaga",
+      "event_headline": "Proyectos de Rafael López Aliaga",
+      "coverage": [
+        {
+          "channel": "Rafael Lopez Aliaga - Oficial",
+          "bullet": "El alcalde critica la intervención policial y la gestión del ministro Sandoval, destacando la paralización de proyectos de infraestructuras como crítica central. Su postura es crítica hacia el gobierno actual por corrupción."
+        },
+        {
+          "channel": "Willax Televisión",
+          "bullet": "En la entrevista con López Aliaga, se discuten críticas al gobierno por detener proyectos beneficiosos. Hay un llamado a la movilización política contra la corrupción, que se percibe como el enfoque principal."
+        }
+      ]
+    },
+    {
+      "event_slug": "tsunamialerta",
+      "event_headline": "Alerta de tsunami en Perú",
+      "coverage": [
+        {
+          "channel": "Carlos Orozco",
+          "bullet": "El tema del tsunami se menciona de forma superficial entre diversos temas, sin un análisis profundo o especializado."
+        },
+        {
+          "channel": "La República - LR+",
+          "bullet": "Destaca la falta de preparación ante desastres naturales como el tsunami, implicando críticas al gobierno de Boluarte por desconexión con la realidad y mala gestión."
+        },
+        {
+          "channel": "SEVENRO",
+          "bullet": "El video presenta los efectos del terremoto de Camchatka que generó el tsunami, enfatizando evacuaciones y mareas altas. Se centra en los aspectos físicos del fenómeno natural."
+        },
+        {
+          "channel": "PBO",
+          "bullet": "El programa discute los fenómenos naturales junto con temas de inseguridad y delincuencia, sin un enfoque exclusivo en el análisis de los desastres."
+        },
+        {
+          "channel": "TVPerú Noticias",
+          "bullet": "Se hace un análisis más detallado de tormentas de arena y coordinación gubernamental para mitigar los impactos. Enfoca medidas y percepciones gubernamentales ante fenómenos naturales."
+        }
+      ]
+    },
+    {
+      "event_slug": "crisisvladimircerron",
+      "event_headline": "Crisis de Vladimir Cerrón",
+      "coverage": [
+        {
+          "channel": "PBO",
+          "bullet": "Se sugiere que Cerrón mantiene una relación de complicidad con Boluarte, implicando una posible alianza oculta. El enfoque es conspirativo respecto a sus relaciones políticas."
+        },
+        {
+          "channel": "Latina Noticias",
+          "bullet": "La cobertura destaca un mitin en favor de Cerrón en un evento del Congreso, criticando la falta de neutralidad política y uso indebido de recursos públicos. Tiene un enfoque crítico hacia su promoción política."
+        }
+      ]
+    }
+  ]
+}

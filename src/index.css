@@ -206,6 +206,21 @@
       0 8px 0 hsl(var(--background));
   }
 
+  .fighting-game-card {
+    background: hsl(var(--card) / 0.8);
+    border: 2px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: 
+      inset 0 0 0 2px hsl(var(--background)),
+      0 4px 0 hsl(var(--background));
+    transition: all 0.2s ease-in-out;
+  }
+
+  .fighting-game-card:hover {
+    border-color: hsl(var(--accent) / 0.5);
+    transform: translateY(-2px);
+  }
+
   /* 5. Candidate Panels with Team Color Glow */
   .candidate-panel-left, .candidate-panel-right {
     background: transparent;

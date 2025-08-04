@@ -15,9 +15,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import GavelIcon from '@mui/icons-material/Gavel';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 
 const navItems = [
   { text: 'Comparador', path: '/', icon: <CompareArrowsIcon /> },
+  { text: 'Prensa', path: '/news', icon: <NewspaperIcon /> },
   { text: 'Debate', path: '/debate', icon: <GavelIcon /> },
   { text: 'Metodología', path: '/about', icon: <InfoOutlinedIcon /> },
 ];
