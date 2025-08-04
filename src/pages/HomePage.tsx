@@ -43,7 +43,7 @@ export function HomePage() {
               textShadow: '3px 3px 0px hsl(var(--background)), 6px 6px 0px hsl(var(--border))'
             }}
           >
-            Presidential Punch
+            CAPYBARISMO
           </h1>
           <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-foreground/90 font-sans">
             Tu guía interactiva para las elecciones presidenciales de Perú 2026. Compara candidatos, entiende sus posturas y mantente informado.
