@@ -24,7 +24,7 @@ const featureCards = [
 		cta: 'Ir al Debate',
 	},
 	{
-		title: 'Prensa y Eventos',
+		title: 'Noticias',
 		description:
 			'Mantente al día con las últimas noticias, entrevistas y eventos importantes de la campaña.',
 		link: '/news',
