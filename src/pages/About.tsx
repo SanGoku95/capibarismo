@@ -22,7 +22,7 @@ export function About() {
             <section>
               <h3 className="font-bold text-lg text-foreground mb-2">Nuestra Misión</h3>
               <p>
-                En un panorama político complejo, tomar una decisión informada puede ser un desafío. Presidential Punch Perú nace con el objetivo de simplificar este proceso. Nuestra misión es presentar la información de los candidatos presidenciales de Perú de una manera clara, objetiva y fácil de digerir.
+                En un panorama político complejo, tomar una decisión informada puede ser un desafío. Capybarismo nace con el objetivo de simplificar este proceso. Nuestra misión es presentar la información de los candidatos presidenciales de Perú de una manera clara, objetiva y fácil de digerir.
               </p>
               <p className="mt-2">
                 Utilizamos un formato inspirado en los juegos de lucha clásicos, no para trivializar la política, sino para hacerla más atractiva y accesible para todos, especialmente para quienes se sienten desconectados del debate tradicional.
