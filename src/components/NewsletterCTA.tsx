@@ -57,19 +57,30 @@ export function NewsletterCTA() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-          <Input
-            type="email"
-            placeholder="tu.correo@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={isLoading}
-            required
-            className="text-base"
-          />
-          <Button type="submit" disabled={isLoading} className="font-bold">
-            {isLoading ? 'Enviando...' : 'Suscribirme'}
-          </Button>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md mx-auto">
+          <div className="space-y-1 text-left">
+            <label htmlFor="email-input" className="font-sans text-sm font-medium text-muted-foreground">
+              Suscríbete para recibir análisis y noticias clave.
+            </label>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Input
+                id="email-input"
+                type="email"
+                placeholder="tu.correo@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
+                required
+                className="text-base font-sans"
+              />
+              <Button type="submit" disabled={isLoading} className="font-bold" variant="secondary">
+                {isLoading ? 'Enviando...' : 'Suscribirme'}
+              </Button>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground text-center font-sans">
+            Respetamos tu privacidad. No compartiremos tu correo.
+          </p>
         </form>
       </CardContent>
     </Card>

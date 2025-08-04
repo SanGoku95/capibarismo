@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Press+Start+2P&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -125,10 +125,13 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Press Start 2P', cursive;
-    -webkit-font-smoothing: none;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeSpeed; /* More control over pixel font rendering */
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Press Start 2P', cursive;
   }
 }
 
