@@ -224,42 +224,172 @@ export const candidates: Candidate[] = [
     fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format"
   },
   {
-    id: "antauro",
-    nombre: "Antauro Humala",
-    ideologia: "Nacionalista",
-    proyectoPolitico: {
-      titulo: "Patria y Justicia",
-      resumen: "Un proyecto nacionalista que busca la soberanía y la justicia social para todos los peruanos."
-    },
-    creenciasClave: [
-      { id: "nacionalismo", nombre: "Nacionalismo", resumen: "Promueve la defensa de la soberanía y los recursos nacionales.", detalle: "Busca la renegociación de contratos con empresas extranjeras y la expulsión de ONGs que consideren intervencionistas." },
-      { id: "justicia-popular", nombre: "Justicia popular", resumen: "Aboga por una justicia más cercana a la gente y menos burocrática.", detalle: "Propone la creación de tribunales populares y la eliminación de fueros y privilegios." },
-      { id: "antiimperialismo", nombre: "Antiimperialismo", resumen: "Se opone a la intervención de potencias extranjeras en los asuntos internos del país.", detalle: "Promueve la salida de bases militares extranjeras y la revisión de tratados internacionales." }
-    ],
-    trayectoria: [
-      { id: "lider-etnocacerista-2005", rol: "Líder Etnocacerista", periodo: "2005 - Presente", descripcion: "Promotor de un nacionalismo radical y de izquierda." },
-      { id: "mayor-ep-1982", rol: "Mayor EP", periodo: "1982 - 2000", descripcion: "Carrera militar con énfasis en la defensa y el orden interno." },
-      { id: "activista-2000", rol: "Activista", periodo: "2000 - 2005", descripcion: "Participación activa en movimientos sociales y políticos." }
-    ],
-    presenciaDigital: {
-      facebook: "Utiliza Facebook y Twitter para difundir su mensaje nacionalista y movilizar a sus seguidores.",
-      twitter: "Utiliza Facebook y Twitter para difundir su mensaje nacionalista y movilizar a sus seguidores.",
-      youtube: "En YouTube, tiene un canal donde publica discursos y entrevistas."
-    },
-    mapaDePoder: {
-      alianzas: [
-        { nombre: "Movimientos nacionalistas", descripcion: "Grupos que promueven la soberanía y los intereses nacionales por encima de los extranjeros." },
-        { nombre: "Sindicatos de trabajadores", descripcion: "Organizaciones que agrupan a trabajadores y defienden sus derechos laborales." }
-      ],
-      opositores: [
-        { nombre: "Empresarios", descripcion: "Grupos que se oponen a sus políticas de control estatal y nacionalización de recursos." },
-        { nombre: "Medios de comunicación", descripcion: "Organizaciones que critican su enfoque autoritario y su pasado militar." }
-      ],
-      seguidores: "Aprox. 700K en redes"
-    },
-    headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
-    fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format"
+  id: "antauro",
+  nombre: "Antauro Humala Tasso",
+  ideologia: "Etnocacerismo / Nacionalismo Radical de Izquierda",
+   headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
+   fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format",
+  proyectoPolitico: {
+    titulo: "Refundación Nacional Etnocacerista",
+    resumen:
+      "Propone reestructurar el Estado para devolver soberanía política, económica y cultural al Perú, con énfasis en identidad andina y disciplina militar.",
+    detalles: [
+      {
+        subtitulo: "Asamblea Constituyente y Nueva Constitución",
+        texto:
+          "Derogar la Carta de 1993 y redactar una Constitución que reconozca a la 'raza cobriza' como eje identitario y declare al Estado soberano sobre recursos estratégicos."
+      },
+      {
+        subtitulo: "Pena de Muerte por 'Traición a la Patria'",
+        texto:
+          "Aplicar pena capital a presidentes y altos funcionarios corruptos, violadores de niños y narcotraficantes calificados."
+      },
+      {
+        subtitulo: "Modelo Económico: Soberanía y Nacionalización",
+        texto:
+          "Revisar concesiones de gas, minería y pesca, nacionalizar sectores clave y formalizar la minería informal bajo tutela estatal; defensa abierta de mineros artesanales frente a transnacionales."
+      },
+      {
+        subtitulo: "Reforma Agraria y Redistribución Demográfica",
+        texto:
+          "Impulsar una segunda reforma agraria, relocalizar población desde la costa a zonas alto‑andinas y amazónicas para reducir desempleo y desnutrición."
+      },
+      {
+        subtitulo: "Ciencia y Tecnología Estratégica",
+        texto:
+          "Priorizar inversión pública en I+D; propuesta ‘Sin ciencia no hay futuro’ para industrializar pesca de consumo humano y biotecnología andina."
+      },
+      {
+        subtitulo: "Unidad Nacionalismo‑Izquierda y RUNASUR",
+        texto:
+          "Construir un bloque nacionalista‑socialista interno y promover la integración latinoamericana vía RUNASUR contra el neoliberalismo y la injerencia extranjera."
+      },
+      {
+        subtitulo: "Reforma Institucional Radical",
+        texto:
+          "Sustituir el Congreso por cámara funcional, revocar magistrados supremos y crear un ‘pueblo en armas’ para defensa de la soberanía."
+      }
+    ]
   },
+
+  creenciasClave: [
+    {
+      id: "etnocacerismo",
+      nombre: "Etnocacerismo como Doctrina",
+      resumen: "Identidad andina (‘raza cobriza’) como base de la nación.",
+      detalle: "Nacionalismo étnico‑militar inspirado en Andrés Avelino Cáceres."
+    },
+    {
+      id: "democracia-directa",
+      nombre: "Crítica a la 'Falsa Democracia'",
+      resumen: "Sistema capturado por élites criollas y extranjeras.",
+      detalle: "Aboga por control popular permanente y revocatoria de autoridades."
+    },
+    {
+      id: "orden-militarista",
+      nombre: "Orden y Disciplina Militar",
+      resumen: "Autoridad firme como remedio a la corrupción.",
+      detalle: "Valores castrenses para imponer disciplina social y administrativa."
+    },
+    {
+      id: "antiimperialismo",
+      nombre: "Unidad Latinoamericana",
+      resumen: "Confluencia de pueblos del Sur contra neoliberalismo y hegemonía extranjera.",
+      detalle: "Promueve Runasur y alianzas con Evo Morales para un bloque socialista andino‑amazónico."
+    }
+  ],
+
+  trayectoria: [
+    {
+      id: "infancia-formacion",
+      rol: "Niñez y formación",
+      periodo: "1963 – 1980",
+      descripcion: "Creció en familia nacionalista; educación bilingüe en Lima y Cusco con énfasis andino.",
+      detalles: [
+        {
+          subtitulo: "Influencias familiares",
+          texto: "Padre Isaac Humala inculcó misión política y nombres incaicos."
+        },
+        {
+          subtitulo: "Educación escolar",
+          texto: "Peruano Japonés, Franco Peruano y Ciencias del Cusco; contacto temprano con historia incaica."
+        },
+        {
+          subtitulo: "Logia de tenientes",
+          texto: "Fundó la primera célula etnocacerista en 1989 dentro del Ejército." 
+        }
+      ]
+    },
+    {
+      id: "militar",
+      rol: "Mayor del Ejército Peruano (en retiro)",
+      periodo: "1980 – 2000",
+      descripcion: "Combatió a Sendero Luminoso y en el Cenepa; baja en 1998 por activismo doctrinario."
+    },
+    {
+      id: "lider-etnocacerista",
+      rol: "Fundador del Movimiento Etnocacerista (MEC)",
+      periodo: "2000 – Presente",
+      descripcion: "Ideólogo; levantamientos de Locumba (2000) y Andahuaylazo (2005) con 6 muertos.",
+      detalles: [
+        {
+          subtitulo: "Levantamientos Armados",
+          texto: "Objetaron legitimidad de Fujimori y Toledo; resultaron en condena de 19 años." 
+        }
+      ]
+    },
+    {
+      id: "prision-liberacion",
+      rol: "Reo y excarcelado",
+      periodo: "2005 – 2022",
+      descripcion: "Cumplió 17 años y salió por redención de pena; desde la cárcel articuló base reservista."
+    },
+    {
+      id: "lider-partido-antauro",
+      rol: "Líder del partido A.N.T.A.U.R.O.",
+      periodo: "2023 – Presente",
+      descripcion: "Intento de inscripción anulado por JNE; busca alianza con Juntos por el Perú para 2026."
+    }
+  ],
+
+  presenciaDigital: {
+    tiktok: "https://www.tiktok.com/@antauroigorhumalatasso",
+    youtube: "https://www.youtube.com/@AntauroHumala-Oficial"
+  },
+
+  mapaDePoder: {
+    alianzas: [
+      {
+        nombre: "Reservistas y Veteranos de las FFAA",
+        descripcion: "Columna vertebral del movimiento; redes de excombatientes."
+      },
+      {
+        nombre: "Juntos por el Perú (Verónika Mendoza)",
+        descripcion: "Alianza electoral para Asamblea Constituyente y programa anticorrupción."
+      },
+      {
+        nombre: "Sindicatos y Gremios de Base",
+        descripcion: "Trabajadores agrícolas, mineros informales y obreros que respaldan agenda soberanista."
+      }
+    ],
+    opositores: [
+      {
+        nombre: "Jurado Nacional de Elecciones (JNE)",
+        descripcion: "Rechazó inscripción partidaria alegando ‘conducta antidemocrática’."
+      },
+      {
+        nombre: "Grandes Grupos de Medios",
+        descripcion: "Acusados de encubrir corrupción; amenazados con expropiación."
+      },
+      {
+        nombre: "Ollanta Humala y Partido Nacionalista",
+        descripcion: "Ruptura fraterna irreversible tras Andahuaylazo y caso Odebrecht."
+      }
+    ],
+    seguidores:
+      "Reservistas, etnocaceristas y sectores rurales andinos sensibles al discurso punitivo y anti‑establishment."
+  }
+},
   {
     id: "patricia",
     nombre: "Patricia Chirinos",
