@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
+import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
 import {
   Accordion,
   AccordionContent,
@@ -20,6 +20,7 @@ const socialIcons: { [key: string]: React.ReactElement } = {
   instagram: <FaInstagram />,
   facebook: <FaFacebook />,
   twitter: <FaTwitter />,
+  web: <FaRegWindowRestore />,
 };
 
 export function CandidateProfile() {

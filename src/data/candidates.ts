@@ -35,6 +35,7 @@ export interface Candidate {
     instagram?: string;
     facebook?: string;
     twitter?: string;
+    web?: string;
   };
   mapaDePoder: {
     alianzas: {
@@ -226,7 +227,7 @@ export const candidates: Candidate[] = [
   {
   id: "antauro",
   nombre: "Antauro Humala Tasso",
-  ideologia: "Etnocacerismo / Nacionalismo Radical de Izquierda",
+  ideologia: "Etnocacerismo Nacionalismo Radical de Izquierda",
    headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
    fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format",
   proyectoPolitico: {
@@ -354,7 +355,8 @@ export const candidates: Candidate[] = [
 
   presenciaDigital: {
     tiktok: "https://www.tiktok.com/@antauroigorhumalatasso",
-    youtube: "https://www.youtube.com/@AntauroHumala-Oficial"
+    youtube: "https://www.youtube.com/@AntauroHumala-Oficial",
+    web: "https://antaurohumala.pe/",
   },
 
   mapaDePoder: {
