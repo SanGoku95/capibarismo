@@ -120,14 +120,14 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftContent={
                 <div className="flex flex-wrap gap-2">
                   {leftCandidate
-                    ? leftCandidate.creenciasClave.slice(0, 3).map(b => <Link key={b} to={`/candidate/${leftCandidate?.id}#creencia-${b.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm text-muted-foreground hover:underline">{b}</Link>)
+                    ? leftCandidate.creenciasClave.slice(0, 3).map(c => <Link key={c.id} to={`/candidate/${leftCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>)
                     : <span className="text-sm text-muted-foreground">No especificadas</span>}
                 </div>
               }
               rightContent={
                 <div className="flex flex-wrap gap-2">
                   {rightCandidate
-                    ? rightCandidate.creenciasClave.slice(0, 3).map(b => <Link key={b} to={`/candidate/${rightCandidate?.id}#creencia-${b.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm text-muted-foreground hover:underline">{b}</Link>)
+                    ? rightCandidate.creenciasClave.slice(0, 3).map(c => <Link key={c.id} to={`/candidate/${rightCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>)
                     : <span className="text-sm text-muted-foreground">No especificadas</span>}
                 </div>
               }
@@ -142,7 +142,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 leftCandidate ? (
                   <div className="space-y-3">
                     {leftCandidate.trayectoria.slice(0, 2).map((position) => (
-                      <Link to={`/candidate/${leftCandidate?.id}#${position.id}`} key={position.id} className="block border-l-2 border-team-left/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
+                      <Link to={`/candidate/${leftCandidate?.id}#trayectoria`} key={position.id} className="block border-l-2 border-team-left/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
                         <div className="font-medium text-base text-foreground">{position.rol}</div>
                         <div className="text-sm text-muted-foreground">
                           {position.periodo}
@@ -156,7 +156,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 rightCandidate ? (
                   <div className="space-y-3">
                     {rightCandidate.trayectoria.slice(0, 2).map((position) => (
-                      <Link to={`/candidate/${rightCandidate?.id}#${position.id}`} key={position.id} className="block border-l-2 border-team-right/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
+                      <Link to={`/candidate/${rightCandidate?.id}#trayectoria`} key={position.id} className="block border-l-2 border-team-right/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
                         <div className="font-medium text-base text-foreground">{position.rol}</div>
                         <div className="text-sm text-muted-foreground">
                           {position.periodo}
@@ -193,7 +193,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftContent={
                 leftCandidate ? (
                   <Link to={`/candidate/${leftCandidate.id}#mapa-de-poder`} className="font-sans text-sm space-y-1 text-muted-foreground hover:underline">
-                    <div><span className="font-semibold text-foreground">Alianzas:</span> {leftCandidate.mapaDePoder.alianzas.slice(0, 1).join(', ')}...</div>
+                    <div><span className="font-semibold text-foreground">Alianzas:</span> {leftCandidate.mapaDePoder.alianzas.slice(0, 1).map(a => a.nombre).join(', ')}...</div>
                     <div><span className="font-semibold text-foreground">Seguidores:</span> {leftCandidate.mapaDePoder.seguidores}</div>
                   </Link>
                 ) : <span className="font-sans">Sin datos</span>
@@ -201,7 +201,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               rightContent={
                 rightCandidate ? (
                   <Link to={`/candidate/${rightCandidate.id}#mapa-de-poder`} className="font-sans text-sm space-y-1 text-muted-foreground hover:underline">
-                    <div><span className="font-semibold text-foreground">Alianzas:</span> {rightCandidate.mapaDePoder.alianzas.slice(0, 1).join(', ')}...</div>
+                    <div><span className="font-semibold text-foreground">Alianzas:</span> {rightCandidate.mapaDePoder.alianzas.slice(0, 1).map(a => a.nombre).join(', ')}...</div>
                     <div><span className="font-semibold text-foreground">Seguidores:</span> {rightCandidate.mapaDePoder.seguidores}</div>
                   </Link>
                 ) : <span className="font-sans">Sin datos</span>

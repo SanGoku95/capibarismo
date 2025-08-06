@@ -1,12 +1,18 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
+import { useEffect, useState, useMemo } from 'react';
 import { candidates } from '@/data/candidates';
 import NotFound from './NotFound';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const socialIcons: { [key: string]: React.ReactElement } = {
   tiktok: <FaTiktok />,
@@ -18,7 +24,36 @@ const socialIcons: { [key: string]: React.ReactElement } = {
 
 export function CandidateProfile() {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const candidate = candidates.find((c) => c.id === id);
+
+  const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!candidate) return;
+
+    const hash = location.hash.substring(1);
+    if (hash) {
+      let valueToOpen = hash;
+      if (hash.startsWith('creencia-')) {
+        valueToOpen = hash.split('creencia-')[1];
+      } else if (hash === 'trayectoria' && candidate.trayectoria.length > 0) {
+        // If the hash is for the whole section, open the first item
+        valueToOpen = candidate.trayectoria[0].id;
+      }
+      
+      setOpenAccordionItems(prev => [...new Set([...prev, valueToOpen])]);
+
+      const element = document.getElementById(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location, candidate]);
 
   if (!candidate) {
     return <NotFound />;
@@ -57,43 +92,90 @@ export function CandidateProfile() {
           </div>
 
           <div className="lg:col-span-2 space-y-6">
-            <Card className="fighting-game-card" id="proyecto-politico">
+            <Card className="fighting-game-card scroll-mt-24" id="proyecto-politico">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Shield size={20} /> Proyecto Político</CardTitle>
               </CardHeader>
               <CardContent>
                 <h3 className="text-xl font-bold mb-2">{candidate.proyectoPolitico.titulo}</h3>
-                <p className="leading-relaxed">{candidate.proyectoPolitico.resumen}</p>
+                <p className="leading-relaxed text-muted-foreground">{candidate.proyectoPolitico.resumen}</p>
+                {candidate.proyectoPolitico.detalles && (
+                  <Accordion 
+                    type="multiple" 
+                    className="w-full mt-4"
+                    value={openAccordionItems}
+                    onValueChange={setOpenAccordionItems}
+                  >
+                    {candidate.proyectoPolitico.detalles.map((detalle) => (
+                      <AccordionItem value={detalle.subtitulo} key={detalle.subtitulo} className="border-b-muted-foreground/20">
+                        <AccordionTrigger>{detalle.subtitulo}</AccordionTrigger>
+                        <AccordionContent>{detalle.texto}</AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                )}
               </CardContent>
             </Card>
 
-            <Card className="fighting-game-card" id="creencias-clave">
+            <Card className="fighting-game-card scroll-mt-24" id="creencias-clave">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Star size={20} /> Creencias Clave</CardTitle>
               </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                {candidate.creenciasClave.map((belief) => (
-                  <Badge key={belief} variant="secondary" id={`creencia-${belief.toLowerCase().replace(/\s+/g, '-')}`}>{belief}</Badge>
-                ))}
+              <CardContent>
+                <Accordion 
+                  type="multiple" 
+                  className="w-full"
+                  value={openAccordionItems}
+                  onValueChange={setOpenAccordionItems}
+                >
+                  {candidate.creenciasClave.map((creencia) => (
+                    <AccordionItem value={creencia.id} key={creencia.id} id={`creencia-${creencia.id}`} className="border-b-muted-foreground/20">
+                      <AccordionTrigger>{creencia.nombre}</AccordionTrigger>
+                      <AccordionContent>
+                        <p>{creencia.resumen}</p>
+                        {creencia.detalle && <p className="mt-2 text-sm text-muted-foreground">{creencia.detalle}</p>}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </CardContent>
             </Card>
 
-            <Card className="fighting-game-card" id="trayectoria">
+            <Card className="fighting-game-card scroll-mt-24" id="trayectoria">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Briefcase size={20} /> Trayectoria</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {candidate.trayectoria.map((item, index) => (
-                  <div key={item.id} id={item.id} className="scroll-mt-24">
-                    <p className="font-semibold">{item.rol} <span className="text-sm text-muted-foreground font-normal">({item.periodo})</span></p>
-                    <p className="text-sm text-muted-foreground">{item.descripcion}</p>
-                    {index < candidate.trayectoria.length - 1 && <Separator className="my-3" />}
-                  </div>
-                ))}
+              <CardContent>
+                <Accordion 
+                  type="multiple" 
+                  className="w-full"
+                  value={openAccordionItems}
+                  onValueChange={setOpenAccordionItems}
+                >
+                  {candidate.trayectoria.map((item) => (
+                    <AccordionItem value={item.id} key={item.id} id={item.id} className="border-b-muted-foreground/20">
+                      <AccordionTrigger className="text-left hover:no-underline">
+                        <div className="flex-1">
+                          <p className="font-semibold text-base">{item.rol}</p>
+                          <p className="text-sm text-muted-foreground font-normal">({item.periodo})</p>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="pt-2 pb-4 space-y-4">
+                        <p className="text-base text-muted-foreground">{item.descripcion}</p>
+                        {item.detalles && item.detalles.map((detalle, index) => (
+                          <div key={index} className="pl-4 border-l-2 border-primary/30">
+                            <h4 className="font-semibold text-foreground">{detalle.subtitulo}</h4>
+                            <p className="text-muted-foreground mt-1">{detalle.texto}</p>
+                          </div>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </CardContent>
             </Card>
 
-            <Card className="fighting-game-card" id="presencia-digital">
+            <Card className="fighting-game-card scroll-mt-24" id="presencia-digital">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Rss size={20} /> Presencia en Medios Digitales</CardTitle>
               </CardHeader>
@@ -112,21 +194,38 @@ export function CandidateProfile() {
               </CardContent>
             </Card>
 
-            <Card className="fighting-game-card" id="mapa-de-poder">
+            <Card className="fighting-game-card scroll-mt-24" id="mapa-de-poder">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Power size={20} /> Mapa de Poder</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
+                <Separator />
                 <div>
-                  <h4 className="font-semibold">Alianzas Clave</h4>
-                  <p className="text-muted-foreground">{candidate.mapaDePoder.alianzas.join(', ')}</p>
+                  <h4 className="font-semibold text-lg mb-2">Alianzas Clave</h4>
+                  <div className="space-y-3">
+                    {candidate.mapaDePoder.alianzas.map(item => (
+                      <div key={item.nombre}>
+                        <p className="font-semibold">{item.nombre}</p>
+                        <p className="text-sm text-muted-foreground">{item.descripcion}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+                <Separator />
                 <div>
-                  <h4 className="font-semibold">Principales Opositores</h4>
-                  <p className="text-muted-foreground">{candidate.mapaDePoder.opositores.join(', ')}</p>
+                  <h4 className="font-semibold text-lg mb-2">Principales Opositores</h4>
+                  <div className="space-y-3">
+                    {candidate.mapaDePoder.opositores.map(item => (
+                      <div key={item.nombre}>
+                        <p className="font-semibold">{item.nombre}</p>
+                        <p className="text-sm text-muted-foreground">{item.descripcion}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+                 <Separator />
                  <div>
-                  <h4 className="font-semibold">Base de Seguidores</h4>
+                  <h4 className="font-semibold text-lg">Base de Seguidores</h4>
                   <p className="text-muted-foreground">{candidate.mapaDePoder.seguidores}</p>
                 </div>
               </CardContent>

@@ -81,17 +81,17 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
         </CardHeader>
         
         <CardContent className="space-y-4 pt-4">
-            <Accordion type="single" collapsible className="w-full" defaultValue="proyecto-politico">
+            <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="proyecto-politico">
               <AccordionTrigger className="text-base font-semibold">
               <Shield size={16} className="mr-2" /> Proyecto Político
               </AccordionTrigger>
               <AccordionContent>
               <div className="pt-2">
-                <Link to={`/candidate/${candidate.id}#proyecto-politico`} className="font-bold text-foreground hover:underline">{candidate.proyectoPolitico.titulo}</Link>
-                <p className="text-base font-sans text-muted-foreground leading-relaxed mt-1 line-clamp-4">
-                {candidate.proyectoPolitico.resumen}
-                </p>
+          <Link to={`/candidate/${candidate.id}#proyecto-politico`} className="font-bold text-foreground hover:underline">{candidate.proyectoPolitico.titulo}</Link>
+          <p className="text-base font-sans text-muted-foreground leading-relaxed mt-1 line-clamp-4">
+          {candidate.proyectoPolitico.resumen}
+          </p>
               </div>
               </AccordionContent>
             </AccordionItem>
@@ -100,10 +100,10 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
             <div id="creencias-clave-compare" className="py-4">
               <h4 className="text-base font-semibold mb-2">Creencias Clave</h4>
               <div className="flex flex-wrap gap-2">
-              {candidate.creenciasClave.map((belief, index) => (
-                <Link key={index} to={`/candidate/${candidate.id}#creencia-${belief.toLowerCase().replace(/\s+/g, '-')}`}>
+              {candidate.creenciasClave.map((creencia) => (
+                <Link key={creencia.id} to={`/candidate/${candidate.id}#creencia-${creencia.id}`}>
                   <TagPill variant="belief">
-                    {belief}
+                    {creencia.nombre}
                   </TagPill>
                 </Link>
               ))}
@@ -117,7 +117,7 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
               <AccordionContent>
                 <div className="space-y-1 pt-2">
                   {candidate.trayectoria.slice(0, 3).map((position) => (
-                    <Link to={`/candidate/${candidate.id}#${position.id}`} key={position.id} className="block p-2 rounded-md hover:bg-muted/50">
+                    <Link to={`/candidate/${candidate.id}#trayectoria`} key={position.id} className="block p-2 rounded-md hover:bg-muted/50">
                       <div className="text-base font-sans">
                         <span className="font-medium">{position.rol}</span>
                         <span className="text-muted-foreground ml-1 text-sm">
@@ -149,7 +149,7 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
                 <div className="space-y-2 pt-2 text-base font-sans">
                   <Link to={`/candidate/${candidate.id}#mapa-de-poder`} className="block p-2 rounded-md hover:bg-muted/50">
                     <span className="font-medium">Alianzas:</span>
-                    <span className="text-muted-foreground ml-1">{candidate.mapaDePoder.alianzas.join(', ')}</span>
+                    <span className="text-muted-foreground ml-1">{candidate.mapaDePoder.alianzas.map(a => a.nombre).join(', ')}</span>
                   </Link>
                    <Link to={`/candidate/${candidate.id}#mapa-de-poder`} className="block p-2 rounded-md hover:bg-muted/50">
                     <span className="font-medium">Seguidores:</span>
