@@ -40,7 +40,7 @@ export function HomePage() {
 				{/* Hero Section */}
 				<div className="text-center mb-16">
 					<h1
-						className="text-4xl md:text-6xl font-bold uppercase tracking-wider"
+						className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wider"
 						style={{
 							fontFamily: "'Press Start 2P', cursive",
 							color: 'hsl(var(--accent))',
@@ -50,7 +50,7 @@ export function HomePage() {
 					>
 						CAPYBARISMO
 					</h1>
-					<p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-foreground/90 font-sans">
+					<p className="mt-4 text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-foreground/90 font-sans">
 						Tu guía interactiva para las elecciones presidenciales de Perú 2026.
 						Compara candidatos, entiende sus posturas y mantente informado.
 					</p>
