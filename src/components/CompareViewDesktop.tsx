@@ -117,7 +117,7 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
               <AccordionContent>
                 <div className="space-y-1 pt-2">
                   {candidate.trayectoria.slice(0, 3).map((position) => (
-                    <Link to={`/candidate/${candidate.id}#trayectoria`} key={position.id} className="block p-2 rounded-md hover:bg-muted/50">
+                    <Link to={`/candidate/${candidate.id}#${position.id}`} key={position.id} className="block p-2 rounded-md hover:bg-muted/50">
                       <div className="text-base font-sans">
                         <span className="font-medium">{position.rol}</span>
                         <span className="text-muted-foreground ml-1 text-sm">

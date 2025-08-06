@@ -142,7 +142,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 leftCandidate ? (
                   <div className="space-y-3">
                     {leftCandidate.trayectoria.slice(0, 2).map((position) => (
-                      <Link to={`/candidate/${leftCandidate?.id}#trayectoria`} key={position.id} className="block border-l-2 border-team-left/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
+                      <Link to={`/candidate/${leftCandidate?.id}#${position.id}`} key={position.id} className="block border-l-2 border-team-left/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
                         <div className="font-medium text-base text-foreground">{position.rol}</div>
                         <div className="text-sm text-muted-foreground">
                           {position.periodo}
@@ -156,7 +156,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 rightCandidate ? (
                   <div className="space-y-3">
                     {rightCandidate.trayectoria.slice(0, 2).map((position) => (
-                      <Link to={`/candidate/${rightCandidate?.id}#trayectoria`} key={position.id} className="block border-l-2 border-team-right/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
+                      <Link to={`/candidate/${rightCandidate?.id}#${position.id}`} key={position.id} className="block border-l-2 border-team-right/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
                         <div className="font-medium text-base text-foreground">{position.rol}</div>
                         <div className="text-sm text-muted-foreground">
                           {position.periodo}

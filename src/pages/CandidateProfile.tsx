@@ -35,8 +35,15 @@ export function CandidateProfile() {
     const hash = location.hash.substring(1);
     if (hash) {
       let valueToOpen = hash;
+      let elementToScrollToId = hash;
+
       if (hash.startsWith('creencia-')) {
         valueToOpen = hash.split('creencia-')[1];
+        elementToScrollToId = 'creencias-clave';
+      } else if (candidate.trayectoria.some(t => t.id === hash)) {
+        // If the hash is a specific trajectory ID, open it, but scroll to the main section
+        valueToOpen = hash;
+        elementToScrollToId = 'trayectoria';
       } else if (hash === 'trayectoria' && candidate.trayectoria.length > 0) {
         // If the hash is for the whole section, open the first item
         valueToOpen = candidate.trayectoria[0].id;
@@ -44,7 +51,7 @@ export function CandidateProfile() {
       
       setOpenAccordionItems(prev => [...new Set([...prev, valueToOpen])]);
 
-      const element = document.getElementById(hash);
+      const element = document.getElementById(elementToScrollToId);
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
