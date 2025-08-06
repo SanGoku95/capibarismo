@@ -2,14 +2,33 @@ export interface Candidate {
   id: string;
   nombre: string;
   ideologia: string;
-  summary: string;
-  profession: string;
-  keyBeliefs: string[];
-  clips: { title: string; url: string; t: number }[];
-  powerMap: { role: string; from: string; to: string }[];
-  timeline: { week: string; clips: number }[];
   headshot: string;
   fullBody: string;
+
+  // Nuevas secciones
+  proyectoPolitico: {
+    titulo: string;
+    resumen: string;
+  };
+  creenciasClave: string[];
+  trayectoria: {
+    id: string;
+    rol: string;
+    periodo: string;
+    descripcion: string;
+  }[];
+  presenciaDigital: {
+    tiktok?: string;
+    youtube?: string;
+    instagram?: string;
+    facebook?: string;
+    twitter?: string;
+  };
+  mapaDePoder: {
+    alianzas: string[];
+    opositores: string[];
+    seguidores: string;
+  };
 }
 
 export const candidates: Candidate[] = [
@@ -17,29 +36,26 @@ export const candidates: Candidate[] = [
     id: "keiko",
     nombre: "Keiko Fujimori",
     ideologia: "Centro-derecha",
-    summary: "Propuesta de gobierno basada en la experiencia y estabilidad económica",
-    profession: "Política / Ex-Congresista",
-    keyBeliefs: ["Estabilidad económica", "Seguridad ciudadana", "Educación técnica"],
-    clips: [
-      { title: "Debate Nacional 2026", url: "#", t: 1642089600 },
-      { title: "Propuesta Económica", url: "#", t: 1642003200 },
-      { title: "Plan de Seguridad", url: "#", t: 1641916800 },
-      { title: "Educación y Trabajo", url: "#", t: 1641830400 },
-      { title: "Entrevista RPP", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Plan Perú Seguro",
+      resumen: "Propuesta de gobierno basada en la experiencia y estabilidad económica para recuperar el orden y la seguridad en el país."
+    },
+    creenciasClave: ["Estabilidad económica", "Seguridad ciudadana", "Mano dura", "Inversión privada"],
+    trayectoria: [
+      { id: "lider-fuerza-popular", rol: "Líder de Fuerza Popular", periodo: "2011 - Presente", descripcion: "Candidata presidencial en 2011, 2016 y 2021, consolidando un bloque político importante." },
+      { id: "congresista-2006", rol: "Congresista", periodo: "2006 - 2011", descripcion: "La congresista más votada en las elecciones de 2006." },
+      { id: "primera-dama-1994", rol: "Primera Dama", periodo: "1994 - 2000", descripcion: "Asumió el rol tras la separación de sus padres." }
     ],
-    powerMap: [
-      { role: "Líder", from: "2011", to: "2026", },
-      { role: "Congresista", from: "2006", to: "2011" },
-      { role: "Primera Dama", from: "1994", to: "2000" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 12 },
-      { week: "2024-W02", clips: 18 },
-      { week: "2024-W03", clips: 25 },
-      { week: "2024-W04", clips: 22 },
-      { week: "2024-W05", clips: 30 },
-      { week: "2024-W06", clips: 28 }
-    ],
+    presenciaDigital: {
+      tiktok: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso.",
+      youtube: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas.",
+      twitter: "Activa con comunicados oficiales y respuestas a la coyuntura política."
+    },
+    mapaDePoder: {
+      alianzas: ["Sector empresarial conservador", "Grupos religiosos"],
+      opositores: ["Antifujimorismo", "Sectores de izquierda"],
+      seguidores: "Aprox. 2.5M en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&auto=format"
   },
@@ -47,29 +63,26 @@ export const candidates: Candidate[] = [
     id: "veronika",
     nombre: "Verónika Mendoza",
     ideologia: "Izquierda",
-    summary: "Transformación social y justicia económica para todos los peruanos",
-    profession: "Psicóloga / Política",
-    keyBeliefs: ["Justicia social", "Medio ambiente", "Derechos humanos"],
-    clips: [
-      { title: "Propuesta Ambiental", url: "#", t: 1642089600 },
-      { title: "Justicia Social", url: "#", t: 1642003200 },
-      { title: "Plan Económico Inclusivo", url: "#", t: 1641916800 },
-      { title: "Derechos de la Mujer", url: "#", t: 1641830400 },
-      { title: "Debate Presidencial", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Cambio y Dignidad",
+      resumen: "Transformación social y justicia económica para todos los peruanos, con un nuevo pacto social."
+    },
+    creenciasClave: ["Justicia social", "Medio ambiente", "Derechos humanos", "Nueva Constitución"],
+    trayectoria: [
+      { id: "candidata-presidencial-2016", rol: "Candidata Presidencial", periodo: "2016 - Presente", descripcion: "Figura principal de la izquierda peruana en las últimas elecciones." },
+      { id: "congresista-2011", rol: "Congresista", periodo: "2011 - 2016", descripcion: "Electa por Cusco, con una agenda de fiscalización y derechos sociales." },
+      { id: "activista-2008", rol: "Activista", periodo: "2008 - 2011", descripcion: "Defensora de derechos humanos y medio ambiente en la sociedad civil." }
     ],
-    powerMap: [
-      { role: "Candidata Presidencial", from: "2021", to: "2026" },
-      { role: "Congresista", from: "2011", to: "2016" },
-      { role: "Activista", from: "2008", to: "2011" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 15 },
-      { week: "2024-W02", clips: 20 },
-      { week: "2024-W03", clips: 23 },
-      { week: "2024-W04", clips: 27 },
-      { week: "2024-W05", clips: 32 },
-      { week: "2024-W06", clips: 29 }
-    ],
+    presenciaDigital: {
+      facebook: "Es su principal canal para comunicar propuestas y organizar a sus bases.",
+      instagram: "Recientemente ha comenzado a usar Reels para explicar conceptos económicos complejos de forma sencilla.",
+      twitter: "Utiliza la plataforma para debates y fijar su posición sobre temas de actualidad."
+    },
+    mapaDePoder: {
+      alianzas: ["Sindicatos", "Organizaciones ecologistas", "Movimientos feministas"],
+      opositores: ["Gremios empresariales", "Sectores conservadores"],
+      seguidores: "Aprox. 1.8M en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop&auto=format"
   },
@@ -77,29 +90,25 @@ export const candidates: Candidate[] = [
     id: "rafael",
     nombre: "Rafael López Aliaga",
     ideologia: "Derecha",
-    summary: "Gobierno empresarial con enfoque en desarrollo económico y valores tradicionales",
-    profession: "Empresario / Alcalde",
-    keyBeliefs: ["Libre mercado", "Valores familiares", "Crecimiento económico"],
-    clips: [
-      { title: "Plan Empresarial", url: "#", t: 1642089600 },
-      { title: "Valores y Familia", url: "#", t: 1642003200 },
-      { title: "Inversión Privada", url: "#", t: 1641916800 },
-      { title: "Infraestructura", url: "#", t: 1641830400 },
-      { title: "Entrevista Canal N", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Orden y Desarrollo",
+      resumen: "Gobierno empresarial con enfoque en desarrollo económico y valores tradicionales para un Perú seguro y próspero."
+    },
+    creenciasClave: ["Libre mercado", "Valores familiares", "Crecimiento económico", "Seguridad"],
+    trayectoria: [
+      { id: "alcalde-lima-2023", rol: "Alcalde de Lima", periodo: "2023 - Presente", descripcion: "Enfocado en la recuperación económica y la seguridad ciudadana." },
+      { id: "empresario-1990", rol: "Empresario", periodo: "1990 - 2023", descripcion: "Desarrollo de proyectos empresariales exitosos en diversos sectores." },
+      { id: "candidato-2021", rol: "Candidato", periodo: "2021 - 2021", descripcion: "Participación en las elecciones presidenciales de 2021." }
     ],
-    powerMap: [
-      { role: "Alcalde de Lima", from: "2023", to: "2026" },
-      { role: "Empresario", from: "1990", to: "2023" },
-      { role: "Candidato", from: "2021", to: "2021" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 10 },
-      { week: "2024-W02", clips: 14 },
-      { week: "2024-W03", clips: 18 },
-      { week: "2024-W04", clips: 21 },
-      { week: "2024-W05", clips: 25 },
-      { week: "2024-W06", clips: 23 }
-    ],
+    presenciaDigital: {
+      facebook: "Activo en redes sociales como Facebook y Twitter, donde comparte sus opiniones sobre economía y política.",
+      youtube: "También tiene un canal de YouTube donde publica entrevistas y análisis de la actualidad nacional."
+    },
+    mapaDePoder: {
+      alianzas: ["Empresarios", "Iglesia Católica", "Organizaciones de seguridad"],
+      opositores: ["Sectores progresistas", "Sindicalistas"],
+      seguidores: "Aprox. 1.2M en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&auto=format"
   },
@@ -107,29 +116,26 @@ export const candidates: Candidate[] = [
     id: "yonhy",
     nombre: "Yonhy Lescano",
     ideologia: "Centro",
-    summary: "Propuesta centrista con enfoque en institucionalidad y diálogo nacional",
-    profession: "Abogado / Periodista",
-    keyBeliefs: ["Institucionalidad", "Transparencia", "Diálogo nacional"],
-    clips: [
-      { title: "Institucionalidad Democrática", url: "#", t: 1642089600 },
-      { title: "Transparencia Gubernamental", url: "#", t: 1642003200 },
-      { title: "Reforma Judicial", url: "#", t: 1641916800 },
-      { title: "Desarrollo Regional", url: "#", t: 1641830400 },
-      { title: "Propuesta Política", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Propuesta Centrista",
+      resumen: "Un enfoque equilibrado que prioriza la institucionalidad y el diálogo nacional para el desarrollo del país."
+    },
+    creenciasClave: ["Institucionalidad", "Transparencia", "Diálogo nacional", "Desarrollo sostenible"],
+    trayectoria: [
+      { id: "congresista-2020", rol: "Congresista", periodo: "2020 - Presente", descripcion: "Trabajo en comisiones de justicia y defensa del consumidor." },
+      { id: "periodista-2000", rol: "Periodista", periodo: "2000 - 2020", descripcion: "Labor en medios de comunicación y análisis político." },
+      { id: "abogado-1985", rol: "Abogado", periodo: "1985 - 2000", descripcion: "Ejercicio de la abogacía y defensa de derechos humanos." }
     ],
-    powerMap: [
-      { role: "Congresista", from: "2020", to: "2026" },
-      { role: "Periodista", from: "2000", to: "2020" },
-      { role: "Abogado", from: "1985", to: "2000" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 8 },
-      { week: "2024-W02", clips: 12 },
-      { week: "2024-W03", clips: 16 },
-      { week: "2024-W04", clips: 19 },
-      { week: "2024-W05", clips: 22 },
-      { week: "2024-W06", clips: 20 }
-    ],
+    presenciaDigital: {
+      twitter: "Presente en Twitter y Facebook, donde comparte análisis políticos y propuestas legislativas.",
+      facebook: "Presente en Twitter y Facebook, donde comparte análisis políticos y propuestas legislativas.",
+      youtube: "En YouTube, publica videos explicando temas legales y políticos de interés público."
+    },
+    mapaDePoder: {
+      alianzas: ["Organizaciones de derechos humanos", "Medios de comunicación"],
+      opositores: ["Corrupción", "Abusos de poder"],
+      seguidores: "Aprox. 900K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format"
   },
@@ -137,29 +143,26 @@ export const candidates: Candidate[] = [
     id: "antauro",
     nombre: "Antauro Humala",
     ideologia: "Nacionalista",
-    summary: "Nacionalismo peruano y transformación desde las bases populares",
-    profession: "Militar retirado / Político",
-    keyBeliefs: ["Nacionalismo", "Soberanía", "Justicia popular"],
-    clips: [
-      { title: "Nacionalismo Peruano", url: "#", t: 1642089600 },
-      { title: "Soberanía Nacional", url: "#", t: 1642003200 },
-      { title: "Poder Popular", url: "#", t: 1641916800 },
-      { title: "Reforma del Estado", url: "#", t: 1641830400 },
-      { title: "Entrevista Histórica", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Patria y Justicia",
+      resumen: "Un proyecto nacionalista que busca la soberanía y la justicia social para todos los peruanos."
+    },
+    creenciasClave: ["Nacionalismo", "Soberanía", "Justicia popular", "Antiimperialismo"],
+    trayectoria: [
+      { id: "lider-etnocacerista-2005", rol: "Líder Etnocacerista", periodo: "2005 - Presente", descripcion: "Promotor de un nacionalismo radical y de izquierda." },
+      { id: "mayor-ep-1982", rol: "Mayor EP", periodo: "1982 - 2000", descripcion: "Carrera militar con énfasis en la defensa y el orden interno." },
+      { id: "activista-2000", rol: "Activista", periodo: "2000 - 2005", descripcion: "Participación activa en movimientos sociales y políticos." }
     ],
-    powerMap: [
-      { role: "Líder Etnocacerista", from: "2005", to: "2026" },
-      { role: "Mayor EP", from: "1982", to: "2000" },
-      { role: "Activista", from: "2000", to: "2005" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 5 },
-      { week: "2024-W02", clips: 8 },
-      { week: "2024-W03", clips: 12 },
-      { week: "2024-W04", clips: 15 },
-      { week: "2024-W05", clips: 18 },
-      { week: "2024-W06", clips: 16 }
-    ],
+    presenciaDigital: {
+      facebook: "Utiliza Facebook y Twitter para difundir su mensaje nacionalista y movilizar a sus seguidores.",
+      twitter: "Utiliza Facebook y Twitter para difundir su mensaje nacionalista y movilizar a sus seguidores.",
+      youtube: "En YouTube, tiene un canal donde publica discursos y entrevistas."
+    },
+    mapaDePoder: {
+      alianzas: ["Movimientos nacionalistas", "Sindicatos de trabajadores"],
+      opositores: ["Empresarios", "Medios de comunicación"],
+      seguidores: "Aprox. 700K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format"
   },
@@ -167,29 +170,27 @@ export const candidates: Candidate[] = [
     id: "patricia",
     nombre: "Patricia Chirinos",
     ideologia: "Liberal",
-    summary: "Liberalismo económico y social con enfoque en derechos individuales",
-    profession: "Abogada / Empresaria",
-    keyBeliefs: ["Libertad económica", "Derechos civiles", "Emprendimiento"],
-    clips: [
-      { title: "Libertades Individuales", url: "#", t: 1642089600 },
-      { title: "Emprendimiento Femenino", url: "#", t: 1642003200 },
-      { title: "Liberalismo Económico", url: "#", t: 1641916800 },
-      { title: "Derechos Civiles", url: "#", t: 1641830400 },
-      { title: "Debate Liberal", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Libertad y Desarrollo",
+      resumen: "Promoción de un liberalismo económico y social que garantice los derechos individuales y el emprendimiento."
+    },
+    creenciasClave: ["Libertad económica", "Derechos civiles", "Emprendimiento", "Igualdad de oportunidades"],
+    trayectoria: [
+      { id: "congresista-2021", rol: "Congresista", periodo: "2021 - Presente", descripcion: "Voz activa en temas de derechos humanos y libertades individuales." },
+      { id: "empresaria-2010", rol: "Empresaria", periodo: "2010 - 2021", descripcion: "Desarrollo de negocios con enfoque en la innovación y la sostenibilidad." },
+      { id: "abogada-1995", rol: "Abogada", periodo: "1995 - 2010", descripcion: "Ejercicio de la abogacía con énfasis en derechos humanos y derecho empresarial." }
     ],
-    powerMap: [
-      { role: "Congresista", from: "2021", to: "2026" },
-      { role: "Empresaria", from: "2010", to: "2021" },
-      { role: "Abogada", from: "1995", to: "2010" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 7 },
-      { week: "2024-W02", clips: 11 },
-      { week: "2024-W03", clips: 14 },
-      { week: "2024-W04", clips: 17 },
-      { week: "2024-W05", clips: 20 },
-      { week: "2024-W06", clips: 18 }
-    ],
+    presenciaDigital: {
+      twitter: "Activa en Twitter, Facebook e Instagram, donde comparte contenido sobre derechos humanos, emprendimiento y política.",
+      facebook: "Activa en Twitter, Facebook e Instagram, donde comparte contenido sobre derechos humanos, emprendimiento y política.",
+      instagram: "Activa en Twitter, Facebook e Instagram, donde comparte contenido sobre derechos humanos, emprendimiento y política.",
+      youtube: "En YouTube, tiene un canal donde publica entrevistas y análisis de actualidad."
+    },
+    mapaDePoder: {
+      alianzas: ["Empresarios", "Organizaciones de derechos humanos", "Movimientos estudiantiles"],
+      opositores: ["Sectores conservadores", "Gremios sindicales"],
+      seguidores: "Aprox. 850K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop&auto=format"
   },
@@ -197,29 +198,27 @@ export const candidates: Candidate[] = [
     id: "george",
     nombre: "George Forsyth",
     ideologia: "Centro-derecha",
-    summary: "Gestión moderna y eficiente con experiencia municipal",
-    profession: "Ex-futbolista / Alcalde",
-    keyBeliefs: ["Gestión eficiente", "Modernización", "Deportes"],
-    clips: [
-      { title: "Gestión Municipal", url: "#", t: 1642089600 },
-      { title: "Modernización del Estado", url: "#", t: 1642003200 },
-      { title: "Juventud y Deportes", url: "#", t: 1641916800 },
-      { title: "Eficiencia Pública", url: "#", t: 1641830400 },
-      { title: "Propuesta de Gobierno", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Gestión y Progreso",
+      resumen: "Una propuesta centrada en la gestión eficiente y la modernización del estado para el desarrollo integral del país."
+    },
+    creenciasClave: ["Gestión eficiente", "Modernización", "Deportes", "Transparencia"],
+    trayectoria: [
+      { id: "alcalde-la-victoria-2019", rol: "Alcalde La Victoria", periodo: "2019 - 2022", descripcion: "Gestión enfocada en la seguridad ciudadana y el desarrollo urbano." },
+      { id: "futbolista-profesional-1997", rol: "Futbolista Profesional", periodo: "1997 - 2015", descripcion: "Carrera destacada en el fútbol profesional, con reconocimiento internacional." },
+      { id: "politico-2019", rol: "Político", periodo: "2019 - 2026", descripcion: "Participación activa en la política peruana, con énfasis en la gestión pública." }
     ],
-    powerMap: [
-      { role: "Alcalde La Victoria", from: "2019", to: "2022" },
-      { role: "Futbolista Profesional", from: "1997", to: "2015" },
-      { role: "Político", from: "2019", to: "2026" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 9 },
-      { week: "2024-W02", clips: 13 },
-      { week: "2024-W03", clips: 17 },
-      { week: "2024-W04", clips: 20 },
-      { week: "2024-W05", clips: 24 },
-      { week: "2024-W06", clips: 22 }
-    ],
+    presenciaDigital: {
+      instagram: "Activo en redes sociales como Instagram, Twitter y Facebook, donde comparte su visión sobre la gestión pública y el desarrollo del país.",
+      twitter: "Activo en redes sociales como Instagram, Twitter y Facebook, donde comparte su visión sobre la gestión pública y el desarrollo del país.",
+      facebook: "Activo en redes sociales como Instagram, Twitter y Facebook, donde comparte su visión sobre la gestión pública y el desarrollo del país.",
+      youtube: "En YouTube, publica videos sobre su gestión como alcalde y proyectos futuros."
+    },
+    mapaDePoder: {
+      alianzas: ["Empresarios", "Organizaciones deportivas", "Grupos de jóvenes"],
+      opositores: ["Sectores de izquierda", "Críticos de su gestión"],
+      seguidores: "Aprox. 1.1M en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop&auto=format"
   },
@@ -227,29 +226,26 @@ export const candidates: Candidate[] = [
     id: "ciro",
     nombre: "Ciro Gálvez",
     ideologia: "Conservador",
-    summary: "Valores tradicionales y desarrollo regional con enfoque cultural",
-    profession: "Escritor / Político",
-    keyBeliefs: ["Cultura nacional", "Desarrollo regional", "Tradiciones"],
-    clips: [
-      { title: "Identidad Cultural", url: "#", t: 1642089600 },
-      { title: "Desarrollo del Norte", url: "#", t: 1642003200 },
-      { title: "Tradiciones Peruanas", url: "#", t: 1641916800 },
-      { title: "Literatura y Política", url: "#", t: 1641830400 },
-      { title: "Regionalismo", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Cultura y Desarrollo",
+      resumen: "Defensa de los valores tradicionales y promoción del desarrollo regional con un enfoque en la cultura nacional."
+    },
+    creenciasClave: ["Cultura nacional", "Desarrollo regional", "Tradiciones", "Familia"],
+    trayectoria: [
+      { id: "escritor-1980", rol: "Escritor", periodo: "1980 - Presente", descripcion: "Obra literaria centrada en la identidad y cultura peruana." },
+      { id: "gobernador-regional-2015", rol: "Gobernador Regional", periodo: "2015 - 2018", descripcion: "Gestión regional con énfasis en el desarrollo cultural y turístico." },
+      { id: "politico-regional-2010", rol: "Político Regional", periodo: "2010 - 2026", descripcion: "Participación activa en la política regional, promoviendo el desarrollo sostenible." }
     ],
-    powerMap: [
-      { role: "Escritor", from: "1980", to: "2026" },
-      { role: "Gobernador Regional", from: "2015", to: "2018" },
-      { role: "Político Regional", from: "2010", to: "2026" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 4 },
-      { week: "2024-W02", clips: 7 },
-      { week: "2024-W03", clips: 10 },
-      { week: "2024-W04", clips: 13 },
-      { week: "2024-W05", clips: 16 },
-      { week: "2024-W06", clips: 14 }
-    ],
+    presenciaDigital: {
+      facebook: "Utiliza Facebook y Twitter para compartir sus escritos, opiniones sobre política y cultura, y para promover sus actividades como político y escritor.",
+      twitter: "Utiliza Facebook y Twitter para compartir sus escritos, opiniones sobre política y cultura, y para promover sus actividades como político y escritor.",
+      youtube: "En YouTube, tiene un canal donde publica conferencias y charlas sobre temas culturales y políticos."
+    },
+    mapaDePoder: {
+      alianzas: ["Organizaciones culturales", "Grupos de escritores", "Movimientos conservadores"],
+      opositores: ["Sectores progresistas", "Críticos de su gestión"],
+      seguidores: "Aprox. 600K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&auto=format"
   },
@@ -257,29 +253,26 @@ export const candidates: Candidate[] = [
     id: "daniel",
     nombre: "Daniel Urresti",
     ideologia: "Centro-izquierda",
-    summary: "Seguridad y orden con enfoque en justicia social",
-    profession: "General EP (r) / Político",
-    keyBeliefs: ["Seguridad ciudadana", "Orden público", "Justicia social"],
-    clips: [
-      { title: "Plan de Seguridad", url: "#", t: 1642089600 },
-      { title: "Orden y Justicia", url: "#", t: 1642003200 },
-      { title: "Experiencia Militar", url: "#", t: 1641916800 },
-      { title: "Política de Estado", url: "#", t: 1641830400 },
-      { title: "Lucha Antidrogas", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Seguridad y Desarrollo",
+      resumen: "Un enfoque en la seguridad ciudadana y el desarrollo social para construir un Perú más justo y seguro."
+    },
+    creenciasClave: ["Seguridad ciudadana", "Orden público", "Justicia social", "Desarrollo humano"],
+    trayectoria: [
+      { id: "congresista-2020", rol: "Congresista", periodo: "2020 - Presente", descripcion: "Trabajo en comisiones de defensa y seguridad ciudadana." },
+      { id: "ministro-interior-2014", rol: "Ministro del Interior", periodo: "2014 - 2015", descripcion: "Implementación de políticas de seguridad y lucha contra la corrupción." },
+      { id: "general-ep-1978", rol: "General EP", periodo: "1978 - 2014", descripcion: "Carrera militar con énfasis en la seguridad y el orden interno." }
     ],
-    powerMap: [
-      { role: "Congresista", from: "2020", to: "2026" },
-      { role: "Ministro del Interior", from: "2014", to: "2015" },
-      { role: "General EP", from: "1978", to: "2014" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 6 },
-      { week: "2024-W02", clips: 10 },
-      { week: "2024-W03", clips: 13 },
-      { week: "2024-W04", clips: 16 },
-      { week: "2024-W05", clips: 19 },
-      { week: "2024-W06", clips: 17 }
-    ],
+    presenciaDigital: {
+      twitter: "Activo en Twitter y Facebook, donde comparte su visión sobre seguridad y desarrollo.",
+      facebook: "Activo en Twitter y Facebook, donde comparte su visión sobre seguridad y desarrollo.",
+      youtube: "En YouTube, publica videos sobre su gestión como ministro y congresista."
+    },
+    mapaDePoder: {
+      alianzas: ["Fuerzas Armadas", "Policía Nacional", "Organizaciones de seguridad"],
+      opositores: ["Sectores de izquierda", "Críticos de su gestión"],
+      seguidores: "Aprox. 750K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=600&fit=crop&auto=format"
   },
@@ -287,29 +280,26 @@ export const candidates: Candidate[] = [
     id: "julio",
     nombre: "Julio Guzmán",
     ideologia: "Centro",
-    summary: "Tecnología y modernización para un Perú digital y competitivo",
-    profession: "Economista / Consultor",
-    keyBeliefs: ["Innovación tecnológica", "Competitividad", "Educación digital"],
-    clips: [
-      { title: "Perú Digital 2030", url: "#", t: 1642089600 },
-      { title: "Innovación y Tecnología", url: "#", t: 1642003200 },
-      { title: "Competitividad Global", url: "#", t: 1641916800 },
-      { title: "Educación 4.0", url: "#", t: 1641830400 },
-      { title: "Economía Digital", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Innovación y Competitividad",
+      resumen: "Impulso de la tecnología y la modernización para un Perú digital y competitivo en el mundo."
+    },
+    creenciasClave: ["Innovación tecnológica", "Competitividad", "Educación digital", "Emprendimiento"],
+    trayectoria: [
+      { id: "candidato-presidencial-2016", rol: "Candidato Presidencial", periodo: "2016 - Presente", descripcion: "Promotor de una agenda de modernización y desarrollo tecnológico." },
+      { id: "consultor-internacional-2005", rol: "Consultor Internacional", periodo: "2005 - 2016", descripcion: "Asesoría en proyectos de desarrollo y modernización en diversos países." },
+      { id: "economista-1995", rol: "Economista", periodo: "1995 - 2005", descripcion: "Ejercicio de la profesión con énfasis en el desarrollo económico y social." }
     ],
-    powerMap: [
-      { role: "Candidato Presidencial", from: "2016", to: "2026" },
-      { role: "Consultor Internacional", from: "2005", to: "2016" },
-      { role: "Economista", from: "1995", to: "2005" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 11 },
-      { week: "2024-W02", clips: 15 },
-      { week: "2024-W03", clips: 19 },
-      { week: "2024-W04", clips: 22 },
-      { week: "2024-W05", clips: 26 },
-      { week: "2024-W06", clips: 24 }
-    ],
+    presenciaDigital: {
+      twitter: "Muy activo en LinkedIn, donde comparte artículos y análisis sobre economía, tecnología y política.",
+      facebook: "En Twitter y Facebook, publica sobre sus actividades políticas y proyectos.",
+      youtube: "También tiene un canal de YouTube donde explica conceptos económicos y tecnológicos."
+    },
+    mapaDePoder: {
+      alianzas: ["Empresas de tecnología", "Organizaciones de desarrollo económico", "Universidades"],
+      opositores: ["Sectores conservadores", "Críticos de la modernización"],
+      seguidores: "Aprox. 950K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format"
   },
@@ -317,29 +307,26 @@ export const candidates: Candidate[] = [
     id: "alberto",
     nombre: "Alberto Beingolea",
     ideologia: "Socialdemócrata",
-    summary: "Desarrollo sostenible y equidad social para el progreso nacional",
-    profession: "Ingeniero / Político",
-    keyBeliefs: ["Desarrollo sostenible", "Equidad social", "Medio ambiente"],
-    clips: [
-      { title: "Desarrollo Sostenible", url: "#", t: 1642089600 },
-      { title: "Equidad y Progreso", url: "#", t: 1642003200 },
-      { title: "Política Ambiental", url: "#", t: 1641916800 },
-      { title: "Ingeniería Social", url: "#", t: 1641830400 },
-      { title: "Futuro Verde", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Desarrollo Sostenible",
+      resumen: "Promoción de un desarrollo sostenible y equidad social para el progreso nacional."
+    },
+    creenciasClave: ["Desarrollo sostenible", "Equidad social", "Medio ambiente", "Derechos laborales"],
+    trayectoria: [
+      { id: "politico-veterano-1985", rol: "Político Veterano", periodo: "1985 - Presente", descripcion: "Amplia trayectoria en la política peruana, promoviendo el desarrollo sostenible." },
+      { id: "ingeniero-1970", rol: "Ingeniero", periodo: "1970 - 1985", descripcion: "Ejercicio de la ingeniería con énfasis en proyectos sostenibles y de impacto social." },
+      { id: "candidato-2006", rol: "Candidato", periodo: "2006 - 2026", descripcion: "Participación en múltiples elecciones con una agenda socialdemócrata." }
     ],
-    powerMap: [
-      { role: "Político Veterano", from: "1985", to: "2026" },
-      { role: "Ingeniero", from: "1970", to: "1985" },
-      { role: "Candidato", from: "2006", to: "2026" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 3 },
-      { week: "2024-W02", clips: 6 },
-      { week: "2024-W03", clips: 9 },
-      { week: "2024-W04", clips: 12 },
-      { week: "2024-W05", clips: 15 },
-      { week: "2024-W06", clips: 13 }
-    ],
+    presenciaDigital: {
+      facebook: "Activo en Facebook y Twitter, donde comparte su visión sobre desarrollo sostenible y equidad social.",
+      twitter: "Activo en Facebook y Twitter, donde comparte su visión sobre desarrollo sostenible y equidad social.",
+      youtube: "En YouTube, publica videos sobre sus propuestas y análisis de la actualidad política."
+    },
+    mapaDePoder: {
+      alianzas: ["Organizaciones ambientalistas", "Sindicatos", "Movimientos sociales"],
+      opositores: ["Sectores empresariales", "Críticos del estado"],
+      seguidores: "Aprox. 800K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&auto=format"
   },
@@ -347,29 +334,26 @@ export const candidates: Candidate[] = [
     id: "marco",
     nombre: "Marco Arana",
     ideologia: "Ecologista",
-    summary: "Protección ambiental y desarrollo humano sostenible",
-    profession: "Sacerdote / Ambientalista",
-    keyBeliefs: ["Ecología integral", "Derechos humanos", "Espiritualidad"],
-    clips: [
-      { title: "Ecología Integral", url: "#", t: 1642089600 },
-      { title: "Derechos Ambientales", url: "#", t: 1642003200 },
-      { title: "Espiritualidad y Política", url: "#", t: 1641916800 },
-      { title: "Desarrollo Humano", url: "#", t: 1641830400 },
-      { title: "Protección de la Vida", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Ecología y Justicia",
+      resumen: "Protección ambiental y desarrollo humano sostenible como ejes de un nuevo modelo de país."
+    },
+    creenciasClave: ["Ecología integral", "Derechos humanos", "Espiritualidad", "Justicia social"],
+    trayectoria: [
+      { id: "ambientalista-2000", rol: "Ambientalista", periodo: "2000 - Presente", descripcion: "Defensor de la ecología integral y los derechos humanos." },
+      { id: "sacerdote-1986", rol: "Sacerdote", periodo: "1986 - 2000", descripcion: "Labor pastoral con énfasis en la justicia social y la defensa de los pobres." },
+      { id: "activista-2005", rol: "Activista", periodo: "2005 - 2026", descripcion: "Participación activa en movimientos sociales y políticos por la justicia ambiental y social." }
     ],
-    powerMap: [
-      { role: "Ambientalista", from: "2000", to: "2026" },
-      { role: "Sacerdote", from: "1986", to: "2000" },
-      { role: "Activista", from: "2005", to: "2026" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 2 },
-      { week: "2024-W02", clips: 5 },
-      { week: "2024-W03", clips: 8 },
-      { week: "2024-W04", clips: 11 },
-      { week: "2024-W05", clips: 14 },
-      { week: "2024-W06", clips: 12 }
-    ],
+    presenciaDigital: {
+      facebook: "Utiliza Facebook y Twitter para difundir su mensaje ecologista y movilizar a sus seguidores.",
+      twitter: "Utiliza Facebook y Twitter para difundir su mensaje ecologista y movilizar a sus seguidores.",
+      youtube: "En YouTube, tiene un canal donde publica documentales y entrevistas sobre temas ambientales y sociales."
+    },
+    mapaDePoder: {
+      alianzas: ["Organizaciones ecologistas", "Movimientos sociales", "Iglesia progresista"],
+      opositores: ["Empresarios", "Medios de comunicación"],
+      seguidores: "Aprox. 650K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=600&fit=crop&auto=format"
   },
@@ -377,29 +361,27 @@ export const candidates: Candidate[] = [
     id: "maria",
     nombre: "María Rivera",
     ideologia: "Feminista",
-    summary: "Igualdad de género y empoderamiento de la mujer peruana",
-    profession: "Socióloga / Activista",
-    keyBeliefs: ["Igualdad de género", "Empoderamiento femenino", "Justicia reproductiva"],
-    clips: [
-      { title: "Igualdad de Género", url: "#", t: 1642089600 },
-      { title: "Empoderamiento Femenino", url: "#", t: 1642003200 },
-      { title: "Justicia Reproductiva", url: "#", t: 1641916800 },
-      { title: "Violencia de Género", url: "#", t: 1641830400 },
-      { title: "Participación Política", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Igualdad y Oportunidad",
+      resumen: "Lucha por la igualdad de género y el empoderamiento de la mujer peruana en todos los ámbitos."
+    },
+    creenciasClave: ["Igualdad de género", "Empoderamiento femenino", "Justicia reproductiva", "Derechos laborales"],
+    trayectoria: [
+      { id: "activista-2010", rol: "Activista", periodo: "2010 - Presente", descripcion: "Defensora de los derechos de las mujeres y la igualdad de género." },
+      { id: "sociologa-2005", rol: "Socióloga", periodo: "2005 - 2010", descripcion: "Investigación y análisis sobre la situación de las mujeres en Perú." },
+      { id: "candidata-2024", rol: "Candidata", periodo: "2024 - 2026", descripcion: "Participación en las elecciones con una agenda feminista." }
     ],
-    powerMap: [
-      { role: "Activista", from: "2010", to: "2026" },
-      { role: "Socióloga", from: "2005", to: "2010" },
-      { role: "Candidata", from: "2024", to: "2026" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 8 },
-      { week: "2024-W02", clips: 12 },
-      { week: "2024-W03", clips: 15 },
-      { week: "2024-W04", clips: 18 },
-      { week: "2024-W05", clips: 21 },
-      { week: "2024-W06", clips: 19 }
-    ],
+    presenciaDigital: {
+      instagram: "Muy activa en redes sociales como Instagram, Twitter y Facebook, donde comparte contenido sobre derechos de las mujeres, igualdad de género y justicia social.",
+      twitter: "Muy activa en redes sociales como Instagram, Twitter y Facebook, donde comparte contenido sobre derechos de las mujeres, igualdad de género y justicia social.",
+      facebook: "Muy activa en redes sociales como Instagram, Twitter y Facebook, donde comparte contenido sobre derechos de las mujeres, igualdad de género y justicia social.",
+      youtube: "En YouTube, tiene un canal donde publica entrevistas y análisis sobre temas de género."
+    },
+    mapaDePoder: {
+      alianzas: ["Organizaciones feministas", "Sindicatos de mujeres", "Movimientos sociales"],
+      opositores: ["Sectores conservadores", "Críticos del feminismo"],
+      seguidores: "Aprox. 1.3M en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&auto=format"
   },
@@ -407,29 +389,26 @@ export const candidates: Candidate[] = [
     id: "pedro",
     nombre: "Pedro Castillo Jr",
     ideologia: "Izquierda rural",
-    summary: "Representación campesina y desarrollo del Perú profundo",
-    profession: "Profesor / Sindicalista",
-    keyBeliefs: ["Educación rural", "Derechos campesinos", "Descentralización"],
-    clips: [
-      { title: "Educación Rural", url: "#", t: 1642089600 },
-      { title: "Derechos del Campo", url: "#", t: 1642003200 },
-      { title: "Descentralización Real", url: "#", t: 1641916800 },
-      { title: "Perú Profundo", url: "#", t: 1641830400 },
-      { title: "Sindicalismo Magisterial", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Perú Profundo",
+      resumen: "Representación campesina y desarrollo del Perú profundo, con énfasis en la educación y derechos campesinos."
+    },
+    creenciasClave: ["Educación rural", "Derechos campesinos", "Descentralización", "Desarrollo sostenible"],
+    trayectoria: [
+      { id: "profesor-1995", rol: "Profesor", periodo: "1995 - Presente", descripcion: "Enseñanza y defensa de los derechos educativos en zonas rurales." },
+      { id: "sindicalista-2010", rol: "Sindicalista", periodo: "2010 - 2026", descripcion: "Liderazgo en la defensa de los derechos laborales y sociales de los campesinos." },
+      { id: "politico-2021", rol: "Político", periodo: "2021 - 2026", descripcion: "Representación política de las comunidades rurales y campesinas." }
     ],
-    powerMap: [
-      { role: "Profesor", from: "1995", to: "2026" },
-      { role: "Sindicalista", from: "2010", to: "2026" },
-      { role: "Político", from: "2021", to: "2026" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 13 },
-      { week: "2024-W02", clips: 17 },
-      { week: "2024-W03", clips: 21 },
-      { week: "2024-W04", clips: 24 },
-      { week: "2024-W05", clips: 28 },
-      { week: "2024-W06", clips: 26 }
-    ],
+    presenciaDigital: {
+      facebook: "Activo en Facebook y Twitter, donde comparte su visión sobre educación rural, derechos campesinos y desarrollo sostenible.",
+      twitter: "Activo en Facebook y Twitter, donde comparte su visión sobre educación rural, derechos campesinos y desarrollo sostenible.",
+      youtube: "En YouTube, publica videos sobre sus actividades como profesor y sindicalista."
+    },
+    mapaDePoder: {
+      alianzas: ["Sindicatos campesinos", "Organizaciones de derechos humanos", "Movimientos sociales"],
+      opositores: ["Empresarios", "Medios de comunicación"],
+      seguidores: "Aprox. 700K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format"
   },
@@ -437,29 +416,26 @@ export const candidates: Candidate[] = [
     id: "luis",
     nombre: "Luis Valdez",
     ideologia: "Tecnocrático",
-    summary: "Gestión basada en evidencia y políticas públicas eficaces",
-    profession: "Economista / Consultor",
-    keyBeliefs: ["Políticas basadas en evidencia", "Eficiencia gubernamental", "Meritocracia"],
-    clips: [
-      { title: "Políticas Públicas", url: "#", t: 1642089600 },
-      { title: "Evidencia Científica", url: "#", t: 1642003200 },
-      { title: "Meritocracia", url: "#", t: 1641916800 },
-      { title: "Eficiencia Estatal", url: "#", t: 1641830400 },
-      { title: "Tecnocracia Moderna", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Gestión Basada en Evidencia",
+      resumen: "Implementación de políticas públicas eficaces y eficientes, basadas en evidencia científica y datos abiertos."
+    },
+    creenciasClave: ["Políticas basadas en evidencia", "Eficiencia gubernamental", "Meritocracia", "Transparencia"],
+    trayectoria: [
+      { id: "consultor-2010", rol: "Consultor", periodo: "2010 - Presente", descripcion: "Asesoría en la formulación e implementación de políticas públicas." },
+      { id: "economista-2000", rol: "Economista", periodo: "2000 - 2010", descripcion: "Ejercicio de la profesión con énfasis en el análisis y evaluación de políticas públicas." },
+      { id: "academico-1995", rol: "Académico", periodo: "1995 - 2000", descripcion: "Docencia e investigación en economía y políticas públicas." }
     ],
-    powerMap: [
-      { role: "Consultor", from: "2010", to: "2026" },
-      { role: "Economista", from: "2000", to: "2010" },
-      { role: "Académico", from: "1995", to: "2000" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 6 },
-      { week: "2024-W02", clips: 9 },
-      { week: "2024-W03", clips: 12 },
-      { week: "2024-W04", clips: 15 },
-      { week: "2024-W05", clips: 18 },
-      { week: "2024-W06", clips: 16 }
-    ],
+    presenciaDigital: {
+      twitter: "Activo en LinkedIn, Twitter y Facebook, donde comparte artículos y análisis sobre políticas públicas, economía y gestión gubernamental.",
+      facebook: "Activo en LinkedIn, Twitter y Facebook, donde comparte artículos y análisis sobre políticas públicas, economía y gestión gubernamental.",
+      youtube: "En YouTube, publica videos explicando conceptos económicos y de políticas públicas."
+    },
+    mapaDePoder: {
+      alianzas: ["Academia", "Organizaciones internacionales", "Grupos de expertos en políticas públicas"],
+      opositores: ["Sectores políticos tradicionales", "Críticos de la tecnocracia"],
+      seguidores: "Aprox. 500K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1556474835-a7ed57b0b9c7?w=400&h=600&fit=crop&auto=format"
   },
@@ -467,29 +443,26 @@ export const candidates: Candidate[] = [
     id: "carmen",
     nombre: "Carmen Salinas",
     ideologia: "Populista",
-    summary: "Gobierno del pueblo para el pueblo con participación ciudadana",
-    profession: "Comerciante / Líder social",
-    keyBeliefs: ["Participación ciudadana", "Gobierno popular", "Economía familiar"],
-    clips: [
-      { title: "Poder Popular", url: "#", t: 1642089600 },
-      { title: "Participación Ciudadana", url: "#", t: 1642003200 },
-      { title: "Economía Familiar", url: "#", t: 1641916800 },
-      { title: "Liderazgo Social", url: "#", t: 1641830400 },
-      { title: "Gobierno del Pueblo", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Gobierno del Pueblo",
+      resumen: "Un enfoque en la participación ciudadana y el gobierno popular para atender las necesidades del pueblo."
+    },
+    creenciasClave: ["Participación ciudadana", "Gobierno popular", "Economía familiar", "Solidaridad"],
+    trayectoria: [
+      { id: "lider-social-2015", rol: "Líder Social", periodo: "2015 - Presente", descripcion: "Trabajo comunitario y liderazgo en la defensa de los derechos sociales." },
+      { id: "comerciante-2000", rol: "Comerciante", periodo: "2000 - 2015", descripcion: "Desarrollo de un negocio familiar y participación en la economía local." },
+      { id: "activista-2010", rol: "Activista", periodo: "2010 - 2026", descripcion: "Participación activa en movimientos sociales y políticos." }
     ],
-    powerMap: [
-      { role: "Líder Social", from: "2015", to: "2026" },
-      { role: "Comerciante", from: "2000", to: "2015" },
-      { role: "Activista", from: "2010", to: "2026" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 14 },
-      { week: "2024-W02", clips: 18 },
-      { week: "2024-W03", clips: 22 },
-      { week: "2024-W04", clips: 25 },
-      { week: "2024-W05", clips: 29 },
-      { week: "2024-W06", clips: 27 }
-    ],
+    presenciaDigital: {
+      instagram: "Activa en Facebook e Instagram, donde comparte contenido sobre participación ciudadana, economía familiar y solidaridad.",
+      facebook: "Activa en Facebook e Instagram, donde comparte contenido sobre participación ciudadana, economía familiar y solidaridad.",
+      youtube: "En YouTube, tiene un canal donde publica entrevistas y análisis sobre política y sociedad."
+    },
+    mapaDePoder: {
+      alianzas: ["Organizaciones sociales", "Sindicatos", "Movimientos populares"],
+      opositores: ["Sectores empresariales", "Críticos del populismo"],
+      seguidores: "Aprox. 900K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop&auto=format"
   },
@@ -497,29 +470,26 @@ export const candidates: Candidate[] = [
     id: "miguel",
     nombre: "Miguel Torres",
     ideologia: "Regionalista",
-    summary: "Desarrollo descentralizado y fortalecimiento de las regiones",
-    profession: "Alcalde / Gestor público",
-    keyBeliefs: ["Descentralización", "Desarrollo regional", "Autonomía local"],
-    clips: [
-      { title: "Descentralización Real", url: "#", t: 1642089600 },
-      { title: "Poder Regional", url: "#", t: 1642003200 },
-      { title: "Autonomía Municipal", url: "#", t: 1641916800 },
-      { title: "Desarrollo Local", url: "#", t: 1641830400 },
-      { title: "Gestión Provincial", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Desarrollo Regional",
+      resumen: "Fortalecimiento de las regiones y promoción de un desarrollo descentralizado y autónomo."
+    },
+    creenciasClave: ["Descentralización", "Desarrollo regional", "Autonomía local", "Identidad regional"],
+    trayectoria: [
+      { id: "alcalde-provincial-2019", rol: "Alcalde Provincial", periodo: "2019 - 2026", descripcion: "Gestión provincial con énfasis en el desarrollo local y la descentralización." },
+      { id: "regidor-2015", rol: "Regidor", periodo: "2015 - 2019", descripcion: "Trabajo en la municipalidad provincial, promoviendo el desarrollo regional." },
+      { id: "gestor-publico-2010", rol: "Gestor Público", periodo: "2010 - 2015", descripcion: "Gestión de proyectos públicos en diversas áreas." }
     ],
-    powerMap: [
-      { role: "Alcalde Provincial", from: "2019", to: "2026" },
-      { role: "Regidor", from: "2015", to: "2019" },
-      { role: "Gestor Público", from: "2010", to: "2015" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 5 },
-      { week: "2024-W02", clips: 8 },
-      { week: "2024-W03", clips: 11 },
-      { week: "2024-W04", clips: 14 },
-      { week: "2024-W05", clips: 17 },
-      { week: "2024-W06", clips: 15 }
-    ],
+    presenciaDigital: {
+      facebook: "Activo en Facebook y Twitter, donde comparte su visión sobre desarrollo regional, descentralización y autonomía local.",
+      twitter: "Activo en Facebook y Twitter, donde comparte su visión sobre desarrollo regional, descentralización y autonomía local.",
+      youtube: "En YouTube, publica videos sobre sus actividades como alcalde y proyectos de desarrollo regional."
+    },
+    mapaDePoder: {
+      alianzas: ["Gobiernos regionales", "Organizaciones de desarrollo local", "Movimientos regionalistas"],
+      opositores: ["Sectores centralistas", "Críticos de su gestión"],
+      seguidores: "Aprox. 600K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop&auto=format"
   },
@@ -527,29 +497,26 @@ export const candidates: Candidate[] = [
     id: "ana",
     nombre: "Ana Jara",
     ideologia: "Aprista",
-    summary: "Tradición aprista renovada para los nuevos tiempos",
-    profession: "Abogada / Ex-ministra",
-    keyBeliefs: ["Tradición aprista", "Justicia social", "Latinoamericanismo"],
-    clips: [
-      { title: "Tradición Aprista", url: "#", t: 1642089600 },
-      { title: "Renovación Política", url: "#", t: 1642003200 },
-      { title: "Justicia Social", url: "#", t: 1641916800 },
-      { title: "Integración Latinoamericana", url: "#", t: 1641830400 },
-      { title: "Experiencia Ministerial", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Renovación Aprista",
+      resumen: "Tradición aprista renovada para los nuevos tiempos, con énfasis en la justicia social y la integración latinoamericana."
+    },
+    creenciasClave: ["Tradición aprista", "Justicia social", "Latinoamericanismo", "Solidaridad"],
+    trayectoria: [
+      { id: "ex-ministra-2014", rol: "Ex-Ministra", periodo: "2014 - 2016", descripcion: "Gestión en el Ministerio de la Mujer y Poblaciones Vulnerables." },
+      { id: "abogada-1990", rol: "Abogada", periodo: "1990 - 2014", descripcion: "Ejercicio de la abogacía con énfasis en derechos humanos y derecho de familia." },
+      { id: "dirigente-aprista-2000", rol: "Dirigente Aprista", periodo: "2000 - 2026", descripcion: "Participación activa en la política peruana, promoviendo los valores apristas." }
     ],
-    powerMap: [
-      { role: "Ex-Ministra", from: "2014", to: "2016" },
-      { role: "Abogada", from: "1990", to: "2014" },
-      { role: "Dirigente Aprista", from: "2000", to: "2026" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 7 },
-      { week: "2024-W02", clips: 10 },
-      { week: "2024-W03", clips: 13 },
-      { week: "2024-W04", clips: 16 },
-      { week: "2024-W05", clips: 19 },
-      { week: "2024-W06", clips: 17 }
-    ],
+    presenciaDigital: {
+      facebook: "Activa en Facebook y Twitter, donde comparte su visión sobre justicia social, derechos humanos y política.",
+      twitter: "Activa en Facebook y Twitter, donde comparte su visión sobre justicia social, derechos humanos y política.",
+      youtube: "En YouTube, publica videos sobre sus actividades políticas y análisis de la actualidad."
+    },
+    mapaDePoder: {
+      alianzas: ["Partido Aprista", "Organizaciones de derechos humanos", "Movimientos sociales"],
+      opositores: ["Sectores conservadores", "Críticos del aprismo"],
+      seguidores: "Aprox. 500K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop&auto=format"
   },
@@ -557,29 +524,26 @@ export const candidates: Candidate[] = [
     id: "ricardo",
     nombre: "Ricardo Belmont Jr",
     ideologia: "Independiente",
-    summary: "Independencia política y gestión moderna sin partidos tradicionales",
-    profession: "Comunicador / Empresario",
-    keyBeliefs: ["Independencia política", "Comunicación directa", "Gestión moderna"],
-    clips: [
-      { title: "Independencia Total", url: "#", t: 1642089600 },
-      { title: "Comunicación Directa", url: "#", t: 1642003200 },
-      { title: "Sin Partidos", url: "#", t: 1641916800 },
-      { title: "Gestión Empresarial", url: "#", t: 1641830400 },
-      { title: "Nueva Política", url: "#", t: 1641744000 }
+    proyectoPolitico: {
+      titulo: "Nueva Política",
+      resumen: "Independencia política y gestión moderna sin partidos tradicionales, enfocada en el ciudadano."
+    },
+    creenciasClave: ["Independencia política", "Comunicación directa", "Gestión moderna", "Transparencia"],
+    trayectoria: [
+      { id: "comunicador-2000", rol: "Comunicador", periodo: "2000 - Presente", descripcion: "Labor en medios de comunicación, promoviendo la independencia y la transparencia." },
+      { id: "empresario-1995", rol: "Empresario", periodo: "1995 - 2000", descripcion: "Desarrollo de proyectos empresariales en el sector privado." },
+      { id: "independiente-2020", rol: "Independiente", periodo: "2020 - 2026", descripcion: "Participación en la política como candidato independiente." }
     ],
-    powerMap: [
-      { role: "Comunicador", from: "2000", to: "2026" },
-      { role: "Empresario", from: "1995", to: "2000" },
-      { role: "Independiente", from: "2020", to: "2026" }
-    ],
-    timeline: [
-      { week: "2024-W01", clips: 10 },
-      { week: "2024-W02", clips: 14 },
-      { week: "2024-W03", clips: 18 },
-      { week: "2024-W04", clips: 21 },
-      { week: "2024-W05", clips: 25 },
-      { week: "2024-W06", clips: 23 }
-    ],
+    presenciaDigital: {
+      twitter: "Activo en Twitter y Facebook, donde comparte su visión sobre independencia política, gestión moderna y transparencia.",
+      facebook: "Activo en Twitter y Facebook, donde comparte su visión sobre independencia política, gestión moderna y transparencia.",
+      youtube: "En YouTube, publica videos sobre sus actividades como comunicador y político."
+    },
+    mapaDePoder: {
+      alianzas: ["Organizaciones de la sociedad civil", "Grupos de independientes"],
+      opositores: ["Partidos tradicionales", "Críticos de su gestión"],
+      seguidores: "Aprox. 400K en redes"
+    },
     headshot: "https://images.unsplash.com/photo-1537511446984-935f663eb1f4?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format"
   }

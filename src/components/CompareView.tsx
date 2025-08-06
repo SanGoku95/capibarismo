@@ -1,8 +1,8 @@
 
 import { useCompareStore } from '@/store/useCompareStore';
 import { CandidateFullBody } from './CandidateFullBody';
-import { CandidateFactSheet } from './CandidateFactSheet';
-import { CandidateComparisonGrid } from './CandidateComparisonGrid';
+import { CandidateFactSheet } from './CompareViewDesktop';
+import { CandidateComparisonGrid } from './CompareViewMobile';
 
 export function CompareView() {
   const { leftCandidate, rightCandidate } = useCompareStore();
