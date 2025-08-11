@@ -598,7 +598,7 @@ export const candidates: Candidate[] = [
       }
     ],
     seguidores:
-      "Base digital (jóvenes/urbano-mestiza), electorado anticorrupción y parte del sur andino con memoria favorable de su gestión regional. Convertibilidad electoral real depende de revertir vetos judiciales/constitucionales."
+      "Base digital jóven/urbano, electorado anticorrupción y parte del sur andino con memoria favorable de su gestión regional."
   }
 },
   {
