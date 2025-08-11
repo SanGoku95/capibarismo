@@ -411,6 +411,197 @@ export const candidates: Candidate[] = [
     }
   },
   {
+  id: "martin-vizcarra",
+  nombre: "Martín Alberto Vizcarra Cornejo",
+  ideologia: "Centrista tecnocrático, descentralización",
+  headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
+  fullBody: "https://commons.wikimedia.org/wiki/Special:FilePath/2019-02-28,%20Pedro%20S%C3%A1nchez%20recibe%20al%20presidente%20de%20Per%C3%BA,%20Mart%C3%ADn%20Vizcarra,%20sanchezperu01.jpg?width=450",
+
+  proyectoPolitico: {
+    titulo: "Reforma Institucional Anticorrupción y Descentralización (Perú Primero)",
+    resumen:
+      "Agenda marcada por el referéndum 2018, la disolución del Congreso 2019 para destrabar reformas y, hoy, por el intento de reposicionarse con Perú Primero pese a inhabilitaciones múltiples.",
+    detalles: [
+      {
+        subtitulo: "Referéndum 2018: financiamiento, no reelección inmediata y rechazo al bicameralismo enmendado",
+        texto:
+          "Impulsó un paquete de cuatro reformas; tres fueron aprobadas ampliamente, la bicameralidad fue rechazada tras cambios del Congreso.",
+        fuente: "https://www.electionguide.org/elections/id/3184/"
+      },
+      {
+        subtitulo: "Disolución del Congreso (30/09/2019)",
+        texto:
+          "Cerró el parlamento tras 'denegación fáctica' de confianza para su agenda anticorrupción; originó la crisis constitucional 2019–2020.",
+        fuente: "https://en.wikipedia.org/wiki/2019%E2%80%932020_Peruvian_constitutional_crisis"
+      },
+      {
+        subtitulo: "Minería: 'licencia social' y manejo de conflictos",
+        texto:
+          "Suspendió la licencia de construcción de Tía María en 2019 mientras no hubiera condiciones sociales; en Moquegua promovió diálogo y acuerdos con Anglo American (Quellaveco).",
+        fuente: "https://www.nodal.am/2019/08/peru-el-gobierno-suspende-la-licencia-de-construccion-al-proyecto-minero-tia-maria-tras-semanas-de-protestas/"
+      }
+    ]
+  },
+
+  creenciasClave: [
+    {
+      id: "anticorrupcion-institucional",
+      nombre: "Anticorrupción por rediseño institucional",
+      resumen: "Usó referéndum y cuestión de confianza para forzar cambios.",
+      detalle: "Reformas a financiamiento político, eliminación de reelección inmediata de congresistas y pulso constante con un Congreso opositor.",
+      fuente: "https://www.reuters.com/article/world/peruvians-back-anti-corruption-reforms-in-referendum-exit-poll-idUSKBN1O80L9/"
+    },
+    {
+      id: "descentralizacion",
+      nombre: "Descentralización pragmática",
+      resumen: "Formado políticamente en Moquegua; enfoque en gestión regional.",
+      detalle: "Mesa de diálogo en conflictos mineros; negociación para beneficios locales en Quellaveco.",
+      fuente: "https://www.sciencedirect.com/science/article/am/pii/S2214790X20301441"
+    },
+    {
+      id: "mineria-licencia-social",
+      nombre: "Crecimiento con 'licencia social'",
+      resumen: "No imponer proyectos con rechazo social activo.",
+      detalle: "Suspensión de Tía María mientras no existan condiciones; simultáneamente impulso de Quellaveco.",
+      fuente: "https://conexionambiental.pe/tia-maria-un-conflicto-con-final-inesperado/"
+    }
+  ],
+
+  trayectoria: [
+    {
+      id: "formacion",
+      rol: "Ingeniero civil (UNI) y gestor",
+      periodo: "1963 – 2010",
+      descripcion: "Nacido en Lima; carrera técnica y activismo regional en Moquegua.",
+      fuente: "https://en.wikipedia.org/wiki/Mart%C3%ADn_Vizcarra"
+    },
+    {
+      id: "gobernador-moquegua",
+      rol: "Gobernador Regional de Moquegua",
+      periodo: "2011 – 2014",
+      descripcion: "Gestión con diálogo minero y mejora en indicadores sociales.",
+      fuente: "https://en.wikipedia.org/wiki/Mart%C3%ADn_Vizcarra"
+    },
+    {
+      id: "mtc-chinchero",
+      rol: "Ministro de Transportes y Comunicaciones",
+      periodo: "2016 – 2017",
+      descripcion: "Renunció en medio de la controversia por la adenda del Aeropuerto de Chinchero.",
+      fuente: "https://es.wikipedia.org/wiki/Caso_Chinchero"
+    },
+    {
+      id: "vice-embajador",
+      rol: "Primer Vicepresidente / Embajador en Canadá",
+      periodo: "2016 – 2018",
+      descripcion: "Sale del MTC, pasa a la embajada; regresa al suceder a PPK.",
+      fuente: "https://en.wikipedia.org/wiki/Mart%C3%ADn_Vizcarra"
+    },
+    {
+      id: "presidencia",
+      rol: "Presidente del Perú (60.º)",
+      periodo: "2018 – 2020",
+      descripcion: "Referéndum de reformas (2018) y cierre del Congreso (2019) para destrabar agenda; COVID-19 golpea duro.",
+      fuente: "https://www.theguardian.com/world/2019/oct/01/perus-president-dissolves-congress-to-push-through-anti-corruption-reforms"
+    },
+    {
+      id: "vacancia-2020",
+      rol: "Destituido por 'incapacidad moral'",
+      periodo: "Nov 2020",
+      descripcion: "Congreso vota 105–16 para removerlo; protestas masivas; Merino dura 6 días.",
+      fuente: "https://en.wikipedia.org/wiki/Second_impeachment_and_removal_of_Mart%C3%ADn_Vizcarra"
+    },
+    {
+      id: "vacunagate-inhabilitacion",
+      rol: "Inhabilitado por 10 años (Vacunagate)",
+      periodo: "2021 – 2031 (vigente)",
+      descripcion: "Congreso lo sanciona por vacunación irregular con Sinopharm.",
+      fuente: "https://www.reuters.com/world/americas/peruvian-ex-president-vizcarra-banned-public-office-over-vaccines-scandal-2021-04-17/"
+    },
+    {
+      id: "peru-primero",
+      rol: "Fundador de Perú Primero",
+      periodo: "2021 – Presente",
+      descripcion: "Partido inscrito; Vizcarra no puede postular mientras rija la inhabilitación.",
+      fuente: "https://rpp.pe/politica/elecciones/martin-vizcarra-rechazan-anular-inscripcion-del-partido-peru-primero-al-registro-de-organizaciones-politicas-noticia-1639174"
+    },
+    {
+      id: "nueva-inhabilitacion-2025",
+      rol: "Tercera inhabilitación (10 años) por cierre del Congreso en 2019",
+      periodo: "Jun 2025 – 2035 (si queda firme)",
+      descripcion: "El Congreso oficializa otra inhabilitación por infracción al art. 134.",
+      fuente: "https://comunicaciones.congreso.gob.pe/noticias/congreso-inhabilita-por-10-anos-al-expresidente-martin-vizcarra-por-cierre-del-congreso/"
+    },
+    {
+      id: "juicio-lomas-hospital",
+      rol: "Juicio oral por presuntos sobornos (Moquegua)",
+      periodo: "2024 – Presente",
+      descripcion: "Fiscalía pide 15 años por cohecho (Lomas de Ilo y Hospital de Moquegua). En junio 2025 un juez niega prisión preventiva y le impone impedimento de salida por 6 meses.",
+      fuente: "https://gestion.pe/peru/politica/martin-vizcarra-conoce-la-cronologia-del-caso-lomas-de-ilo-y-hospital-de-moquegua-noticia/"
+    },
+    {
+      id: "audiencia-2025",
+      rol: "Medidas restrictivas en vez de preventiva",
+      periodo: "Jun 2025",
+      descripcion: "Juez rechaza preventiva; mantiene restricciones mientras sigue el juicio.",
+      fuente: "https://www.reuters.com/latam/domestico/WSUYDLDSGNI3RCZBGDVZAYYMVE-2025-06-28/"
+    }
+  ],
+  presenciaDigital: {
+    plataformas: [
+      {
+        nombre: "tiktok",
+        handle: "@mvizcarraperu",
+        url: "https://www.tiktok.com/@mvizcarraperu",
+        estrategia:
+          "Video corto y directo para saltarse intermediarios; mezcla de vida cotidiana, mensajes políticos y defensa frente a procesos."
+      },
+      {
+        nombre: "twitter",
+        handle: "@MartinVizcarraC",
+        url: "https://x.com/martinvizcarrac",
+        estrategia:
+          "Mensajería política y confrontación con el Congreso/Gobierno; mantiene narrativa anticorrupción."
+      },
+      {
+        nombre: "web",
+        handle: "peruprimero.pe",
+        url: "https://peruprimero.pe/",
+        estrategia:
+          "Plataforma de propuestas y orgánica del partido; reclutamiento y agenda."
+      }
+    ]
+  },
+
+  mapaDePoder: {
+    alianzas: [
+      {
+        nombre: "Perú Primero",
+        descripcion: "Estructura partidaria propia (inscrita) usada como vehículo de retorno político, aunque él esté inhabilitado."
+      },
+      {
+        nombre: "Redes de técnicos/gestores regionales",
+        descripcion: "Afinidades con perfiles tecnocráticos y cuadros subnacionales (herencia moqueguana/mesa de diálogo)."
+      },
+      {
+        nombre: "Somos Perú (elecciones 2021)",
+        descripcion: "Alianza táctica para postular al Congreso; ganó curul pero no pudo asumir por inhabilitación 2021."
+      }
+    ],
+    opositores: [
+      {
+        nombre: "Bloque congresal opositor (varias bancadas, incluido fujimorismo)",
+        descripcion: "Confrontación desde 2018–2020; lideró la vacancia 2020 y posteriores inhabilitaciones 2021 y 2025."
+      },
+      {
+        nombre: "Sectores pro-Tía María",
+        descripcion: "Crítica empresarial y política por suspensión de licencia en 2019."
+      }
+    ],
+    seguidores:
+      "Base digital (jóvenes/urbano-mestiza), electorado anticorrupción y parte del sur andino con memoria favorable de su gestión regional. Convertibilidad electoral real depende de revertir vetos judiciales/constitucionales."
+  }
+},
+  {
     id: "guillermo-bermejo",
     nombre: "Guillermo Bermejo Rojas",
     ideologia: "Marxista-Leninista, Socialista, Izquierda Radical",
@@ -512,7 +703,7 @@ export const candidates: Candidate[] = [
           nombre: "facebook",
           handle: "GuilleBermejoR",
           url: "https://www.facebook.com/GuilleBermejoR",
-          estrategia: "Se identifica como socialista y miembro de 'Movimiento Todas Las Voces' y 'Bancada Juntos por el Perú - Voces del Pueblo'. Publica sobre la promoción de una Asamblea Constituyente, la defensa de los derechos laborales y sociales, y los derechos de los animales. Es un crítico vocal de la presidenta Dina Boluarte. Viaja a diversas regiones del Perú para reunirse con militantes, líderes sociales y precandidatos, enfocándose en la promoción de su programa político y la idea de una Asamblea Constituyente. Utiliza transmisiones en vivo para eventos y sus publicaciones generan un nivel considerable de interacción.",
+          estrategia: "Se identifica como socialista y miembro de 'Movimiento Todas Las Voces' y 'Bancada Juntos por el Perú - Voces del Pueblo'. Publica sobre la promoción de una Asamblea Constituyente, la defensa de los derechos laborales y sociales, y los derechos de los animales. Es un crítico vocal de la presidenta Dina Boluarte.",
         },
         {
           nombre: "instagram",
@@ -538,11 +729,11 @@ export const candidates: Candidate[] = [
         },
         {
           nombre: "Juntos por el Perú - Voces del Pueblo (actual)",
-          descripcion: "Bancada a la que actualmente pertenece en el Congreso. [23, 4, 10, 34, 5]",
+          descripcion: "Bancada a la que actualmente pertenece en el Congreso.",
         },
         {
           nombre: "Pedro Castillo (expresidente)",
-          descripcion: "Mantuvo una buena relación con el expresidente Pedro Castillo, reuniéndose con él con frecuencia, a pesar de su ruptura con Perú Libre. [3, 10, 21]",
+          descripcion: "Mantuvo una buena relación con el expresidente Pedro Castillo, reuniéndose con él con frecuencia, a pesar de su ruptura con Perú Libre.",
         }
       ],
       opositores: [
