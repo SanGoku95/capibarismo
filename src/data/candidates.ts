@@ -415,7 +415,7 @@ export const candidates: Candidate[] = [
   nombre: "Martín Alberto Vizcarra Cornejo",
   ideologia: "Centrista tecnocrático, descentralización",
   headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
-  fullBody: "https://commons.wikimedia.org/wiki/Special:FilePath/2019-02-28,%20Pedro%20S%C3%A1nchez%20recibe%20al%20presidente%20de%20Per%C3%BA,%20Mart%C3%ADn%20Vizcarra,%20sanchezperu01.jpg?width=450",
+  fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format",
 
   proyectoPolitico: {
     titulo: "Reforma Institucional Anticorrupción y Descentralización (Perú Primero)",
@@ -423,22 +423,21 @@ export const candidates: Candidate[] = [
       "Agenda marcada por el referéndum 2018, la disolución del Congreso 2019 para destrabar reformas y, hoy, por el intento de reposicionarse con Perú Primero pese a inhabilitaciones múltiples.",
     detalles: [
       {
-        subtitulo: "Referéndum 2018: financiamiento, no reelección inmediata y rechazo al bicameralismo enmendado",
+        subtitulo: "Indulto a Pedro Castillo y PPK",
         texto:
-          "Impulsó un paquete de cuatro reformas; tres fueron aprobadas ampliamente, la bicameralidad fue rechazada tras cambios del Congreso.",
-        fuente: "https://www.electionguide.org/elections/id/3184/"
-      },
-      {
-        subtitulo: "Disolución del Congreso (30/09/2019)",
-        texto:
-          "Cerró el parlamento tras 'denegación fáctica' de confianza para su agenda anticorrupción; originó la crisis constitucional 2019–2020.",
-        fuente: "https://en.wikipedia.org/wiki/2019%E2%80%932020_Peruvian_constitutional_crisis"
+          "Vizcarra declara que si él fuera presidente y Castillo estuviera condenado, le otorgaría un indulto.",
+        fuente: "https://www.youtube.com/watch?v=63KPi2KAvNk&t=817s"
       },
       {
         subtitulo: "Minería: 'licencia social' y manejo de conflictos",
         texto:
           "Suspendió la licencia de construcción de Tía María en 2019 mientras no hubiera condiciones sociales; en Moquegua promovió diálogo y acuerdos con Anglo American (Quellaveco).",
         fuente: "https://www.nodal.am/2019/08/peru-el-gobierno-suspende-la-licencia-de-construccion-al-proyecto-minero-tia-maria-tras-semanas-de-protestas/"
+      },
+      {
+        "subtitulo": "Seguridad ciudadana: Expulsión de delincuentes extranjeros e intervención de FFAA",
+        "texto": "Propone no permitir que delincuentes venezolanos se queden en el país y expulsarlos en aviones, como afirma que se hacía durante su gobierno.En caso de asumir la presidencia, declararía el 'estado de sitio' para una intervención inmediata de las Fuerzas Armadas en problemas internos.",
+        "fuente": "https://www.youtube.com/watch?v=qBnBVfMoPbs"
       }
     ]
   },
