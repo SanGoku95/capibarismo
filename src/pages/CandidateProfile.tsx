@@ -1,10 +1,10 @@
 import { useParams, Link, useLocation } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { candidates } from '@/data/candidates';
 import NotFound from './NotFound';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss } from 'lucide-react';
+import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
 import {
@@ -117,7 +117,15 @@ export function CandidateProfile() {
                     {candidate.proyectoPolitico.detalles.map((detalle) => (
                       <AccordionItem value={detalle.subtitulo} key={detalle.subtitulo} className="border-b-muted-foreground/20">
                         <AccordionTrigger>{detalle.subtitulo}</AccordionTrigger>
-                        <AccordionContent>{detalle.texto}</AccordionContent>
+                        <AccordionContent>
+                          {detalle.texto}
+                          {detalle.fuente && (
+                            <a href={detalle.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
+                              <LinkIcon size={12} />
+                              Fuente
+                            </a>
+                          )}
+                        </AccordionContent>
                       </AccordionItem>
                     ))}
                   </Accordion>
@@ -142,6 +150,12 @@ export function CandidateProfile() {
                       <AccordionContent>
                         <p>{creencia.resumen}</p>
                         {creencia.detalle && <p className="mt-2 text-sm text-muted-foreground">{creencia.detalle}</p>}
+                        {creencia.fuente && (
+                          <a href={creencia.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
+                            <LinkIcon size={12} />
+                            Fuente
+                          </a>
+                        )}
                       </AccordionContent>
                     </AccordionItem>
                   ))}
@@ -176,6 +190,12 @@ export function CandidateProfile() {
                             <p className="text-muted-foreground mt-1">{detalle.texto}</p>
                           </div>
                         ))}
+                        {item.fuente && (
+                          <a href={item.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-4">
+                            <LinkIcon size={12} />
+                            Fuente
+                          </a>
+                        )}
                       </AccordionContent>
                     </AccordionItem>
                   ))}
@@ -185,20 +205,25 @@ export function CandidateProfile() {
 
             <Card className="fighting-game-card scroll-mt-24" id="presencia-digital">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Rss size={20} /> Presencia en Medios Digitales</CardTitle>
+              <CardTitle className="flex items-center gap-2"><Rss size={20} /> Presencia en Medios Digitales</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {Object.entries(candidate.presenciaDigital).map(([platform, description]) => (
-                  <div key={platform} className="flex items-start gap-4">
-                    <div className="text-2xl text-muted-foreground mt-1">
-                      {socialIcons[platform] || <Radio />}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold capitalize">{platform}</h4>
-                      <p className="leading-relaxed text-muted-foreground">{description}</p>
-                    </div>
-                  </div>
-                ))}
+              {candidate.presenciaDigital.plataformas.map((plataforma) => (
+                <div key={plataforma.nombre} className="flex items-start gap-4">
+                <div className="text-2xl text-muted-foreground mt-1">
+                  {socialIcons[plataforma.nombre] || <Radio />}
+                </div>
+                <div>
+                  <a href={plataforma.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  <h4 className="font-semibold capitalize flex items-center gap-1.5">
+                    {plataforma.nombre}
+                    <LinkIcon size={14} className="inline-block text-primary/80" />
+                  </h4>
+                  </a>
+                  <p className="leading-relaxed text-muted-foreground mt-1">{plataforma.estrategia}</p>
+                </div>
+                </div>
+              ))}
               </CardContent>
             </Card>
 

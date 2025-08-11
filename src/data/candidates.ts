@@ -11,6 +11,7 @@ export interface Candidate {
     detalles?: {
       subtitulo: string;
       texto: string;
+      fuente?: string;
     }[];
   };
   creenciasClave: {
@@ -18,6 +19,7 @@ export interface Candidate {
     nombre: string;
     resumen: string;
     detalle?: string;
+    fuente?: string;
   }[];
   trayectoria: {
     id: string;
@@ -27,15 +29,17 @@ export interface Candidate {
     detalles?: {
       subtitulo: string;
       texto: string;
+      fuente?: string;
     }[];
+    fuente?: string;
   }[];
   presenciaDigital: {
-    tiktok?: string;
-    youtube?: string;
-    instagram?: string;
-    facebook?: string;
-    twitter?: string;
-    web?: string;
+    plataformas: {
+      nombre: 'tiktok' | 'youtube' | 'instagram' | 'facebook' | 'twitter' | 'web';
+      handle?: string;
+      url: string;
+      estrategia: string;
+    }[];
   };
   mapaDePoder: {
     alianzas: {
@@ -75,10 +79,10 @@ export const candidates: Candidate[] = [
       { id: "inversion-privada", nombre: "Inversión privada", resumen: "Considera a la inversión privada como el principal motor del desarrollo.", detalle: "Busca reducir la burocracia para las empresas y ofrecer garantías jurídicas a los inversores. Su plan incluye la promoción de Asociaciones Público-Privadas (APP) para grandes proyectos." }
     ],
     trayectoria: [
-      { 
-        id: "lider-fuerza-popular", 
-        rol: "Líder de Fuerza Popular", 
-        periodo: "2011 - Presente", 
+      {
+        id: "lider-fuerza-popular",
+        rol: "Líder de Fuerza Popular",
+        periodo: "2011 - Presente",
         descripcion: "Candidata presidencial en 2011, 2016 y 2021, consolidando un bloque político importante.",
         detalles: [
           {
@@ -91,9 +95,11 @@ export const candidates: Candidate[] = [
       { id: "primera-dama-1994", rol: "Primera Dama", periodo: "1994 - 2000", descripcion: "Asumió el rol tras la separación de sus padres, enfocándose en temas sociales." }
     ],
     presenciaDigital: {
-      tiktok: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar.",
-      youtube: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado.",
-      twitter: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -129,9 +135,11 @@ export const candidates: Candidate[] = [
       { id: "activista-2008", rol: "Activista", periodo: "2008 - 2011", descripcion: "Defensora de derechos humanos y medio ambiente en la sociedad civil." }
     ],
     presenciaDigital: {
-      facebook: "Es su principal canal para comunicar propuestas y organizar a sus bases.",
-      instagram: "Recientemente ha comenzado a usar Reels para explicar conceptos económicos complejos de forma sencilla.",
-      twitter: "Utiliza la plataforma para debates y fijar su posición sobre temas de actualidad."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -168,8 +176,11 @@ export const candidates: Candidate[] = [
       { id: "candidato-2021", rol: "Candidato", periodo: "2021 - 2021", descripcion: "Participación en las elecciones presidenciales de 2021." }
     ],
     presenciaDigital: {
-      facebook: "Activo en redes sociales como Facebook y Twitter, donde comparte sus opiniones sobre economía y política.",
-      youtube: "También tiene un canal de YouTube donde publica entrevistas y análisis de la actualidad nacional."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -206,9 +217,11 @@ export const candidates: Candidate[] = [
       { id: "abogado-1985", rol: "Abogado", periodo: "1985 - 2000", descripcion: "Ejercicio de la abogacía y defensa de derechos humanos." }
     ],
     presenciaDigital: {
-      twitter: "Presente en Twitter y Facebook, donde comparte análisis políticos y propuestas legislativas.",
-      facebook: "Presente en Twitter y Facebook, donde comparte análisis políticos y propuestas legislativas.",
-      youtube: "En YouTube, publica videos explicando temas legales y políticos de interés público."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -225,173 +238,330 @@ export const candidates: Candidate[] = [
     fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format"
   },
   {
-  id: "antauro",
-  nombre: "Antauro Humala Tasso",
-  ideologia: "Etnocacerismo Nacionalismo Radical de Izquierda",
-   headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
-   fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format",
-  proyectoPolitico: {
-    titulo: "Refundación Nacional Etnocacerista",
-    resumen:
-      "Propone reestructurar el Estado para devolver soberanía política, económica y cultural al Perú, con énfasis en identidad andina y disciplina militar.",
-    detalles: [
-      {
-        subtitulo: "Asamblea Constituyente y Nueva Constitución",
-        texto:
-          "Derogar la Carta de 1993 y redactar una Constitución que reconozca a la 'raza cobriza' como eje identitario y declare al Estado soberano sobre recursos estratégicos."
-      },
-      {
-        subtitulo: "Pena de Muerte por 'Traición a la Patria'",
-        texto:
-          "Aplicar pena capital a presidentes y altos funcionarios corruptos, violadores de niños y narcotraficantes calificados."
-      },
-      {
-        subtitulo: "Modelo Económico: Soberanía y Nacionalización",
-        texto:
-          "Revisar concesiones de gas, minería y pesca, nacionalizar sectores clave y formalizar la minería informal bajo tutela estatal; defensa abierta de mineros artesanales frente a transnacionales."
-      },
-      {
-        subtitulo: "Reforma Agraria y Redistribución Demográfica",
-        texto:
-          "Impulsar una segunda reforma agraria, relocalizar población desde la costa a zonas alto‑andinas y amazónicas para reducir desempleo y desnutrición."
-      },
-      {
-        subtitulo: "Ciencia y Tecnología Estratégica",
-        texto:
-          "Priorizar inversión pública en I+D; propuesta ‘Sin ciencia no hay futuro’ para industrializar pesca de consumo humano y biotecnología andina."
-      },
-      {
-        subtitulo: "Unidad Nacionalismo‑Izquierda y RUNASUR",
-        texto:
-          "Construir un bloque nacionalista‑socialista interno y promover la integración latinoamericana vía RUNASUR contra el neoliberalismo y la injerencia extranjera."
-      },
-      {
-        subtitulo: "Reforma Institucional Radical",
-        texto:
-          "Sustituir el Congreso por cámara funcional, revocar magistrados supremos y crear un ‘pueblo en armas’ para defensa de la soberanía."
-      }
-    ]
-  },
-
-  creenciasClave: [
-    {
-      id: "etnocacerismo",
-      nombre: "Etnocacerismo como Doctrina",
-      resumen: "Identidad andina (‘raza cobriza’) como base de la nación.",
-      detalle: "Nacionalismo étnico‑militar inspirado en Andrés Avelino Cáceres."
-    },
-    {
-      id: "democracia-directa",
-      nombre: "Crítica a la 'Falsa Democracia'",
-      resumen: "Sistema capturado por élites criollas y extranjeras.",
-      detalle: "Aboga por control popular permanente y revocatoria de autoridades."
-    },
-    {
-      id: "orden-militarista",
-      nombre: "Orden y Disciplina Militar",
-      resumen: "Autoridad firme como remedio a la corrupción.",
-      detalle: "Valores castrenses para imponer disciplina social y administrativa."
-    },
-    {
-      id: "antiimperialismo",
-      nombre: "Unidad Latinoamericana",
-      resumen: "Confluencia de pueblos del Sur contra neoliberalismo y hegemonía extranjera.",
-      detalle: "Promueve Runasur y alianzas con Evo Morales para un bloque socialista andino‑amazónico."
-    }
-  ],
-
-  trayectoria: [
-    {
-      id: "infancia-formacion",
-      rol: "Niñez y formación",
-      periodo: "1963 – 1980",
-      descripcion: "Creció en familia nacionalista; educación bilingüe en Lima y Cusco con énfasis andino.",
+    id: "antauro",
+    nombre: "Antauro Humala Tasso",
+    ideologia: "Etnocacerismo Nacionalismo Radical de Izquierda",
+    headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format",
+    proyectoPolitico: {
+      titulo: "Refundación Nacional Etnocacerista",
+      resumen:
+        "Propone reestructurar el Estado para devolver soberanía política, económica y cultural al Perú, con énfasis en identidad andina y disciplina militar.",
       detalles: [
         {
-          subtitulo: "Influencias familiares",
-          texto: "Padre Isaac Humala inculcó misión política y nombres incaicos."
+          subtitulo: "Asamblea Constituyente y Nueva Constitución",
+          texto:
+            "Derogar la Carta de 1993 y redactar una Constitución que reconozca a la 'raza cobriza' como eje identitario y declare al Estado soberano sobre recursos estratégicos.",
+          fuente: "https://isbn.bnp.gob.pe/catalogo.php?mode=detalle&nt=23661"
         },
         {
-          subtitulo: "Educación escolar",
-          texto: "Peruano Japonés, Franco Peruano y Ciencias del Cusco; contacto temprano con historia incaica."
+          subtitulo: "Pena de Muerte por 'Traición a la Patria'",
+          texto:
+            "Aplicar pena capital a presidentes y altos funcionarios corruptos, violadores de niños y narcotraficantes calificados.",
+          fuente: "https://www.youtube.com/watch?v=ox4vL808Ba4"
         },
         {
-          subtitulo: "Logia de tenientes",
-          texto: "Fundó la primera célula etnocacerista en 1989 dentro del Ejército." 
+          subtitulo: "Modelo Económico: Socialismo, Soberanía y Nacionalización",
+          texto:
+            "Revisar concesiones de gas, minería y pesca, nacionalizar sectores clave y formalizar la minería informal bajo tutela estatal; defensa abierta de mineros artesanales frente a transnacionales.",
+          fuente: "https://antaurohumala.pe/"
+        },
+        {
+          subtitulo: "Reforma Agraria y Redistribución Demográfica",
+          texto:
+            "Impulsar una segunda reforma agraria, relocalizar población desde la costa a zonas alto‑andinas y amazónicas para reducir desempleo y desnutrición.",
+          fuente: "https://antaurohumala.pe/"
+        },
+        {
+          subtitulo: "Unidad Nacionalismo‑Izquierda y RUNASUR",
+          texto:
+            "Construir un bloque nacionalista‑socialista interno y promover la integración latinoamericana vía RUNASUR contra el neoliberalismo y la injerencia extranjera.",
+          fuente: "https://www.youtube.com/watch?v=gf17QftscYU"
         }
       ]
     },
-    {
-      id: "militar",
-      rol: "Mayor del Ejército Peruano (en retiro)",
-      periodo: "1980 – 2000",
-      descripcion: "Combatió a Sendero Luminoso y en el Cenepa; baja en 1998 por activismo doctrinario."
+
+    creenciasClave: [
+      {
+        id: "etnocacerismo",
+        nombre: "Etnocacerismo/Velasquimo como Doctrina",
+        resumen: "Identidad andina (‘raza cobriza’) como base de la nación.",
+        detalle: "Nacionalismo étnico‑militar inspirado en Andrés Avelino Cáceres.",
+        fuente: "https://antaurohumala.pe/libros/"
+      },
+      {
+        id: "democracia-directa",
+        nombre: "Crítica a la 'Falsa Democracia'",
+        resumen: "Sistema capturado por élites criollas y extranjeras.",
+        detalle: "Aboga por control popular permanente y revocatoria de autoridades.",
+        fuente: "https://antaurohumala.pe/libros/"
+      },
+      {
+        id: "orden-militarista",
+        nombre: "Orden y Disciplina Militar",
+        resumen: "Autoridad firme como remedio a la corrupción.",
+        detalle: "Valores castrenses para imponer disciplina social y administrativa.",
+        fuente: "https://antaurohumala.pe/libros/"
+      },
+      {
+        id: "antiimperialismo",
+        nombre: "Unidad Latinoamericana Anti Imperialismo",
+        resumen: "Confluencia de pueblos del Sur contra neoliberalismo y hegemonía extranjera.",
+        detalle: "Promueve Runasur y alianzas con Evo Morales para un bloque socialista andino‑amazónico.",
+        fuente: "https://www.youtube.com/watch?v=gf17QftscYU"
+      }
+    ],
+
+    trayectoria: [
+      {
+        id: "infancia-formacion",
+        rol: "Niñez y formación",
+        periodo: "1963 – 1980",
+        descripcion: "Creció en familia nacionalista; educación bilingüe en Lima y Cusco con énfasis andino.",
+        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala",
+        detalles: [
+          {
+            subtitulo: "Influencias familiares",
+            texto: "Padre Isaac Humala inculcó misión política y nombres incaicos."
+          },
+          {
+            subtitulo: "Educación escolar",
+            texto: "Peruano Japonés, Franco Peruano y Ciencias del Cusco; contacto temprano con historia incaica."
+          },
+          {
+            subtitulo: "Logia de tenientes",
+            texto: "Fundó la primera célula etnocacerista en 1989 dentro del Ejército."
+          }
+        ]
+      },
+      {
+        id: "militar",
+        rol: "Mayor del Ejército Peruano (en retiro)",
+        periodo: "1980 – 2000",
+        descripcion: "Combatió a Sendero Luminoso y en el Cenepa; baja en 1998 por activismo doctrinario.",
+        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala"
+      },
+      {
+        id: "lider-etnocacerista",
+        rol: "Fundador del Movimiento Etnocacerista (MEC)",
+        periodo: "2000 – Presente",
+        descripcion: "Ideólogo; levantamientos de Locumba (2000) y Andahuaylazo (2005) con 6 muertos.",
+        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala",
+        detalles: [
+          {
+            subtitulo: "Levantamientos Armados",
+            texto: "Objetaron legitimidad de Fujimori y Toledo; resultaron en condena de 19 años."
+          }
+        ]
+      },
+      {
+        id: "prision-liberacion",
+        rol: "Reo y excarcelado",
+        periodo: "2005 – 2022",
+        descripcion: "Cumplió 17 años y salió por redención de pena; desde la cárcel articuló base reservista.",
+        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala"
+      },
+      {
+        id: "lider-partido-antauro",
+        rol: "Líder del partido A.N.T.A.U.R.O.",
+        periodo: "2023 – Presente",
+        descripcion: "Intento de inscripción anulado por JNE; busca alianza con Juntos por el Perú para 2026.",
+        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala"
+      }
+    ],
+
+    presenciaDigital: {
+      plataformas: [
+        { nombre: "tiktok", handle: "@antauroigorhumalatasso", url: "https://www.tiktok.com/@antauroigorhumalatasso", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@antaurohumalaoficial", url: "https://www.youtube.com/@antaurohumalaoficial", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "web", handle: "antaurohumala.pe", url: "https://antaurohumala.pe/", estrategia: "El sitio web oficial presenta su plataforma política, noticias y eventos relacionados con su campaña." }]
     },
-    {
-      id: "lider-etnocacerista",
-      rol: "Fundador del Movimiento Etnocacerista (MEC)",
-      periodo: "2000 – Presente",
-      descripcion: "Ideólogo; levantamientos de Locumba (2000) y Andahuaylazo (2005) con 6 muertos.",
+
+    mapaDePoder: {
+      alianzas: [
+        {
+          nombre: "Ina Andrade de Humala, Máximo Grillo, Edwin Morales, Luzmila Ayay, Armando Masse, Fabian Quispe, Carmen Huidobro, Pilar Roca",
+          descripcion: "Columna vertebral del movimiento; redes de excombatientes."
+        },
+        {
+          nombre: "Reservistas y Veteranos de las FFAA",
+          descripcion: "Columna vertebral del movimiento; redes de excombatientes."
+        },
+        {
+          nombre: "Juntos por el Perú (Verónika Mendoza), Partido Democrático Federal",
+          descripcion: "Alianza electoral para Asamblea Constituyente y programa anticorrupción."
+        },
+        {
+          nombre: "Sindicatos y Gremios de Base",
+          descripcion: "Trabajadores agrícolas, mineros informales y obreros que respaldan agenda soberanista."
+        }
+      ],
+      opositores: [
+        {
+          nombre: "Grandes Grupos de Medios",
+          descripcion: "Acusados de encubrir corrupción; amenazados con expropiación."
+        },
+        {
+          nombre: "Ollanta Humala y Partido Nacionalista",
+          descripcion: "Ruptura fraterna irreversible tras Andahuaylazo y caso Odebrecht."
+        }
+      ],
+      seguidores:
+        "Reservistas, etnocaceristas y sectores rurales andinos sensibles al discurso punitivo y anti‑establishment."
+    }
+  },
+  {
+    id: "guillermo-bermejo",
+    nombre: "Guillermo Bermejo Rojas",
+    ideologia: "Marxista-Leninista, Socialista, Izquierda Radical",
+    headshot: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format",
+    fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format",
+    proyectoPolitico: {
+      titulo: "Refundación del Perú a través de una Asamblea Constituyente",
+      resumen: "Propone una transformación profunda del Estado peruano mediante una nueva Constitución, criticando el modelo neoliberal y abogando por un rol más activo del Estado en la economía y la sociedad, con énfasis en la industrialización y la justicia social.",
       detalles: [
         {
-          subtitulo: "Levantamientos Armados",
-          texto: "Objetaron legitimidad de Fujimori y Toledo; resultaron en condena de 19 años." 
+          subtitulo: "Asamblea Constituyente y Nueva Constitución",
+          texto: "Considera la Constitución de 1993 inadecuada y aboga por una nueva Constitución creada por el pueblo peruano a través de recolección de firmas, enfatizando la democracia participativa.",
+          fuente: "https://www.youtube.com/watch?v=idwJ4xaDfZE"
+        },
+        {
+          subtitulo: "Modelo Económico: Industrialización y Crítica al Neoliberalismo",
+          texto: "Defiende la industrialización de los recursos naturales para generar valor agregado, crear empleos y atraer inversiones, en lugar de ser solo un exportador de materias primas. Rechaza el neoliberalismo y la 'rancia oligarquía' del país, abogando por un papel más protagónico del Estado en la economía.",
+          fuente: "https://www.youtube.com/watch?v=PMm960A6ZHA"
+        },
+        {
+          subtitulo: "Propuestas Sociales y Legislativas",
+          texto: "Apoya la reforma agraria y la atención a la crisis alimentaria, señalando la baja producción de fertilizantes. Propone programas sociales eficientes, acceso a agua potable y educación. Ha presentado proyectos de ley para aumentar penas por contaminación ambiental, garantizar posesión de inmuebles en procesos judiciales y establecer asignaciones económicas para licenciados de las Fuerzas Armadas y rondas campesinas. También impulsó la derogación del aumento salarial de la Presidenta.",
+          fuente: "https://www.youtube.com/watch?v=PMm960A6ZHA"
         }
       ]
     },
-    {
-      id: "prision-liberacion",
-      rol: "Reo y excarcelado",
-      periodo: "2005 – 2022",
-      descripcion: "Cumplió 17 años y salió por redención de pena; desde la cárcel articuló base reservista."
+    creenciasClave: [
+      {
+        id: "democracia-participativa",
+        nombre: "Democracia Participativa",
+        resumen: "Defiende una democracia que se practique siempre, no solo representativa, sino también participativa, con mayor implicación ciudadana.",
+        detalle: "Impulsa la Asamblea Constituyente como una creación del pueblo peruano, a través de la recolección de firmas, para una mayor participación en la toma de decisiones.",
+        fuente: "https://www.youtube.com/watch?v=idwJ4xaDfZE"
+      },
+      {
+        id: "anti-neoliberalismo",
+        nombre: "Anti-neoliberalismo y Crítica a la Oligarquía",
+        resumen: "Rechaza el modelo económico neoliberal y critica a las élites económicas y políticas tradicionales.",
+        detalle: "Su postura antisistema lo posiciona como opositor a las estructuras de poder establecidas, buscando un mayor control estatal sobre los recursos y sectores estratégicos.",
+        fuente: "https://www.youtube.com/watch?v=PMm960A6ZHA"
+      },
+      {
+        id: "estabilidad-politica",
+        nombre: "Estabilidad Política y Rechazo a la Vacancia",
+        resumen: "Expresa su rechazo a las mociones de 'vacancia' presidencial y a la inestabilidad política recurrente, defendiendo la legitimidad del mandato de cinco años.",
+        detalle: "Critica la confrontación constante entre poderes ejecutivo y legislativo, abogando por la coordinación. Su lealtad al presidente está condicionada a la probidad.",
+        fuente: "https://www.youtube.com/watch?v=PMm960A6ZHA"
+      }
+    ],
+    trayectoria: [
+      {
+        id: "infancia-formacion",
+        rol: "Niñez, estudios y activismo temprano",
+        periodo: "1975 - 2011",
+        descripcion: "Nacido en Lima, de madre trujillana, estudió en el colegio Claretiano y luego la carrera de Derecho en la Universidad Inca Garcilaso de la Vega, la cual no concluyó. En este periodo, inició su activismo político y trabajó como asistente administrativo en el Parlamento Andino.",
+        fuente: "https://es.wikipedia.org/wiki/Guillermo_Bermejo",
+        detalles: [
+          {
+            subtitulo: "Estudios y trabajo",
+            texto: "Creció en Lima, asistió al colegio Claretiano y, aunque comenzó a estudiar Derecho, no obtuvo un título universitario. Entre 2010 y 2011, se desempeñó como asistente administrativo en el Parlamento Andino."
+          },
+          {
+            subtitulo: "Activismo y 'Todas las Voces'",
+            texto: "En 2004, fundó el movimiento marxista-leninista 'Todas las Voces', que formaba parte de la Coordinadora Continental Bolivariana-Perú (CCB-CP). Bajo su liderazgo, realizó viajes a países como Bolivia y Venezuela para eventos con círculos afines."
+          }
+        ]
+      },
+      {
+        id: "congresista-peru-libre",
+        rol: "Congresista por Perú Libre",
+        periodo: "2021 – 2021",
+        descripcion: "Fue elegido congresista por Perú Libre para el período 2021-2026, siendo el candidato más votado del partido en Lima. Poco antes de la campaña, 'Todas las Voces' se integró a Perú Libre. Una grabación de audio de 2020 reveló su afirmación: 'Si tomamos el poder, no lo vamos a dejar'.",
+        fuente: "https://en.wikipedia.org/wiki/Guillermo_Bermejo"
+      },
+      {
+        id: "ruptura-peru-libre",
+        rol: "Fundador de Perú Democrático y Afiliación Actual",
+        periodo: "2021 – Presente",
+        descripcion: "Renunció a Perú Libre en diciembre de 2021, criticando a Vladimir Cerrón por 'personalizar la política' y la falta de liderazgo del partido. Formó el grupo Perú Democrático con Héctor Valer para promover una nueva constitución. Actualmente, forma parte de la bancada 'Juntos por el Perú - Voces del Pueblo' y preside la Comisión de Pueblos Andinos.",
+        fuente: "https://en.wikipedia.org/wiki/Guillermo_Bermejo"
+      },
+      {
+        id: "desafios-legales-actuales",
+        rol: "Figura con Desafíos Legales Recurrentes",
+        periodo: "2017 – Presente",
+        descripcion: "A pesar de su absolución en 2017, la Fiscalía ha continuado con nuevas acusaciones. Se le ha acusado de obstrucción a la justicia y de recibir sobornos, con una nueva acusación de la Fiscalía en 2025 que solicita 20 años de cárcel. Bermejo también ha denunciado a la fiscal Marita Barreto por presunta filtración de información.",
+        fuente: "https://es.wikipedia.org/wiki/Guillermo_Bermejo"
+      }
+    ],
+    presenciaDigital: {
+      plataformas: [
+        {
+          nombre: "tiktok",
+          handle: "@guillebermejor",
+          url: "https://www.tiktok.com/@guillebermejor",
+          estrategia: "Publica contenido relacionado con su vida política y social, utilizando un enfoque humorístico y crítico."
+        },
+        {
+          nombre: "facebook",
+          handle: "GuilleBermejoR",
+          url: "https://www.facebook.com/GuilleBermejoR",
+          estrategia: "Se identifica como socialista y miembro de 'Movimiento Todas Las Voces' y 'Bancada Juntos por el Perú - Voces del Pueblo'. Publica sobre la promoción de una Asamblea Constituyente, la defensa de los derechos laborales y sociales, y los derechos de los animales. Es un crítico vocal de la presidenta Dina Boluarte. Viaja a diversas regiones del Perú para reunirse con militantes, líderes sociales y precandidatos, enfocándose en la promoción de su programa político y la idea de una Asamblea Constituyente. Utiliza transmisiones en vivo para eventos y sus publicaciones generan un nivel considerable de interacción.",
+        },
+        {
+          nombre: "instagram",
+          handle: "guillebermejor",
+          url: "https://www.instagram.com/guillebermejor",
+          estrategia: "No se pudo acceder a la información de este perfil."
+        }
+      ]
     },
-    {
-      id: "lider-partido-antauro",
-      rol: "Líder del partido A.N.T.A.U.R.O.",
-      periodo: "2023 – Presente",
-      descripcion: "Intento de inscripción anulado por JNE; busca alianza con Juntos por el Perú para 2026."
+    mapaDePoder: {
+      alianzas: [
+        {
+          nombre: "Coordinadora Continental Bolivariana-Perú (CCB-CP)",
+          descripcion: "Organización de la que 'Todas las Voces' fue parte, con la que Bermejo realizó viajes internacionales a Bolivia y Venezuela para eventos con círculos afines. ",
+        },
+        {
+          nombre: "Perú Libre (anterior)",
+          descripcion: "Partido por el que fue elegido congresista en 2021, siendo el más votado en Lima. 'Todas las Voces' se integró a Perú Libre antes de la campaña.",
+        },
+        {
+          nombre: "Perú Democrático (fundador)",
+          descripcion: "Grupo formado por Bermejo junto a Héctor Valer tras su salida de Perú Libre en 2021, con el objetivo de promover una nueva constitución.",
+        },
+        {
+          nombre: "Juntos por el Perú - Voces del Pueblo (actual)",
+          descripcion: "Bancada a la que actualmente pertenece en el Congreso. [23, 4, 10, 34, 5]",
+        },
+        {
+          nombre: "Pedro Castillo (expresidente)",
+          descripcion: "Mantuvo una buena relación con el expresidente Pedro Castillo, reuniéndose con él con frecuencia, a pesar de su ruptura con Perú Libre. [3, 10, 21]",
+        }
+      ],
+      opositores: [
+        {
+          nombre: "Guido Bellido",
+          descripcion: "Calificado por Bermejo como 'pirañita' y 'chupamedias' de Cerrón. También ha sido acusado junto a Bermejo por la Fiscalía por presunta afiliación terrorista y obstrucción a la justicia.",
+        },
+        {
+          nombre: "Sectores de derecha y el 'establishment'",
+          descripcion: "Bermejo critica la 'rancia oligarquía' y la confrontación constante entre poderes, posicionándose como opositor a las élites económicas y políticas tradicionales.",
+        },
+        {
+          nombre: "Fiscalía y Procuraduría",
+          descripcion: "Han presentado acusaciones por afiliación terrorista y obstrucción a la justicia, solicitando penas de cárcel. Bermejo también ha denunciado a la fiscal Marita Barreto.",
+        }
+      ],
+      seguidores: "Sectores populares, votantes de izquierda, ciudadanos descontentos con el sistema y las élites tradicionales, y aquellos que buscan una transformación profunda del Estado y la sociedad peruana. Su base incluye militantes y líderes sociales en diversas regiones del Perú.",
     }
-  ],
-
-  presenciaDigital: {
-    tiktok: "https://www.tiktok.com/@antauroigorhumalatasso",
-    youtube: "https://www.youtube.com/@AntauroHumala-Oficial",
-    web: "https://antaurohumala.pe/",
   },
-
-  mapaDePoder: {
-    alianzas: [
-      {
-        nombre: "Reservistas y Veteranos de las FFAA",
-        descripcion: "Columna vertebral del movimiento; redes de excombatientes."
-      },
-      {
-        nombre: "Juntos por el Perú (Verónika Mendoza)",
-        descripcion: "Alianza electoral para Asamblea Constituyente y programa anticorrupción."
-      },
-      {
-        nombre: "Sindicatos y Gremios de Base",
-        descripcion: "Trabajadores agrícolas, mineros informales y obreros que respaldan agenda soberanista."
-      }
-    ],
-    opositores: [
-      {
-        nombre: "Jurado Nacional de Elecciones (JNE)",
-        descripcion: "Rechazó inscripción partidaria alegando ‘conducta antidemocrática’."
-      },
-      {
-        nombre: "Grandes Grupos de Medios",
-        descripcion: "Acusados de encubrir corrupción; amenazados con expropiación."
-      },
-      {
-        nombre: "Ollanta Humala y Partido Nacionalista",
-        descripcion: "Ruptura fraterna irreversible tras Andahuaylazo y caso Odebrecht."
-      }
-    ],
-    seguidores:
-      "Reservistas, etnocaceristas y sectores rurales andinos sensibles al discurso punitivo y anti‑establishment."
-  }
-},
   {
     id: "patricia",
     nombre: "Patricia Chirinos",
@@ -412,10 +582,11 @@ export const candidates: Candidate[] = [
       { id: "abogada-1995", rol: "Abogada", periodo: "1995 - 2010", descripcion: "Ejercicio de la abogacía con énfasis en derechos humanos y derecho empresarial." }
     ],
     presenciaDigital: {
-      twitter: "Activa en Twitter, Facebook e Instagram, donde comparte contenido sobre derechos humanos, emprendimiento y política.",
-      facebook: "Activa en Twitter, Facebook e Instagram, donde comparte contenido sobre derechos humanos, emprendimiento y política.",
-      instagram: "Activa en Twitter, Facebook e Instagram, donde comparte contenido sobre derechos humanos, emprendimiento y política.",
-      youtube: "En YouTube, tiene un canal donde publica entrevistas y análisis de actualidad."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -452,10 +623,11 @@ export const candidates: Candidate[] = [
       { id: "politico-2019", rol: "Político", periodo: "2019 - 2026", descripcion: "Participación activa en la política peruana, con énfasis en la gestión pública." }
     ],
     presenciaDigital: {
-      instagram: "Activo en redes sociales como Instagram, Twitter y Facebook, donde comparte su visión sobre la gestión pública y el desarrollo del país.",
-      twitter: "Activo en redes sociales como Instagram, Twitter y Facebook, donde comparte su visión sobre la gestión pública y el desarrollo del país.",
-      facebook: "Activo en redes sociales como Instagram, Twitter y Facebook, donde comparte su visión sobre la gestión pública y el desarrollo del país.",
-      youtube: "En YouTube, publica videos sobre su gestión como alcalde y proyectos futuros."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -492,9 +664,11 @@ export const candidates: Candidate[] = [
       { id: "politico-regional-2010", rol: "Político Regional", periodo: "2010 - 2026", descripcion: "Participación activa en la política regional, promoviendo el desarrollo sostenible." }
     ],
     presenciaDigital: {
-      facebook: "Utiliza Facebook y Twitter para compartir sus escritos, opiniones sobre política y cultura, y para promover sus actividades como político y escritor.",
-      twitter: "Utiliza Facebook y Twitter para compartir sus escritos, opiniones sobre política y cultura, y para promover sus actividades como político y escritor.",
-      youtube: "En YouTube, tiene un canal donde publica conferencias y charlas sobre temas culturales y políticos."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -531,9 +705,11 @@ export const candidates: Candidate[] = [
       { id: "general-ep-1978", rol: "General EP", periodo: "1978 - 2014", descripcion: "Carrera militar con énfasis en la seguridad y el orden interno." }
     ],
     presenciaDigital: {
-      twitter: "Activo en Twitter y Facebook, donde comparte su visión sobre seguridad y desarrollo.",
-      facebook: "Activo en Twitter y Facebook, donde comparte su visión sobre seguridad y desarrollo.",
-      youtube: "En YouTube, publica videos sobre su gestión como ministro y congresista."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -570,9 +746,11 @@ export const candidates: Candidate[] = [
       { id: "economista-1995", rol: "Economista", periodo: "1995 - 2005", descripcion: "Ejercicio de la profesión con énfasis en el desarrollo económico y social." }
     ],
     presenciaDigital: {
-      twitter: "Muy activo en LinkedIn, donde comparte artículos y análisis sobre economía, tecnología y política.",
-      facebook: "En Twitter y Facebook, publica sobre sus actividades políticas y proyectos.",
-      youtube: "También tiene un canal de YouTube donde explica conceptos económicos y tecnológicos."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -609,9 +787,11 @@ export const candidates: Candidate[] = [
       { id: "candidato-2006", rol: "Candidato", periodo: "2006 - 2026", descripcion: "Participación en múltiples elecciones con una agenda socialdemócrata." }
     ],
     presenciaDigital: {
-      facebook: "Activo en Facebook y Twitter, donde comparte su visión sobre desarrollo sostenible y equidad social.",
-      twitter: "Activo en Facebook y Twitter, donde comparte su visión sobre desarrollo sostenible y equidad social.",
-      youtube: "En YouTube, publica videos sobre sus propuestas y análisis de la actualidad política."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -648,9 +828,11 @@ export const candidates: Candidate[] = [
       { id: "activista-2005", rol: "Activista", periodo: "2005 - 2026", descripcion: "Participación activa en movimientos sociales y políticos por la justicia ambiental y social." }
     ],
     presenciaDigital: {
-      facebook: "Utiliza Facebook y Twitter para difundir su mensaje ecologista y movilizar a sus seguidores.",
-      twitter: "Utiliza Facebook y Twitter para difundir su mensaje ecologista y movilizar a sus seguidores.",
-      youtube: "En YouTube, tiene un canal donde publica documentales y entrevistas sobre temas ambientales y sociales."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -687,10 +869,11 @@ export const candidates: Candidate[] = [
       { id: "candidata-2024", rol: "Candidata", periodo: "2024 - 2026", descripcion: "Participación en las elecciones con una agenda feminista." }
     ],
     presenciaDigital: {
-      instagram: "Muy activa en redes sociales como Instagram, Twitter y Facebook, donde comparte contenido sobre derechos de las mujeres, igualdad de género y justicia social.",
-      twitter: "Muy activa en redes sociales como Instagram, Twitter y Facebook, donde comparte contenido sobre derechos de las mujeres, igualdad de género y justicia social.",
-      facebook: "Muy activa en redes sociales como Instagram, Twitter y Facebook, donde comparte contenido sobre derechos de las mujeres, igualdad de género y justicia social.",
-      youtube: "En YouTube, tiene un canal donde publica entrevistas y análisis sobre temas de género."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -727,9 +910,11 @@ export const candidates: Candidate[] = [
       { id: "politico-2021", rol: "Político", periodo: "2021 - 2026", descripcion: "Representación política de las comunidades rurales y campesinas." }
     ],
     presenciaDigital: {
-      facebook: "Activo en Facebook y Twitter, donde comparte su visión sobre educación rural, derechos campesinos y desarrollo sostenible.",
-      twitter: "Activo en Facebook y Twitter, donde comparte su visión sobre educación rural, derechos campesinos y desarrollo sostenible.",
-      youtube: "En YouTube, publica videos sobre sus actividades como profesor y sindicalista."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -766,9 +951,11 @@ export const candidates: Candidate[] = [
       { id: "academico-1995", rol: "Académico", periodo: "1995 - 2000", descripcion: "Docencia e investigación en economía y políticas públicas." }
     ],
     presenciaDigital: {
-      twitter: "Activo en LinkedIn, Twitter y Facebook, donde comparte artículos y análisis sobre políticas públicas, economía y gestión gubernamental.",
-      facebook: "Activo en LinkedIn, Twitter y Facebook, donde comparte artículos y análisis sobre políticas públicas, economía y gestión gubernamental.",
-      youtube: "En YouTube, publica videos explicando conceptos económicos y de políticas públicas."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -805,9 +992,11 @@ export const candidates: Candidate[] = [
       { id: "activista-2010", rol: "Activista", periodo: "2010 - 2026", descripcion: "Participación activa en movimientos sociales y políticos." }
     ],
     presenciaDigital: {
-      instagram: "Activa en Facebook e Instagram, donde comparte contenido sobre participación ciudadana, economía familiar y solidaridad.",
-      facebook: "Activa en Facebook e Instagram, donde comparte contenido sobre participación ciudadana, economía familiar y solidaridad.",
-      youtube: "En YouTube, tiene un canal donde publica entrevistas y análisis sobre política y sociedad."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -844,9 +1033,11 @@ export const candidates: Candidate[] = [
       { id: "gestor-publico-2010", rol: "Gestor Público", periodo: "2010 - 2015", descripcion: "Gestión de proyectos públicos en diversas áreas." }
     ],
     presenciaDigital: {
-      facebook: "Activo en Facebook y Twitter, donde comparte su visión sobre desarrollo regional, descentralización y autonomía local.",
-      twitter: "Activo en Facebook y Twitter, donde comparte su visión sobre desarrollo regional, descentralización y autonomía local.",
-      youtube: "En YouTube, publica videos sobre sus actividades como alcalde y proyectos de desarrollo regional."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -883,9 +1074,11 @@ export const candidates: Candidate[] = [
       { id: "dirigente-aprista-2000", rol: "Dirigente Aprista", periodo: "2000 - 2026", descripcion: "Participación activa en la política peruana, promoviendo los valores apristas." }
     ],
     presenciaDigital: {
-      facebook: "Activa en Facebook y Twitter, donde comparte su visión sobre justicia social, derechos humanos y política.",
-      twitter: "Activa en Facebook y Twitter, donde comparte su visión sobre justicia social, derechos humanos y política.",
-      youtube: "En YouTube, publica videos sobre sus actividades políticas y análisis de la actualidad."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [
@@ -922,9 +1115,11 @@ export const candidates: Candidate[] = [
       { id: "independiente-2020", rol: "Independiente", periodo: "2020 - 2026", descripcion: "Participación en la política como candidato independiente." }
     ],
     presenciaDigital: {
-      twitter: "Activo en Twitter y Facebook, donde comparte su visión sobre independencia política, gestión moderna y transparencia.",
-      facebook: "Activo en Twitter y Facebook, donde comparte su visión sobre independencia política, gestión moderna y transparencia.",
-      youtube: "En YouTube, publica videos sobre sus actividades como comunicador y político."
+      plataformas: [
+        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
+        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
+        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+      ]
     },
     mapaDePoder: {
       alianzas: [

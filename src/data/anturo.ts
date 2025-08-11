@@ -90,6 +90,13 @@ const fuentesAntauro: FuenteAntauro[] = [
     tipo: "Video conferencia",
     anio: 2025,
     url: "https://www.youtube.com/watch?v=n1lRr5d6AlM"
+  },
+    {
+    id: "conv_anturo",
+    titulo: "Saldaña Ludeña, Pedro, and Antauro Humala Tasso. Conversaciones con Antauro Humala",
+    tipo: "Libro",
+    anio: 2011,
+    url: "https://isbn.bnp.gob.pe/catalogo.php?mode=detalle&nt=23661"
   }
 ];
 

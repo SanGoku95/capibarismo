@@ -174,14 +174,22 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               leftCandidate={leftCandidate}
               rightCandidate={rightCandidate}
               leftContent={
-                <Link to={`/candidate/${leftCandidate?.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground line-clamp-3 hover:underline">
-                  {leftCandidate ? Object.entries(leftCandidate.presenciaDigital).map(([key, value]) => value).join(' ') : "Sin análisis"}
-                </Link>
+                leftCandidate ? (
+                  <Link to={`/candidate/${leftCandidate.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground hover:underline">
+                  {leftCandidate.presenciaDigital.plataformas.length > 0
+                    ? `Activo en: ${leftCandidate.presenciaDigital.plataformas.map(p => p.nombre).join(', ')}`
+                    : "Sin presencia digital registrada"}
+                  </Link>
+                ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
               }
               rightContent={
-                <Link to={`/candidate/${rightCandidate?.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground line-clamp-3 hover:underline">
-                  {rightCandidate ? Object.entries(rightCandidate.presenciaDigital).map(([key, value]) => value).join(' ') : "Sin análisis"}
-                </Link>
+                rightCandidate ? (
+                  <Link to={`/candidate/${rightCandidate.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground hover:underline">
+                  {rightCandidate.presenciaDigital.plataformas.length > 0
+                    ? `Activo en: ${rightCandidate.presenciaDigital.plataformas.map(p => p.nombre).join(', ')}`
+                    : "Sin presencia digital registrada"}
+                  </Link>
+                ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
               }
             />
             
