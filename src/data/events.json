@@ -1,149 +1,206 @@
 {
   "events": [
-
     {
-      "event_slug": "retornopatriciabenavides",
-      "event_headline": "Retorno de Patricia Benavides",
-      "coverage": [
+      "id": 0,
+      "slug": "crisis-politica-fuerza-popular-odebrecht",
+      "headline": "Fiscal Domingo Pérez Bajo Fuego en Congreso por Caso Odebrecht",
+      "summary": "El Congreso peruano examina al fiscal José Domingo Pérez sobre su enfoque en Fuerza Popular en el contexto del caso Odebrecht. Se critica al Congreso por interferir en las investigaciones, solicitando a Pérez respuestas más claras sobre el acuerdo con Odebrecht.",
+      "story_start": "2025-08-04T20:41:23+00:00",
+      "total_view_count": 100033,
+      "avg_credibility_score": 7.25,
+      "related_videos": [
         {
-          "channel": "El Foco TV",
-          "bullet": "El enfoque se centra en el fallo judicial que anula la suspensión de Benavides y su contexto de manipulación política del sistema de justicia por parte del fujimorismo. Se percibe una crítica clara hacia la captura del sistema de justicia."
+          "video_id": "TurtVHDb80E",
+          "title": "CONGR VENTURA EXPL0T0 CONTRA DOMINGO PÉREZ POR REFERIRSE A FUERZA POPULAR CASO ODEBRECHT EN CONGRESO",
+          "url": "https://www.youtube.com/watch?v=TurtVHDb80E",
+          "channel": "JF DIGITAL",
+          "view_count": 11796,
+          "credibility_score": 7.0,
+          "sintetization": "En una sesión del Congreso, se discutieron las investigaciones relacionadas con el caso Odebrecht y Fuerza Popular. Se cuestionó al fiscal Domingo Pérez sobre su enfoque en Fuerza Popular, a pesar de que las investigaciones no estaban directamente relacionadas. Los congresistas expresaron su preocupación por la falta de resultados en las investigaciones y la ambigüedad de las respuestas de Pérez. También se abordaron las acusaciones de que el Congreso estaba obstaculizando las investigaciones y se defendió la necesidad de claridad y responsabilidad en el manejo de la información pública. Se solicitó que Pérez responda de manera más técnica y precisa sobre los acuerdos con Odebrecht y la situación actual de las investigaciones.",
+          "bullet": "Critica la falta de resultados en las investigaciones, centrándose en las acusaciones de obstrucción por parte del Congreso."
         },
         {
-          "channel": "PBO",
-          "bullet": "Se mencionan varios temas, pero la situación de Patricia Benavides se aborda superficialmente junto con otros eventos políticos. No hay un análisis profundo sobre su retorno."
+          "video_id": "vD1sj8vI5gw",
+          "title": "LA MEMORIA SELECTIVA DE FUERZA POPULAR Y GUSTAVO GORRITI NO SE CALLA | EN MODO REACCIÓN",
+          "url": "https://www.youtube.com/watch?v=vD1sj8vI5gw",
+          "channel": "La República - LR+",
+          "view_count": 1971,
+          "credibility_score": 7.0,
+          "sintetization": "En este programa, los presentadores discuten la situación política actual en Perú, centrándose en la falta de resultados de las comisiones del Congreso y la controversia en torno a la publicidad electoral de Rafael López Aliaga. Se menciona la citación del periodista Gustavo Gorriti por el congresista Alejandro Muñante y se analizan las tensiones entre el Congreso y el periodismo. También se abordan temas de seguridad, incluyendo la muerte de un policía en un enfrentamiento con delincuentes. Finalmente, se presenta un nuevo programa de cocina dirigido por Daniel Paredes.",
+          "bullet": "Explora las tensiones generales entre el Congreso y el periodismo, ampliando la discusión a otros temas de seguridad y justicia."
         },
         {
-          "channel": "ATV Noticias",
-          "bullet": "El video resume eventos recientes, incluyendo el retorno de Benavides, pero es un segmento de menor relevancia entre otros temas de inseguridad."
-        }
-      ]
-    },
-    {
-      "event_slug": "alianzafujiserronista",
-      "event_headline": "Alianza Fujiserronista",
-      "coverage": [
+          "video_id": "YAPe1gWI2Uo",
+          "title": "RENOVACIÓN POPULAR al ataque y la JUSTICIA preocupada | Sin Guion con ROSA MARÍA PALACIOS",
+          "url": "https://www.youtube.com/watch?v=YAPe1gWI2Uo",
+          "channel": "La República - LR+",
+          "view_count": 82340,
+          "credibility_score": 8.0,
+          "sintetization": "En el programa se discuten dos eventos políticos recientes: la investigación del acuerdo de colaboración eficaz entre el Estado peruano y Odebrecht en el Congreso, y la celebración del Día del Juez, donde la presidenta de la Corte Suprema, Yametello, confrontó a la presidenta Dina Boluarte sobre la desobediencia a la Corte Interamericana de Derechos Humanos. José Domingo Pérez, fiscal anticorrupción, destacó los conflictos de interés en la comisión del Congreso y la relación de Renovación Popular con Odebrecht. Además, se abordaron temas sobre la reforma judicial y la extinción de dominio, resaltando la preocupación por la falta de justicia en el país.",
+          "bullet": "Explora las tensiones generales entre el Congreso y el periodismo, ampliando la discusión a otros temas de seguridad y justicia."
+        },
         {
+          "video_id": "IQDiXx3J8qU",
+          "title": "🔴🔵 Renovación Popular niega acusaciones de Domingo Pérez y haber recibido aportes de Odebrecht y OAS",
+          "url": "https://www.youtube.com/watch?v=IQDiXx3J8qU",
           "channel": "Exitosa Noticias",
-          "bullet": "El análisis sugiere una consolidación de la alianza fujiserronista y un copamiento institucional. El enfoque es pesimista respecto a la situación política y se percibe un sesgo negativo hacia la alianza."
+          "view_count": 3926,
+          "credibility_score": 7.0,
+          "sintetization": "Renovación Popular, el partido del alcalde Rafael López Aliaga, negó las acusaciones del fiscal José Domingo Pérez sobre aportes irregulares de Odebrecht y OAS a su campaña. En un comunicado, el partido rechazó las afirmaciones del fiscal, afirmando que no participaron en las elecciones de 2011 y 2014 y exigiendo que Pérez no utilice su posición para desprestigiar al partido. Se mencionó que el acuerdo de colaboración eficaz es ineficaz y que ha beneficiado a empresas como Odebrecht, pero no al país.",
+          "bullet": "Se adopta un enfoque crítico hacia el fiscal, defendiendo a Renovación Popular y sugiriendo que el acuerdo Odebrecht ha sido ineficaz."
         }
       ]
     },
     {
-      "event_slug": "mensajediscursodinaboluarte",
-      "event_headline": "Discurso de Dina Boluarte durante Fiestas Patrias",
-      "coverage": [
+      "id": 1,
+      "slug": "crisis-politica-jose-luna-galvez",
+      "headline": "José Luna Gálvez Bajo la Mirada del Ministerio Público",
+      "summary": "El Ministerio Público ha solicitado una sentencia significativa contra José Luna Gálvez por presunta participación en una organización criminal. Se examinan los vínculos con el sistema electoral y las repercusiones en la política peruana.",
+      "story_start": "2025-08-07T02:47:25+00:00",
+      "total_view_count": 145229,
+      "avg_credibility_score": 7.4,
+      "related_videos": [
         {
-          "channel": "La República - LR+",
-          "bullet": "Se critica el discurso de Boluarte por ser desconectado y victimista, haciendo énfasis en la falta de preparación del gobierno ante desastres naturales. Hay un enfoque en la crítica a su gestión y la política interna."
-        },
-        {
+          "video_id": "0snt-Bd_uko",
+          "title": "Combutters por PBO - En Vivo (Miércoles 06 de agosto del 2025)",
+          "url": "https://www.youtube.com/watch?v=0snt-Bd_uko",
           "channel": "PBO",
-          "bullet": "El comentario critica la larga duración del discurso de Boluarte, su falta de contenido relevante y ausencia de autocrítica. Se resalta una percepción negativa de la presidenta, con comentarios sobre promesas incumplidas."
+          "view_count": 38809,
+          "credibility_score": 7.0,
+          "sintetization": "En el programa se discute la reciente decisión del Poder Judicial de rechazar la suspensión de Patricia Benavides, fiscal de la nación, lo que permite su inmediata reincorporación. Se critica la actitud de la fiscalía y se menciona la falta de cumplimiento de la Junta Nacional de Justicia (JNJ). Los invitados analizan la situación legal y política, sugiriendo que la fiscal podría enfrentar consecuencias por desacato. Además, se abordan acusaciones de organización criminal contra José Luna Gálvez y otros, y la tensión diplomática con Colombia tras declaraciones del presidente Gustavo Petro sobre la frontera.",
+          "bullet": "Critica severamente a la fiscalía y su manejo del caso Benavides, mientras da detalles del caso Luna Gálvez."
         },
         {
-          "channel": "CARLOS ALVAREZ ¿QUE ES LO QUE PASA AQUI ?",
-          "bullet": "El discurso presidencial es reconocido por aceptar la baja popularidad del gobierno, mencionando errores en la administración y buscando una unidad nacional. Tiene un enfoque en críticas directas y un llamado a la mejora interna."
-        }
-      ]
-    },
-    {
-      "event_slug": "viajedinaboluartejaponindonesia",
-      "event_headline": "Viaje de Dina Boluarte a Japón e Indonesia",
-      "coverage": [
-        {
-          "channel": "PBO",
-          "bullet": "En el programa Combatters, el viaje se discute enfocándose en la falta de experiencia de Boluarte en política internacional y las tensiones internas. Se muestra desconfianza hacia el liderazgo de la presidenta."
-        },
-        {
-          "channel": "24 Horas",
-          "bullet": "El enfoque recae en la crítica hacia la gestión del transporte público y menciones a la debilidad de Boluarte, sin un análisis detallado de su viaje internacional."
-        }
-      ]
-    },
-    {
-      "event_slug": "influenciakeikofujimori",
-      "event_headline": "Influencia de Keiko Fujimori",
-      "coverage": [
-        {
-          "channel": "Carlos Orozco",
-          "bullet": "En el programa \"Nadie se salva\", se menciona una entrevista con Keiko Fujimori que aborda su vida personal y política. El enfoque es principalmente su figura generando opiniones encontradas. El tono del programa es ameno y humorístico, sin un análisis profundo de la política."
-        },
-        {
-          "channel": "Alacocina Tv",
-          "bullet": "El canal no cubre este evento, enfocándose más en temas de cocina y cultura de bebida."
-        },
-        {
-          "channel": "Peru News",
-          "bullet": "Se discute que no habrá un candidato Fujimori en las elecciones de 2026. El enfoque es un compromiso político claro hacia el futuro sin la participación de figuras Fujimoristas."
-        }
-      ]
-    },
-    {
-      "event_slug": "controversiascesaracuna",
-      "event_headline": "Controversias en la gestión de César Acuña",
-      "coverage": [
-        {
-          "channel": "El diario de Curwen",
-          "bullet": "Se aborda la gestión de Acuña bajo la crítica de otorgar contratos sin experiencia y posibles sobornos dentro del Congreso. Hay un enfoque claro en la percepción de corrupción y falta de transparencia."
-        },
-        {
-          "channel": "HTVPERU",
-          "bullet": "Destaca la firma de contratos por César Acuña con empresas vinculadas a personas bajo sospecha, resaltando posibles irregularidades y vínculos familiares. El enfoque es crítico hacia su administración."
-        }
-      ]
-    },
-    {
-      "event_slug": "proyectosrafaellopezaliaga",
-      "event_headline": "Proyectos de Rafael López Aliaga",
-      "coverage": [
-        {
-          "channel": "Rafael Lopez Aliaga - Oficial",
-          "bullet": "El alcalde critica la intervención policial y la gestión del ministro Sandoval, destacando la paralización de proyectos de infraestructuras como crítica central. Su postura es crítica hacia el gobierno actual por corrupción."
-        },
-        {
+          "video_id": "tUsDlT4mYRI",
+          "title": "Al Día con Willax - AGO 07 - 3/5 - PIDEN 22 AÑOS DE PRISIÓN CONTRA JOSÉ LUNA GÁLVEZ | Willax",
+          "url": "https://www.youtube.com/watch?v=tUsDlT4mYRI",
           "channel": "Willax Televisión",
-          "bullet": "En la entrevista con López Aliaga, se discuten críticas al gobierno por detener proyectos beneficiosos. Hay un llamado a la movilización política contra la corrupción, que se percibe como el enfoque principal."
+          "view_count": 12180,
+          "credibility_score": 7.0,
+          "sintetization": "El presidente de Colombia, Gustavo Petro, ha afirmado que la isla Chinería, ubicada en Loreto, Perú, le pertenece a Colombia, lo que ha generado una fuerte reacción en Perú. El excanciller peruano Javier González Olachea y otros críticos han denunciado esta postura como una provocación diplomática y un intento de desviar la atención de los problemas internos de Colombia. La población de Santa Rosa, Perú, reafirma su identidad nacional y se opone a las afirmaciones de Petro. Mientras tanto, la presidenta peruana Dina Boluarte no ha hecho pronunciamientos claros sobre la situación, lo que ha suscitado críticas. El conflicto territorial se enmarca en un contexto de tensiones políticas y sociales en ambos países.",
+          "bullet": "Análisis no disponible."
+        },
+        {
+          "video_id": "zNZb1GiKsZE",
+          "title": "AL FIN: Piden 22 años de cárcel para José Luna Gálvez #LaEncerrona",
+          "url": "https://www.youtube.com/watch?v=zNZb1GiKsZE",
+          "channel": "Marco Sifuentes",
+          "view_count": 90156,
+          "credibility_score": 8.0,
+          "sintetization": "En el noticiero \"La Encerrona\", se discute el conflicto diplomático entre Perú y Colombia, originado por un tweet del presidente colombiano Gustavo Petro, quien reclama la isla de Santa Rosa. Se menciona que el Perú ha establecido una municipalidad en dicha isla, lo que Petro considera una ocupación. A pesar de las tensiones, se asegura que no habrá guerra. También se aborda la situación de abandono en la isla, donde la presencia del estado peruano es escasa. Además, se reportan noticias sobre la política peruana, incluyendo la condena de José Luna Gálvez y la polémica sobre el censo nacional.",
+          "bullet": "Análisis no disponible."
+        },
+        {
+          "video_id": "YMr3a1UvFdM",
+          "title": "DENUNCIA A JOSÉ LUNA GALVEZ * MARIA ACUÑA Y SUS CONCESIONES MINERAS * CESAR ACUÑA EN PROBLEMAS",
+          "url": "https://www.youtube.com/watch?v=YMr3a1UvFdM",
+          "channel": "Sallqa TV ",
+          "view_count": 2958,
+          "credibility_score": 8.0,
+          "sintetization": "En este programa se aborda la acusación de la fiscalía contra José Luna Gálvez, líder de Podemos Perú, y 16 coimputados por supuesta organización criminal. Se discute también el intento de la congresista María Acuña de obtener concesiones mineras mientras ejercía funciones, lo que contraviene la ley. Además, se menciona la indignación de un consejero por actos de corrupción en el gobierno de César Acuña y se analizan comentarios sobre la familia de Dina Boluarte, resaltando la percepción de corrupción en la política peruana. La transmisión incluye interacciones con la audiencia y reflexiones sobre la situación política actual.",
+          "bullet": "Análisis no disponible."
+        },
+        {
+          "video_id": "g9VQU4FvELg",
+          "title": "¡Se unen los comunistas! ¿Carcel para José Luna Galvez? / ANALISIS - Telegrama PM 07/08/25",
+          "url": "https://www.youtube.com/watch?v=g9VQU4FvELg",
+          "channel": "Diario El Reporte",
+          "view_count": 1126,
+          "credibility_score": 7.0,
+          "sintetization": "Cinco alianzas electorales han solicitado su inscripción para las elecciones generales de 2026. El Jurado Nacional de Elecciones ha planteado observaciones a la alianza Venceremos, que incluye a Nuevo Perú y Voces del Pueblo, destacando su conexión con el marxismo y vínculos con el terrorismo. Además, el Ministerio Público ha solicitado 22 años y 8 meses de prisión para el congresista José Luna Gálvez por su presunta participación en una organización criminal que infiltró la ONPE. Este caso refleja la corrupción en el sistema electoral peruano y la necesidad de reformas para restaurar la confianza pública.",
+          "bullet": "Resalta la corrupción en el sistema y aboga por reformas, con un enfoque crítico sobre los vínculos de Gálvez."
         }
       ]
     },
     {
-      "event_slug": "tsunamialerta",
-      "event_headline": "Alerta de tsunami en Perú",
-      "coverage": [
+      "id": 2,
+      "slug": "alianzas-politicas-elecciones-2026",
+      "headline": "Fracasan Alianzas Políticas para Elecciones en Perú",
+      "summary": "Las negociaciones para establecer alianzas políticas en Perú, lideradas por PPC, no prosperaron, dejando a los partidos a competir independientemente en las próximas elecciones. El PPC buscará alianzas con Unidad y Paz, afrontando dificultades internas.",
+      "story_start": "2025-08-04T20:09:32+00:00",
+      "total_view_count": 22856,
+      "avg_credibility_score": 7.75,
+      "related_videos": [
         {
-          "channel": "Carlos Orozco",
-          "bullet": "El tema del tsunami se menciona de forma superficial entre diversos temas, sin un análisis profundo o especializado."
+          "video_id": "MAU6wofHl_o",
+          "title": "Elecciones 2026: PPC mantuvo reuniones con Keiko Fujimori de cara a los comicios del próximo año",
+          "url": "https://www.youtube.com/watch?v=MAU6wofHl_o",
+          "channel": "24 Horas",
+          "view_count": 2047,
+          "credibility_score": 8.0,
+          "sintetization": "El secretario general del Partido Popular Cristiano, Javier Bedoya, ha revelado en una entrevista las negociaciones fallidas para establecer alianzas con otros partidos, incluyendo a Keiko Fujimori y Carlos Álvarez. A pesar de las reuniones, los partidos optaron por presentarse solos en las próximas elecciones. El PPC ha solicitado inscribirse en una alianza con el partido Unidad y Paz y ha mencionado dificultades internas en la relación de Carlos Álvarez con su actual partido, El País para Todos. La situación de Álvarez como candidato se definirá en diciembre.",
+          "bullet": "Destaca las revelaciones de Bedoya sobre negociaciones y las dinámicas internas de los partidos."
         },
         {
+          "video_id": "HSfHqDQ5Tfo",
+          "title": "ELECCIONES 2026: Guillermo Bermejo y Verónica Mendoza juntos en alianza ¿La nueva izquierda peruana?",
+          "url": "https://www.youtube.com/watch?v=HSfHqDQ5Tfo",
+          "channel": "Peru21TV",
+          "view_count": 13996,
+          "credibility_score": 8.0,
+          "sintetization": "A ocho meses de las elecciones en Perú, se han inscrito cinco alianzas electorales. Carlos Cabanillas destaca que la presencia de los partidos es escasa y menciona las alianzas más relevantes, como la del PPC con Kabra y la de Fiorela Molinelli con Batalla Perú. Se discute la situación de Duberlí Rodríguez, quien no logró inscribirse, y se analiza el impacto de figuras como Martín Vizcarra y la dinámica del péndulo electoral en el contexto político actual. La falta de un opositor claro a Dina Boluarte se considera un factor crucial para las próximas elecciones.",
+          "bullet": "Enfatiza la escasa presencia de partidos y analiza figuras clave y la falta de un opositor claro."
+        },
+        {
+          "video_id": "LxtOK0H-eck",
+          "title": "Dr. Ruben Mayta: ANUNCIA PACTO DE PEDRO CASTILLO CON EL PARTIDO JUNTOS POR EL PERÚ.",
+          "url": "https://www.youtube.com/watch?v=LxtOK0H-eck",
+          "channel": "Ricardo TV Oficial",
+          "view_count": 1121,
+          "credibility_score": 7.0,
+          "sintetization": "El abogado Rubén Maita informa sobre la defensa del expresidente Pedro Castillo, destacando la nulidad de su vacancia y la falta de debido proceso en su juicio. Critica la actuación de la Corte Suprema y el Tribunal Constitucional, señalando que sus decisiones son ilegales e inconstitucionales. Maita menciona que el presidente busca unir a organizaciones sociales y ha establecido una alianza con el partido Juntos por el Perú para promover una nueva asamblea constituyente y justicia para las víctimas de la represión. A pesar de las adversidades, el presidente mantiene un buen ánimo y busca fortalecer su apoyo popular.",
+          "bullet": "Su enfoque se centra en las críticas al proceso legal de Pedro Castillo, con mención tangencial a las alianzas."
+        },
+        {
+          "video_id": "5yd4zx_4ozU",
+          "title": "Milagros Leiva Entrevista - AGO 05 - SALVEMOS AL PERÚ ROMPE ALIANZA CON AHORA NACIÓN DE LÓPEZ CHAU",
+          "url": "https://www.youtube.com/watch?v=5yd4zx_4ozU",
+          "channel": "Willax Televisión",
+          "view_count": 5692,
+          "credibility_score": 8.0,
+          "sintetization": "En un debate sobre la situación política actual del partido Salvemos al Perú, se discute la ruptura de una alianza con Alfonso López Chao y la falta de legitimidad de ciertos miembros del partido. Guillermo Suárez, presidente de Salvemos al Perú, expone que Mariano González y César Gamboa no tienen autoridad para representar al partido debido a renuncias previas. Se menciona la intención de denunciar penalmente a López Chao y otros por su actuación. La conversación gira en torno a la falta de respeto a la institucionalidad del partido y la manipulación de sus estatutos.",
+          "bullet": "Análisis no disponible."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "infraestructuras-transporte-tren-lima",
+      "headline": "López Aliaga: Reformas Urgentes para la Seguridad en Lima",
+      "summary": "El alcalde Rafael López Aliaga propone reformas infraestructurales y de seguridad en Lima, incluyendo establecer un tren de cercanías, reformar el sistema judicial y enfoque en seguridad ciudadana, mientras Cuzco rechaza su propuesta de trenes usados.",
+      "story_start": "2025-08-05T19:36:04+00:00",
+      "total_view_count": 81168,
+      "avg_credibility_score": 7.67,
+      "related_videos": [
+        {
+          "video_id": "W5zbliGdIuw",
+          "title": "EL EJECUTIVO DEBE PONER EN OPERACIÓN EL PROYECTO DE TREN LIMA DE MANERA URGENTE",
+          "url": "https://www.youtube.com/watch?v=W5zbliGdIuw",
+          "channel": "Rafael Lopez Aliaga - Oficial",
+          "view_count": 10174,
+          "credibility_score": 7.0,
+          "sintetization": "El orador expone 11 puntos sobre la falta de inversión en seguridad ciudadana por parte del gobierno de Dina Boluarte. Propone enviar delincuentes a cárceles en El Salvador, reformar el Poder Judicial, y aumentar la participación del ejército en la seguridad interna. También sugiere destinar presupuesto a la seguridad, implementar un sistema de inteligencia, y sancionar a empresas de telefonía que no reporten equipos robados. Además, plantea un servicio militar voluntario con incentivos y la creación de un tren de cercanías para mejorar el transporte en Lima, enfatizando la necesidad de voluntad política para llevar a cabo estas propuestas.",
+          "bullet": "Pone gran énfasis en los detalles del proyecto de transporte y reformas propuestas, destacando el apoyo de otros alcaldes."
+        },
+        {
+          "video_id": "MUga0_to4YQ",
+          "title": "Información sobre el progreso del Tren Lima",
+          "url": "https://www.youtube.com/watch?v=MUga0_to4YQ",
+          "channel": "Rafael Lopez Aliaga - Oficial",
+          "view_count": 16627,
+          "credibility_score": 8.0,
+          "sintetization": "El alcalde de Lima, Rafael López Aliaga, presenta un proyecto para mejorar el transporte hacia Lima desde Chosica y otras zonas, destacando la importancia de un tren de cercanías. En la conferencia, se discuten 11 puntos sobre seguridad ciudadana y la necesidad de reformas en el sistema judicial. Se menciona la urgencia de implementar medidas para combatir la delincuencia y mejorar la infraestructura de transporte. Los alcaldes de Callao y Chosica apoyan el proyecto, enfatizando la necesidad de colaboración entre autoridades para acelerar su ejecución.",
+          "bullet": "Pone gran énfasis en los detalles del proyecto de transporte y reformas propuestas, destacando el apoyo de otros alcaldes."
+        },
+        {
+          "video_id": "jUudJZlBm9c",
+          "title": "Gobernador de Cusco arremete contra López Aliaga y anuncia llegada de trenes #HLR",
+          "url": "https://www.youtube.com/watch?v=jUudJZlBm9c",
           "channel": "La República - LR+",
-          "bullet": "Destaca la falta de preparación ante desastres naturales como el tsunami, implicando críticas al gobierno de Boluarte por desconexión con la realidad y mala gestión."
-        },
-        {
-          "channel": "SEVENRO",
-          "bullet": "El video presenta los efectos del terremoto de Camchatka que generó el tsunami, enfatizando evacuaciones y mareas altas. Se centra en los aspectos físicos del fenómeno natural."
-        },
-        {
-          "channel": "PBO",
-          "bullet": "El programa discute los fenómenos naturales junto con temas de inseguridad y delincuencia, sin un enfoque exclusivo en el análisis de los desastres."
-        },
-        {
-          "channel": "TVPerú Noticias",
-          "bullet": "Se hace un análisis más detallado de tormentas de arena y coordinación gubernamental para mitigar los impactos. Enfoca medidas y percepciones gubernamentales ante fenómenos naturales."
-        }
-      ]
-    },
-    {
-      "event_slug": "crisisvladimircerron",
-      "event_headline": "Crisis de Vladimir Cerrón",
-      "coverage": [
-        {
-          "channel": "PBO",
-          "bullet": "Se sugiere que Cerrón mantiene una relación de complicidad con Boluarte, implicando una posible alianza oculta. El enfoque es conspirativo respecto a sus relaciones políticas."
-        },
-        {
-          "channel": "Latina Noticias",
-          "bullet": "La cobertura destaca un mitin en favor de Cerrón en un evento del Congreso, criticando la falta de neutralidad política y uso indebido de recursos públicos. Tiene un enfoque crítico hacia su promoción política."
+          "view_count": 54367,
+          "credibility_score": 8.0,
+          "sintetization": "El gobernador de Cuzco, Werner Salcedo, criticó la propuesta del alcalde de Lima, Rafael López Aliaga, de traer trenes usados, afirmando que Cuzco merece trenes de clase mundial y no chatarra. Salcedo enfatizó que la región no aceptará trenes de segundo uso y que se debe proyectar a largo plazo en la gestión de transporte. Además, expertos y el ministro de Transportes expresaron su preocupación por la falta de estudios que respalden la calidad y seguridad de los trenes propuestos.",
+          "bullet": "Destaca las críticas de Cuzco a los trenes usados, y expresa preocupación por la integridad y preparación de la propuesta de transporte."
         }
       ]
     }

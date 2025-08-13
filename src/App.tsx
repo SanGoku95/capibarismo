@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import ComparePage from "./pages/ComparePage";
 import { CandidateProfile } from "./pages/CandidateProfile";
@@ -11,6 +11,7 @@ import { About } from "./pages/About";
 import { Header } from "./components/Header";
 import DebatePage  from "./pages/Debate";
 import News from "./pages/News";
+import EventDetail from './pages/EventDetail';
 
 const queryClient = new QueryClient();
 
@@ -31,12 +32,13 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<Navigate to="/news" replace />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/news/:slug" element={<EventDetail />} />
             <Route path="/compare" element={<ComparePage />} />
             <Route path="/candidate/:id" element={<CandidateProfile />} />
             <Route path="/about" element={<About />} />
             <Route path="/debate" element={<DebatePage />} />
-            <Route path="/news" element={<News />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
