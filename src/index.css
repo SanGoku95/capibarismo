@@ -252,4 +252,166 @@
     display: inline-block;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px));
   }
+
+  /* --- Modern Chat UI Enhancements --- */
+  .chat-container-modern {
+    background: hsl(var(--card) / 0.85);
+    border-radius: 1rem; /* Softer radius */
+    position: relative;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px hsl(var(--background) / 0.5);
+    border: 2px solid hsl(var(--border) / 0.5);
+  }
+
+  .chat-header-modern {
+    padding: 1rem;
+    border-bottom: 2px solid hsl(var(--border) / 0.5);
+  }
+
+  .chat-header-modern h1 {
+    font-size: 1.25rem;
+    color: hsl(var(--foreground));
+    text-shadow: 1px 1px 5px hsl(var(--primary) / 0.5);
+  }
+
+  .assistant-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: hsl(var(--primary-foreground));
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.5);
+  }
+
+  .message-bubble {
+    padding: 0.75rem 1rem;
+    border-radius: 1rem; /* Softer radius */
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 75%;
+    box-shadow: 0 2px 4px hsl(var(--background) / 0.2);
+  }
+
+  .user-bubble {
+    background-color: hsl(var(--team-right));
+    color: hsl(var(--team-right-foreground));
+    border-bottom-right-radius: 0.25rem;
+  }
+
+  .assistant-bubble {
+    background-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  .chat-input-area {
+    padding: 1rem;
+    border-top: 2px solid hsl(var(--border) / 0.5);
+    background: hsl(var(--background) / 0.5);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+
+  .suggestion-button {
+    background: hsl(var(--input) / 0.6);
+    border-color: hsl(var(--border) / 0.7);
+    color: hsl(var(--muted-foreground));
+    display: flex;
+    align-items: center;
+    text-align: left;
+    height: auto;
+    min-height: 3.5rem; /* Allow button to grow */
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    transition: all 0.2s ease;
+    white-space: normal; /* Allow text to wrap */
+  }
+
+  .suggestion-button:hover {
+    background: hsl(var(--border) / 0.4);
+    border-color: hsl(var(--accent));
+    color: hsl(var(--foreground));
+    box-shadow: 0 0 8px hsl(var(--accent) / 0.3);
+  }
+
+  .chat-textarea {
+    background-color: hsl(var(--input));
+    border: 2px solid hsl(var(--border));
+    border-radius: 0.75rem;
+    color: hsl(var(--foreground));
+    font-size: 1rem;
+    resize: none;
+    max-height: 10rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .chat-textarea:focus-visible {
+    outline: none;
+    border-color: hsl(var(--ring));
+    box-shadow: 0 0 10px hsl(var(--ring) / 0.5);
+  }
+
+  .chat-send-button {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-radius: 0.75rem;
+    height: auto;
+    width: auto;
+    padding: 0.6rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .chat-send-button:hover {
+    background: hsl(var(--primary) / 0.9);
+  }
+
+  .chat-send-button:disabled {
+    background: hsl(var(--muted));
+    opacity: 0.7;
+  }
+
+  /* Chat message animation */
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .chat-bubble {
+    animation: pop-in 0.3s ease-out forwards;
+  }
+
+  /* Typing indicator animation */
+  .typing-dot {
+    animation: bounce 1.4s infinite both;
+  }
+  .typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    0%, 80%, 100% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1);
+    }
+  }
 }

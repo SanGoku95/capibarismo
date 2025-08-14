@@ -23,6 +23,9 @@ export function Header() {
             <Link to="/debate">Debate</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
+            <Link to="/chat">Chat</Link>
+          </Button>
+          <Button asChild variant="link" className="text-foreground">
             <Link to="/about">Acerca de</Link>
           </Button>
         </Box>

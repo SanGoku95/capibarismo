@@ -12,6 +12,7 @@ import { Header } from "./components/Header";
 import DebatePage  from "./pages/Debate";
 import News from "./pages/News";
 import EventDetail from './pages/EventDetail';
+import ChatPage from "./pages/ChatPage";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/candidate/:id" element={<CandidateProfile />} />
             <Route path="/about" element={<About />} />
             <Route path="/debate" element={<DebatePage />} />
+            <Route path="/chat" element={<ChatPage />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

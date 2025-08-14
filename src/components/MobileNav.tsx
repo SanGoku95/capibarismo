@@ -17,12 +17,14 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import GavelIcon from '@mui/icons-material/Gavel';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
+import ChatIcon from '@mui/icons-material/Chat';
 
 const navItems = [
   { text: 'Inicio', path: '/', icon: <HomeIcon /> },
   { text: 'Comparador', path: '/compare', icon: <CompareArrowsIcon /> },
   { text: 'Prensa', path: '/news', icon: <NewspaperIcon /> },
   { text: 'Debate', path: '/debate', icon: <GavelIcon /> },
+  { text: 'Chat', path: '/chat', icon: <ChatIcon /> },
   { text: 'Metodología', path: '/about', icon: <InfoOutlinedIcon /> },
 ];
 

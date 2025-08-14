@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ai-sdk/react": "^2.0.13",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^3.9.0",
@@ -53,6 +54,7 @@
     "input-otp": "^1.2.4",
     "lucide-react": "^0.462.0",
     "material-react-table": "^3.2.1",
+    "nanoid": "^5.1.5",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
