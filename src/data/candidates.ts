@@ -240,7 +240,7 @@ export const candidates: Candidate[] = [
   {
     id: "antauro",
     nombre: "Antauro Humala Tasso",
-    ideologia: "Izquierda Conservadora",
+    ideologia: "Izquierda Autoritaria",
     headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format",
     proyectoPolitico: {
