@@ -284,7 +284,7 @@ export const candidates: Candidate[] = [
     creenciasClave: [
       {
         id: "etnocacerismo",
-        nombre: "Etnocacerismo/Velasquimo como Doctrina",
+        nombre: "Etnocacerismo/ velasquimo como Doctrina",
         resumen: "Identidad andina (‘raza cobriza’) como base de la nación.",
         detalle: "Nacionalismo étnico‑militar inspirado en Andrés Avelino Cáceres.",
         fuente: "https://antaurohumala.pe/libros/"
