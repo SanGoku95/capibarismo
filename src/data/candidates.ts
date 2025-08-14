@@ -61,7 +61,7 @@ export const candidates: Candidate[] = [
     ideologia: "Centro-derecha",
     proyectoPolitico: {
       titulo: "Plan Perú Seguro",
-      resumen: "Propuesta de gobierno basada en la experiencia y estabilidad económica para recuperar el orden y la seguridad en el país.",
+      resumen: "Estabilidad económica para recuperar el orden y la seguridad en el país.",
       detalles: [
         {
           subtitulo: "Seguridad Ciudadana 'Mano Dura'",
@@ -240,13 +240,12 @@ export const candidates: Candidate[] = [
   {
     id: "antauro",
     nombre: "Antauro Humala Tasso",
-    ideologia: "Etnocacerismo Nacionalismo Radical de Izquierda",
+    ideologia: "Izquierda Conservadora",
     headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format",
     proyectoPolitico: {
-      titulo: "Refundación Nacional Etnocacerista",
-      resumen:
-        "Propone reestructurar el Estado para devolver soberanía política, económica y cultural al Perú, con énfasis en identidad andina y disciplina militar.",
+      titulo: "Refundación Etnocacerista y Socialista",
+      resumen: "Estatismo con énfasis en identidad andina y disciplina militar.",
       detalles: [
         {
           subtitulo: "Asamblea Constituyente y Nueva Constitución",
@@ -284,7 +283,7 @@ export const candidates: Candidate[] = [
     creenciasClave: [
       {
         id: "etnocacerismo",
-        nombre: "Etnocacerismo/ velasquimo como Doctrina",
+        nombre: "Etnocacerismo y velasquimo como doctrina",
         resumen: "Identidad andina (‘raza cobriza’) como base de la nación.",
         detalle: "Nacionalismo étnico‑militar inspirado en Andrés Avelino Cáceres.",
         fuente: "https://antaurohumala.pe/libros/"
@@ -418,9 +417,9 @@ export const candidates: Candidate[] = [
   fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format",
 
   proyectoPolitico: {
-    titulo: "Reforma Institucional Anticorrupción y Descentralización (Perú Primero)",
+    titulo: "Reforma institucional anticorrupción y descentralización",
     resumen:
-      "Agenda marcada por el referéndum 2018, la disolución del Congreso 2019 para destrabar reformas y, hoy, por el intento de reposicionarse con Perú Primero pese a inhabilitaciones múltiples.",
+      "Reformas al sistema político y promocionando la descentralización del Perú.",
     detalles: [
       {
         subtitulo: "Indulto a Pedro Castillo y PPK",
@@ -603,12 +602,12 @@ export const candidates: Candidate[] = [
   {
     id: "guillermo-bermejo",
     nombre: "Guillermo Bermejo Rojas",
-    ideologia: "Marxista-Leninista, Socialista, Izquierda Radical",
+    ideologia: "Marxista-Leninista, Socialista, Izquierda",
     headshot: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format",
     proyectoPolitico: {
-      titulo: "Refundación del Perú a través de una Asamblea Constituyente",
-      resumen: "Propone una transformación profunda del Estado peruano mediante una nueva Constitución, criticando el modelo neoliberal y abogando por un rol más activo del Estado en la economía y la sociedad, con énfasis en la industrialización y la justicia social.",
+      titulo: "Refundación socialista",
+      resumen: "Nueva Constitución, criticando el modelo neoliberal y abogando por un rol más activo del Estado en la economía y la sociedad.",
       detalles: [
         {
           subtitulo: "Asamblea Constituyente y Nueva Constitución",
@@ -1032,7 +1031,7 @@ export const candidates: Candidate[] = [
       ],
       opositores: [
         { nombre: "Empresarios", descripcion: "Grupos que se oponen a sus políticas de protección ambiental y justicia social." },
-        { nombre: "Medios de comunicación", descripcion: "Organizaciones que critican su enfoque radical y su pasado como sacerdote." }
+        { nombre: "Medios de comunicación", descripcion: "Organizaciones que critican su enfoque y su pasado como sacerdote." }
       ],
       seguidores: "Aprox. 650K en redes"
     },
