@@ -55,6 +55,9 @@ export interface Candidate {
   // Compass coordinates
   econ?: number;
   social?: number;
+  education?: string;
+  security?: string;
+  health?: string;
 }
 
 export const candidates: Candidate[] = [
@@ -116,7 +119,10 @@ export const candidates: Candidate[] = [
       seguidores: "Aprox. 2.5M en redes"
     },
     headshot: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format",
-    fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&auto=format"
+    fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&auto=format",
+    education: "pro",
+    security: "pro",
+    health: "anti"
   },
   {
     id: "veronika",
@@ -159,7 +165,10 @@ export const candidates: Candidate[] = [
     headshot: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop&auto=format",
     econ: 6,
-    social: 4
+    social: 4,
+    education: "pro",
+    security: "neutral", 
+    health: "pro"
   },
   {
     id: "rafael",
@@ -202,7 +211,10 @@ export const candidates: Candidate[] = [
     headshot: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&auto=format",
     econ: 8,
-    social: 7
+    social: 7,
+    education: "neutral",
+    security: "pro",
+    health: "anti"
   },
   {
     id: "yonhy",
@@ -244,7 +256,10 @@ export const candidates: Candidate[] = [
     headshot: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face&auto=format",
     fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format",
     econ: 2,
-    social: 1
+    social: 1,
+    education: "pro",
+    security: "neutral",
+    health: "pro"
   },
   {
     id: "antauro",
