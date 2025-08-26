@@ -22,8 +22,8 @@ import ChatIcon from '@mui/icons-material/Chat';
 const navItems = [
   { text: 'Inicio', path: '/', icon: <HomeIcon /> },
   { text: 'Comparador', path: '/compare', icon: <CompareArrowsIcon /> },
+  { text: 'Compass', path: '/compass', icon: <GavelIcon /> },
   { text: 'Prensa', path: '/news', icon: <NewspaperIcon /> },
-  { text: 'Debate', path: '/debate', icon: <GavelIcon /> },
   { text: 'Chat', path: '/chat', icon: <ChatIcon /> },
   { text: 'Metodología', path: '/about', icon: <InfoOutlinedIcon /> },
 ];

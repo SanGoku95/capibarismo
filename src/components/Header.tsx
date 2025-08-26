@@ -17,10 +17,10 @@ export function Header() {
             <Link to="/compare">Comparador</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
-            <Link to="/news">Noticias</Link>
+            <Link to="/compass">Compass</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
-            <Link to="/debate">Debate</Link>
+            <Link to="/news">Noticias</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
             <Link to="/chat">Chat</Link>

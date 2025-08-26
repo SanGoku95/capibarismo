@@ -9,10 +9,10 @@ import { CandidateProfile } from "./pages/CandidateProfile";
 import NotFound from "./pages/NotFound";
 import { About } from "./pages/About";
 import { Header } from "./components/Header";
-import DebatePage  from "./pages/Debate";
 import News from "./pages/News";
 import EventDetail from './pages/EventDetail';
 import ChatPage from "./pages/ChatPage";
+import PoliticalCompassPage from "./pages/PoliticalCompassPage";
 
 const queryClient = new QueryClient();
 
@@ -37,9 +37,9 @@ const App = () => (
             <Route path="/news" element={<News />} />
             <Route path="/news/:slug" element={<EventDetail />} />
             <Route path="/compare" element={<ComparePage />} />
+            <Route path="/compass" element={<PoliticalCompassPage />} />
             <Route path="/candidate/:id" element={<CandidateProfile />} />
             <Route path="/about" element={<About />} />
-            <Route path="/debate" element={<DebatePage />} />
             <Route path="/chat" element={<ChatPage />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

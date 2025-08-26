@@ -16,12 +16,12 @@ const featureCards = [
 		cta: 'Comparar Ahora',
 	},
 	{
-		title: 'Matriz de Debate',
+		title: 'Compass Político',
 		description:
-			'Analiza las posturas de todos los candidatos sobre temas específicos y políticas clave.',
-		link: '/debate',
+			'Compara las posturas de todos los candidatos en políticas clave.',
+		link: '/compass',
 		icon: <GavelIcon className="w-10 h-10 mb-4 text-primary" />,
-		cta: 'Ir al Debate',
+		cta: 'Ir al Compass',
 	},
 	{
 		title: 'Noticias',
