@@ -1,4 +1,4 @@
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { candidates } from '@/data/candidates';
 import NotFound from './NotFound';
@@ -26,6 +26,7 @@ const socialIcons: { [key: string]: React.ReactElement } = {
 export function CandidateProfile() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const navigate = useNavigate();
   const candidate = candidates.find((c) => c.id === id);
 
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
@@ -63,6 +64,10 @@ export function CandidateProfile() {
     }
   }, [location, candidate]);
 
+  const handleGoBack = () => {
+    navigate(-1); // This is equivalent to history.back()
+  };
+
   if (!candidate) {
     return <NotFound />;
   }
@@ -71,11 +76,9 @@ export function CandidateProfile() {
     <div className="min-h-screen fighting-game-bg text-white">
       <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="container mx-auto flex items-center justify-between p-4">
-          <Button asChild variant="outline">
-            <Link to="/compare">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Volver a Comparar
-            </Link>
+          <Button onClick={handleGoBack} variant="outline">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Volver
           </Button>
           <h1 className="text-xl font-bold">{candidate.nombre}</h1>
         </div>

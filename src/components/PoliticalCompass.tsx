@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { candidates } from '@/data/candidates';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
 interface CompassProps {
   /** Optional starting size; component will auto-resize to container */
@@ -32,8 +32,16 @@ export function PoliticalCompass({
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver(([entry]) => {
-      const w = entry.contentRect.width;
-      const size = Math.max(320, Math.min(900, w)); // clamp for mobile/desktop
+      const containerWidth = entry.contentRect.width;
+      const containerHeight = entry.contentRect.height;
+      
+      // Calculate available viewport height (subtract header, padding, etc.)
+      const availableHeight = window.innerHeight - 200; // Reserve space for header/footer
+      
+      // Use the smaller dimension to ensure it fits both width and height
+      const maxSize = Math.min(containerWidth, availableHeight);
+      const size = Math.max(320, Math.min(800, maxSize)); // Reduced max size from 900 to 800
+      
       setDims({ w: size, h: size });
     });
     ro.observe(el);
@@ -62,14 +70,14 @@ export function PoliticalCompass({
     return `hsl(${Math.round(hue)} 70% 55%)`;
   };
 
-  // Dynamic paddings and sizes for readability across viewports
-  const PAD = Math.max(48, Math.min(100, Math.floor(dims.w * 0.12)));
-  const AXIS_STROKE = Math.max(2, Math.min(4, Math.floor(dims.w * 0.006)));
-  const FONT_XSM = Math.max(8, Math.min(10, Math.floor(dims.w * 0.022)));
-  const FONT_SM = Math.max(10, Math.min(12, Math.floor(dims.w * 0.022)));
-  const POINT_R = Math.max(9, Math.min(14, Math.floor(dims.w * 0.022)));
-  const LABEL_H = Math.max(14, Math.min(18, Math.floor(dims.w * 0.03)));
-  const LABEL_W = Math.max(60, Math.min(110, Math.floor(dims.w * 0.19)));
+  // Dynamic paddings and sizes for readability across viewports - more conservative
+  const PAD = Math.max(40, Math.min(80, Math.floor(dims.w * 0.1))); // Reduced padding
+  const AXIS_STROKE = Math.max(2, Math.min(3, Math.floor(dims.w * 0.005)));
+  const FONT_XSM = Math.max(7, Math.min(9, Math.floor(dims.w * 0.018))); // Smaller fonts
+  const FONT_SM = Math.max(9, Math.min(11, Math.floor(dims.w * 0.02)));
+  const POINT_R = Math.max(8, Math.min(12, Math.floor(dims.w * 0.02))); // Smaller points
+  const LABEL_H = Math.max(12, Math.min(16, Math.floor(dims.w * 0.025)));
+  const LABEL_W = Math.max(50, Math.min(90, Math.floor(dims.w * 0.15)));
 
   // Mapping (-10..+10) -> SVG coords inside padded square
   const toSvgX = (econ: number) =>
@@ -90,14 +98,14 @@ export function PoliticalCompass({
       <CardHeader>
       </CardHeader>
       <CardContent>
-        <div ref={containerRef} className="w-full">
+        <div ref={containerRef} className="w-full max-h-[80vh] flex justify-center">
           <svg
             role="img"
             aria-label="Brújula política con ejes económico y social"
             width={dims.w}
             height={dims.h}
             viewBox={`0 0 ${dims.w} ${dims.h}`}
-            className="mx-auto block h-auto w-full bg-card"
+            className="max-w-full max-h-full"
             preserveAspectRatio="xMidYMid meet"
           >
             {/* Background */}
