@@ -66,7 +66,7 @@ export const candidates: Candidate[] = [
     nombre: "Keiko Fujimori",
     ideologia: "Centro-derecha",
     proyectoPolitico: {
-      titulo: "Plan Perú Seguro",
+      titulo: "Plan Keiko Libre",
       resumen: "Estabilidad económica para recuperar el orden y la seguridad en el país.",
       detalles: [
         {
