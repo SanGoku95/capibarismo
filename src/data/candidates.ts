@@ -118,8 +118,8 @@ export const candidates: Candidate[] = [
       ],
       seguidores: "Aprox. 2.5M en redes"
     },
-    headshot: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format",
-    fullBody: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&auto=format",
+    headshot: "https://gdb.voanews.com/6322797d-70ae-4e87-a9ce-037b47ec0bed_cx0_cy1_cw0_w1023_r1_s.jpg",
+    fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Keiko_Fujimori_2.jpg/800px-Keiko_Fujimori_2.jpg",
     education: "pro",
     security: "pro",
     health: "anti"
