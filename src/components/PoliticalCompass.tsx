@@ -15,6 +15,9 @@ type Candidate = {
   econ: number;
   social: number;
   color?: string;
+  education?: string;
+  security?: string;
+  health?: string;
 };
 
 export function PoliticalCompass({
@@ -24,6 +27,9 @@ export function PoliticalCompass({
 }: CompassProps) {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredCandidate, setHoveredCandidate] = useState<string | null>(null);
+  const [clickedCandidate, setClickedCandidate] = useState<string | null>(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
   // Canvas dimensions, responsive to container size
   const [dims, setDims] = useState({ w: width, h: height });
@@ -32,9 +38,8 @@ export function PoliticalCompass({
     if (!el) return;
     const ro = new ResizeObserver(([entry]) => {
       const containerWidth = entry.contentRect.width;
-      const availableHeight = window.innerHeight - 160; // reserve space for header/footer
+      const availableHeight = window.innerHeight - 160;
       const maxSize = Math.min(containerWidth, availableHeight);
-      // clamp for readability
       const size = Math.max(280, Math.min(900, maxSize));
       setDims({ w: size, h: size });
     });
@@ -88,9 +93,61 @@ export function PoliticalCompass({
     return `hsl(${Math.round(hue)} 70% 55%)`;
   };
 
-  const handleCandidateClick = (candidateId: string) => {
-    navigate(`/candidate/${candidateId}#creencias-clave`);
+  const handleCandidateClick = (candidateId: string, event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (clickedCandidate === candidateId) {
+      // Second click - navigate to profile
+      navigate(`/candidate/${candidateId}#creencias-clave`);
+    } else {
+      // First click - show policy summary
+      setTooltipPosition({
+        x: event.clientX,
+        y: event.clientY
+      });
+      setClickedCandidate(candidateId);
+    }
   };
+
+  const handleMouseEnter = (candidateId: string, event: React.MouseEvent) => {
+    if (!clickedCandidate) {
+      setHoveredCandidate(candidateId);
+      setTooltipPosition({
+        x: event.clientX,
+        y: event.clientY
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCandidate(null);
+  };
+
+  // Close tooltip when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setClickedCandidate(null);
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  const formatPolicyValue = (value: string | undefined): string => {
+    if (!value) return 'No definida';
+    switch (value.toLowerCase()) {
+      case 'pro':
+        return '✅ A favor';
+      case 'anti':
+        return '❌ En contra';
+      case 'neutral':
+        return '⚖️ Neutral';
+      default:
+        return value;
+    }
+  };
+
+  const activeCandidate = clickedCandidate || hoveredCandidate;
+  const showTooltip = activeCandidate && (hoveredCandidate || clickedCandidate);
+  const candidateData = displayCandidates.find(c => c.id === activeCandidate);
 
   return (
     <Card className="fighting-game-card">
@@ -98,7 +155,7 @@ export function PoliticalCompass({
       <CardContent>
         <div
           ref={containerRef}
-          className="w-full flex justify-center max-h-[80vh]"
+          className="w-full flex justify-center max-h-[80vh] relative"
         >
           <svg
             role="img"
@@ -213,24 +270,29 @@ export function PoliticalCompass({
                 candidate.color
               );
               const labelY = y - POINT_R - LABEL_H - 4;
+              const isActive = activeCandidate === candidate.id;
+              
               return (
                 <g
                   key={candidate.id}
                   tabIndex={0}
-                  onClick={() => handleCandidateClick(candidate.id)}
+                  onClick={(e) => handleCandidateClick(candidate.id, e)}
+                  onMouseEnter={(e) => handleMouseEnter(candidate.id, e)}
+                  onMouseLeave={handleMouseLeave}
                   style={{ cursor: 'pointer' }}
-                  className="hover:opacity-80 transition-opacity"
+                  className={`hover:opacity-80 transition-opacity ${isActive ? 'opacity-100' : ''}`}
                 >
                   <title>
-                    {candidate.nombre} ({candidate.econ.toFixed(1)},{' '}
-                    {candidate.social.toFixed(1)}) - Click para ver perfil
+                    {candidate.nombre} - Hover para políticas, click para más info
                   </title>
                   {/* Halo for contrast */}
                   <circle
                     cx={x}
                     cy={y}
-                    r={POINT_R + 2}
+                    r={POINT_R + (isActive ? 4 : 2)}
                     fill="hsl(var(--background))"
+                    stroke={isActive ? color : 'transparent'}
+                    strokeWidth={isActive ? 2 : 0}
                   />
                   <circle
                     cx={x}
@@ -238,7 +300,7 @@ export function PoliticalCompass({
                     r={POINT_R}
                     fill={color}
                     stroke="hsl(var(--foreground))"
-                    strokeWidth={2}
+                    strokeWidth={isActive ? 3 : 2}
                   />
                   {/* Label background */}
                   <rect
@@ -248,10 +310,11 @@ export function PoliticalCompass({
                     height={LABEL_H}
                     fill="hsl(var(--background))"
                     stroke="hsl(var(--foreground))"
+                    strokeWidth={isActive ? 2 : 1}
                     rx={4}
                     ry={4}
                   />
-                    {/* Candidate name */}
+                  {/* Candidate name */}
                   <text
                     x={x}
                     y={labelY + LABEL_H - 5}
@@ -259,7 +322,7 @@ export function PoliticalCompass({
                     fontSize={Math.min(14, FONT_SM)}
                     fill="hsl(var(--foreground))"
                     fontFamily="'Inter', sans-serif"
-                    fontWeight={600}
+                    fontWeight={isActive ? 700 : 600}
                   >
                     {truncate(candidate.nombre)}
                   </text>
@@ -267,11 +330,53 @@ export function PoliticalCompass({
               );
             })}
           </svg>
+
+          {/* Policy Summary Tooltip */}
+          {showTooltip && candidateData && (
+            <div
+              className="absolute z-50 bg-background border-2 border-foreground rounded-lg shadow-lg p-4 max-w-xs"
+              style={{
+                left: Math.min(tooltipPosition.x - 150, window.innerWidth - 320),
+                top: Math.max(tooltipPosition.y - 100, 10),
+                pointerEvents: 'none'
+              }}
+            >
+              <div className="space-y-2">
+                <h3 className="font-bold text-sm border-b pb-1">
+                  {candidateData.nombre}
+                </h3>
+                <div className="space-y-1 text-xs">
+                  <div>
+                    <span className="font-medium">Educación:</span>{' '}
+                    <span className="text-muted-foreground">
+                      {formatPolicyValue(candidateData.education)}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="font-medium">Seguridad:</span>{' '}
+                    <span className="text-muted-foreground">
+                      {formatPolicyValue(candidateData.security)}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="font-medium">Salud:</span>{' '}
+                    <span className="text-muted-foreground">
+                      {formatPolicyValue(candidateData.health)}
+                    </span>
+                  </div>
+                </div>
+                {clickedCandidate && (
+                  <div className="text-xs text-muted-foreground mt-2 pt-2 border-t">
+                    Click nuevamente para ver perfil completo
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
+        
         {/* Legend */}
-        <div
-          className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4"
-        >
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
           {displayCandidates.map((c, i) => (
             <div key={c.id} className="flex items-center gap-2">
               <span
