@@ -729,4 +729,188 @@ export const candidates: Candidate[] = [
       seguidores: "Sectores populares, votantes de izquierda, ciudadanos descontentos con el sistema y las élites tradicionales, y aquellos que buscan una transformación profunda del Estado y la sociedad peruana. Su base incluye militantes y líderes sociales en diversas regiones del Perú.",
     }
   }
+  ,
+  {
+  id: "carlos-alvarez",
+  nombre: "Carlos Álvarez",
+  ideologia: "Derecha punitiva",
+  headshot: "https://portal.andina.pe/EDPfotografia3/Thumbnail/2018/05/03/000501027W.jpg",
+  fullBody: "https://blog.ticketmaster.pe/wp-content/uploads/2025/02/Carlos-Alvarez-BLOG-1.jpeg.webp",
+
+  proyectoPolitico: {
+    titulo: "Orden y mano de hierro contra el crimen",
+    resumen:
+      "Prioriza seguridad con pena de muerte, megacárceles, estados de excepción y expulsión de delincuentes extranjeros.",
+    detalles: [
+      {
+        subtitulo: "Pena de muerte, salida del Pacto de San José, 'Mano de Hierro'",
+        texto:
+          "Propone viabilizar la pena capital denunciando la Convención Americana de DD.HH. Utilizar Megacárceles y a las FFAA/PNP para recuperar el control territorial.",
+        fuente:
+          "https://rpp.pe/peru/actualidad/carlos-alvarez-anuncia-su-disposicion-de-postular-a-la-presidencia-y-propone-pena-de-muerte-contra-criminales-noticia-1625714"
+      },
+      {
+        subtitulo: "Expulsión de delincuentes extranjeros",
+        texto:
+          "Insiste en expulsiones inmediatas de extranjeros que cometan delitos.",
+        fuente: "https://www.youtube.com/watch?v=hb5PHqWNTqk"
+      },
+      {
+        subtitulo: "Cooperación punitiva internacional (modelo Bukele)",
+        texto:
+          "Ha sugerido convenios con El Salvador para encerrar a los delincuentes más peligrosos.",
+        fuente: "https://trome.com/actualidad/politica/carlos-alvarez-dina-debe-hacer-un-convenio-con-bukele-y-mandar-a-los-criminales-mas-peligrosos-a-el-salvador-video-entrevista-noticia/"
+      }
+    ]
+  },
+
+  creenciasClave: [
+    {
+      id: "orden-sobre-garantismo",
+      nombre: "El orden público por encima del garantismo",
+      resumen:
+        "El fin (recuperar orden) justifica endurecer reglas procesales y excepciones.",
+      detalle:
+        "Toques de queda, ingreso forzoso, y tratar al delincuente violento como 'objetivo militar' se priorizan si el Estado pierde control territorial.",
+      fuente:
+        "https://trome.com/actualidad/politica/carlos-alvarez-entrevista-candidato-presidencial-por-que-pide-pena-de-muerte-para-los-delincuentes-y-que-otras-medidas-plantea-para-la-inseguridad-video-historia-de-policiales-noticia/"
+    },
+    {
+      id: "soberania-punitiva",
+      nombre: "Soberanía punitiva frente a tratados",
+      resumen:
+        "Si un tratado limita sanciones máximas, se privilegia la soberanía.",
+      detalle:
+        "Defiende salir del Pacto de San José para habilitar la pena de muerte.",
+      fuente:
+        "https://rpp.pe/peru/actualidad/carlos-alvarez-anuncia-su-disposicion-de-postular-a-la-presidencia-y-propone-pena-de-muerte-contra-criminales-noticia-1625714"
+    },
+    {
+      id: "ejemplaridad-castigo",
+      nombre: "Castigo ejemplar y disuasión",
+      resumen:
+        "Megacárceles, régimen severo y mensajes de 'mano de hierro' como disuasores.",
+      detalle:
+        "El énfasis punitivo es la herramienta preferida para bajar crimen.",
+      fuente: "https://www.youtube.com/watch?v=lyNkd_EtUsU"
+    },
+    {
+      id: "prioridad-nacional-frente-migracion-delictiva",
+      nombre: "Prioridad nacional ante delincuencia extranjera",
+      resumen:
+        "Expulsión como política inmediata para no ciudadanos que delinquen.",
+      detalle:
+        "Énfasis reiterado en 'sacar del país' a extranjeros vinculados al crimen.",
+      fuente: "https://www.youtube.com/watch?v=hb5PHqWNTqk"
+    },
+    {
+      id: "antiprivilegios-estatales",
+      nombre: "Austeridad y antiprivilegios del Estado",
+      resumen:
+        "Rechazo a aumentos y privilegios de autoridades como señal política.",
+      detalle:
+        "Retórica de recorte de privilegios; no existe aún marco fiscal detallado.",
+      fuente: "https://www.instagram.com/reel/DNZ8eUcumTw/"
+    }
+  ],
+
+  trayectoria: [
+    {
+      id: "afiliacion-2024",
+      rol: "Afiliado a País Para Todos",
+      periodo: "jul 2024 – Presente",
+      descripcion:
+        "Anuncia afiliación y su eventual postulación interna para 2026.",
+      fuente:
+        "https://elcomercio.pe/politica/partidos/carlos-alvarez-anuncia-que-se-afiliara-como-militante-al-partido-pais-para-todos-elecciones-2026-jne-ultimas-noticia/"
+    },
+    {
+      id: "precandidato-2025",
+      rol: "Precandidato / aspirante presidencial",
+      periodo: "2025 – Presente",
+      descripcion:
+        "Declara disposición a postular; fija agenda punitiva en medios.",
+      fuente:
+        "https://rpp.pe/peru/actualidad/carlos-alvarez-anuncia-su-disposicion-de-postular-a-la-presidencia-y-propone-pena-de-muerte-contra-criminales-noticia-1625714"
+    },
+    {
+      id: "carrera-artistica",
+      rol: "Comediante y presentador",
+      periodo: "1983 – Presente",
+      descripcion:
+        "Figura de sátira política en TV y redes; capital comunicacional.",
+      fuente:
+        "https://www.youtube.com/watch?v=XSlKGdApdQw"
+    }
+  ],
+
+  presenciaDigital: {
+    plataformas: [
+      {
+        nombre: "tiktok",
+        handle: "@carlosalvarez_tiktok",
+        url: "https://www.tiktok.com/@carlosalvarez_tiktok",
+        estrategia:
+          "Canal principal (≈565k seguidores) para posicionar discurso de orden."
+      },
+      {
+        nombre: "instagram",
+        handle: "carlosalvarezoficial_",
+        url: "https://www.instagram.com/carlosalvarezoficial_/",
+        estrategia:
+          "Clips de coyuntura y antiprivilegios; movilización de base."
+      },
+      {
+        nombre: "facebook",
+        handle: "Carlos Alvarez Oficial",
+        url: "https://www.facebook.com/CARLOSALVAREZYLASMILVOCES/",
+        estrategia:
+          "Comunicados, transmisiones y reacciones a hechos de seguridad."
+      },
+      {
+        nombre: "web",
+        handle: "Partido País Para Todos",
+        url: "https://partidopaisparatodos.org.pe/",
+        estrategia:
+          "Estructura y documentos orgánicos del partido."
+      }
+    ]
+  },
+
+  mapaDePoder: {
+    alianzas: [
+      {
+        nombre: "País Para Todos (inscrito ante JNE)",
+        descripcion:
+          "Vehículo político (agrupación nº34 habilitada para EG-2026)."
+      },
+      {
+        nombre: "Vladimir Meza (presidente del partido)",
+        descripcion:
+          "Lidera orgánica; convoca Congreso Nacional Extraordinario 2025."
+      }
+    ],
+    opositores: [
+      {
+        nombre: "ONGs y juristas de DD.HH.",
+        descripcion:
+          "Crítica a retiro del Pacto de San José y agenda punitiva."
+      },
+      {
+        nombre: "Investigación fiscal al partido (2025)",
+        descripcion:
+          "Fiscalía abrió diligencias preliminares sobre legalidad del partido."
+      }
+    ],
+    seguidores:
+      "Audiencia digital grande (TikTok, Facebook); electorado pro-mano dura."
+  },
+
+  // Compass (estimación con la evidencia disponible)
+  econ: 2,          // no hay plan económico; retórica de austeridad sin estatismo → ligera derecha
+  social: 9,        // pena de muerte, megacárceles, estados de excepción → autoritarismo alto
+  security: "pro",
+  health: "neutral",
+  education: "neutral"
+}
 ];
