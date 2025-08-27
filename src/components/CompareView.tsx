@@ -1,4 +1,3 @@
-
 import { useCompareStore } from '@/store/useCompareStore';
 import { CandidateFullBody } from './CandidateFullBody';
 import { CandidateFactSheet } from './CompareViewDesktop';
@@ -15,19 +14,28 @@ export function CompareView() {
           <CandidateComparisonGrid leftCandidate={leftCandidate} rightCandidate={rightCandidate} />
         </div>
 
-        {/* Desktop: 4-column grid with full body images */}
-        <div className="hidden lg:grid lg:grid-cols-4 lg:gap-4 lg:h-full">
-          <div className="flex items-center justify-center">
-            <CandidateFullBody candidate={leftCandidate} side="left" />
-          </div>
-          <div>
-            <CandidateFactSheet candidate={leftCandidate} side="left" />
-          </div>
-          <div>
-            <CandidateFactSheet candidate={rightCandidate} side="right" />
-          </div>
-          <div className="flex items-center justify-center">
-            <CandidateFullBody candidate={rightCandidate} side="right" />
+        {/* Desktop: Fighting arena layout */}
+        <div className="hidden lg:block lg:h-full">          
+          <div className="grid lg:grid-cols-4 lg:gap-4 lg:h-full">
+            {/* Left fighter */}
+            <div className="flex items-center justify-center">
+              <CandidateFullBody candidate={leftCandidate} side="left" />
+            </div>
+            
+            {/* Left fighter stats */}
+            <div className="flex items-start pt-8">
+              <CandidateFactSheet candidate={leftCandidate} side="left" />
+            </div>
+            
+            {/* Right fighter stats */}
+            <div className="flex items-start pt-8">
+              <CandidateFactSheet candidate={rightCandidate} side="right" />
+            </div>
+            
+            {/* Right fighter */}
+            <div className="flex items-center justify-center">
+              <CandidateFullBody candidate={rightCandidate} side="right" />
+            </div>
           </div>
         </div>
       </div>

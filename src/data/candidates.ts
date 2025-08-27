@@ -119,7 +119,7 @@ export const candidates: Candidate[] = [
       seguidores: "Aprox. 2.5M en redes"
     },
     headshot: "https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg",
-    fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Keiko_Fujimori_2.jpg/800px-Keiko_Fujimori_2.jpg",
+    fullBody: "/src/data/fotos_candidatos/keiko/full_body_keiko.png",
     education: "pro",
     security: "pro",
     health: "anti"
@@ -163,7 +163,7 @@ export const candidates: Candidate[] = [
       seguidores: "Aprox. 1.2M en redes"
     },
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
-    fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Rafael_L%C3%B3pez_Aliaga.jpg/800px-Rafael_L%C3%B3pez_Aliaga.jpg",
+    fullBody: "/src/data/fotos_candidatos/rafael/full_body_rafael.png",
     econ: 8,
     social: 7,
     education: "neutral",
@@ -220,7 +220,7 @@ export const candidates: Candidate[] = [
     nombre: "Antauro Humala Tasso",
     ideologia: "Izquierda Autoritaria",
     headshot: "https://pbs.twimg.com/profile_images/1561766942150737923/BJmWxtlq_400x400.jpg",
-    fullBody: "https://upload.wikimedia.org/wikipedia/commons/e/eb/Image-camera_n.jpg",
+    fullBody: "/src/data/fotos_candidatos/antauro/full_body_antauro.jpg",
     proyectoPolitico: {
       titulo: "Refundación Etnocacerista y Socialista",
       resumen: "Estatismo con énfasis en identidad andina y disciplina militar.",
@@ -505,7 +505,7 @@ export const candidates: Candidate[] = [
       rol: "Tercera inhabilitación (10 años) por cierre del Congreso en 2019",
       periodo: "Jun 2025 – 2035 (si queda firme)",
       descripcion: "El Congreso oficializa otra inhabilitación por infracción al art. 134.",
-      fuente: "https://comunicaciones.congreso.gob.pe/noticias/congreso-inhabilita-por-10-anos-al-expresidente-martin-vizcarra-por-cierre-del-congreso/"
+      fuente: "https://comunicaciones.congreso.gob.pe/noticias/congreso-inhabilita-por-10-anos-al-expresidente-martin_vizcarra-por-cierre-del-congreso/"
     },
     {
       id: "juicio-lomas-hospital",
@@ -735,8 +735,7 @@ export const candidates: Candidate[] = [
   nombre: "Carlos Álvarez",
   ideologia: "Derecha punitiva",
   headshot: "https://portal.andina.pe/EDPfotografia3/Thumbnail/2018/05/03/000501027W.jpg",
-  fullBody: "https://blog.ticketmaster.pe/wp-content/uploads/2025/02/Carlos-Alvarez-BLOG-1.jpeg.webp",
-
+  fullBody: "/src/data/fotos_candidatos/alvarez/full_body_alvarez.png",
   proyectoPolitico: {
     titulo: "Orden y mano de hierro contra el crimen",
     resumen:
