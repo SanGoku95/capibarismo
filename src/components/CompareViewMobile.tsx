@@ -66,7 +66,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
           </div>
           
           {/* VS Center */}
-          <div className="fighting-game-vs text-2xl md:text-4xl">
+          <div className="fighting-game-vs text-2xl md:text-4xl opacity-50">
             VS
           </div>
           
