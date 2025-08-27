@@ -120,10 +120,14 @@ export const candidates: Candidate[] = [
     },
     headshot: "https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg",
     fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Keiko_Fujimori_2.jpg/800px-Keiko_Fujimori_2.jpg"
+    fullBody: "/fotos_candidatos/keiko/full_body_keiko.png",
+    education: "pro",
+    security: "pro",
+    health: "anti"
   },
   {
     id: "rafael",
-    nombre: "Rafael López Aliaga",
+    nombre: "Rafael L. Aliaga",
     ideologia: "Derecha",
     proyectoPolitico: {
       titulo: "Orden y Desarrollo",
@@ -160,7 +164,7 @@ export const candidates: Candidate[] = [
       seguidores: "Aprox. 1.2M en redes"
     },
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
-    fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Rafael_L%C3%B3pez_Aliaga.jpg/800px-Rafael_L%C3%B3pez_Aliaga.jpg",
+    fullBody: "/fotos_candidatos/rafael/full_body_rafael.png",
     econ: 8,
     social: 7
   },
@@ -208,10 +212,10 @@ export const candidates: Candidate[] = [
   },
   {
     id: "antauro",
-    nombre: "Antauro Humala Tasso",
+    nombre: "Antauro Humala",
     ideologia: "Izquierda Autoritaria",
     headshot: "https://pbs.twimg.com/profile_images/1561766942150737923/BJmWxtlq_400x400.jpg",
-    fullBody: "https://upload.wikimedia.org/wikipedia/commons/e/eb/Image-camera_n.jpg",
+    fullBody: "/fotos_candidatos/antauro/full_body_antauro.jpg",
     proyectoPolitico: {
       titulo: "Refundación Etnocacerista y Socialista",
       resumen: "Estatismo con énfasis en identidad andina y disciplina militar.",
@@ -382,7 +386,7 @@ export const candidates: Candidate[] = [
   },
   {
   id: "martin-vizcarra",
-  nombre: "Martín Alberto Vizcarra Cornejo",
+  nombre: "Martín Vizcarra",
   ideologia: "Centrista tecnocrático, descentralización",
   headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
   fullBody: "https://www.perureports.com/wp-content/uploads/2018/03/vizcarra-768x513.jpg",
@@ -498,7 +502,7 @@ export const candidates: Candidate[] = [
       rol: "Tercera inhabilitación (10 años) por cierre del Congreso en 2019",
       periodo: "Jun 2025 – 2035 (si queda firme)",
       descripcion: "El Congreso oficializa otra inhabilitación por infracción al art. 134.",
-      fuente: "https://comunicaciones.congreso.gob.pe/noticias/congreso-inhabilita-por-10-anos-al-expresidente-martin-vizcarra-por-cierre-del-congreso/"
+      fuente: "https://comunicaciones.congreso.gob.pe/noticias/congreso-inhabilita-por-10-anos-al-expresidente-martin_vizcarra-por-cierre-del-congreso/"
     },
     {
       id: "juicio-lomas-hospital",
@@ -574,7 +578,7 @@ export const candidates: Candidate[] = [
 },
   {
     id: "guillermo-bermejo",
-    nombre: "Guillermo Bermejo Rojas",
+    nombre: "Guillermo Bermejo",
     ideologia: "Marxista-Leninista, Socialista, Izquierda",
     headshot: "https://pbs.twimg.com/profile_images/1711746019795382272/ROaxERZY_400x400.jpg",
     fullBody: "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4HNCFGPR7ZHC7BABQDM7ADFTXE.jpg",
@@ -726,4 +730,187 @@ export const candidates: Candidate[] = [
     econ: -8,
     social: -3
   }
+  ,
+  {
+  id: "carlos-alvarez",
+  nombre: "Carlos Álvarez",
+  ideologia: "Derecha punitiva",
+  headshot: "https://portal.andina.pe/EDPfotografia3/Thumbnail/2018/05/03/000501027W.jpg",
+  fullBody: "/fotos_candidatos/alvarez/full_body_alvarez.png",
+  proyectoPolitico: {
+    titulo: "Orden y mano de hierro contra el crimen",
+    resumen:
+      "Prioriza seguridad con pena de muerte, megacárceles, estados de excepción y expulsión de delincuentes extranjeros.",
+    detalles: [
+      {
+        subtitulo: "Pena de muerte, salida del Pacto de San José, 'Mano de Hierro'",
+        texto:
+          "Propone viabilizar la pena capital denunciando la Convención Americana de DD.HH. Utilizar Megacárceles y a las FFAA/PNP para recuperar el control territorial.",
+        fuente:
+          "https://rpp.pe/peru/actualidad/carlos-alvarez-anuncia-su-disposicion-de-postular-a-la-presidencia-y-propone-pena-de-muerte-contra-criminales-noticia-1625714"
+      },
+      {
+        subtitulo: "Expulsión de delincuentes extranjeros",
+        texto:
+          "Insiste en expulsiones inmediatas de extranjeros que cometan delitos.",
+        fuente: "https://www.youtube.com/watch?v=hb5PHqWNTqk"
+      },
+      {
+        subtitulo: "Cooperación punitiva internacional (modelo Bukele)",
+        texto:
+          "Ha sugerido convenios con El Salvador para encerrar a los delincuentes más peligrosos.",
+        fuente: "https://trome.com/actualidad/politica/carlos-alvarez-dina-debe-hacer-un-convenio-con-bukele-y-mandar-a-los-criminales-mas-peligrosos-a-el-salvador-video-entrevista-noticia/"
+      }
+    ]
+  },
+
+  creenciasClave: [
+    {
+      id: "orden-sobre-garantismo",
+      nombre: "El orden público por encima del garantismo",
+      resumen:
+        "El fin (recuperar orden) justifica endurecer reglas procesales y excepciones.",
+      detalle:
+        "Toques de queda, ingreso forzoso, y tratar al delincuente violento como 'objetivo militar' se priorizan si el Estado pierde control territorial.",
+      fuente:
+        "https://trome.com/actualidad/politica/carlos-alvarez-entrevista-candidato-presidencial-por-que-pide-pena-de-muerte-para-los-delincuentes-y-que-otras-medidas-plantea-para-la-inseguridad-video-historia-de-policiales-noticia/"
+    },
+    {
+      id: "soberania-punitiva",
+      nombre: "Soberanía punitiva frente a tratados",
+      resumen:
+        "Si un tratado limita sanciones máximas, se privilegia la soberanía.",
+      detalle:
+        "Defiende salir del Pacto de San José para habilitar la pena de muerte.",
+      fuente:
+        "https://rpp.pe/peru/actualidad/carlos-alvarez-anuncia-su-disposicion-de-postular-a-la-presidencia-y-propone-pena-de-muerte-contra-criminales-noticia-1625714"
+    },
+    {
+      id: "ejemplaridad-castigo",
+      nombre: "Castigo ejemplar y disuasión",
+      resumen:
+        "Megacárceles, régimen severo y mensajes de 'mano de hierro' como disuasores.",
+      detalle:
+        "El énfasis punitivo es la herramienta preferida para bajar crimen.",
+      fuente: "https://www.youtube.com/watch?v=lyNkd_EtUsU"
+    },
+    {
+      id: "prioridad-nacional-frente-migracion-delictiva",
+      nombre: "Prioridad nacional ante delincuencia extranjera",
+      resumen:
+        "Expulsión como política inmediata para no ciudadanos que delinquen.",
+      detalle:
+        "Énfasis reiterado en 'sacar del país' a extranjeros vinculados al crimen.",
+      fuente: "https://www.youtube.com/watch?v=hb5PHqWNTqk"
+    },
+    {
+      id: "antiprivilegios-estatales",
+      nombre: "Austeridad y antiprivilegios del Estado",
+      resumen:
+        "Rechazo a aumentos y privilegios de autoridades como señal política.",
+      detalle:
+        "Retórica de recorte de privilegios; no existe aún marco fiscal detallado.",
+      fuente: "https://www.instagram.com/reel/DNZ8eUcumTw/"
+    }
+  ],
+
+  trayectoria: [
+    {
+      id: "afiliacion-2024",
+      rol: "Afiliado a País Para Todos",
+      periodo: "jul 2024 – Presente",
+      descripcion:
+        "Anuncia afiliación y su eventual postulación interna para 2026.",
+      fuente:
+        "https://elcomercio.pe/politica/partidos/carlos-alvarez-anuncia-que-se-afiliara-como-militante-al-partido-pais-para-todos-elecciones-2026-jne-ultimas-noticia/"
+    },
+    {
+      id: "precandidato-2025",
+      rol: "Precandidato / aspirante presidencial",
+      periodo: "2025 – Presente",
+      descripcion:
+        "Declara disposición a postular; fija agenda punitiva en medios.",
+      fuente:
+        "https://rpp.pe/peru/actualidad/carlos-alvarez-anuncia-su-disposicion-de-postular-a-la-presidencia-y-propone-pena-de-muerte-contra-criminales-noticia-1625714"
+    },
+    {
+      id: "carrera-artistica",
+      rol: "Comediante y presentador",
+      periodo: "1983 – Presente",
+      descripcion:
+        "Figura de sátira política en TV y redes; capital comunicacional.",
+      fuente:
+        "https://www.youtube.com/watch?v=XSlKGdApdQw"
+    }
+  ],
+
+  presenciaDigital: {
+    plataformas: [
+      {
+        nombre: "tiktok",
+        handle: "@carlosalvarez_tiktok",
+        url: "https://www.tiktok.com/@carlosalvarez_tiktok",
+        estrategia:
+          "Canal principal (≈565k seguidores) para posicionar discurso de orden."
+      },
+      {
+        nombre: "instagram",
+        handle: "carlosalvarezoficial_",
+        url: "https://www.instagram.com/carlosalvarezoficial_/",
+        estrategia:
+          "Clips de coyuntura y antiprivilegios; movilización de base."
+      },
+      {
+        nombre: "facebook",
+        handle: "Carlos Alvarez Oficial",
+        url: "https://www.facebook.com/CARLOSALVAREZYLASMILVOCES/",
+        estrategia:
+          "Comunicados, transmisiones y reacciones a hechos de seguridad."
+      },
+      {
+        nombre: "web",
+        handle: "Partido País Para Todos",
+        url: "https://partidopaisparatodos.org.pe/",
+        estrategia:
+          "Estructura y documentos orgánicos del partido."
+      }
+    ]
+  },
+
+  mapaDePoder: {
+    alianzas: [
+      {
+        nombre: "País Para Todos (inscrito ante JNE)",
+        descripcion:
+          "Vehículo político (agrupación nº34 habilitada para EG-2026)."
+      },
+      {
+        nombre: "Vladimir Meza (presidente del partido)",
+        descripcion:
+          "Lidera orgánica; convoca Congreso Nacional Extraordinario 2025."
+      }
+    ],
+    opositores: [
+      {
+        nombre: "ONGs y juristas de DD.HH.",
+        descripcion:
+          "Crítica a retiro del Pacto de San José y agenda punitiva."
+      },
+      {
+        nombre: "Investigación fiscal al partido (2025)",
+        descripcion:
+          "Fiscalía abrió diligencias preliminares sobre legalidad del partido."
+      }
+    ],
+    seguidores:
+      "Audiencia digital grande (TikTok, Facebook); electorado pro-mano dura."
+  },
+
+  // Compass (estimación con la evidencia disponible)
+  econ: 2,          // no hay plan económico; retórica de austeridad sin estatismo → ligera derecha
+  social: 9,        // pena de muerte, megacárceles, estados de excepción → autoritarismo alto
+  security: "pro",
+  health: "neutral",
+  education: "neutral"
+}
 ];

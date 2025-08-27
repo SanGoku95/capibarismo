@@ -90,13 +90,19 @@ export function CandidateProfile() {
             <div className="lg:sticky lg:top-24">
               <Card className="fighting-game-card">
                 <CardContent className="p-6">
-                  <img
-                    src={candidate.fullBody}
-                    alt={`Imagen de cuerpo entero de ${candidate.nombre}`}
-                    className="w-full max-w-[280px] lg:max-w-full rounded-lg shadow-lg mx-auto object-cover aspect-[2/3]"
-                  />
-                  <h2 className="text-2xl font-bold mt-4 text-center">{candidate.nombre}</h2>
-                  <p className="text-center text-muted-foreground">{candidate.ideologia}</p>
+                  <div className="relative">
+                    <div className="absolute inset-0 rounded-lg blur-xl opacity-20 bg-primary"></div>
+                    <img
+                      src={candidate.fullBody}
+                      alt={`Imagen de cuerpo entero de ${candidate.nombre}`}
+                      className="relative z-10 w-full max-w-[280px] lg:max-w-full rounded-lg shadow-2xl mx-auto object-cover aspect-[2/3] border-2 border-primary/30"
+                      style={{
+                        filter: 'drop-shadow(0 0 20px rgba(var(--primary), 0.3))',
+                      }}
+                    />
+                  </div>
+                  <h2 className="text-2xl font-bold mt-4 text-center tracking-wide">{candidate.nombre}</h2>
+                  <p className="text-center text-muted-foreground font-medium">{candidate.ideologia}</p>
                 </CardContent>
               </Card>
             </div>
