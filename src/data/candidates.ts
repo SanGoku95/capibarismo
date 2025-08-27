@@ -119,10 +119,7 @@ export const candidates: Candidate[] = [
       seguidores: "Aprox. 2.5M en redes"
     },
     headshot: "https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg",
-    fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Keiko_Fujimori_2.jpg/800px-Keiko_Fujimori_2.jpg",
-    education: "pro",
-    security: "pro",
-    health: "anti"
+    fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Keiko_Fujimori_2.jpg/800px-Keiko_Fujimori_2.jpg"
   },
   {
     id: "rafael",
@@ -165,10 +162,7 @@ export const candidates: Candidate[] = [
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
     fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Rafael_L%C3%B3pez_Aliaga.jpg/800px-Rafael_L%C3%B3pez_Aliaga.jpg",
     econ: 8,
-    social: 7,
-    education: "neutral",
-    security: "pro",
-    health: "anti"
+    social: 7
   },
   {
     id: "yonhy",
@@ -210,10 +204,7 @@ export const candidates: Candidate[] = [
     headshot: "https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg",
     fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Yonhy_Lescano_4.jpg/1280px-Yonhy_Lescano_4.jpg",
     econ: 2,
-    social: 1,
-    education: "pro",
-    security: "neutral",
-    health: "pro"
+    social: 1
   },
   {
     id: "antauro",
@@ -387,10 +378,7 @@ export const candidates: Candidate[] = [
         "Reservistas, etnocaceristas y sectores rurales andinos sensibles al discurso punitivo y anti‑establishment."
     },
     econ: -8,
-    social: 9,
-    education: "neutral",
-    security: "pro",
-    health: "anti"
+    social: 9
   },
   {
   id: "martin-vizcarra",
@@ -582,10 +570,7 @@ export const candidates: Candidate[] = [
       "Base digital jóven/urbano, electorado anticorrupción y parte del sur andino con memoria favorable de su gestión regional."
   },
     econ: 2,
-    social: 2,
-    education: "neutral",
-    security: "pro",
-    health: "anti"
+    social: 2
 },
   {
     id: "guillermo-bermejo",
@@ -739,9 +724,6 @@ export const candidates: Candidate[] = [
       seguidores: "Sectores populares, votantes de izquierda, ciudadanos descontentos con el sistema y las élites tradicionales, y aquellos que buscan una transformación profunda del Estado y la sociedad peruana. Su base incluye militantes y líderes sociales en diversas regiones del Perú.",
     },
     econ: -8,
-    social: -3,
-    education: "neutral",
-    security: "pro",
-    health: "anti"
+    social: -3
   }
 ];

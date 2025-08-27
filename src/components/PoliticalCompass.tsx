@@ -226,36 +226,40 @@ export function PoliticalCompass({
 
             {/* Quadrant labels */}
             <text
-              x={PAD + 6}
-              y={PAD + FONT_SM + 2}
-              fontSize={FONT_SM}
+              x={PAD + 3}
+              y={PAD + FONT_XSM - 30}
+              fontSize={FONT_XSM}
               fill="hsl(var(--foreground))"
+              opacity={0.7}
             >
               IZQUIERDA-AUTORITARIO
             </text>
             <text
-              x={dims.w - PAD - 6}
-              y={PAD + FONT_SM + 2}
-              fontSize={FONT_SM}
+              x={dims.w - PAD - 3}
+              y={PAD + FONT_XSM - 30}
+              fontSize={FONT_XSM}
               fill="hsl(var(--foreground))"
               textAnchor="end"
+              opacity={0.7}
             >
               DERECHA-AUTORITARIO
             </text>
             <text
-              x={PAD + 6}
-              y={dims.h - PAD - 6}
-              fontSize={FONT_SM}
+              x={PAD + 3}
+              y={dims.h - PAD + 20}
+              fontSize={FONT_XSM}
               fill="hsl(var(--foreground))"
+              opacity={0.7}
             >
               IZQUIERDA-LIBERTARIO
             </text>
             <text
-              x={dims.w - PAD - 6}
-              y={dims.h - PAD - 6}
-              fontSize={FONT_SM}
+              x={dims.w - PAD - 3}
+              y={dims.h - PAD + 20}
+              fontSize={FONT_XSM}
               fill="hsl(var(--foreground))"
               textAnchor="end"
+              opacity={0.7}
             >
               DERECHA-LIBERTARIO
             </text>
