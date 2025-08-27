@@ -731,7 +731,7 @@ export const candidates: Candidate[] = [
   },
   {
   id: "carlos-alvarez",
-  nombre: "Carlos Gonsalo Álvarez Loayza",
+  nombre: "Carlos Álvarez",
   ideologia: "Derecha punitiva",
   headshot: "https://portal.andina.pe/EDPfotografia3/Thumbnail/2018/05/03/000501027W.jpg",
   fullBody: "https://blog.ticketmaster.pe/wp-content/uploads/2025/02/Carlos-Alvarez-BLOG-1.jpeg.webp",
