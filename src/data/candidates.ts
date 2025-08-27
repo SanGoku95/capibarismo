@@ -385,7 +385,12 @@ export const candidates: Candidate[] = [
       ],
       seguidores:
         "Reservistas, etnocaceristas y sectores rurales andinos sensibles al discurso punitivo y anti‑establishment."
-    }
+    },
+    econ: -8,
+    social: 9,
+    education: "neutral",
+    security: "pro",
+    health: "anti"
   },
   {
   id: "martin-vizcarra",
@@ -575,7 +580,12 @@ export const candidates: Candidate[] = [
     ],
     seguidores:
       "Base digital jóven/urbano, electorado anticorrupción y parte del sur andino con memoria favorable de su gestión regional."
-  }
+  },
+    econ: 2,
+    social: 2,
+    education: "neutral",
+    security: "pro",
+    health: "anti"
 },
   {
     id: "guillermo-bermejo",
@@ -727,6 +737,11 @@ export const candidates: Candidate[] = [
         }
       ],
       seguidores: "Sectores populares, votantes de izquierda, ciudadanos descontentos con el sistema y las élites tradicionales, y aquellos que buscan una transformación profunda del Estado y la sociedad peruana. Su base incluye militantes y líderes sociales en diversas regiones del Perú.",
-    }
+    },
+    econ: -8,
+    social: -3,
+    education: "neutral",
+    security: "pro",
+    health: "anti"
   }
 ];
