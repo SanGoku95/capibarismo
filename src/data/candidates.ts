@@ -728,7 +728,8 @@ export const candidates: Candidate[] = [
       ],
       seguidores: "Sectores populares, votantes de izquierda, ciudadanos descontentos con el sistema y las élites tradicionales, y aquellos que buscan una transformación profunda del Estado y la sociedad peruana. Su base incluye militantes y líderes sociales en diversas regiones del Perú.",
     }
-  },
+  }
+  ,
   {
   id: "carlos-alvarez",
   nombre: "Carlos Álvarez",
