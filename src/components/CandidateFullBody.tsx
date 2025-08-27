@@ -13,7 +13,7 @@ export function CandidateFullBody({ candidate, side }: CandidateFullBodyProps) {
         <div className="text-center p-8">
           <div className="w-64 h-96 mx-auto bg-muted/20 rounded-2xl flex items-center justify-center border-2 border-dashed border-muted-foreground/30">
             <span className="text-muted-foreground text-lg font-bold">
-              {side === 'left' ? 'FIGHTER 1' : 'FIGHTER 2'}
+              {side === 'left' ? 'PELEADOR 1' : 'PELEADOR 2'}
             </span>
           </div>
         </div>
