@@ -126,7 +126,7 @@ export const candidates: Candidate[] = [
   },
   {
     id: "rafael",
-    nombre: "Rafael López Aliaga",
+    nombre: "Rafael L. Aliaga",
     ideologia: "Derecha",
     proyectoPolitico: {
       titulo: "Orden y Desarrollo",
@@ -217,7 +217,7 @@ export const candidates: Candidate[] = [
   },
   {
     id: "antauro",
-    nombre: "Antauro Humala Tasso",
+    nombre: "Antauro Humala",
     ideologia: "Izquierda Autoritaria",
     headshot: "https://pbs.twimg.com/profile_images/1561766942150737923/BJmWxtlq_400x400.jpg",
     fullBody: "/fotos_candidatos/antauro/full_body_antauro.jpg",
@@ -389,7 +389,7 @@ export const candidates: Candidate[] = [
   },
   {
   id: "martin-vizcarra",
-  nombre: "Martín Alberto Vizcarra Cornejo",
+  nombre: "Martín Vizcarra",
   ideologia: "Centrista tecnocrático, descentralización",
   headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
   fullBody: "https://www.perureports.com/wp-content/uploads/2018/03/vizcarra-768x513.jpg",
@@ -579,7 +579,7 @@ export const candidates: Candidate[] = [
 },
   {
     id: "guillermo-bermejo",
-    nombre: "Guillermo Bermejo Rojas",
+    nombre: "Guillermo Bermejo",
     ideologia: "Marxista-Leninista, Socialista, Izquierda",
     headshot: "https://pbs.twimg.com/profile_images/1711746019795382272/ROaxERZY_400x400.jpg",
     fullBody: "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4HNCFGPR7ZHC7BABQDM7ADFTXE.jpg",
