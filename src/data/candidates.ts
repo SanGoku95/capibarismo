@@ -119,7 +119,7 @@ export const candidates: Candidate[] = [
       seguidores: "Aprox. 2.5M en redes"
     },
     headshot: "https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg",
-    fullBody: "/src/data/fotos_candidatos/keiko/full_body_keiko.png",
+    fullBody: "/fotos_candidatos/keiko/full_body_keiko.png",
     education: "pro",
     security: "pro",
     health: "anti"
@@ -163,7 +163,7 @@ export const candidates: Candidate[] = [
       seguidores: "Aprox. 1.2M en redes"
     },
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
-    fullBody: "/src/data/fotos_candidatos/rafael/full_body_rafael.png",
+    fullBody: "/fotos_candidatos/rafael/full_body_rafael.png",
     econ: 8,
     social: 7,
     education: "neutral",
@@ -220,7 +220,7 @@ export const candidates: Candidate[] = [
     nombre: "Antauro Humala Tasso",
     ideologia: "Izquierda Autoritaria",
     headshot: "https://pbs.twimg.com/profile_images/1561766942150737923/BJmWxtlq_400x400.jpg",
-    fullBody: "/src/data/fotos_candidatos/antauro/full_body_antauro.jpg",
+    fullBody: "/fotos_candidatos/antauro/full_body_antauro.jpg",
     proyectoPolitico: {
       titulo: "Refundación Etnocacerista y Socialista",
       resumen: "Estatismo con énfasis en identidad andina y disciplina militar.",
@@ -735,7 +735,7 @@ export const candidates: Candidate[] = [
   nombre: "Carlos Álvarez",
   ideologia: "Derecha punitiva",
   headshot: "https://portal.andina.pe/EDPfotografia3/Thumbnail/2018/05/03/000501027W.jpg",
-  fullBody: "/src/data/fotos_candidatos/alvarez/full_body_alvarez.png",
+  fullBody: "/fotos_candidatos/alvarez/full_body_alvarez.png",
   proyectoPolitico: {
     titulo: "Orden y mano de hierro contra el crimen",
     resumen:
