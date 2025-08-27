@@ -728,7 +728,8 @@ export const candidates: Candidate[] = [
       ],
       seguidores: "Sectores populares, votantes de izquierda, ciudadanos descontentos con el sistema y las élites tradicionales, y aquellos que buscan una transformación profunda del Estado y la sociedad peruana. Su base incluye militantes y líderes sociales en diversas regiones del Perú.",
     }
-  },
+  }
+  ,
   {
   id: "carlos-alvarez",
   nombre: "Carlos Álvarez",
@@ -906,7 +907,7 @@ export const candidates: Candidate[] = [
 
   // Compass (estimación con la evidencia disponible)
   econ: 2,          // no hay plan económico; retórica de austeridad sin estatismo → ligera derecha
-  social: 9,        // pene de muerte, megacárceles, estados de excepción → autoritarismo alto
+  social: 9,        // pena de muerte, megacárceles, estados de excepción → autoritarismo alto
   security: "pro",
   health: "neutral",
   education: "neutral"
