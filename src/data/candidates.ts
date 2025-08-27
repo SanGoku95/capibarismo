@@ -118,57 +118,11 @@ export const candidates: Candidate[] = [
       ],
       seguidores: "Aprox. 2.5M en redes"
     },
-    headshot: "https://gdb.voanews.com/6322797d-70ae-4e87-a9ce-037b47ec0bed_cx0_cy1_cw0_w1023_r1_s.jpg",
+    headshot: "https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg",
     fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Keiko_Fujimori_2.jpg/800px-Keiko_Fujimori_2.jpg",
     education: "pro",
     security: "pro",
     health: "anti"
-  },
-  {
-    id: "veronika",
-    nombre: "Verónika Mendoza",
-    ideologia: "Izquierda",
-    proyectoPolitico: {
-      titulo: "Cambio y Dignidad",
-      resumen: "Transformación social y justicia económica para todos los peruanos, con un nuevo pacto social."
-    },
-    creenciasClave: [
-      { id: "justicia-social", nombre: "Justicia social", resumen: "Busca una distribución más equitativa de la riqueza y oportunidades.", detalle: "Propone reformas fiscales progresivas, aumento del salario mínimo y fortalecimiento de programas sociales para los más necesitados." },
-      { id: "medio-ambiente", nombre: "Medio ambiente", resumen: "Defiende políticas de desarrollo sostenible y protección de recursos naturales.", detalle: "Impulsa el uso de energías renovables, reforestación y conservación de áreas protegidas. Promueve una economía circular y la reducción de residuos." },
-      { id: "derechos-humanos", nombre: "Derechos humanos", resumen: "Promueve el respeto y garantía de los derechos fundamentales de todas las personas.", detalle: "Busca la eliminación de la violencia de género, la protección de los derechos de los pueblos indígenas y la promoción de los derechos laborales." },
-      { id: "nueva-constitucion", nombre: "Nueva Constitución", resumen: "Aboga por una nueva constitución que refleje los valores y necesidades actuales del país.", detalle: "Propone un proceso constituyente participativo, donde la ciudadanía defina los ejes de la nueva carta magna. Busca incluir derechos sociales, ambientales y de género." }
-    ],
-    trayectoria: [
-      { id: "candidata-presidencial-2016", rol: "Candidata Presidencial", periodo: "2016 - Presente", descripcion: "Figura principal de la izquierda peruana en las últimas elecciones." },
-      { id: "congresista-2011", rol: "Congresista", periodo: "2011 - 2016", descripcion: "Electa por Cusco, con una agenda de fiscalización y derechos sociales." },
-      { id: "activista-2008", rol: "Activista", periodo: "2008 - 2011", descripcion: "Defensora de derechos humanos y medio ambiente en la sociedad civil." }
-    ],
-    presenciaDigital: {
-      plataformas: [
-        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
-        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
-        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
-      ]
-    },
-    mapaDePoder: {
-      alianzas: [
-        { nombre: "Sindicatos", descripcion: "Organizaciones que agrupan a trabajadores y buscan mejorar sus condiciones laborales." },
-        { nombre: "Organizaciones ecologistas", descripcion: "Grupos que defienden la protección del medio ambiente y los recursos naturales." },
-        { nombre: "Movimientos feministas", descripcion: "Colectivos que luchan por los derechos de las mujeres y la igualdad de género." }
-      ],
-      opositores: [
-        { nombre: "Gremios empresariales", descripcion: "Organizaciones que agrupan a empresarios y que se oponen a sus políticas laborales y ambientales." },
-        { nombre: "Sectores conservadores", descripcion: "Grupos que defienden valores tradicionales y se oponen a cambios en la estructura social y económica." }
-      ],
-      seguidores: "Aprox. 1.8M en redes"
-    },
-    headshot: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face&auto=format",
-    fullBody: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop&auto=format",
-    econ: 6,
-    social: 4,
-    education: "pro",
-    security: "neutral", 
-    health: "pro"
   },
   {
     id: "rafael",
@@ -208,8 +162,8 @@ export const candidates: Candidate[] = [
       ],
       seguidores: "Aprox. 1.2M en redes"
     },
-    headshot: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format",
-    fullBody: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&auto=format",
+    headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
+    fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Rafael_L%C3%B3pez_Aliaga.jpg/800px-Rafael_L%C3%B3pez_Aliaga.jpg",
     econ: 8,
     social: 7,
     education: "neutral",
@@ -253,8 +207,8 @@ export const candidates: Candidate[] = [
       ],
       seguidores: "Aprox. 900K en redes"
     },
-    headshot: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face&auto=format",
-    fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format",
+    headshot: "https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg",
+    fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Yonhy_Lescano_4.jpg/1280px-Yonhy_Lescano_4.jpg",
     econ: 2,
     social: 1,
     education: "pro",
@@ -265,8 +219,8 @@ export const candidates: Candidate[] = [
     id: "antauro",
     nombre: "Antauro Humala Tasso",
     ideologia: "Izquierda Autoritaria",
-    headshot: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face&auto=format",
-    fullBody: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=400&h=600&fit=crop&auto=format",
+    headshot: "https://pbs.twimg.com/profile_images/1561766942150737923/BJmWxtlq_400x400.jpg",
+    fullBody: "https://upload.wikimedia.org/wikipedia/commons/e/eb/Image-camera_n.jpg",
     proyectoPolitico: {
       titulo: "Refundación Etnocacerista y Socialista",
       resumen: "Estatismo con énfasis en identidad andina y disciplina militar.",
@@ -438,7 +392,7 @@ export const candidates: Candidate[] = [
   nombre: "Martín Alberto Vizcarra Cornejo",
   ideologia: "Centrista tecnocrático, descentralización",
   headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
-  fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format",
+  fullBody: "https://www.perureports.com/wp-content/uploads/2018/03/vizcarra-768x513.jpg",
 
   proyectoPolitico: {
     titulo: "Reforma institucional anticorrupción y descentralización",
@@ -627,8 +581,8 @@ export const candidates: Candidate[] = [
     id: "guillermo-bermejo",
     nombre: "Guillermo Bermejo Rojas",
     ideologia: "Marxista-Leninista, Socialista, Izquierda",
-    headshot: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format",
-    fullBody: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&auto=format",
+    headshot: "https://pbs.twimg.com/profile_images/1711746019795382272/ROaxERZY_400x400.jpg",
+    fullBody: "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4HNCFGPR7ZHC7BABQDM7ADFTXE.jpg",
     proyectoPolitico: {
       titulo: "Refundación socialista",
       resumen: "Nueva Constitución, criticando el modelo neoliberal y abogando por un rol más activo del Estado en la economía y la sociedad.",
