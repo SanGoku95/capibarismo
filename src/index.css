@@ -159,14 +159,14 @@
     }
 
     .fighting-game-bg-compare {
-      background: url('/public/background_congress.png') center top / cover no-repeat;
+      background: url('/background_congress.png') center top / cover no-repeat;
       background-color: hsl(var(--background)); /* fallback */
       min-height: 100vh;
       width: 100%;
     }
     @media (min-width: 1000px) {
     .fighting-game-bg-compare {
-   background: url('/public/background_congress.png') center -700px / cover no-repeat;
+   background: url('/background_congress.png') center -700px / cover no-repeat;
       background-color: hsl(var(--background)); /* fallback */
       min-height: 100vh;
       width: 100%;
