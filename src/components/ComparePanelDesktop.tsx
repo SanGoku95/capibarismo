@@ -5,7 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
-import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
+import { SocialIcon } from './SocialIcon';
+import { CandidateAvatar } from './CandidateAvatar';
+import { PlayerIndicator } from './PlayerIndicator';
+import { type SocialPlatformType } from '@/lib/constants';
 import {
   Accordion,
   AccordionContent,
@@ -13,38 +16,24 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Shield, Briefcase, Power, Radio } from 'lucide-react';
-
-const socialIcons: { [key: string]: React.ReactElement } = {
-  tiktok: <FaTiktok />,
-  youtube: <FaYoutube />,
-  instagram: <FaInstagram />,
-  facebook: <FaFacebook />,
-  twitter: <FaTwitter />,
-  web: <FaRegWindowRestore />,
-};
+import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
 
 interface CandidateFactSheetProps {
   candidate: Candidate | null;
-  side: 'left' | 'right';
+  side: CandidateSide;
 }
 
 export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps) {
-  const borderColor = side === 'left' ? 'border-l-team-left' : 'border-l-team-right';
-  const badgeColor = side === 'left' ? 'bg-team-left text-team-left-foreground' : 'bg-team-right text-team-right-foreground';
+  const config = PLAYER_INDICATORS[side];
   
   if (!candidate) {
     return (
-      <Card className={`h-full ${borderColor} border-l-4 fighting-game-card`}>
+      <Card className={cn("h-full border-l-4 fighting-game-card", config.borderColor)}>
         <CardContent className="flex items-center justify-center h-full p-8">
           <div className="text-center text-muted-foreground">
-            <div className={cn(
-              "w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold text-xl",
-              side === 'left' ? 'bg-team-left' : 'bg-team-right'
-            )}>
-              {side === 'left' ? '1' : '2'}
-            </div>
+            <PlayerIndicator side={side} size="lg" className="mx-auto mb-4" />
             <h3 className="text-lg font-semibold mb-2">
-              Candidato {side === 'left' ? '1' : '2'}
+              Candidato {config.number}
             </h3>
             <p className="text-sm">Selecciona un candidato para comparar</p>
           </div>
@@ -61,31 +50,25 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className={`h-full ${borderColor} border-l-4 fighting-game-card`}>
+      <Card className={cn("h-full border-l-4 fighting-game-card", config.borderColor)}>
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <div className={cn(
-          "w-7 h-7 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md border-2 border-white/30",
-          side === 'left' ? 'bg-team-left' : 'bg-team-right'
-            )}>
-          {side === 'left' ? 'P1' : 'P2'}
-            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <PlayerIndicator side={side} size="sm" variant="badge" className="shadow-md border-2 border-white/30" />
                 <CardTitle className="text-lg md:text-xl font-bold">
                   <Link to={`/candidate/${candidate.id}`} className="hover:underline">
                     {candidate.nombre}
                   </Link>
                 </CardTitle>
               </div>
-              <Badge className={`text-xs md:text-sm ${badgeColor}`}>
+              <Badge className={`text-xs md:text-sm ${config.badgeColor}`}>
                 {candidate.ideologia}
               </Badge>
             </div>
-            <img
+            <CandidateAvatar
               src={candidate.headshot}
               alt={`Retrato de ${candidate.nombre}`}
-              className="w-12 h-12 rounded-full object-cover shadow-md"
             />
           </div>
         </CardHeader>
@@ -159,7 +142,7 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
                     className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors"
                     >
                     <div className="text-muted-foreground">
-                      {socialIcons[platform.nombre]}
+                      <SocialIcon platform={platform.nombre as SocialPlatformType} />
                     </div>
                     <div>
                       <div className="font-medium capitalize text-base font-sans">{platform.nombre}</div>
