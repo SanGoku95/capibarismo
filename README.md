@@ -58,6 +58,11 @@ npm run dev
 - **[Component Architecture](./dev.md#component-architecture)** - UI component organization
 - **[Design System](./dev.md#design-system--theme)** - 90s gaming theme details
 
+### 🚀 Distribution & Marketing
+
+- **[Distribution Plan](./DISTRIBUTION_PLAN.md)** - Comprehensive strategy for MVP launch and user acquisition
+- **[Implementation Guide](./IMPLEMENTATION_GUIDE.md)** - Tactical playbook for executing distribution strategy
+
 ### 🤝 Contributing
 
 1. Fork the repository
@@ -114,6 +119,11 @@ npm run dev
 - **[Guía de Desarrollo](./dev.md)** - Documentación técnica completa
 - **[Arquitectura de Componentes](./dev.md#component-architecture)** - Organización de componentes UI
 - **[Sistema de Diseño](./dev.md#design-system--theme)** - Detalles del tema gaming de los 90s
+
+### 🚀 Plan de Distribución y Marketing
+
+- **[Plan de Distribución](./DISTRIBUTION_PLAN.md)** - Estrategia integral para el lanzamiento del MVP y adquisición de usuarios
+- **[Guía de Implementación](./IMPLEMENTATION_GUIDE.md)** - Manual táctico para ejecutar la estrategia de distribución
 
 ### 🤝 Contribución
 
