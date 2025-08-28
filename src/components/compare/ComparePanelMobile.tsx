@@ -58,7 +58,13 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
   return (
     <div className="fighting-game-bg-compare flex flex-col h-screen overflow-hidden">
       {/* Scrollable content */}
-      <main className="flex-grow overflow-y-auto px-4 md:px-6 pb-40 lg:pb-6">
+      <main
+        className="flex-grow overflow-y-auto px-4 md:px-6"
+        style={{
+          height: 'calc(100vh - 80px)', // Adjust height to exclude the footer
+          scrollBehavior: 'smooth', // Enable smooth scrolling
+        }}
+      >
         <div className="max-w-6xl mx-auto">
           {/* Character Images at Top */}
           <div className="py-6">
@@ -72,11 +78,18 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                       alt={`${leftCandidate.nombre} full body`}
                       className="w-24 h-40 md:w-32 md:h-48 object-cover rounded shadow-lg mb-2"
                       style={{
-                        filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))'
+                        filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))',
                       }}
                     />
-                    <Link to={`/candidate/${leftCandidate.id}`} className="font-bold text-sm md:text-base text-white text-center hover:underline">{leftCandidate.nombre}</Link>
-                    <div className="text-xs md:text-sm text-team-left font-medium text-center">{leftCandidate.ideologia}</div>
+                    <Link
+                      to={`/candidate/${leftCandidate.id}`}
+                      className="font-bold text-sm md:text-base text-white text-center hover:underline"
+                    >
+                      {leftCandidate.nombre}
+                    </Link>
+                    <div className="text-xs md:text-sm text-team-left font-medium text-center">
+                      {leftCandidate.ideologia}
+                    </div>
                   </>
                 ) : (
                   <div className="flex flex-col items-center">
@@ -87,7 +100,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   </div>
                 )}
               </div>
-              
+
               {/* Right Character */}
               <div className="flex flex-col items-center">
                 {rightCandidate ? (
@@ -97,11 +110,18 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                       alt={`${rightCandidate.nombre} full body`}
                       className="w-24 h-40 md:w-32 md:h-48 object-cover rounded shadow-lg mb-2 scale-x-[-1]"
                       style={{
-                        filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))'
+                        filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))',
                       }}
                     />
-                    <Link to={`/candidate/${rightCandidate.id}`} className="font-bold text-sm md:text-base text-white text-center hover:underline">{rightCandidate.nombre}</Link>
-                    <div className="text-xs md:text-sm text-team-right font-medium text-center">{rightCandidate.ideologia}</div>
+                    <Link
+                      to={`/candidate/${rightCandidate.id}`}
+                      className="font-bold text-sm md:text-base text-white text-center hover:underline"
+                    >
+                      {rightCandidate.nombre}
+                    </Link>
+                    <div className="text-xs md:text-sm text-team-right font-medium text-center">
+                      {rightCandidate.ideologia}
+                    </div>
                   </>
                 ) : (
                   <div className="flex flex-col items-center">
