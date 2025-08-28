@@ -50,7 +50,6 @@ export interface Candidate {
       nombre: string;
       descripcion: string;
     }[];
-    seguidores: string;
   };
   // Compass coordinates
   econ?: number;
@@ -115,8 +114,7 @@ export const candidates: Candidate[] = [
       opositores: [
         { nombre: "Antifujimorismo", descripcion: "Un movimiento social y político diverso que se opone a su figura por el legado del gobierno de su padre." },
         { nombre: "Sectores de izquierda", descripcion: "Partidos y movimientos que se oponen a su modelo económico y social." }
-      ],
-      seguidores: "Aprox. 2.5M en redes"
+      ]
     },
     headshot: "https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg",
     fullBody: "/fotos_candidatos/keiko/full_body_keiko.png",
@@ -159,8 +157,7 @@ export const candidates: Candidate[] = [
       opositores: [
         { nombre: "Sectores progresistas", descripcion: "Grupos que se oponen a su modelo económico y a sus posiciones sobre derechos sociales." },
         { nombre: "Sindicalistas", descripcion: "Organizaciones que agrupan a trabajadores y que se oponen a sus políticas laborales." }
-      ],
-      seguidores: "Aprox. 1.2M en redes"
+      ]
     },
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
     fullBody: "/fotos_candidatos/rafael/full_body_rafael.png",
@@ -201,8 +198,7 @@ export const candidates: Candidate[] = [
       opositores: [
         { nombre: "Corrupción", descripcion: "Prácticas corruptas en la política y la administración pública." },
         { nombre: "Abusos de poder", descripcion: "Acciones de autoridades que violan los derechos de los ciudadanos." }
-      ],
-      seguidores: "Aprox. 900K en redes"
+      ]
     },
     headshot: "https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg",
     fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Yonhy_Lescano_4.jpg/1280px-Yonhy_Lescano_4.jpg",
@@ -376,9 +372,7 @@ export const candidates: Candidate[] = [
           nombre: "Ollanta Humala y Partido Nacionalista",
           descripcion: "Ruptura fraterna irreversible tras Andahuaylazo y caso Odebrecht."
         }
-      ],
-      seguidores:
-        "Reservistas, etnocaceristas y sectores rurales andinos sensibles al discurso punitivo y anti‑establishment."
+      ]
     },
     econ: -8,
     social: 9
@@ -568,9 +562,7 @@ export const candidates: Candidate[] = [
         nombre: "Sectores pro-Tía María",
         descripcion: "Crítica empresarial y política por suspensión de licencia en 2019."
       }
-    ],
-    seguidores:
-      "Base digital jóven/urbano, electorado anticorrupción y parte del sur andino con memoria favorable de su gestión regional."
+    ]
   },
     econ: 2,
     social: 2
@@ -723,8 +715,7 @@ export const candidates: Candidate[] = [
           nombre: "Fiscalía y Procuraduría",
           descripcion: "Han presentado acusaciones por afiliación terrorista y obstrucción a la justicia, solicitando penas de cárcel. Bermejo también ha denunciado a la fiscal Marita Barreto.",
         }
-      ],
-      seguidores: "Sectores populares, votantes de izquierda, ciudadanos descontentos con el sistema y las élites tradicionales, y aquellos que buscan una transformación profunda del Estado y la sociedad peruana. Su base incluye militantes y líderes sociales en diversas regiones del Perú.",
+      ]
     },
     econ: -8,
     social: -3
@@ -900,9 +891,7 @@ export const candidates: Candidate[] = [
         descripcion:
           "Fiscalía abrió diligencias preliminares sobre legalidad del partido."
       }
-    ],
-    seguidores:
-      "Audiencia digital grande (TikTok, Facebook); electorado pro-mano dura."
+    ]
   },
 
   // Compass (estimación con la evidencia disponible)

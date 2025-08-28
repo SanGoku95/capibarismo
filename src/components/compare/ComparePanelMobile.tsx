@@ -56,10 +56,10 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
   const hasSelection = leftCandidate || rightCandidate;
 
   return (
-    <div className="fighting-game-bg-compare flex flex-col h-screen overflow-y-auto">
+    <div className="fighting-game-bg-compare flex flex-col h-screen overflow-hidden">
       {/* Scrollable content */}
       <main
-        className="flex-grow px-4 md:px-6 pb-24" // Add padding to prevent footer overlap
+        className="flex-grow overflow-y-auto px-4 md:px-6 pb-24" // Add padding to prevent footer overlap
         style={{
           scrollBehavior: 'smooth', // Enable smooth scrolling
         }}
@@ -250,7 +250,6 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   leftCandidate ? (
                     <Link to={`/candidate/${leftCandidate.id}#mapa-de-poder`} className="font-sans text-sm space-y-1 text-muted-foreground hover:underline">
                       <div><span className="font-semibold text-foreground">Alianzas:</span> {leftCandidate.mapaDePoder.alianzas.slice(0, 1).map(a => a.nombre).join(', ')}...</div>
-                      <div><span className="font-semibold text-foreground">Seguidores:</span> {leftCandidate.mapaDePoder.seguidores}</div>
                     </Link>
                   ) : <span className="font-sans">Sin datos</span>
                 }
@@ -258,7 +257,6 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   rightCandidate ? (
                     <Link to={`/candidate/${rightCandidate.id}#mapa-de-poder`} className="font-sans text-sm space-y-1 text-muted-foreground hover:underline">
                       <div><span className="font-semibold text-foreground">Alianzas:</span> {rightCandidate.mapaDePoder.alianzas.slice(0, 1).map(a => a.nombre).join(', ')}...</div>
-                      <div><span className="font-semibold text-foreground">Seguidores:</span> {rightCandidate.mapaDePoder.seguidores}</div>
                     </Link>
                   ) : <span className="font-sans">Sin datos</span>
                 }

@@ -165,8 +165,6 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
                     <span className="text-muted-foreground ml-1">{candidate.mapaDePoder.alianzas.map(a => a.nombre).join(', ')}</span>
                   </Link>
                    <Link to={`/candidate/${candidate.id}#mapa-de-poder`} className="block p-2 rounded-md hover:bg-muted/50">
-                    <span className="font-medium">Seguidores:</span>
-                    <span className="text-muted-foreground ml-1">{candidate.mapaDePoder.seguidores}</span>
                   </Link>
                 </div>
               </AccordionContent>
