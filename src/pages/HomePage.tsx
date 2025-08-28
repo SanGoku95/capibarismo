@@ -5,7 +5,7 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import GavelIcon from '@mui/icons-material/Gavel';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import ChatIcon from '@mui/icons-material/Chat';
-import { NewsletterCTA } from '@/components/NewsletterCTA';
+import { NewsletterCTA } from '@/components/marketing/NewsletterCTA';
 
 const featureCards = [
     {

@@ -4,7 +4,7 @@ import { Candidate } from '@/data/candidates';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { CandidatePicker } from './CandidatePicker';
-import { SocialIcon } from './SocialIcon';
+import { SocialIcon } from '../common/SocialIcon';
 import { PLAYER_INDICATORS, UI_CLASSES, type CandidateSide } from '@/lib/constants';
 
 interface CandidateComparisonGridProps {
