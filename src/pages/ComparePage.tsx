@@ -1,4 +1,4 @@
-import { CompareView } from '@/components/CompareView';
+import { CompareView } from '@/components/CompareViewLayout';
 import { CandidatePicker } from '@/components/CandidatePicker';
 
 const Index = () => {

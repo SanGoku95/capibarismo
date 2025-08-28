@@ -115,6 +115,46 @@ El proyecto utiliza un tema visual inspirado en los videojuegos de lucha de los 
 - Sugerencias de preguntas frecuentes
 - Interfaz de chat moderna y responsiva
 
+## Compare View and Candidate Displays:
+
+#### ComparePage.tsx - Main Page Container
+This is the top-level page component that:
+Sets up the basic layout structure with responsive grid
+Applies the fighting game background theme
+Renders the two main components: *CompareView* and *CandidatePicker*
+
+#### CompareViewLayout.tsx - Layout Controller
+This component acts as the main layout coordinator:
+Manages responsive behavior (mobile vs desktop layouts)
+Retrieves selected candidates from the global store
+Routes to appropriate view components based on screen size:
+Mobile: Uses CandidateComparisonGrid
+Desktop: Uses fighting arena layout with *CandidateFullBody* and *CandidateFactSheet*
+
+#### CandidateFullBody.tsx - Character Display (Desktop)
+Handles the visual representation of candidates in the desktop fighting game theme:
+Displays full-body images of candidates as "fighters"
+Implements entrance animations and visual effects
+Shows candidate names and ideologies
+Handles empty states when no candidate is selected
+Applies team-based styling (left vs right fighter)
+
+#### ComparePanelDesktop.tsx - Detailed Stats Panel (Desktop)
+Provides comprehensive candidate information in an accordion format:
+Shows detailed candidate data (political project, beliefs, trajectory, etc.)
+Uses expandable sections to organize information
+Includes social media links and power mapping
+Maintains the fighting game aesthetic with team colors
+Handles empty states for unselected candidates
+
+#### ComparePanelMobile.tsx - Mobile Comparison Grid
+Optimized mobile experience that:
+Shows side-by-side comparison in a scrollable format
+Displays candidate images at the top
+Uses comparison sections for easy mobile viewing
+Integrates the candidate picker as a fixed bottom element
+Maintains visual consistency with desktop but optimized for touch
+
 ## 🤝 Contribución
 
 Las contribuciones son bienvenidas. Para cambios importantes:
