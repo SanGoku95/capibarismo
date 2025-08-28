@@ -1,5 +1,5 @@
 import { useCompareStore } from '@/store/useCompareStore';
-import { CandidateFullBody } from './CandidateFullBody';
+import { CandidateFullBody } from '../candidate/CandidateFullBody';
 import { CandidateFactSheet } from './ComparePanelDesktop';
 import { CandidateComparisonGrid } from './ComparePanelMobile';
 

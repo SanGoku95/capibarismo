@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => ({
           'vendor-query': ['@tanstack/react-query'],
           'vendor-router': ['react-router-dom'],
           // Split large components
-          'political-compass': ['src/components/PoliticalCompass.tsx'],
+          'political-compass': ['src/components/political-compass/PoliticalCompass.tsx'],
         },
         // Optimize chunk names
         chunkFileNames: 'assets/[name]-[hash].js',

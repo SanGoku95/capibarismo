@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
 import { Candidate } from '@/data/candidates';
-import { TagPill } from './TagPill';
+import { TagPill } from '../common/TagPill';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
-import { SocialIcon } from './SocialIcon';
-import { CandidateAvatar } from './CandidateAvatar';
-import { PlayerIndicator } from './PlayerIndicator';
+import { SocialIcon } from '../common/SocialIcon';
+import { CandidateAvatar } from '../candidate/CandidateAvatar';
+import { PlayerIndicator } from '../common/PlayerIndicator';
 import { type SocialPlatformType } from '@/lib/constants';
 import {
   Accordion,

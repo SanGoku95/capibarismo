@@ -1,4 +1,4 @@
-import { PoliticalCompass } from '@/components/PoliticalCompass';
+import { PoliticalCompass } from '@/components/political-compass/PoliticalCompass';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function PoliticalCompassPage() {

@@ -1,5 +1,5 @@
-import { CompareView } from '@/components/CompareViewLayout';
-import { CandidatePicker } from '@/components/CandidatePicker';
+import { CompareView } from '@/components/compare/CompareViewLayout';
+import { CandidatePicker } from '@/components/compare/CandidatePicker';
 
 const Index = () => {
   return (

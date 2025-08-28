@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { cn } from '@/lib/utils';
 import { UI_CLASSES } from '@/lib/constants';
-import { OptimizedImage } from './OptimizedImage';
+import { OptimizedImage } from '../common/OptimizedImage';
 
 interface CandidateAvatarProps {
   src: string;
