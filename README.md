@@ -1,168 +1,127 @@
-# 🥊 Presidential Punch Perú
+# 🥊 Presidential Punch Peru
 
-**Análisis comparativo de las posturas de los candidatos para las elecciones presidenciales de Perú.**
+*[Read in English](#english) | [Leer en Español](#español)*
 
-Este proyecto ofrece una plataforma interactiva para comparar las propuestas y planes de gobierno de los candidatos presidenciales, utilizando herramientas visuales modernas y análisis detallado. El objetivo es proporcionar a los votantes una herramienta clara y basada en datos para tomar decisiones informadas.
+**Interactive platform for comparing Peruvian presidential candidates with a retro gaming twist.**
 
-## ✨ Características Principales
+A modern web application that helps voters make informed decisions by comparing candidates' political positions, proposals, and trajectories through an engaging 90s fighting game-themed interface.
 
-*   **🗳️ Comparación:** Compara las posturas de los candidatos lado a lado sobre temas específicos con evidencia respaldada por fuentes.
-*   **🧭 Brújula Política:** Visualización interactiva que posiciona a los candidatos en los ejes económico y social del espectro político.
-*   **👤 Perfiles Detallados:** Fichas completas de cada candidato con información biográfica, trayectoria política, creencias clave y proyecto político.
-*   **🔍 Filtros Dinámicos:** Filtra y personaliza las comparaciones por candidatos de interés.
-*   **📰 Centro de Noticias:** Seguimiento de eventos y noticias relevantes de la campaña electoral.
-*   **🤖 Asistente IA:** Chat interactivo para consultas sobre las propuestas y posturas de los candidatos.
-*   **📱 Diseño Responsivo:** Interfaz optimizada para dispositivos móviles y de escritorio con tema inspirado en videojuegos de los 90s.
+---
 
-## 🛠️ Stack Tecnológico
+## English
 
-*   **Framework:** [React](https://react.dev/) con [Vite](https://vitejs.dev/)
-*   **Lenguaje:** [TypeScript](https://www.typescriptlang.org/)
-*   **Componentes UI:** [shadcn/ui](https://ui.shadcn.com/) - Sistema de componentes moderno y accesible
-*   **Estilos:** [Tailwind CSS](https://tailwindcss.com/) - Framework CSS utilitario
-*   **Navegación:** [React Router](https://reactrouter.com/) - Routing del lado cliente
-*   **Gestión de Estado:** [Zustand](https://zustand-demo.pmnd.rs/) - Estado global ligero
-*   **Consultas:** [TanStack Query](https://tanstack.com/query) - Gestión de datos asíncrona
-*   **Iconos:** [Lucide React](https://lucide.dev/) + [React Icons](https://react-icons.github.io/react-icons/)
-*   **Linting:** [ESLint](https://eslint.org/) - Análisis de código estático
+Presidential Punch Peru provides an interactive platform for comparing political candidates using modern visualization tools and detailed analysis. Built with React and TypeScript, it features a unique retro gaming aesthetic while delivering serious political insights.
 
-## 📁 Estructura del Proyecto
+### ✨ Key Features
 
-```
-src/
-├── components/          # Componentes reutilizables
-│   ├── ui/             # Componentes base del sistema de diseño
-│   ├── PoliticalCompass.tsx
-│   ├── CandidatePicker.tsx
-│   └── CompareView.tsx
-├── pages/              # Páginas principales de la aplicación
-│   ├── HomePage.tsx
-│   ├── ComparePage.tsx
-│   ├── PoliticalCompassPage.tsx
-│   ├── CandidateProfile.tsx
-│   ├── ChatPage.tsx
-│   └── News.tsx
-├── data/               # Datos estáticos de candidatos y eventos
-├── hooks/              # Hooks personalizados
-├── store/              # Gestión de estado global
-└── lib/                # Utilidades y configuraciones
+- **🔄 Candidate Comparison**: Side-by-side analysis of political positions with evidence-backed sources
+- **🧭 Political Compass**: Interactive visualization positioning candidates on economic and social axes  
+- **👤 Detailed Profiles**: Comprehensive candidate information including biography, trajectory, and beliefs
+- **🎯 Smart Filtering**: Dynamic filtering and personalized comparisons
+- **📰 News Center**: Campaign news and electoral event tracking
+- **🤖 AI Assistant**: Interactive chat for candidate queries and proposals
+- **📱 Responsive Design**: Optimized for mobile and desktop with 90s gaming theme
+- **♿ Accessibility**: Built with accessibility-first design principles
+
+### 🛠️ Tech Stack
+
+- **Framework**: React 18 + Vite + TypeScript
+- **UI Components**: shadcn/ui + Tailwind CSS
+- **State Management**: Zustand + TanStack Query
+- **Routing**: React Router + Lazy Loading
+- **Icons**: Lucide React + React Icons
+- **Theme**: 90s Fighting Game Aesthetic
+
+### 🚀 Quick Start
+
+```bash
+# Clone and install
+git clone https://github.com/Italosayan/presidential-punch-peru.git
+cd presidential-punch-peru
+npm install
+
+# Start development server
+npm run dev
+# → http://localhost:8080
 ```
 
-## 🚀 Inicio Rápido
+### 📋 Available Scripts
 
-### Prerrequisitos
+- `npm run dev` - Development server with HMR
+- `npm run build` - Production build
+- `npm run preview` - Preview production build
+- `npm run lint` - Code linting
 
-- [Node.js](https://nodejs.org/) (versión LTS recomendada)
-- [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
+### 📖 Documentation
 
-### Instalación
+- **[Developer Guide](./dev.md)** - Comprehensive technical documentation
+- **[Component Architecture](./dev.md#component-architecture)** - UI component organization
+- **[Design System](./dev.md#design-system--theme)** - 90s gaming theme details
 
-1.  **Clona el repositorio:**
-    ```bash
-    git clone https://github.com/tu-usuario/presidential-punch-peru.git
-    cd presidential-punch-peru
-    ```
+### 🤝 Contributing
 
-2.  **Instala las dependencias:**
-    ```bash
-    npm install
-    ```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-3.  **Inicia el servidor de desarrollo:**
-    ```bash
-    npm run dev
-    ```
+---
 
-La aplicación estará disponible en `http://localhost`.
+## Español
 
-## 📋 Scripts Disponibles
+### ✨ Características Principales
 
-*   `npm run dev` - Inicia el servidor de desarrollo con HMR
-*   `npm run build` - Compila la aplicación para producción
-*   `npm run preview` - Previsualiza la build de producción localmente
-*   `npm run lint` - Ejecuta ESLint para análisis de código
+*   **🗳️ Comparación**: Compara posturas de candidatos lado a lado con evidencia respaldada por fuentes
+*   **🧭 Brújula Política**: Visualización interactiva que posiciona candidatos en los ejes económico y social
+*   **👤 Perfiles Detallados**: Información completa de cada candidato con biografía, trayectoria y creencias
+*   **🔍 Filtros Dinámicos**: Filtra y personaliza las comparaciones por candidatos de interés
+*   **📰 Centro de Noticias**: Seguimiento de eventos y noticias relevantes de la campaña electoral
+*   **🤖 Asistente IA**: Chat interactivo para consultas sobre propuestas y posturas
+*   **📱 Diseño Responsivo**: Interfaz optimizada para móviles y escritorio con tema de videojuegos de los 90s
 
-## 🎨 Características del Diseño
+### 🛠️ Stack Tecnológico
 
-El proyecto utiliza un tema visual inspirado en los videojuegos de lucha de los 90s:
+*   **Framework:** React 18 con Vite + TypeScript
+*   **Componentes UI:** shadcn/ui + Tailwind CSS
+*   **Estado:** Zustand + TanStack Query
+*   **Navegación:** React Router con carga lazy
+*   **Iconos:** Lucide React + React Icons
+*   **Tema:** Estética de videojuegos de lucha de los 90s
 
-- **Paleta de colores vibrantes** con contrastes altos
-- **Tipografía pixelada** (Press Start 2P) para títulos
-- **Elementos de interfaz chunky** con bordes definidos
-- **Colores de equipo** (rojo/azul) para representar espectros políticos
-- **Efectos visuales** como sombras y gradientes neón
+### 🚀 Inicio Rápido
 
-## 🧭 Funcionalidades Clave
+```bash
+# Clonar e instalar
+git clone https://github.com/Italosayan/presidential-punch-peru.git
+cd presidential-punch-peru
+npm install
 
-### Brújula Política
-- Posicionamiento de candidatos en ejes económico (izquierda-derecha) y social (autoritario-libertario)
-- Interacción clickeable para navegar a perfiles de candidatos
-- Visualización responsiva que se adapta a diferentes tamaños de pantalla
+# Iniciar servidor de desarrollo
+npm run dev
+# → http://localhost:8080
+```
 
-### Comparación de Candidatos
-- Vista lado a lado de las propuestas de múltiples candidatos
-- Filtrado por temas específicos
-- Enlaces a fuentes y evidencia respaldatoria
+### 📋 Scripts Disponibles
 
-### Perfiles de Candidatos
-- Información biográfica completa
-- Trayectoria política detallada
-- Creencias clave con evidencia
-- Proyectos políticos y propuestas
+*   `npm run dev` - Servidor de desarrollo con HMR
+*   `npm run build` - Compilación para producción
+*   `npm run preview` - Previsualizar build de producción
+*   `npm run lint` - Análisis de código con ESLint
 
-### Chat con IA
-- Asistente conversacional para consultas sobre candidatos
-- Sugerencias de preguntas frecuentes
-- Interfaz de chat moderna y responsiva
+### 📖 Documentación
 
-## Compare View and Candidate Displays:
+- **[Guía de Desarrollo](./dev.md)** - Documentación técnica completa
+- **[Arquitectura de Componentes](./dev.md#component-architecture)** - Organización de componentes UI
+- **[Sistema de Diseño](./dev.md#design-system--theme)** - Detalles del tema gaming de los 90s
 
-#### ComparePage.tsx - Main Page Container
-This is the top-level page component that:
-Sets up the basic layout structure with responsive grid
-Applies the fighting game background theme
-Renders the two main components: *CompareView* and *CandidatePicker*
+### 🤝 Contribución
 
-#### CompareViewLayout.tsx - Layout Controller
-This component acts as the main layout coordinator:
-Manages responsive behavior (mobile vs desktop layouts)
-Retrieves selected candidates from the global store
-Routes to appropriate view components based on screen size:
-Mobile: Uses CandidateComparisonGrid
-Desktop: Uses fighting arena layout with *CandidateFullBody* and *CandidateFactSheet*
-
-#### CandidateFullBody.tsx - Character Display (Desktop)
-Handles the visual representation of candidates in the desktop fighting game theme:
-Displays full-body images of candidates as "fighters"
-Implements entrance animations and visual effects
-Shows candidate names and ideologies
-Handles empty states when no candidate is selected
-Applies team-based styling (left vs right fighter)
-
-#### ComparePanelDesktop.tsx - Detailed Stats Panel (Desktop)
-Provides comprehensive candidate information in an accordion format:
-Shows detailed candidate data (political project, beliefs, trajectory, etc.)
-Uses expandable sections to organize information
-Includes social media links and power mapping
-Maintains the fighting game aesthetic with team colors
-Handles empty states for unselected candidates
-
-#### ComparePanelMobile.tsx - Mobile Comparison Grid
-Optimized mobile experience that:
-Shows side-by-side comparison in a scrollable format
-Displays candidate images at the top
-Uses comparison sections for easy mobile viewing
-Integrates the candidate picker as a fixed bottom element
-Maintains visual consistency with desktop but optimized for touch
-
-## 🤝 Contribución
-
-Las contribuciones son bienvenidas. Para cambios importantes:
-
-1. Crea una rama para tu feature (`git checkout -b feature/nueva-caracteristica`)
-2. Commit tus cambios (`git commit -am 'Añade nueva característica'`)
-3. Push a la rama (`git push origin feature/nueva-caracteristica`)
-4. Abre un Pull Request
+1. Haz fork del repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/nueva-caracteristica`)
+3. Commit tus cambios (`git commit -m 'Añade nueva característica'`)
+4. Push a la rama (`git push origin feature/nueva-caracteristica`)
+5. Abre un Pull Request
 
 ## 📄 Licencia
 
