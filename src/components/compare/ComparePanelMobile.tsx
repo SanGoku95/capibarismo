@@ -56,12 +56,11 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
   const hasSelection = leftCandidate || rightCandidate;
 
   return (
-    <div className="fighting-game-bg-compare flex flex-col h-screen overflow-hidden">
+    <div className="fighting-game-bg-compare flex flex-col h-screen overflow-y-auto">
       {/* Scrollable content */}
       <main
-        className="flex-grow overflow-y-auto px-4 md:px-6"
+        className="flex-grow px-4 md:px-6 pb-24" // Add padding to prevent footer overlap
         style={{
-          height: 'calc(100vh - 80px)', // Adjust height to exclude the footer
           scrollBehavior: 'smooth', // Enable smooth scrolling
         }}
       >
@@ -70,13 +69,13 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
           <div className="py-6">
             <div className="grid grid-cols-2 gap-4">
               {/* Left Character */}
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center avatar-container">
                 {leftCandidate ? (
                   <>
                     <img
                       src={leftCandidate.fullBody}
                       alt={`${leftCandidate.nombre} full body`}
-                      className="w-24 h-40 md:w-32 md:h-48 object-cover rounded shadow-lg mb-2"
+                      className="w-32 h-48 md:w-40 md:h-56 object-cover rounded shadow-lg mb-4"
                       style={{
                         filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))',
                       }}
@@ -93,7 +92,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   </>
                 ) : (
                   <div className="flex flex-col items-center">
-                    <div className="w-24 h-40 md:w-32 md:h-48 bg-muted/20 rounded border-2 border-dashed border-muted-foreground/30 flex items-center justify-center mb-2">
+                    <div className="w-32 h-48 md:w-40 md:h-56 bg-muted/20 rounded border-2 border-dashed border-muted-foreground/30 flex items-center justify-center mb-4">
                       <span className="text-sm text-muted-foreground font-bold">P1</span>
                     </div>
                     <span className="text-xs text-gray-400">Selecciona Candidato</span>
@@ -102,13 +101,13 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               </div>
 
               {/* Right Character */}
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center avatar-container">
                 {rightCandidate ? (
                   <>
                     <img
                       src={rightCandidate.fullBody}
                       alt={`${rightCandidate.nombre} full body`}
-                      className="w-24 h-40 md:w-32 md:h-48 object-cover rounded shadow-lg mb-2 scale-x-[-1]"
+                      className="w-32 h-48 md:w-40 md:h-56 object-cover rounded shadow-lg mb-4 scale-x-[-1]"
                       style={{
                         filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))',
                       }}
@@ -125,7 +124,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   </>
                 ) : (
                   <div className="flex flex-col items-center">
-                    <div className="w-24 h-40 md:w-32 md:h-48 bg-muted/20 rounded border-2 border-dashed border-muted-foreground/30 flex items-center justify-center mb-2">
+                    <div className="w-32 h-48 md:w-40 md:h-56 bg-muted/20 rounded border-2 border-dashed border-muted-foreground/30 flex items-center justify-center mb-4">
                       <span className="text-sm text-muted-foreground font-bold">P2</span>
                     </div>
                     <span className="text-xs text-gray-400">Selecciona Candidato</span>

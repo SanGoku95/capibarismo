@@ -146,6 +146,11 @@
     display: none;
   }
 
+  /* Ensure smooth scrolling for mobile */
+  html {
+    scroll-behavior: smooth;
+  }
+
   /* --- 90s Video Game UI Overhaul --- */
 
   /* 1. Pixelated Grid Background */
@@ -163,6 +168,8 @@
       background-color: hsl(var(--background)); /* fallback */
       min-height: 100vh;
       width: 100%;
+      overflow-y: auto; /* Allow scrolling */
+      padding-bottom: 80px; /* Prevent footer overlap */
     }
     @media (min-width: 1000px) {
     .fighting-game-bg-compare {
@@ -434,5 +441,11 @@
     40% {
       transform: scale(1);
     }
+  }
+
+  /* Ensure avatars are fully visible */
+  .avatar-container {
+    max-height: 100%; /* Prevent clipping */
+    overflow: hidden; /* Avoid overflow issues */
   }
 }
