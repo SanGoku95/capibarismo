@@ -49,7 +49,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
   const hasSelection = leftCandidate || rightCandidate;
 
   return (
-    <div className="fighting-game-bg flex flex-col h-screen overflow-hidden">
+    <div className="fighting-game-bg-compare flex flex-col h-screen overflow-hidden">
       {/* Scrollable content */}
       <main className="flex-grow overflow-y-auto px-4 md:px-6 pb-40 lg:pb-6">
         <div className="max-w-6xl mx-auto">
@@ -63,7 +63,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                     <img
                       src={leftCandidate.fullBody}
                       alt={`${leftCandidate.nombre} full body`}
-                      className="w-24 h-40 md:w-32 md:h-48 object-cover rounded border-2 border-team-left shadow-lg mb-2"
+                      className="w-24 h-40 md:w-32 md:h-48 object-cover rounded shadow-lg mb-2"
                       style={{
                         filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))'
                       }}
@@ -88,7 +88,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                     <img
                       src={rightCandidate.fullBody}
                       alt={`${rightCandidate.nombre} full body`}
-                      className="w-24 h-40 md:w-32 md:h-48 object-cover rounded border-2 border-team-right shadow-lg mb-2 scale-x-[-1]"
+                      className="w-24 h-40 md:w-32 md:h-48 object-cover rounded shadow-lg mb-2 scale-x-[-1]"
                       style={{
                         filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))'
                       }}

@@ -214,7 +214,7 @@ export const candidates: Candidate[] = [
     nombre: "Antauro Humala",
     ideologia: "Izquierda Autoritaria",
     headshot: "https://pbs.twimg.com/profile_images/1561766942150737923/BJmWxtlq_400x400.jpg",
-    fullBody: "/fotos_candidatos/antauro/full_body_antauro.jpg",
+    fullBody: "/fotos_candidatos/antauro/full_body_antauro.png",
     proyectoPolitico: {
       titulo: "Refundación Etnocacerista y Socialista",
       resumen: "Estatismo con énfasis en identidad andina y disciplina militar.",
