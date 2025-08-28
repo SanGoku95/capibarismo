@@ -206,7 +206,7 @@ export function PoliticalCompass({
               strokeWidth={1}
               style={{ paintOrder: 'stroke fill' }}
             >
-              ESCALA ECONÓMICA
+              EJE ECONÓMICO
             </text>
             <text
               x={dims.w / 2 - PAD - 18}
@@ -221,7 +221,7 @@ export function PoliticalCompass({
               transform={`rotate(-90 ${dims.w / 2} ${PAD - 8})`}
               style={{ paintOrder: 'stroke fill' }}
             >
-              ESCALA SOCIAL
+              EJE SOCIAL
             </text>
 
             {/* Quadrant labels */}
