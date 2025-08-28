@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
+import { memo } from 'react';
 import { Candidate } from '@/data/candidates';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { CandidatePicker } from './CandidatePicker';
+import { SocialIcon } from './SocialIcon';
+import { PLAYER_INDICATORS, UI_CLASSES, type CandidateSide } from '@/lib/constants';
 
 interface CandidateComparisonGridProps {
   leftCandidate: Candidate | null;
@@ -18,32 +21,36 @@ interface ComparisonSectionProps {
   rightContent: React.ReactNode;
 }
 
-function ComparisonSection({ title, sectionId, leftCandidate, rightCandidate, leftContent, rightContent }: ComparisonSectionProps) {
+const ComparisonSection = memo(function ComparisonSection({ title, sectionId, leftCandidate, rightCandidate, leftContent, rightContent }: ComparisonSectionProps) {
   const hasLeftCandidate = leftCandidate !== null;
   const hasRightCandidate = rightCandidate !== null;
+  const leftConfig = PLAYER_INDICATORS.left;
+  const rightConfig = PLAYER_INDICATORS.right;
   
   return (
     <div className="fighting-game-section p-4 mb-4">
       <h3 className="section-title text-base font-bold mb-4 text-center">
         {title}
       </h3>
-      <div className="grid grid-cols-2 gap-4 md:gap-6">
+      <div className={UI_CLASSES.GRID_TWO_COLS}>
         <div className={cn(
-          "p-3 md:p-4 rounded-lg break-words",
-          hasLeftCandidate ? "candidate-panel-left text-white" : "bg-muted/20 border border-muted text-muted-foreground italic"
+          "p-3 md:p-4 rounded-lg",
+          UI_CLASSES.BREAK_WORDS,
+          hasLeftCandidate ? `${leftConfig.panelColor} text-white` : "bg-muted/20 border border-muted text-muted-foreground italic"
         )}>
           {leftContent}
         </div>
         <div className={cn(
-          "p-3 md:p-4 rounded-lg break-words", 
-          hasRightCandidate ? "candidate-panel-right text-white" : "bg-muted/20 border border-muted text-muted-foreground italic"
+          "p-3 md:p-4 rounded-lg", 
+          UI_CLASSES.BREAK_WORDS,
+          hasRightCandidate ? `${rightConfig.panelColor} text-white` : "bg-muted/20 border border-muted text-muted-foreground italic"
         )}>
           {rightContent}
         </div>
       </div>
     </div>
   );
-}
+});
 
 export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: CandidateComparisonGridProps) {
   const hasSelection = leftCandidate || rightCandidate;
