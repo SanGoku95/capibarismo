@@ -11,7 +11,7 @@ export function CandidateFullBody({ candidate, side }: CandidateFullBodyProps) {
     return (
       <div className="flex items-center justify-center h-full">
         <span className="text-muted-foreground text-lg font-bold">
-          {side === 'left' ? 'PELEADOR 1' : 'PELEADOR 2'}
+          {side === 'left' ? '' : ''}
         </span>
       </div>
     );
