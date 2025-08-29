@@ -4,62 +4,58 @@
 
 **Objetivo:** Validar hipótesis de problema/solución con 15,000+ usuarios únicos en 3 meses
 **Mercado Objetivo:** 9.54M peruanos de 18-35 años (28% población)
-**Presupuesto Total:** $18,500 (Core Plan) + $10,000 (Expansión Opcional)
 **ROI Esperado:** 65% usuarios orgánicos, <$2.00 CAC, NPS >50
 
 ---
 
 ## 🎯 PLAN CORE - Alta Probabilidad de Éxito
-*Presupuesto: $18,500 (65% del total)*
 
-### 1. Marketing de Intención Digital - $8,000 (43%)
-**Probabilidad de Éxito: 90% | Tiempo de Retorno: Inmediato**
-
-#### Google Ads - Captura de Demanda ($4,800)
-- **Keywords de alta intención:** "candidatos presidenciales peru 2026", "comparar propuestas políticas"
-- **Presupuesto:** $120/día × 40 días
-- **Proyección:** 2,400 clicks, conversión 12% = 288 usuarios calificados
-- **Ventaja:** Captura intención existente, ROI predecible
-
-#### TikTok Ads - Alcance Juvenil ($2,400)
-- **Formato:** In-feed ads educacionales, Spark Ads
-- **Target:** 18-25 años, intereses políticos/noticias
-- **Presupuesto:** $60/día × 40 días
-- **Proyección:** 480K impresiones, CTR 1.5% = 7,200 clicks
-
-#### Instagram/Facebook Ads ($800)
-- **Estrategia:** Retargeting de visitantes web
-- **Formato:** Video testimonials, carousel comparaciones
-- **Objetivo:** Conversión de tráfico tibio
-
-### 2. Partnerships Estratégicos - $4,500 (24%)
+### 1. Partnerships Estratégicos
 **Probabilidad de Éxito: 85% | Escalabilidad: Alta**
 
-#### YouTube Influencers Políticos ($3,000)
+#### YouTube Influencers Políticos
 - **Marco Sifuentes ("La Encerrona"):** $1,200 - Demo exclusiva + análisis metodología
 - **Víctor Caballero ("El diario de Curwen"):** $900 - Review en vivo durante "Brutalidad Política"  
 - **Rosa María Palacios ("Sin Guion"):** $900 - Entrevista sobre impacto tech en democracia
 - **ROI Esperado:** 3,000-5,000 usuarios por partnership
 
-#### Universidades Lima ($1,500)
+#### Universidades Lima
 - **PUCP, UPC, ESAN:** Talleres de 45 min "Voto Informado Digital"
 - **Programa embajadores:** 50 estudiantes con incentivos
 - **Penetración directa:** 18-25 años, alta adopción
 
-### 3. Herramientas Gratuitas de Valor - $3,000 (16%)
+### 2. Marketing de Intención Digital
+**Probabilidad de Éxito: 90% | Tiempo de Retorno: Inmediato**
+
+#### Google Ads - Captura de Demanda
+- **Keywords de alta intención:** "candidatos presidenciales peru 2026", "comparar propuestas políticas"
+- **Proyección:** 2,400 clicks, conversión 12% = 288 usuarios calificados
+- **Ventaja:** Captura intención existente, ROI predecible
+
+#### TikTok Ads - Alcance Juvenil
+- **Formato:** In-feed ads educacionales, Spark Ads
+- **Target:** 18-25 años, intereses políticos/noticias
+- **Proyección:** 480K impresiones, CTR 1.5% = 7,200 clicks
+
+#### Instagram/Facebook Ads
+- **Estrategia:** Retargeting de visitantes web
+- **Formato:** Video testimonials, carousel comparaciones
+- **Objetivo:** Conversión de tráfico tibio
+
+### 3. Herramientas Gratuitas de Valor
 **Probabilidad de Éxito: 80% | Viralidad: Alta**
 
-#### Calculadora de Afinidad Política ($2,000)
+#### Calculadora de Afinidad Política
 - **Especificación:** 12 preguntas, resultado shareable
 - **Distribución:** Paid ads + organic social
 - **Proyección:** 40% conversión quiz → plataforma principal
 
-#### Comparador Express Embebible ($1,000)
+#### Comparador Express Embebible
 - **Target:** 50 blogs políticos peruanos
 - **Beneficio:** Backlinks orgánicos + brand awareness
 - **API gratuita** para medios universitarios
 
-### 4. SEO y Contenido Orgánico - $2,000 (11%)
+### 4. SEO y Contenido Orgánico
 **Probabilidad de Éxito: 75% | Crecimiento: Compuesto**
 
 #### Content Clusters
@@ -72,7 +68,7 @@
 - **Instagram:** Posts educativos + Stories interactivos
 - **Twitter:** Participación en conversaciones trending
 
-### 5. Analytics y Optimización - $1,000 (5%)
+### 5. Analytics y Optimización
 **Esencial para éxito del plan core**
 
 - **Herramientas:** Google Analytics 4, Hotjar, Mixpanel
@@ -109,7 +105,7 @@
 
 #### Semana 1-2: Setup y Soft Launch
 - [ ] **Google Ads configurado** con 5 keywords principales
-- [ ] **TikTok Ads** primera campaña test ($300)
+- [ ] **TikTok Ads** primera campaña test
 - [ ] **Calculadora Política** desarrollo finalizado
 - [ ] **YouTube outreach** a Marco Sifuentes y Víctor Caballero
 
@@ -128,8 +124,8 @@
 **Objetivo: 7,000 usuarios acumulados, partnerships escalados**
 
 #### Semana 5-6: Escalamiento Paid
-- [ ] **Google Ads presupuesto completo** ($120/día)
-- [ ] **TikTok Ads escalado** ($60/día)
+- [ ] **Google Ads presupuesto completo**
+- [ ] **TikTok Ads escalado** 
 - [ ] **Víctor Caballero y Rosa María** partnerships ejecutados
 - [ ] **Comparador embebible** lanzado en 5 blogs
 
@@ -167,31 +163,30 @@
 ---
 
 ## ⚡ ESTRATEGIAS ADICIONALES - Alta Oportunidad
-*Presupuesto Opcional: $10,000*
 
 ### Si el Plan Core va bien (Semana 4+):
 
-#### Earned Media y PR ($3,000)
+#### Earned Media y PR 
 - **Medios independientes:** IDL-Reporteros, OjoPúblico, El Foco TV
 - **Press releases** para eventos políticos relevantes
 - **Estudios propios** sobre comportamiento electoral juvenil
 
-#### Guerrilla Marketing ($2,500)
+#### Guerrilla Marketing
 - **Flash polls universitarios** con tablets y resultados real-time
 - **Murales interactivos** con QR codes en distritos jóvenes
 - **Pop-ups informativos** en centros comerciales fines de semana
 
-#### Influencer Marketing Expandido ($2,000)
+#### Influencer Marketing Expandido
 - **15-20 micro-influencers** (5K-50K seguidores) por mes
 - **Colaboraciones auténticas** con creadores de contenido político
 - **User-generated content** campaigns
 
-#### Email Marketing Avanzado ($1,500)
+#### Email Marketing Avanzado
 - **Segmentación avanzada** por región, edad, preferencias
 - **Nurturing sequences** para usuarios inactivos
 - **Newsletter personalizada** con comparaciones relevantes
 
-#### Localización y Expansión ($1,000)
+#### Localización y Expansión
 - **Contenido en quechua** para regiones andinas
 - **Partnerships regionales** universidades provincias
 - **Optimización rural** para conexiones limitadas
@@ -215,31 +210,6 @@
 - **Weekly performance reviews** para ajustes rápidos
 - **Alternative channels ready** si main channels fallan
 
----
-
-## 💰 RETORNO DE INVERSIÓN PROYECTADO
-
-### Escenario Conservador:
-- **12,000 usuarios** en 3 meses
-- **CAC promedio $2.30**
-- **Lifetime Value estimado:** $8.50 (partnerships futuras)
-- **ROI:** 270% 
-
-### Escenario Optimista (Plan Core + Adicionales):
-- **18,000 usuarios** en 3 meses  
-- **CAC promedio $1.80**
-- **Organic growth acceleration** 40%
-- **ROI:** 420%
-
-### Métricas de Continuidad:
-Si al final del mes 2 tenemos:
-- ✅ >8,000 usuarios únicos
-- ✅ CAC <$2.50
-- ✅ NPS >45
-→ **Proceder con estrategias adicionales**
-
----
-
 ## 🎯 SIGUIENTE FASE (Post-MVP)
 
 Si el plan es exitoso (>15K usuarios, hipótesis validadas):
@@ -260,26 +230,3 @@ Si el plan es exitoso (>15K usuarios, hipótesis validadas):
 - **International expansion** (Ecuador, Colombia)
 
 ---
-
-## 📋 DECISIONES EJECUTIVAS REQUERIDAS
-
-### Semana 0:
-- [ ] **Aprobar presupuesto core $18,500**
-- [ ] **Definir team roles** (Marketing, Partnerships, Analytics)
-- [ ] **Establecer success criteria** para estrategias adicionales
-
-### Semana 4:
-- [ ] **Review performance** mes 1 vs proyecciones
-- [ ] **Decidir estrategias adicionales** ($0-10K budget)
-- [ ] **Adjust timeline** basado en early results
-
-### Semana 8:
-- [ ] **Evaluate scale readiness** para siguiente fase
-- [ ] **Resource allocation** para mes 3 optimization
-- [ ] **Partnership expansion** criteria
-
----
-
-*Plan ejecutivo diseñado para maximizar probabilidad de éxito con recursos limitados*
-*Última actualización: Enero 2025*
-*Versión: Executive v1.0*
