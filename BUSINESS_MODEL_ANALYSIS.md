@@ -2,22 +2,20 @@
 
 ## Executive Summary - REVISED BASED ON MARKET REALITY
 
-**Business Opportunity:** Corporate media intelligence platform with validated B2B market segmentation
-**Market Reality:** $2.4M TAM focused on corporate communications with proven purchase authority
-**Pivot Strategy:** Launch viral capybarismo (2024-2026) → B2B-first media intelligence (2027+) → Limited B2C aggregation for customer acquisition
-**Business Model:** B2B SaaS for corporate crisis monitoring with minimal B2C component for pipeline development  
-**Investment Need:** $95K seed funding for 24-month runway focused on validated corporate market
+- **Business Opportunity:** Corporate media intelligence platform with validated B2B market segmentation.
+- **Market Reality:** $2.4M TAM focused on corporate communications with proven purchase authority.
+- **Pivot Strategy:** Launch viral capybarismo (2024-2026) → B2B-first media intelligence (2027+) → Limited B2C aggregation for customer acquisition.
+- **Business Model:** B2B SaaS for corporate crisis monitoring with minimal B2C component for pipeline development.
 
 ---
 
-## 🚨 CRITICAL MARKET REALITY CORRECTIONS
+## MARKET REALITY
 
 ### Consumer News Market Reality Check
 **Peru Digital News Payment Reality (Reuters Institute 2024):**
-- Only **17% pay for online news** across Peru vs global average
+- Only **17% pay for online news** across Peru.
 - **Heavy social/video consumption**: TikTok 27%, YouTube 34% for news
 - **Not subscription-friendly audience** - aggregator/social-first behavior
-- **Previous B2C TAM inflated** - consumer willingness to pay severely overestimated
 
 ### Technology Cost Realities
 **Transcription Economics:**
@@ -91,17 +89,10 @@
 ## 🚫 ELIMINATED B2C FOCUS - MARKET REALITY CHECK
 
 ### Why B2C News Subscriptions Don't Work in Peru:
-1. **Reuters Institute 2024**: Only 17% pay for online news (vs claimed 68% willingness)
+1. **Reuters Institute 2024**: Only 17% pay for online news.
 2. **Social-First Consumption**: TikTok 27%, YouTube 34% for news - not subscription-friendly audience
-3. **Free Official Competition**: JNE Plataforma Electoral provides free, official election information
 4. **Transcription Cost Reality**: $4,500+/month operational costs cannot be supported by B2C ARPU ($2.99-4.99)
 5. **Copyright Compliance**: Derecho de cita allows only brief quotes - no full content redistribution model
-
-### Minimal B2C Component for Customer Acquisition:
-- **Link aggregation + brief summaries** (copyright compliant)
-- **No transcription services** (cost prohibitive for consumer pricing)
-- **Pipeline development tool** for B2B lead generation only
-- **Budget allocation**: <20% of resources, $15K annual investment maximum
 
 #### Market Evidence & Validation Sources:
 - **Social Conflict Monitoring**: Peru Ombudsman reports 200+ active conflicts, mining/energy companies require constant monitoring
@@ -110,13 +101,6 @@
 - **Crisis Management Need**: Reuters coverage of Peru social conflicts shows ongoing reputation risks for regulated industries
 
 #### Technology Infrastructure & Innovation Opportunities:
-
-**Current Technology Limitations:**
-- **Transcription Quality**: Spanish transcription accuracy 60-75% vs 90%+ needed for professional use
-- **Source Coverage**: International tools miss 40-60% of Peru regional media outlets  
-- **Real-Time Processing**: Delays of 2-6 hours for broadcast content analysis
-- **Language Processing**: Poor handling of Peruvian Spanish idioms, political terminology
-- **Integration Capability**: Limited API access for workflow integration with existing newsroom tools
 
 **Market Innovation Opportunities:**
 - **Speaker Identification**: TV/radio host and guest identification for political coverage
@@ -169,7 +153,7 @@
 
 ## 💰 REVISED BUSINESS MODEL - B2B CORPORATE FOCUS
 
-### Phase 1: Viral Launch Strategy (2024-2026) - Relationship Building
+### Phase 1: Viral Launch Strategy (2026) - Relationship Building
 **Capybarismo viral marketing to build relationships with key opinion leaders and corporate decision makers**
 
 #### Objectives During Launch:
@@ -178,7 +162,7 @@
 3. **Industry Event Presence**: Mining conferences, PR industry events, crisis management workshops
 4. **Thought Leadership**: Position as Peru media intelligence expert through viral content and analysis
 
-### Phase 2: B2B Corporate Intelligence Platform (Primary Revenue - 2027+)
+### Phase 2: B2B Corporate Intelligence Platform (Primary Revenue - 2026+)
 **Target:** Corporate communications teams requiring mission-critical crisis monitoring and reputation management
 
 #### Core Value Proposition - Corporate Crisis Detection:
@@ -222,6 +206,7 @@
 
 #### Limited B2C Offering:
 - **Free news aggregation** with link-out to original sources (copyright compliant)
+- **Perplexity like news consumption**: Use GPT to drive growth.
 - **Basic summaries without transcription** (cost management)
 - **Community engagement features** to identify potential B2B prospects
 - **Professional upgrade path** for users requiring advanced features
