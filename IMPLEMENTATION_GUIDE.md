@@ -80,10 +80,25 @@ Facebook/Instagram Ads:
 - Optimization: Conversiones (sign-ups)
 ```
 
-#### PR & Media Outreach:
-- [ ] **Press Release:** Envío a 20 medios digitales
-- [ ] **Podcast Appearances:** Pitch a 5 podcasts políticos
-- [ ] **Guest Articles:** 3 artículos en blogs de análisis político
+#### PR & Media Outreach Estratégico:
+- [ ] **Press Kit Profesional:** Estadísticas + one-pager + screenshots
+- [ ] **Pitch Personalizado a YouTubers Políticos:**
+  - Marco Sifuentes: Demo exclusiva para "La Encerrona"  
+  - Víctor Caballero: Análisis en "El diario de Curwen"
+  - Rosa María Palacios: Feature en "Sin Guion"
+- [ ] **Medios Digitales Especializados:**
+  - IDL-Reporteros: Validación de metodología
+  - OjoPúblico: Fact-check de datos
+  - El Foco TV: Reportaje sobre civic tech
+- [ ] **Earned Media Strategy:**
+  - Crear newsworthy story: "Primera herramienta gamificada electoral en Perú"
+  - Timing con eventos políticos relevantes
+  - Datos exclusivos sobre comportamiento electoral juvenil
+
+#### Activaciones de Guerrilla Marketing:
+- [ ] **Flash Polls Universitarios:** Instalar stands temporales con tablets
+- [ ] **Murales Interactivos:** QR codes en campus universitarios  
+- [ ] **Pop-ups en Centros Comerciales:** Demos durante fines de semana
 
 ---
 
@@ -171,6 +186,90 @@ Propuesta de Colaboración:
 
 ---
 
+## 🎯 Marketing de Intención y Herramientas Gratuitas
+
+### Google Ads - Estrategia de Captura de Demanda
+
+#### Keywords de Alta Intención (Nivel 1):
+```
+Exact Match Keywords:
+- [candidatos presidenciales peru 2026]
+- [comparar propuestas politicas peru]  
+- [que candidato votar peru]
+- [elecciones presidenciales peru guia]
+
+CPC Esperado: $0.30 - $0.80
+Quality Score Target: 8/10
+Landing Page: Comparador principal
+```
+
+#### Long-tail Keywords (Nivel 2):
+```
+Broad Match Modified:
+- diferencias entre +candidatos +presidenciales +peru
+- como +elegir +candidato +presidencial +peru
+- propuestas +economicas +candidatos +peru
+- plan de gobierno +comparacion +peru
+
+CPC Esperado: $0.15 - $0.40  
+Landing Page: Páginas específicas por tema
+```
+
+#### Negative Keywords:
+```
+- resultados (evitar tráfico de resultados pasados)
+- 2021, 2016 (elecciones anteriores)
+- encuestas (solo queremos voters, no analistas)
+```
+
+### Herramientas Gratuitas de Alto Valor
+
+#### 1. Calculadora de Afinidad Política
+**Especificaciones técnicas:**
+- 15 preguntas máximo (mobile-friendly)
+- Resultado personalizado shareable en redes
+- Email capture obligatorio para ver resultado completo
+- Integración con plataforma principal para deep-dive
+
+**Implementation Timeline:**
+- Semana 1: Wireframes y UX flow
+- Semana 2: Desarrollo y testing
+- Semana 3: Launch con campaign específica
+- ROI Expected: 40% conversion rate quiz → platform
+
+#### 2. Comparador Express Embebible
+**Features:**
+- Widget de 300x400px para otros sitios
+- API gratuita para bloggers políticos
+- Auto-update cuando candidatos cambian posiciones
+- Attribution tracking para backlinks
+
+**Distribution Strategy:**
+- Outreach a 50 blogs políticos peruanos
+- Herramienta gratuita para medios universitarios
+- Share en developer communities (GitHub, Stack Overflow)
+
+### SEO - Captura de Tráfico Orgánico
+
+#### Content Clusters Objetivo:
+1. **"Comparar candidatos"** (Head term)
+   - /comparar-candidatos-presidenciales-peru-2026/
+   - /diferencias-candidatos-propuestas-economicas/
+   - /candidatos-presidenciales-peru-educacion/
+
+2. **"Elecciones 2026"** (Head term)  
+   - /guia-elecciones-presidenciales-peru-2026/
+   - /como-votar-informado-peru/
+   - /propuestas-candidatos-elecciones-2026/
+
+#### Link Building Strategy:
+- Guest posts en blogs universitarios
+- Data studies citables por periodistas
+- Partnerships con organizaciones civiles
+- Resource page inclusions
+
+---
+
 ## 📱 Social Media Playbook
 
 ### Instagram Strategy
@@ -215,6 +314,115 @@ Story 4: Link to platform
 - **30% Educational Threads:** Explicación de conceptos políticos
 - **20% Platform Updates:** Features, improvements, stats
 - **10% Community Engagement:** Replies, retweets, polls
+
+---
+
+## 🎥 YouTube Influencer Partnership Templates
+
+### Tier 1: Creadores Independientes de Contenido Político
+
+#### Marco Sifuentes - "La Encerrona"
+**Approach Strategy:**
+```
+Subject: Colaboración exclusiva: Primera plataforma gamificada electoral del Perú
+
+Hola Marco,
+
+Soy [Nombre] de Presidential Punch Peru. Hemos desarrollado la primera plataforma que permite a jóvenes peruanos comparar candidatos presidenciales lado a lado de manera objetiva y gamificada.
+
+Propuesta específica para La Encerrona:
+- Demo exclusiva de la plataforma en tu programa
+- Análisis de nuestra metodología de fact-checking 
+- Discusión sobre el impacto de la tecnología en la democracia peruana
+- Acceso prioritario para tu audiencia
+
+¿Te interesaría una llamada de 15 minutos para compartir más detalles?
+
+Saludos,
+[Firma]
+```
+
+#### Víctor Caballero - "El diario de Curwen"  
+**Content Collaboration:**
+- Episodio especial sobre herramientas electorales digitales
+- Review en vivo de la plataforma durante "Brutalidad Política"
+- Análisis comparativo con plataformas internacionales
+- Q&A con fundadores sobre el desarrollo
+
+#### Rosa María Palacios - "Sin Guion"
+**Expert Interview Angle:**
+- Impacto legal de las plataformas de información electoral
+- Regulación necesaria para herramientas de comparación política
+- Responsabilidad de las tech startups en la democracia
+- Análisis jurídico de la neutralidad política
+
+### Tier 2: Medios Digitales Especializados
+
+#### IDL-Reporteros
+**Validation Partnership:**
+```
+Propuesta de Colaboración - Validación de Metodología
+
+Estimado equipo de IDL-Reporteros,
+
+Presidential Punch Peru es una plataforma que permite comparar candidatos presidenciales. Valoramos enormemente su trabajo de investigación y fact-checking.
+
+Propuesta:
+- Revisión independiente de nuestra metodología de verificación
+- Feedback sobre nuestras fuentes de información 
+- Posible collaboration en fact-checking de propuestas candidatas
+- Feature conjunto sobre herramientas de transparencia electoral
+
+¿Podrían revisar nuestro approach y brindarnos feedback?
+```
+
+#### OjoPúblico  
+**Data Partnership:**
+- Cross-verification de datos de candidatos
+- Integración de sus investigaciones en nuestro platform
+- Colaboración en reportes sobre desinformación electoral
+- Joint research sobre comportamiento electoral juvenil
+
+#### El Foco TV
+**Feature Story Angle:**
+- "El futuro de la participación democrática en Perú"
+- Behind-the-scenes del desarrollo de civic tech
+- Entrevistas con early users de la plataforma
+- Análisis del impacto generacional en política
+
+### Outreach Workflow
+
+#### Semana 1-2: Research y Primer Contacto
+- [ ] **Research profundo:** Últimos videos, temas de interés, formato preferido
+- [ ] **Primer email:** Personalizado, no sales-y, valor claro
+- [ ] **Follow-up:** Si no responden en 5 días, segundo email más directo
+
+#### Semana 3: Demo y Negociación  
+- [ ] **Demo personalizada:** 15 min vía Zoom, adaptada a su audiencia
+- [ ] **Proposal específica:** Qué exactamente queremos que hagan
+- [ ] **Assets provision:** Screenshots, video material, data exclusivo
+
+#### Semana 4: Content Creation
+- [ ] **Briefing detallado:** Talking points, key messages, do's/don'ts
+- [ ] **Technical support:** Acceso especial, soporte durante grabación
+- [ ] **Content approval:** Review before publishing (solo factual accuracy)
+
+#### Post-Launch:
+- [ ] **Performance tracking:** Views, engagement, conversion
+- [ ] **Relationship nurturing:** Agradecimiento, updates, future collaborations
+- [ ] **Content repurposing:** Clips para nuestras redes, testimonials
+
+### Budget Allocation por Tier:
+
+**Tier 1 (Marco, Víctor, Rosa):** $800-1,500 c/u
+- Honorarios por tiempo de preparación y feature
+- Production costs si requieren material especial
+- Exclusive access y data insights
+
+**Tier 2 (IDL, OjoPúblico, El Foco):** $300-800 c/u  
+- Mainly collaboration, menos monetary compensation
+- Focus en exchange de valor (data, access, expertise)
+- Long-term relationship building
 
 ---
 

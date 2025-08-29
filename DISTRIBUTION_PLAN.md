@@ -41,13 +41,17 @@
 ## 📊 Análisis del Público Objetivo
 
 ### Segmento Primario: "Digitales Indecisos" (18-35 años)
-- **Tamaño del mercado:** ~8.5 millones de peruanos
+- **Tamaño del mercado:** ~9.54 millones de peruanos (~28% del país)
+- **Penetración digital:** 79.3% tiene acceso a internet, 69.7% usa redes sociales
+- **Plataformas dominantes:** TikTok (21.9M usuarios 18+), YouTube (17.6M usuarios)
+- **Brecha geográfica:** Lima 89.8% vs. rural 51.8% acceso a internet
 - **Características:**
   - Nativos/adoptantes digitales
   - Desconfianza hacia medios tradicionales
   - Buscan información verificable y objetiva
   - Valoran la eficiencia y facilidad de uso
-  - Activos en redes sociales (Instagram, TikTok, Twitter)
+  - 91% tienen smartphone (principal dispositivo de acceso)
+  - Consumen contenido principalmente en español (82.6%), quechua (13.9%), aymara (1.7%)
 
 ### Segmento Secundario: "Influenciadores de Opinión" (25-45 años)
 - **Perfil:** Periodistas, académicos, líderes de opinión
@@ -60,6 +64,20 @@
 
 ### Fase 1: Lanzamiento Suave (Semanas 1-4)
 **Objetivo:** 1,000 usuarios iniciales, feedback cualitativo
+
+#### Estrategias de Contenido y Medios Ganados
+
+**Pitch a Blogs y Medios Relevantes:**
+- Contacto directo con editores de secciones políticas
+- Propuesta de features exclusivos sobre metodología de comparación
+- Target: El Comercio, La República, RPP, Gestión
+- Enfoque: "Primera plataforma gamificada para comparar candidatos en Perú"
+
+**Generación de Cobertura Mediática:**
+- Press kit con estadísticas sobre desinformación política juvenil
+- Estudios propios sobre frustración electoral en jóvenes peruanos
+- Propuesta de entrevistas con fundadores en programas políticos
+- Timing estratégico con eventos políticos relevantes
 
 #### Redes Sociales Orgánicas
 **Instagram:**
@@ -79,33 +97,60 @@
 - Participación en conversaciones políticas trending
 - Colaboración con periodistas y analistas
 
-**Presupuesto:** $2,000
+**Presupuesto:** $2,500
 - $1,200 contenido visual profesional
 - $800 herramientas de gestión y programación
+- $500 press kit y materiales para medios
 
 ### Fase 2: Crecimiento Acelerado (Semanas 5-8)
 **Objetivo:** 5,000 usuarios, validación de hipótesis iniciales
 
-#### Publicidad Digital Pagada
-**Facebook/Instagram Ads:**
-- Público objetivo: 18-35 años, intereses en política peruana
-- Formatos: Video ads, carousel ads, stories ads
-- Presupuesto: $150/día
+#### Publicidad Digital Pagada Orientada a Intención
 
-**Google Ads:**
-- Palabras clave: "candidatos presidenciales perú", "elecciones 2026"
-- Anuncios de búsqueda y display
+**Google Ads - Captura de Demanda:**
+- Palabras clave de alta intención: "candidatos presidenciales perú 2026", "comparar propuestas políticas"
+- Long-tail keywords: "qué candidato votar perú", "diferencias entre candidatos"
+- Presupuesto: $120/día
+- Landing pages específicas por keyword
+
+**Facebook/Instagram Ads - Escalamiento de Audiencias:**
+- Lookalike audiences basadas en early adopters
+- Retargeting de visitantes con contenido personalizado
+- Video ads priorizando TikTok-style vertical content
 - Presupuesto: $100/día
 
-**TikTok Ads:**
-- In-feed video ads dirigidos a jóvenes urbanos
-- Spark Ads aprovechando contenido orgánico exitoso
-- Presupuesto: $80/día
+**TikTok Ads - Alcance Juvenil Masivo:**
+- In-feed ads con formato nativo "educational"
+- Spark Ads amplificando content orgánico exitoso
+- Colaboración con micro-influencers para Branded Content
+- Presupuesto: $60/día
 
-**Presupuesto:** $7,000
-- $4,900 inversión publicitaria (7 semanas)
-- $1,400 optimización y gestión de campañas
-- $700 herramientas de analytics
+#### Marketing de Motores de Búsqueda (SEO)
+
+**Optimización para Búsquedas Políticas:**
+- Content clusters sobre "comparación candidatos presidenciales"
+- Páginas optimizadas por cada candidato principal
+- Link building con medios políticos y académicos
+- Google My Business para búsquedas locales "información electoral"
+
+#### Herramientas Gratuitas de Valor
+
+**Calculadora de Afinidad Política:**
+- Quiz interactivo que muestra compatibility con candidatos
+- Shareable results para viral social media
+- Email capture para nurturing posterior
+- Integración con plataforma principal
+
+**Comparador de Propuestas Express:**
+- Herramienta embebible para otros sitios web
+- API gratuita para bloggers y medios
+- Backlink strategy natural
+
+**Presupuesto:** $8,500
+- $5,600 inversión publicitaria (7 semanas × $280/día promedio)
+- $1,500 desarrollo de herramientas gratuitas
+- $800 optimización SEO y contenido
+- $600 herramientas de analytics y testing
 
 #### Marketing de Contenidos
 **Blog/Sección de Noticias:**
@@ -121,26 +166,94 @@
 ### Fase 3: Optimización y Escalamiento (Semanas 9-12)
 **Objetivo:** 10,000+ usuarios, refinamiento basado en datos
 
-#### Partnerships Estratégicos
+#### Partnerships Estratégicos con Influencers Políticos y Medios
+
+**Creadores Independientes de Contenido Político:**
+- **Marco Sifuentes** ("La Encerrona"): Colaboración para análisis de metodología
+- **Víctor Caballero** ("El diario de Curwen"): Feature en programa sobre herramientas electorales
+- **Rosa María Palacios** ("Sin Guion"): Entrevista sobre impacto de plataformas digitales en democracia
+- **Juliana Oxenford** ("Arde Troya"): Participación en debate sobre información electoral
+- **Sálvese Quien Pueda**: Integración de herramientas en formato de magazine político
+
+**Medios Digitales Especializados:**
+- **IDL-Reporteros**: Validación de metodología por equipo investigativo
+- **OjoPúblico**: Cross-verification de datos de candidatos
+- **El Foco TV**: Análisis conjunto sobre transparencia electoral
+- **Epicentro TV**: Reportaje sobre nuevas herramientas democráticas
+- **Sudaca Perú**: Columnas de opinión sobre el rol de la tecnología en política
+
+**Presupuesto Partnerships Influencers:** $5,500
+- Colaboraciones con micro-influencers: $2,500
+- Features en canales establecidos: $2,000
+- Desarrollo de contenido conjunto: $1,000
+
+#### Medios Tradicionales con Presencia Digital
+**RPP Noticias:**
+- Entrevistas en programas matutinos
+- Menciones en newsletters digitales
+- Colaboración en cobertura electoral especial
+
+**El Comercio / La República:**
+- Guest posts sobre metodología de comparación
+- Integración de herramientas en portales electorales
+- Patrocinio de secciones especiales
+
+#### Activaciones en Medios no Tradicionales
+
+**Activaciones de Guerrilla Marketing:**
+- Flash polls en universidades con resultados en tiempo real
+- Murales colaborativos "¿Qué candidato eliges?" en distritos jóvenes
+- Pop-ups informativos en centros comerciales durante fines de semana
+
+**Presencia en Eventos y Conferencias:**
+- **CADE Universitario**: Booth interactivo y presentación sobre civic tech
+- **Eventos PUCP/UPC**: Workshops sobre participación democrática digital
+- **Seminarios de periodismo político**: Demos para medios especializados
+
+#### Partnerships Universitarios Expandidos
 **Medios Digitales:**
 - Colaboraciones con RPP, El Comercio Digital, La República
 - Guest posts y entrevistas sobre metodología
 - Cross-promotion de contenido
 
-**Universidades:**
-- Presentaciones en universidades limeñas (PUCP, UPC, ESAN)
-- Talleres sobre participación democrática
-- Programas de embajadores estudiantiles
+**Universidades (Expansión Nacional):**
+- **Lima:** PUCP, UPC, ESAN, Universidad de Lima
+- **Provincias:** UNSA (Arequipa), UNT (Trujillo), UNMSM
+- Programa de embajadores estudiantiles con incentivos
+- Talleres sobre "Tecnología y Democracia"
+- Competencias de análisis político entre facultades
 
 **ONGs y Organizaciones Civiles:**
-- Alianzas con Transparencia, Proética
-- Participación en debates y foros
-- Validación de metodología por expertos
+- **Transparencia**: Validación de datos y metodología
+- **Proética**: Endorsement de iniciativas anti-corrupción
+- **Instituto de Estudios Peruanos (IEP)**: Colaboración en research
+- **Ciudadanos al Día**: Partnership para métricas de transparencia
 
-**Presupuesto:** $4,000
-- $2,500 eventos y presentaciones
-- $1,000 materiales promocionales
-- $500 viáticos y logística
+**Presupuesto:** $6,000
+- $3,000 eventos presenciales y activaciones
+- $1,500 materiales promocionales y booth
+- $1,000 incentivos para embajadores universitarios
+- $500 viáticos y logística nacional
+
+#### Estrategias de Distribución Adicionales
+
+**Email Marketing Segmentado:**
+- Listas por región, edad y preferencias políticas
+- Newsletters personalizados con comparaciones relevantes
+- Secuencias de nurturing para usuarios inactivos
+- A/B testing de subject lines y contenido
+
+**Marketing de Afiliados y Referidos:**
+- Programa de referidos con gamificación (puntos por invitaciones)
+- Comisiones para influencers por usuarios registrados
+- Incentivos para organizaciones estudiantiles que promuevan la plataforma
+- Sistema de códigos de descuento para eventos premium
+
+**Presencia en Marketplaces y Plataformas:**
+- App Store / Google Play (si desarrollamos app móvil)
+- Chrome Web Store (extensión de navegador para quick comparison)
+- LinkedIn Articles para reach profesional
+- Medium publications para thought leadership
 
 #### Influencer Marketing
 **Micro-influencers Políticos:** (5,000-50,000 seguidores)
@@ -160,10 +273,11 @@
 ## 📈 Métricas y KPIs
 
 ### Métricas de Adquisición
-- **Usuarios únicos mensuales:** 10,000+ (objetivo final)
-- **Tráfico orgánico vs. pagado:** 60/40 split
-- **Costo por adquisición (CPA):** <$2.50
-- **Canales de mayor conversión:** Social media, búsqueda orgánica
+- **Usuarios únicos mensuales:** 15,000+ (objetivo final, ajustado por mercado de 9.54M)
+- **Tráfico orgánico vs. pagado:** 65/35 split (mayor énfasis en earned media)
+- **Costo por adquisición (CPA):** <$2.00 (optimizado por estrategias earned media)
+- **Canales de mayor conversión:** YouTube influencers, Google Search, social referrals
+- **Penetración del mercado objetivo:** 0.16% en 3 meses (benchmark conservador)
 
 ### Métricas de Engagement
 - **Tiempo promedio en sitio:** >3 minutos
@@ -221,26 +335,29 @@
 
 ## 💰 Presupuesto Detallado
 
-### Inversión Total: $22,000
+### Inversión Total: $28,500
 
-#### Marketing Digital (70% - $15,400)
-- **Publicidad pagada:** $7,000
-- **Influencer marketing:** $6,000
-- **Herramientas y software:** $1,400
-- **Contenido visual profesional:** $1,000
+#### Marketing Digital Integrado (65% - $18,500)
+- **Publicidad pagada orientada a intención:** $8,500
+- **Partnerships con influencers y medios:** $5,500
+- **Desarrollo de herramientas gratuitas:** $1,500
+- **Contenido visual y SEO:** $1,500
+- **Herramientas y software de analytics:** $1,500
 
-#### Partnerships y Eventos (15% - $3,300)
-- **Eventos universitarios:** $2,000
-- **Colaboraciones medios:** $800
-- **Materiales promocionales:** $500
+#### Medios Ganados y PR (15% - $4,300)
+- **Press kits y materiales para medios:** $1,000
+- **Activaciones de guerrilla marketing:** $1,500
+- **Eventos y conferencias:** $1,300
+- **Estudios propios y research para PR:** $500
 
-#### Research y Analytics (10% - $2,200)
-- **Herramientas de analytics:** $800
-- **Incentivos para research:** $1,000
-- **Focus groups:** $400
+#### Partnerships Estratégicos y Expansión (15% - $4,300)
+- **Eventos universitarios nacionales:** $3,000
+- **Programa de embajadores:** $1,000
+- **Materiales promocionales y booth:** $300
 
-#### Contingencia (5% - $1,100)
-- **Imprevistos y optimizaciones**
+#### Research, Testing y Optimización (5% - $1,400)
+- **Herramientas de testing y analytics avanzado:** $800
+- **Incentivos para research y focus groups:** $600
 
 ---
 
@@ -295,26 +412,75 @@
 
 ### Benchmark contra Alternativas Existentes
 
-**JNE (Jurado Nacional de Elecciones):**
-- ✅ Información oficial y confiable
-- ❌ Interfaz poco amigable, difícil navegación
-- ❌ No permite comparaciones directas
+**Plataformas Locales Peruanas:**
 
-**Medios Tradicionales Online:**
-- ✅ Alcance masivo establecido
-- ❌ Información fragmentada
-- ❌ Percepción de sesgo político
+**JNE "Voto Informado":**
+- ✅ Información oficial y confiable, datos verificados
+- ✅ Cobertura completa de candidatos y propuestas
+- ❌ Interfaz poco amigable para jóvenes, no móvil-first
+- ❌ No permite comparaciones directas side-by-side
+- ❌ Navegación compleja, alta fricción para encontrar info específica
+- **Oportunidad:** Gamificación y UX optimizada para millennials/Gen Z
 
-**Redes Sociales:**
-- ✅ Información actualizada constantemente
-- ❌ Desinformación y fake news
-- ❌ Echo chambers y polarización
+**ONPE - Resultados Históricos:**
+- ✅ Base de datos histórica completa
+- ✅ Datos oficiales de elecciones pasadas
+- ❌ Enfocado en resultados, no en propuestas actuales
+- ❌ Sin análisis comparativo o herramientas de decisión
+- **Oportunidad:** Integrar históricos para mostrar consistencia de candidatos
+
+**Especiales Periodísticos (OjoPúblico "Quién es Quién"):**
+- ✅ Investigación profunda y verificación
+- ✅ Credibilidad periodística establecida
+- ❌ Contenido disperso, no estructurado para comparación
+- ❌ Publicación esporádica, no actualización continua
+- **Oportunidad:** Estructura permanente y actualizada
+
+**Benchmarks Internacionales:**
+
+**smartvote (Suiza):**
+- ✅ VAA (Voting Advice Application) maduro con 15+ años
+- ✅ "Smartspider" para visualización de posturas políticas
+- ✅ Amplia evidencia académica de efectividad
+- 📊 **Learning:** Implementar visualización radar/spider para comparaciones
+
+**iSideWith (EE.UU.):**
+- ✅ Cuestionario interactivo con matching persona-candidato
+- ✅ Segmentación detallada por temas (economía, social, exterior)
+- ✅ Más de 10 millones de usuarios registrados
+- 📊 **Learning:** Sistema de scoring y matching personalizado
+
+**Ballotpedia (EE.UU.):**
+- ✅ Taxonomía clara de temas políticos
+- ✅ Enlaces directos a fuentes primarias
+- ✅ Cobertura desde local hasta nacional
+- 📊 **Learning:** Structured data approach y source linking
 
 ### Ventaja Competitiva de Presidential Punch Peru:
-1. **Comparación directa side-by-side**
-2. **Interfaz gamificada atractiva para jóvenes**
-3. **Metodología transparente y verificable**
-4. **Enfoque en objetividad e imparcialidad**
+1. **Comparación directa side-by-side con UX gamificada**
+2. **Interfaz móvil-first optimizada para smartphones (91% penetración)**
+3. **Metodología transparente con visualización tipo "smartspider"**
+4. **Enfoque en neutralidad política verificable**
+5. **Localización cultural para audiencia peruana joven**
+
+### Consideraciones de Localización y Accesibilidad
+
+**Estrategia Multiidioma:**
+- **Fase 1:** Español estándar (82.6% población)
+- **Fase 2:** Quechua básico para términos políticos clave (13.9% población)
+- **Fase 3:** Aymara para regiones específicas (1.7% población)
+- **Implementación:** UI traducible, contenido adaptado culturalmente
+
+**Adaptación Geográfica:**
+- **Urbano (79%):** Full featured experience, contenido completo
+- **Rural (21%):** Lite version para conexiones limitadas
+- **Lima (36% población departamental):** Enfoque inicial, mayor inversión publicitaria
+- **Provincias:** Partnerships con universidades regionales para adoption
+
+**Optimización para Dispositivos:**
+- **Mobile-first design:** 91% tiene smartphone como dispositivo principal
+- **Conexión limitada:** Versión offline y sync cuando hay conexión
+- **Data consumption:** Minimizar uso de datos para usuarios prepago
 
 ---
 
