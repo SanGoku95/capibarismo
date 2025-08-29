@@ -60,8 +60,7 @@ npm run dev
 
 ### 🚀 Distribution & Marketing
 
-- **[Distribution Plan](./DISTRIBUTION_PLAN.md)** - Comprehensive strategy for MVP launch and user acquisition
-- **[Implementation Guide](./IMPLEMENTATION_GUIDE.md)** - Tactical playbook for executing distribution strategy
+- **[Final Distribution Strategy](./FINAL_DISTRIBUTION_STRATEGY.md)** - Executive-focused strategy prioritizing activities by probability of success for MVP launch
 
 ### 🤝 Contributing
 
@@ -122,8 +121,7 @@ npm run dev
 
 ### 🚀 Plan de Distribución y Marketing
 
-- **[Plan de Distribución](./DISTRIBUTION_PLAN.md)** - Estrategia integral para el lanzamiento del MVP y adquisición de usuarios
-- **[Guía de Implementación](./IMPLEMENTATION_GUIDE.md)** - Manual táctico para ejecutar la estrategia de distribución
+- **[Estrategia Final de Distribución](./FINAL_DISTRIBUTION_STRATEGY.md)** - Plan ejecutivo que prioriza actividades por probabilidad de éxito para el lanzamiento del MVP
 
 ### 🤝 Contribución
 
