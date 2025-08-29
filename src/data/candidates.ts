@@ -387,7 +387,7 @@ export const candidates: Candidate[] = [
       ]
     },
     headshot: "https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg",
-    fullBody: "/fotos_candidatos/lecsano/full_body_lescano.png",
+    fullBody: "/fotos_candidatos/lescano/full_body_lescano.png",
     econ: 2,
     social: 1
   },
