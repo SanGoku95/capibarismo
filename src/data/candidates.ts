@@ -64,56 +64,138 @@ export const candidates: Candidate[] = [
     id: "keiko",
     nombre: "Keiko Fujimori",
     ideologia: "Centro-derecha",
-    proyectoPolitico: {
-      titulo: "Plan Keiko Libre",
-      resumen: "Estabilidad económica para recuperar el orden y la seguridad en el país.",
-      detalles: [
+    "proyectoPolitico": {
+      "titulo": "Restauración del legado fujimorista: Orden y 'mano dura'",
+      "resumen": "Su carrera es un esfuerzo continuo por reivindicar y heredar el proyecto político de su padre, Alberto Fujimori, basado en un discurso de 'mano dura' y políticas de mercado. Su principal desafío es superar el 'techo de cristal' del antifujimorismo.",
+      "detalles": [
         {
-          subtitulo: "Seguridad Ciudadana 'Mano Dura'",
-          texto: "Implementación de políticas de seguridad más estrictas, aumentando la presencia policial y militar en zonas de alta criminalidad. Propone reformar el sistema penitenciario para reducir el hacinamiento y controlar las operaciones delictivas desde las cárceles."
+          "subtitulo": "Legislación de 'mano dura'",
+          "texto": "Durante su tiempo como congresista, su labor se centró en la promoción de proyectos de ley punitivos, como la restricción de beneficios penitenciarios para delitos graves, en línea con la plataforma ideológica de su padre.",
+          "fuente": "https://es.wikipedia.org/wiki/Keiko_Fujimori"
         },
         {
-          subtitulo: "Reactivación Económica",
-          texto: "Fomento de la inversión privada a través de la simplificación de trámites y la creación de zonas económicas especiales. Propone un shock de inversión en infraestructura para generar empleo a corto plazo."
+          "subtitulo": "Obstrucción parlamentaria como estrategia",
+          "texto": "Tras ganar una mayoría absoluta en el Congreso en 2016, lideró una estrategia de obstrucción sistemática contra los gobiernos de PPK y Vizcarra, lo que agudizó la inestabilidad política del país.",
+          "fuente": "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi"
+        },
+        {
+          "subtitulo": "Desconocimiento de resultados electorales",
+          "texto": "Después de su derrota en 2021, se embarcó en una agresiva campaña para desconocer los resultados, alegando un 'fraude electoral' sistemático que no fue respaldado por pruebas y fue desestimado por observadores.",
+          "fuente": "https://www.wola.org/es/analysis/peru-tiene-nuevo-presidente-fujimori-empeligra-democracia/"
         }
       ]
     },
-    creenciasClave: [
-      { id: "estabilidad-economica", nombre: "Estabilidad económica", resumen: "Prioriza un modelo de libre mercado, control de la inflación y responsabilidad fiscal.", detalle: "Defiende la autonomía del Banco Central de Reserva y busca atraer inversión extranjera directa como pilar del crecimiento, manteniendo los tratados de libre comercio existentes y buscando nuevos mercados." },
-      { id: "seguridad-ciudadana", nombre: "Seguridad ciudadana", resumen: "Cree en una política de 'mano dura' contra la delincuencia.", detalle: "Propone equipar mejor a la Policía Nacional, reformar el sistema de inteligencia y aplicar sentencias más severas para delitos graves. Considera la participación de las Fuerzas Armadas en roles de seguridad interna." },
-      { id: "inversion-privada", nombre: "Inversión privada", resumen: "Considera a la inversión privada como el principal motor del desarrollo.", detalle: "Busca reducir la burocracia para las empresas y ofrecer garantías jurídicas a los inversores. Su plan incluye la promoción de Asociaciones Público-Privadas (APP) para grandes proyectos." }
-    ],
-    trayectoria: [
+    "creenciasClave": [
       {
-        id: "lider-fuerza-popular",
-        rol: "Líder de Fuerza Popular",
-        periodo: "2011 - Presente",
-        descripcion: "Candidata presidencial en 2011, 2016 y 2021, consolidando un bloque político importante.",
-        detalles: [
-          {
-            subtitulo: "Campañas Presidenciales",
-            texto: "Ha sido la figura central del fujimorismo post-dictadura, llegando a segunda vuelta en dos ocasiones. Su liderazgo ha mantenido al partido como una fuerza relevante en el Congreso, aunque también ha enfrentado un fuerte rechazo (antifujimorismo)."
-          }
-        ]
+        "id": "legado-paterno",
+        "nombre": "Heredera y defensora del legado Fujimori",
+        "resumen": "Su capital político emana del legado de su padre, lo que es a la vez su mayor activo y su principal lastre.",
+        "detalle": "Toda su carrera se define por su lealtad al proyecto político de su padre. Tomó el lugar de su madre como Primera Dama, asumió el liderazgo del movimiento y ha hecho de la defensa de su padre una bandera política.",
+        "fuente": "https://es.wikipedia.org/wiki/Keiko_Fujimori"
       },
-      { id: "congresista-2006", rol: "Congresista", periodo: "2006 - 2011", descripcion: "La congresista más votada en las elecciones de 2006." },
-      { id: "primera-dama-1994", rol: "Primera Dama", periodo: "1994 - 2000", descripcion: "Asumió el rol tras la separación de sus padres, enfocándose en temas sociales." }
+      {
+        "id": "antifujimorismo",
+        "nombre": "El 'techo de cristal' del antifujimorismo",
+        "resumen": "Es la encarnación de la polarización; su figura activa una poderosa coalición opositora en su contra.",
+        "detalle": "El patrón de sus tres derrotas presidenciales es claro: su base leal la lleva a la segunda vuelta, pero el sentimiento 'antifujimorista' aglutina a una diversa mayoría de votantes con el único fin de impedir su victoria.",
+        "fuente": "https://en.wikipedia.org/wiki/Keiko_Fujimori"
+      },
+      {
+        "id": "lawfare",
+        "nombre": "Uso del sistema legal como campo de batalla ('Lawfare')",
+        "resumen": "Su estrategia de defensa se ha centrado en atacar la validez del proceso judicial en su contra.",
+        "detalle": "El juicio en su contra fue anulado y retrocedido a una etapa anterior gracias a fallos del Tribunal Constitucional basados en tecnicismos procesales, lo que sugiere una estrategia deliberada para dilatar el proceso hasta su eventual prescripción.",
+        "fuente": "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori"
+      }
     ],
-    presenciaDigital: {
-      plataformas: [
-        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
-        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
-        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+    "trayectoria": [
+      {
+        "id": "primera-dama",
+        "rol": "Primera Dama del Perú",
+        "periodo": "1994 – 2000",
+        "descripcion": "Con solo 19 años, es nombrada Primera Dama por su padre, tras la destitución de su madre, Susana Higuchi. Se alinea indeleblemente con el proyecto político paterno.",
+        "fuente": "https://es.wikipedia.org/wiki/Keiko_Fujimori"
+      },
+      {
+        "id": "congresista-record",
+        "rol": "Congresista más votada de la historia",
+        "periodo": "2006 – 2011",
+        "descripcion": "Obtiene 602,869 votos, la cifra más alta para un legislador en la historia del Perú, consolidándose como la heredera indiscutible del fujimorismo.",
+        "fuente": "https://en.wikipedia.org/wiki/Keiko_Fujimori"
+      },
+      {
+        "id": "fundacion-fuerza-popular",
+        "rol": "Fundadora y Presidenta de Fuerza Popular",
+        "periodo": "2010 – Presente",
+        "descripcion": "Funda su propio partido, Fuerza 2011 (luego Fuerza Popular), creando un vehículo político a su medida para sus tres intentos presidenciales.",
+        "fuente": "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi"
+      },
+      {
+        "id": "campanas-presidenciales",
+        "rol": "Candidata presidencial derrotada (3 veces)",
+        "periodo": "2011, 2016, 2021",
+        "descripcion": "Llega a la segunda vuelta en tres elecciones consecutivas, pero es derrotada por Ollanta Humala (2011), PPK (2016) y Pedro Castillo (2021).",
+        "fuente": "https://es.wikipedia.org/wiki/Keiko_Fujimori"
+      },
+      {
+        "id": "prision-preventiva",
+        "rol": "Encarcelada por el 'Caso Cócteles'",
+        "periodo": "2018 – 2020",
+        "descripcion": "Cumple más de 16 meses de prisión preventiva en varios periodos, acusada de liderar una organización criminal para lavar dinero de aportes de campaña ilícitos (Odebrecht, etc.).",
+        "fuente": "https://en.wikipedia.org/wiki/Keiko_Fujimori"
+      },
+      {
+        "id": "juicio-oral",
+        "rol": "Enjuiciada por organización criminal",
+        "periodo": "2024 – Presente",
+        "descripcion": "Se inicia el juicio oral donde la fiscalía pide 30 años de prisión. El proceso es posteriormente anulado por el TC y retrocedido a una etapa anterior, quedando en un limbo legal.",
+        "fuente": "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori"
+      }
+    ],
+    "presenciaDigital": {
+      "plataformas": [
+        {
+          "nombre": "tiktok",
+          "handle": "@keikofujimorih",
+          "url": "https://www.tiktok.com/@keikofujimorih",
+          "estrategia": "Su plataforma más dinámica. Mezcla contenido político con videos personales (cocinando, bailando) para humanizar su figura y conectar con un público más joven."
+        },
+        {
+          "nombre": "youtube",
+          "handle": "@keikofujimorih",
+          "url": "https://www.youtube.com/@keikofujimorih",
+          "estrategia": "Utiliza formatos largos como la serie 'Konfesiones' para contar su propia versión de su vida y batallas legales, en un intento de controlar la narrativa y apelar a la empatía."
+        }
       ]
     },
-    mapaDePoder: {
-      alianzas: [
-        { nombre: "Sector empresarial conservador", descripcion: "Grupos económicos que buscan estabilidad, políticas pro-mercado y predictibilidad." },
-        { nombre: "Grupos religiosos", descripcion: "Organizaciones que coinciden con su agenda de valores tradicionales y conservadurismo social." }
+    "mapaDePoder": {
+      "alianzas": [
+        {
+          "nombre": "Fuerza Popular",
+          "descripcion": "Su partido político, que se convirtió en la principal fuerza de oposición con mayoría absoluta en el Congreso entre 2016 y 2019."
+        },
+        {
+          "nombre": "Núcleo duro fujimorista",
+          "descripcion": "Una base electoral leal y sólida, heredada de su padre, que le ha garantizado consistentemente el paso a la segunda vuelta presidencial."
+        },
+        {
+          "nombre": "Grupos empresariales",
+          "descripcion": "La fiscalía la acusa de recibir aportes clandestinos de importantes corporaciones como Odebrecht y Credicorp para financiar sus campañas."
+        }
       ],
-      opositores: [
-        { nombre: "Antifujimorismo", descripcion: "Un movimiento social y político diverso que se opone a su figura por el legado del gobierno de su padre." },
-        { nombre: "Sectores de izquierda", descripcion: "Partidos y movimientos que se oponen a su modelo económico y social." }
+      "opositores": [
+        {
+          "nombre": "Movimiento Antifujimorista",
+          "descripcion": "Una diversa y poderosa coalición de ciudadanos y grupos políticos de diferentes ideologías que se activa electoralmente con el objetivo principal de impedir su llegada al poder."
+        },
+        {
+          "nombre": "Equipo Especial de la Fiscalía (Caso Lava Jato)",
+          "descripcion": "El equipo de fiscales, liderado por José Domingo Pérez, que ha investigado el 'Caso Cócteles' y la acusa de liderar una organización criminal."
+        },
+        {
+          "nombre": "Rafael López Aliaga",
+          "descripcion": "Su principal rival por la hegemonía y el liderazgo del voto de la derecha en el Perú."
+        }
       ]
     },
     headshot: "https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg",
@@ -126,37 +208,141 @@ export const candidates: Candidate[] = [
     id: "rafael",
     nombre: "Rafael L. Aliaga",
     ideologia: "Derecha",
-    proyectoPolitico: {
-      titulo: "Orden y Desarrollo",
-      resumen: "Gobierno empresarial con enfoque en desarrollo económico y valores tradicionales para un Perú seguro y próspero."
-    },
-    creenciasClave: [
-      { id: "libre-mercado", nombre: "Libre mercado", resumen: "Promueve la menor intervención del estado en la economía.", detalle: "Busca eliminar regulaciones que considera excesivas y fomentar la competencia. Defiende la propiedad privada y la libertad de empresa como pilares del desarrollo." },
-      { id: "valores-familiares", nombre: "Valores familiares", resumen: "Defiende la familia tradicional como base de la sociedad.", detalle: "Se opone a la legalización de uniones no tradicionales y busca promover políticas que fortalezcan a la familia nuclear." },
-      { id: "crecimiento-economico", nombre: "Crecimiento económico", resumen: "Considera esencial el aumento sostenido del PIB y la inversión en infraestructura.", detalle: "Propone grandes proyectos de infraestructura pública y privada, así como incentivos fiscales para empresas." },
-      { id: "seguridad", nombre: "Seguridad", resumen: "Cree en un enfoque integral que incluya prevención, control y reinserción.", detalle: "Propone programas de capacitación y empleo para reclusos, así como medidas de protección a víctimas de la delincuencia." }
-    ],
-    trayectoria: [
-      { id: "alcalde-lima-2023", rol: "Alcalde de Lima", periodo: "2023 - Presente", descripcion: "Enfocado en la recuperación económica y la seguridad ciudadana." },
-      { id: "empresario-1990", rol: "Empresario", periodo: "1990 - 2023", descripcion: "Desarrollo de proyectos empresariales exitosos en diversos sectores." },
-      { id: "candidato-2021", rol: "Candidato", periodo: "2021 - 2021", descripcion: "Participación en las elecciones presidenciales de 2021." }
-    ],
-    presenciaDigital: {
-      plataformas: [
-        { nombre: "tiktok", handle: "@candidata1", url: "", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
-        { nombre: "youtube", handle: "@candidata1", url: "", estrategia: "Mantiene un canal con entrevistas y resúmenes de sus actividades políticas. El contenido es más formal y dirigido a un público politizado." },
-        { nombre: "twitter", handle: "@candidata1", url: "", estrategia: "Activa con comunicados oficiales y respuestas a la coyuntura política. Es su principal canal para fijar la posición del partido." }
+    "proyectoPolitico": {
+      "titulo": "'Restauración patriarcal' con 'mano dura' y gestión gerencial",
+      "resumen": "Propone un modelo que amalgama un liberalismo económico con políticas sociales anti-liberales y una fuerte base en el catolicismo conservador, bajo la promesa de aplicar la eficiencia del sector privado a la gestión pública.",
+      "detalles": [
+        {
+          "subtitulo": "'Lima Potencia Mundial': Infraestructura y Seguridad",
+          "texto": "Prometió la adquisición de 10,000 motocicletas para seguridad y la construcción de grandes obras de infraestructura como nuevas vías expresas y túneles, financiadas con bonos municipales.",
+          "fuente": "https://www.actualidadambiental.pe/wp-content/uploads/2022/09/Plan-de-Gobierno-Renovacion-Popular-Elecciones-2022.pdf"
+        },
+        {
+          "subtitulo": "'Hambre Cero': Apoyo a ollas comunes",
+          "texto": "Programa insignia de su campaña municipal diseñado para combatir la inseguridad alimentaria, aunque su implementación ha sido criticada por la mala calidad y cantidad de los alimentos entregados.",
+          "fuente": "https://www.youtube.com/watch?v=q5ih6R1xnSE"
+        },
+        {
+          "subtitulo": "Reducción radical del aparato estatal",
+          "texto": "Durante su campaña presidencial de 2021, propuso una drástica reducción del Estado mediante la fusión de ministerios para proyectar una imagen de austeridad y eficiencia.",
+          "fuente": "https://declara.jne.gob.pe/ASSETS/PLANGOBIERNO/FILEPLANGOBIERNO/16482.pdf"
+        }
       ]
     },
-    mapaDePoder: {
-      alianzas: [
-        { nombre: "Empresarios", descripcion: "Grupos que apoyan políticas pro-mercado y buscan estabilidad económica." },
-        { nombre: "Iglesia Católica", descripcion: "Organización religiosa que apoya su visión conservadora y su enfoque en valores familiares." },
-        { nombre: "Organizaciones de seguridad", descripcion: "Grupos que respaldan su enfoque en la seguridad ciudadana y el orden público." }
+    "creenciasClave": [
+      {
+        "id": "ultraconservadurismo-religioso",
+        "nombre": "Cruzada moral y valores tradicionales",
+        "resumen": "Miembro numerario del Opus Dei, practica el celibato y basa su plataforma en un discurso explícitamente religioso.",
+        "detalle": "Su fe no es un detalle biográfico, sino un componente central de su marca política, que informa directamente su plataforma social ultraconservadora (anti-liberal) y su discurso de 'restauración patriarcal'.",
+        "fuente": "https://es.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
+      },
+      {
+        "id": "gestion-empresarial",
+        "nombre": "El empresario exitoso en la política",
+        "resumen": "Se presenta como un gestor competente capaz de replicar el éxito del sector privado en la administración pública.",
+        "detalle": "Utiliza su historial como fundador de un conglomerado en finanzas y turismo (Grupo Acres, PeruRail) para construir una narrativa de eficiencia y prometer transformar Lima en una 'potencia mundial', aunque la solidez de su éxito empresarial ha sido cuestionada.",
+        "fuente": "https://ojo-publico.com/2520/lopez-aliaga-los-negocios-un-candidato-ultraconservador"
+      },
+      {
+        "id": "mano-dura",
+        "nombre": "Mano dura contra la delincuencia",
+        "resumen": "Abrazó el apodo de 'el Bolsonaro peruano', centrando su plataforma en un discurso de mano dura.",
+        "detalle": "Una de las promesas centrales de su gestión como alcalde y de su campaña presidencial es una política de tolerancia cero contra el crimen, ejemplificada en su propuesta de adquirir 10,000 motocicletas para patrullaje.",
+        "fuente": "https://www.actualidadambiental.pe/wp-content/uploads/2022/09/Plan-de-Gobierno-Renovacion-Popular-Elecciones-2022.pdf"
+      }
+    ],
+    "trayectoria": [
+      {
+        "id": "formacion-empresarial",
+        "rol": "Empresario y miembro del Opus Dei",
+        "periodo": "1961 – 2006",
+        "descripcion": "Ingeniero Industrial con MBA. Desde los 19 años es miembro numerario del Opus Dei. Fundó el Grupo Acres y se convirtió en un actor clave en el sector turismo (PeruRail).",
+        "fuente": "https://es.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
+      },
+      {
+        "id": "regidor-lima",
+        "rol": "Regidor de la Municipalidad de Lima",
+        "periodo": "2007 – 2010",
+        "descripcion": "Ingresó a la política de la mano del alcalde Luis Castañeda Lossio. Apoyó la concesión de Línea Amarilla a la empresa brasileña OAS, luego implicada en el caso Lava Jato.",
+        "fuente": "https://es.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
+      },
+      {
+        "id": "panama-papers",
+        "rol": "Implicado en los Panama Papers",
+        "periodo": "Revelado en 2016",
+        "descripcion": "Una investigación de IDL-Reporteros expuso su uso de estructuras offshore y presuntas maniobras fraudulentas en una guerra corporativa contra su socio, Lorenzo Sousa.",
+        "fuente": "https://www.idl-reporteros.pe/lopez-aliaga-y-los-panama-papers/"
+      },
+      {
+        "id": "deudas-sunat",
+        "rol": "Controversia por deudas tributarias",
+        "periodo": "Permanente",
+        "descripcion": "Empresas vinculadas a él, como Peruval Corp SA, mantienen deudas coactivas con la SUNAT por decenas de millones de soles, usando tácticas como figurar como 'no habidas' para obstaculizar el cobro.",
+        "fuente": "https://www.youtube.com/watch?v=EO2mr4WDAfY&pp=0gcJCfwAo7VqN5tD"
+      },
+      {
+        "id": "refundacion-partido",
+        "rol": "Fundador de Renovación Popular",
+        "periodo": "2020",
+        "descripcion": "Tras el fracaso electoral de Solidaridad Nacional, lo 'refunda' como Renovación Popular, un partido con una ideología explícitamente religiosa y ultraconservadora.",
+        "fuente": "https://es.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
+      },
+      {
+        "id": "campana-presidencial-2021",
+        "rol": "Candidato Presidencial",
+        "periodo": "2021",
+        "descripcion": "Se posiciona como 'el Bolsonaro peruano' y obtiene el tercer lugar con 11.75% de los votos, consolidándose como una nueva fuerza hegemónica en la derecha.",
+        "fuente": "https://en.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
+      },
+      {
+        "id": "alcalde-lima",
+        "rol": "Alcalde de Lima Metropolitana",
+        "periodo": "2023 – Presente",
+        "descripcion": "Asume el cargo el 1 de enero de 2023. Su gestión ha sido criticada por la baja ejecución presupuestaria y por priorizar una aparente campaña presidencial perpetua sobre la gestión municipal.",
+        "fuente": "https://www.gob.pe/institucion/munilima/noticias/693302-rafael-lopez-aliaga-juro-como-alcalde-de-lima-en-ceremonia-realizada-en-el-teatro-municipal"
+      }
+    ],
+    "presenciaDigital": {
+      "plataformas": [
+        {
+          "nombre": "twitter",
+          "handle": "@rlopezaliaga_",
+          "url": "https://x.com/rlopezaliaga_",
+          "estrategia": "Estilo confrontacional. Ha usado las cuentas oficiales de la municipalidad para atacar a los medios de comunicación ('pasquines mermeleros') y bloquear a críticos, como la Red de Ollas Comunes."
+        },
+        {
+          "nombre": "facebook",
+          "handle": "RafaelLopezAliaga",
+          "url": "https://www.facebook.com/RafaelLopezAliaga/",
+          "estrategia": "Comunica los avances de su gestión y mantiene una línea de mensajes de corte conservador y populista para movilizar a su base electoral."
+        }
+      ]
+    },
+    "mapaDePoder": {
+      "alianzas": [
+        {
+          "nombre": "Renovación Popular",
+          "descripcion": "Su vehículo político personal, refundado para promover una agenda ultraconservadora y servir como plataforma para sus ambiciones."
+        },
+        {
+          "nombre": "Conglomerado corporativo",
+          "descripcion": "Su imperio empresarial (Grupo Acres, PeruRail, etc.) le proporciona los recursos financieros y la imagen de 'gestor exitoso' que son la base de su poder político."
+        },
+        {
+          "nombre": "Derecha radical internacional (Vox)",
+          "descripcion": "Se ha alineado con otras figuras de la derecha radical en Iberoamérica, como José Antonio Kast y Javier Milei, a través de su adhesión a la Carta de Madrid, una iniciativa del partido español Vox."
+        }
       ],
-      opositores: [
-        { nombre: "Sectores progresistas", descripcion: "Grupos que se oponen a su modelo económico y a sus posiciones sobre derechos sociales." },
-        { nombre: "Sindicalistas", descripcion: "Organizaciones que agrupan a trabajadores y que se oponen a sus políticas laborales." }
+      "opositores": [
+        {
+          "nombre": "Keiko Fujimori / Fujimorismo",
+          "descripcion": "Su principal rival en la contienda por la hegemonía de la derecha peruana. Representa un modelo de poder (ultraconservadurismo corporativo) que choca con el del fujimorismo (populismo de legado)."
+        },
+        {
+          "nombre": "Prensa de investigación",
+          "descripcion": "Medios como IDL-Reporteros y OjoPúblico han publicado investigaciones exhaustivas sobre sus estructuras offshore, deudas tributarias y la gestión de sus empresas, a las que él ataca constantemente."
+        }
       ]
     },
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
@@ -900,5 +1086,161 @@ export const candidates: Candidate[] = [
   security: "pro",
   health: "neutral",
   education: "neutral"
-}
+},
+{
+    "id": "cesar-acuna",
+    "nombre": "César Acuña",
+    "ideologia": "Populismo pragmático y clientelar",
+    "headshot": "https://scontent.fyto1-2.fna.fbcdn.net/v/t39.30808-6/464312545_8670841469649974_6456719888596036131_n.png?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=5Vzs_nTUJeQQ7kNvwGlBWdM&_nc_oc=AdlLJTTbx9rGFzYeTlj-nCxyQal4Gle0hplLZ47jBCgO3AN8lM_IBwsKLov8IgDUuo0&_nc_zt=23&_nc_ht=scontent.fyto1-2.fna&_nc_gid=XDFcnZVR3NCIL6tCk9BWOw&oh=00_AfVRE59W2qacBCIkVH9JKJshWrFdzwyUO9IqDu6Zfu-gOw&oe=68B68BC7",
+    "fullBody": "/fotos_candidatos/acuña/full_body_acuña.png",
+    "proyectoPolitico": {
+      "titulo": "Poder regional a través de obras de impacto y un modelo educativo-empresarial",
+      "resumen": "Utiliza la vasta fortuna generada por su consorcio universitario (UCV, USS) para financiar un proyecto político regionalista, centrado en la ejecución de obras públicas de alto impacto visual y el establecimiento de una red clientelar para consolidar su poder en el norte del Perú.",
+      "detalles": [
+        {
+          "subtitulo": "Proyectos de infraestructura a gran escala",
+          "texto": "Su gestión como gobernador se ha centrado en megaproyectos como el destrabe del Proyecto Especial Chavimochic III y la planificación de un nuevo Hospital Regional para Trujillo.",
+          "fuente": "https://regionlalibertad.gob.pe/noticiaS/regionales/15239-cesar-acuna-gestiones-mas-emblematicas-son-destrabe-de-chavimochic-y-nuevo-hospital-regional"
+        },
+        {
+          "subtitulo": "Inversión masiva en educación y salud",
+          "texto": "Ha anunciado una inversión de más de mil millones de soles para la reconstrucción de colegios y ha priorizado la compra de equipamiento médico, como 38 ambulancias y un resonador magnético.",
+          "fuente": "https://www.gob.pe/institucion/regionlalibertad/noticias/1140130-mil-millones-invierte-la-gestion-de-cesar-acuna-en-educacion"
+        },
+        {
+          "subtitulo": "Modelo de alianzas con gobiernos locales",
+          "texto": "Implementó un sistema de ejecución de obras en alianza con los municipios, donde el Gobierno Regional financia directamente los proyectos locales, habiendo financiado más de 108 de ellos.",
+          "fuente": "https://www.gob.pe/institucion/regionlalibertad/noticias/1158501-en-3-anos-de-gestion-108-obras-financiara-el-gore-a-municipios"
+        }
+      ]
+    },
+    "creenciasClave": [
+      {
+        "id": "plata-como-cancha",
+        "nombre": "'Plata como cancha': El dinero como herramienta política",
+        "resumen": "Su poder se sustenta en su vasta fortuna, usada explícitamente para financiar campañas y asegurar apoyo popular.",
+        "detalle": "La frase, originada en un audio filtrado de 2010, encapsula su visión pragmática del poder, donde los recursos económicos son una herramienta fundamental para ganar elecciones y consolidar su influencia política.",
+        "fuente": "https://es.wikipedia.org/wiki/Caso_Plata_como_cancha"
+      },
+      {
+        "id": "educacion-poder",
+        "nombre": "Sinergia Educación-Política",
+        "resumen": "Su imperio educativo es la infraestructura de su poder político.",
+        "detalle": "Las universidades (UCV, USS, Autónoma) no solo financian su partido, Alianza para el Progreso, sino que también actúan como centros de reclutamiento y bases políticas, utilizando la imagen de 'educador' para capitalizarla en las urnas.",
+        "fuente": "https://www.infobae.com/peru/2024/02/16/cesar-acuna-a-cuanto-asciende-el-patrimonio-del-gobernador-de-la-libertad/"
+      },
+      {
+        "id": "alcalde-constructor",
+        "nombre": "Obras como fuente de legitimidad",
+        "resumen": "Cimenta su popularidad en obras públicas de alto impacto visual y popular.",
+        "detalle": "Durante su gestión como alcalde de Trujillo, invirtió más de 800 millones de soles en proyectos como el bypass de Mansiche y el complejo deportivo Chan Chan, consolidando su imagen de 'alcalde constructor' y gestor eficaz.",
+        "fuente": "https://trujilloenlinea.pe/noticias/politica/16/02/2018/cesar-acuna-niega-corrupcion-durante-su-gestion-edil-en-trujillo"
+      }
+    ],
+    "trayectoria": [
+      {
+        "id": "formacion-empresarial",
+        "rol": "Fundador del consorcio UCV",
+        "periodo": "1952 – 1991",
+        "descripcion": "Nacido en Cajamarca, se gradúa de Ingeniero Químico y en 1991 funda la Universidad César Vallejo (UCV) en Trujillo, pilar de su imperio empresarial.",
+        "fuente": "https://es.wikipedia.org/wiki/Universidad_C%C3%A9sar_Vallejo"
+      },
+      {
+        "id": "congresista",
+        "rol": "Congresista de la República",
+        "periodo": "2000 – 2006",
+        "descripcion": "Elegido por dos periodos. En 2001 funda su partido, Alianza para el Progreso (APP). Se le critica por legislar en materia de educación privada, existiendo un conflicto de interés.",
+        "fuente": "https://es.wikipedia.org/wiki/C%C3%A9sar_Acu%C3%B1a"
+      },
+      {
+        "id": "alcalde-trujillo",
+        "rol": "Alcalde de Trujillo",
+        "periodo": "2007 – 2014",
+        "descripcion": "Pone fin a 44 años de hegemonía aprista en la ciudad. Es reelegido en 2010. Basa su gestión en obras de alto impacto.",
+        "fuente": "https://en.wikipedia.org/wiki/C%C3%A9sar_Acu%C3%B1a"
+      },
+      {
+        "id": "gobernador-libertad-1",
+        "rol": "Gobernador Regional de La Libertad",
+        "periodo": "2015",
+        "descripcion": "Asume el cargo pero renuncia a los diez meses para postular a la presidencia en 2016, generando críticas por su falta de compromiso.",
+        "fuente": "https://www.regionlalibertad.gob.pe/noticias/regionales/5916-cesar-acuna-renuncia-a-la-gobernacion-regional-de-la-libertad"
+      },
+      {
+        "id": "investigacion-plagio",
+        "rol": "Acusado de plagio académico",
+        "periodo": "2016 – Presente",
+        "descripcion": "Surgen graves y fundamentadas acusaciones de plagio en su tesis doctoral de la U. Complutense de Madrid y en su tesis de maestría de la U. de Lima.",
+        "fuente": "https://www.ulima.edu.pe/la-universidad/noticias/comunicado-1"
+      },
+      {
+        "id": "exclusion-presidencial-2016",
+        "rol": "Excluido de la elección presidencial",
+        "periodo": "Mar 2016",
+        "descripcion": "El Jurado Nacional de Elecciones lo excluye por entregar dinero a comerciantes durante una actividad de campaña, en aplicación de la ley que prohíbe dádivas.",
+        "fuente": "https://en.wikipedia.org/wiki/C%C3%A9sar_Acu%C3%B1a"
+      },
+      {
+        "id": "campana-presidencial-2021",
+        "rol": "Candidato Presidencial",
+        "periodo": "2021",
+        "descripcion": "Obtiene el séptimo lugar con el 6.02% de los votos válidos. Su partido consigue 15 congresistas.",
+        "fuente": "https://es.wikipedia.org/wiki/Elecciones_generales_de_Per%C3%BA_de_2021"
+      },
+      {
+        "id": "investigacion-trafico-influencias",
+        "rol": "Investigado por tráfico de influencias",
+        "periodo": "2022 – Presente",
+        "descripcion": "La Fiscalía le abre investigación tras la difusión de audios donde presiona a la presidenta del Congreso, Lady Camones, para aprobar una ley que lo favorecería electoralmente.",
+        "fuente": "https://diarioelgobierno.pe/politica-peruana-castillo-peru-2022-congreso/fiscalia-de-la-nacion-investiga-a-cesar-acuna-por-trafico-de-influencias/"
+      },
+      {
+        "id": "gobernador-libertad-2",
+        "rol": "Gobernador Regional de La Libertad",
+        "periodo": "2023 – Presente",
+        "descripcion": "Gana nuevamente la gobernación. Su mandato es criticado por sus constantes ausencias y licencias, que superan el límite legal.",
+        "fuente": "https://es.wikipedia.org/wiki/C%C3%A9sar_Acu%C3%B1a"
+      }
+    ],
+    "presenciaDigital": {
+      "plataformas": [
+        {
+          "nombre": "tiktok",
+          "handle": "@cesaracunap",
+          "url": "https://www.tiktok.com/@cesaracunap",
+          "estrategia": "Adopta un tono informal y participa en tendencias virales para conectar con audiencias más jóvenes que no consumen medios tradicionales."
+        },
+        {
+          "nombre": "facebook",
+          "handle": "CesarAcunaP",
+          "url": "https://www.facebook.com/CesarAcunaP/",
+          "estrategia": "Es uno de los políticos peruanos con mayor inversión en publicidad pagada en Facebook e Instagram, lo que le permite mantener una presencia constante y dirigir mensajes segmentados."
+        }
+      ]
+    },
+    "mapaDePoder": {
+      "alianzas": [
+        {
+          "nombre": "Alianza para el Progreso (APP)",
+          "descripcion": "Partido político que él mismo fundó en 2001, que funciona como el brazo político de su conglomerado empresarial y vehículo para sus ambiciones."
+        },
+        {
+          "nombre": "Consorcio educativo (UCV, USS, UAP)",
+          "descripcion": "El motor económico y la base social de su poder. La red de estudiantes, egresados y personal constituye una base política natural y un canal de difusión de su mensaje."
+        }
+      ],
+      "opositores": [
+        {
+          "nombre": "Prensa nacional y limeña",
+          "descripcion": "El intenso escrutinio de los medios de comunicación nacionales magnifica los escándalos que a nivel regional son minimizados, actuando como una barrera para sus aspiraciones presidenciales."
+        },
+        {
+          "nombre": "Opositores políticos regionales (Ej. Partido Aprista)",
+          "descripcion": "Su irrupción en Trujillo rompió una hegemonía de 44 años del APRA, consolidándolo como un rival directo del aprismo en el norte del país."
+        }
+      ]
+    },
+    "econ": 0,
+    "social": 0
+  }
 ];
