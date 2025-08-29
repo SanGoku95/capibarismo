@@ -387,7 +387,7 @@ export const candidates: Candidate[] = [
       ]
     },
     headshot: "https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg",
-    fullBody: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Yonhy_Lescano_4.jpg/1280px-Yonhy_Lescano_4.jpg",
+    fullBody: "/fotos_candidatos/lecsano/full_body_lescano.png",
     econ: 2,
     social: 1
   },
@@ -568,7 +568,7 @@ export const candidates: Candidate[] = [
   nombre: "Martín Vizcarra",
   ideologia: "Centrista tecnocrático, descentralización",
   headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
-  fullBody: "https://www.perureports.com/wp-content/uploads/2018/03/vizcarra-768x513.jpg",
+  fullBody: "/fotos_candidatos/vizcarra/full_body_vizcarra.png",
 
   proyectoPolitico: {
     titulo: "Reforma institucional anticorrupción y descentralización",
@@ -758,7 +758,7 @@ export const candidates: Candidate[] = [
     nombre: "Guillermo Bermejo",
     ideologia: "Marxista-Leninista, Socialista, Izquierda",
     headshot: "https://pbs.twimg.com/profile_images/1711746019795382272/ROaxERZY_400x400.jpg",
-    fullBody: "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4HNCFGPR7ZHC7BABQDM7ADFTXE.jpg",
+    fullBody: "/fotos_candidatos/bermejo/full_body_bermejo.png",
     proyectoPolitico: {
       titulo: "Refundación socialista",
       resumen: "Nueva Constitución, criticando el modelo neoliberal y abogando por un rol más activo del Estado en la economía y la sociedad.",
