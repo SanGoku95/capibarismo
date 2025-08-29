@@ -1,0 +1,64 @@
+{
+  "name": "Presidential Punch Peru 2026",
+  "short_name": "PresidentialPunch",
+  "description": "Plataforma interactiva para comparar candidatos presidenciales de Perú 2026",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#ff0080",
+  "orientation": "portrait-primary",
+  "categories": ["news", "politics", "education"],
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon",
+      "purpose": "favicon"
+    },
+    {
+      "src": "/background_congress.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Comparador",
+      "short_name": "Comparar",
+      "description": "Compara candidatos presidenciales",
+      "url": "/compare",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "32x32"
+        }
+      ]
+    },
+    {
+      "name": "Compass Político",
+      "short_name": "Compass",
+      "description": "Visualiza posturas políticas",
+      "url": "/compass",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "32x32"
+        }
+      ]
+    },
+    {
+      "name": "Noticias",
+      "short_name": "Noticias",
+      "description": "Últimas noticias políticas",
+      "url": "/news",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "32x32"
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Send, Shield, Users, Leaf } from 'lucide-react'; // Import new icons
 import React, { useEffect, useRef, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
+import { SEO, StructuredData } from '@/components/seo/SEO';
+import { generateBreadcrumbStructuredData } from '@/lib/seo';
 
 interface Message {
     id: string;
@@ -44,6 +46,11 @@ export default function ChatPage() {
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const breadcrumbData = generateBreadcrumbStructuredData([
+        { name: 'Inicio', url: '/' },
+        { name: 'Chat IA', url: '/chat' }
+    ]);
 
     useEffect(() => {
         setMessages([
@@ -94,11 +101,25 @@ export default function ChatPage() {
     };
 
     return (
-        <div className="fighting-game-bg min-h-[calc(100vh-64px)] p-4 md:p-8 flex justify-center items-center">
-            <div className="chat-container-modern w-full max-w-4xl h-[85vh] flex flex-col">
-                <div className="chat-header-modern">
-                    <h1 className="text-center font-display">IA Capy</h1>
-                </div>
+        <>
+            <SEO 
+                title="Chat IA Político - Pregunta sobre Candidatos"
+                description="Chatea con nuestra IA especializada en política peruana. Haz preguntas sobre candidatos, propuestas y el proceso electoral de Perú 2026. Información instantánea y confiable."
+                keywords={[
+                    'chat ia politica',
+                    'preguntas candidatos',
+                    'asistente virtual electoral',
+                    'informacion candidatos ia',
+                    'chatbot politico peru'
+                ]}
+            />
+            <StructuredData data={breadcrumbData} />
+            
+            <div className="fighting-game-bg min-h-[calc(100vh-64px)] p-4 md:p-8 flex justify-center items-center">
+                <div className="chat-container-modern w-full max-w-4xl h-[85vh] flex flex-col">
+                    <header className="chat-header-modern">
+                        <h1 className="text-center font-display">IA Capy</h1>
+                    </header>
 
                 <div className="flex-grow overflow-y-auto p-4 space-y-6">
                     {messages.map((m) => (
@@ -153,5 +174,6 @@ export default function ChatPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

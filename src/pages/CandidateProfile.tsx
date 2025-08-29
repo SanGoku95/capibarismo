@@ -13,6 +13,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { SEO, StructuredData } from '@/components/seo/SEO';
+import { generateCandidateStructuredData, generateBreadcrumbStructuredData } from '@/lib/seo';
 
 const socialIcons: { [key: string]: React.ReactElement } = {
   tiktok: <FaTiktok />,
@@ -72,17 +74,42 @@ export function CandidateProfile() {
     return <NotFound />;
   }
 
+  const candidateStructuredData = generateCandidateStructuredData(candidate);
+  const breadcrumbData = generateBreadcrumbStructuredData([
+    { name: 'Inicio', url: '/' },
+    { name: 'Candidatos', url: '/compare' },
+    { name: candidate.nombre, url: `/candidate/${candidate.id}` }
+  ]);
+
   return (
-    <div className="min-h-screen fighting-game-bg text-white">
-      <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="container mx-auto flex items-center justify-between p-4">
-          <Button onClick={handleGoBack} variant="outline">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Volver
-          </Button>
-          <h1 className="text-xl font-bold">{candidate.nombre}</h1>
-        </div>
-      </header>
+    <>
+      <SEO 
+        title={`${candidate.nombre} - Candidato Presidencial`}
+        description={`Conoce las propuestas, trayectoria y posiciones de ${candidate.nombre} para las elecciones presidenciales de Perú 2026. ${candidate.proyectoPolitico.resumen}`}
+        keywords={[
+          candidate.nombre.toLowerCase(),
+          candidate.ideologia.toLowerCase(),
+          'candidato presidencial',
+          'propuestas politicas',
+          'trayectoria politica',
+          'elecciones peru 2026'
+        ]}
+        ogType="profile"
+        ogImage={candidate.headshot}
+      />
+      <StructuredData data={candidateStructuredData} />
+      <StructuredData data={breadcrumbData} />
+      
+      <div className="min-h-screen fighting-game-bg text-white">
+        <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-sm border-b border-border">
+          <div className="container mx-auto flex items-center justify-between p-4">
+            <Button onClick={handleGoBack} variant="outline">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Volver
+            </Button>
+            <h1 className="text-xl font-bold">{candidate.nombre}</h1>
+          </div>
+        </header>
 
       <main className="container mx-auto p-4 md:p-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -276,5 +303,6 @@ export function CandidateProfile() {
         </div>
       </main>
     </div>
+    </>
   );
 }

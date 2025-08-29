@@ -2,11 +2,32 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
+import { SEO, StructuredData } from '@/components/seo/SEO';
+import { generateBreadcrumbStructuredData } from '@/lib/seo';
 
 export function About() {
+  const breadcrumbData = generateBreadcrumbStructuredData([
+    { name: 'Inicio', url: '/' },
+    { name: 'Acerca de', url: '/about' }
+  ]);
+
   return (
-    <div className="min-h-screen fighting-game-bg text-white">
-      <div className="container mx-auto p-4 md:p-8">
+    <>
+      <SEO 
+        title="Acerca de Capybarismo - Información de Candidatos"
+        description="Conoce más sobre Capybarismo, la plataforma que simplifica la información política para las elecciones presidenciales de Perú 2026. Nuestra misión, visión y compromiso con la democracia."
+        keywords={[
+          'acerca de capybarismo',
+          'informacion politica',
+          'democracia peru',
+          'transparencia electoral',
+          'mision vision'
+        ]}
+      />
+      <StructuredData data={breadcrumbData} />
+      
+      <div className="min-h-screen fighting-game-bg text-white">
+        <div className="container mx-auto p-4 md:p-8">
         <Button asChild variant="outline" className="mb-8">
           <Link to="/">
             <ArrowLeft className="mr-2 h-4 w-4" />
@@ -47,5 +68,6 @@ export function About() {
         </Card>
       </div>
     </div>
+    </>
   );
 }

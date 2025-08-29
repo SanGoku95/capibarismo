@@ -1,19 +1,41 @@
 import { PoliticalCompass } from '@/components/political-compass/PoliticalCompass';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { SEO, StructuredData } from '@/components/seo/SEO';
+import { generateBreadcrumbStructuredData } from '@/lib/seo';
 
 export function PoliticalCompassPage() {
+  const breadcrumbData = generateBreadcrumbStructuredData([
+    { name: 'Inicio', url: '/' },
+    { name: 'Compass Político', url: '/compass' }
+  ]);
+
   return (
-    <div className="min-h-screen fighting-game-bg">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-display text-accent mb-4">
-            COMPASS POLÍTICO
-          </h1>
-          <p className="text-lg text-foreground/90 max-w-3xl mx-auto">
-            Visualiza las posturas políticas de todos los candidatos en los ejes económico y social.
-          </p>
-        </div>
+    <>
+      <SEO 
+        title="Compass Político - Posturas de Candidatos"
+        description="Visualiza y compara las posturas políticas de todos los candidatos presidenciales de Perú 2026 en el eje económico y social. Herramienta interactiva para entender ideologías políticas."
+        keywords={[
+          'compass politico',
+          'posturas politicas',
+          'ideologia candidatos',
+          'eje economico social',
+          'izquierda derecha',
+          'liberal conservador'
+        ]}
+      />
+      <StructuredData data={breadcrumbData} />
+      
+      <div className="min-h-screen fighting-game-bg">
+        <div className="container mx-auto px-4 py-8">
+          {/* Header */}
+          <header className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-display text-accent mb-4">
+              COMPASS POLÍTICO
+            </h1>
+            <p className="text-lg text-foreground/90 max-w-3xl mx-auto">
+              Visualiza las posturas políticas de todos los candidatos en los ejes económico y social.
+            </p>
+          </header>
 
         {/* Main Compass */}
         <div className="max-w-5xl mx-auto mb-8">
@@ -72,6 +94,7 @@ export function PoliticalCompassPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { Header } from "./components/layout/Header";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
 
@@ -44,32 +45,34 @@ const AppLayout = () => (
 );
 
 const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Routes>
-              <Route element={<AppLayout />}>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/news" element={<News />} />
-                <Route path="/news/:slug" element={<EventDetail />} />
-                <Route path="/compare" element={<ComparePage />} />
-                <Route path="/compass" element={<PoliticalCompassPage />} />
-                <Route path="/candidate/:id" element={<CandidateProfile />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/chat" element={<ChatPage />} />
-              </Route>
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
+  <HelmetProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Routes>
+                <Route element={<AppLayout />}>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/news" element={<News />} />
+                  <Route path="/news/:slug" element={<EventDetail />} />
+                  <Route path="/compare" element={<ComparePage />} />
+                  <Route path="/compass" element={<PoliticalCompassPage />} />
+                  <Route path="/candidate/:id" element={<CandidateProfile />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/chat" element={<ChatPage />} />
+                </Route>
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  </HelmetProvider>
 );
 
 export default App;
