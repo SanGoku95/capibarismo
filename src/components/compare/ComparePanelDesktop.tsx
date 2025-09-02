@@ -21,9 +21,11 @@ import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
 interface CandidateFactSheetProps {
   candidate: Candidate | null;
   side: CandidateSide;
+  openSection: string | null; // Shared state for open accordion section
+  setOpenSection: (section: string | null) => void; // Setter for shared state
 }
 
-export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps) {
+export function CandidateFactSheet({ candidate, side, openSection, setOpenSection }: CandidateFactSheetProps) {
   const config = PLAYER_INDICATORS[side];
   
   if (!candidate) {
@@ -74,85 +76,91 @@ export function CandidateFactSheet({ candidate, side }: CandidateFactSheetProps)
         </CardHeader>
         
         <CardContent className="space-y-4 pt-4">
-              <Accordion type="single" collapsible className="w-full" defaultValue="proyecto-politico">
-              <AccordionItem value="proyecto-politico">
-                <AccordionTrigger className="text-base font-semibold">
+          <Accordion
+            type="single"
+            collapsible
+            className="w-full"
+            value={openSection} // Use shared state
+            onValueChange={(value) => setOpenSection(value)} // Update shared state
+          >
+            <AccordionItem value="proyecto-politico">
+              <AccordionTrigger className="text-base font-semibold">
                 <Shield size={16} className="mr-2" /> Proyecto Político
-                </AccordionTrigger>
-                <AccordionContent>
+              </AccordionTrigger>
+              <AccordionContent>
                 <div className="pt-2">
                   <Link to={`/candidate/${candidate.id}#proyecto-politico`} className="font-bold text-foreground hover:underline">{candidate.proyectoPolitico.titulo}</Link>
                   <p className="text-base font-sans text-muted-foreground leading-relaxed mt-1 line-clamp-4">
-                  {candidate.proyectoPolitico.resumen}
+                    {candidate.proyectoPolitico.resumen}
                   </p>
                 </div>
-                </AccordionContent>
-              </AccordionItem>
-              
-              <AccordionItem value="creencias-clave">
-                <AccordionTrigger className="text-base font-semibold">
+              </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="creencias-clave">
+              <AccordionTrigger className="text-base font-semibold">
                 Creencias Clave
-                </AccordionTrigger>
-                <AccordionContent>
+              </AccordionTrigger>
+              <AccordionContent>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {candidate.creenciasClave.map((creencia) => (
-                  <Link key={creencia.id} to={`/candidate/${candidate.id}#creencia-${creencia.id}`}>
-                    <TagPill variant="belief">
-                    {creencia.nombre}
-                    </TagPill>
-                  </Link>
+                    <Link key={creencia.id} to={`/candidate/${candidate.id}#creencia-${creencia.id}`}>
+                      <TagPill variant="belief">
+                        {creencia.nombre}
+                      </TagPill>
+                    </Link>
                   ))}
                 </div>
-                </AccordionContent>
-              </AccordionItem>
-              
-              <AccordionItem value="trayectoria">
-                <AccordionTrigger className="text-base font-semibold">
+              </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="trayectoria">
+              <AccordionTrigger className="text-base font-semibold">
                 <Briefcase size={16} className="mr-2" /> Trayectoria
-                </AccordionTrigger>
-                <AccordionContent>
+              </AccordionTrigger>
+              <AccordionContent>
                 <div className="space-y-1 pt-2">
                   {candidate.trayectoria.slice(0, 3).map((position) => (
-                  <Link to={`/candidate/${candidate.id}#${position.id}`} key={position.id} className="block p-2 rounded-md hover:bg-muted/50">
-                    <div className="text-base font-sans">
-                    <span className="font-medium">{position.rol}</span>
-                    <span className="text-muted-foreground ml-1 text-sm">
-                      ({position.periodo})
-                    </span>
-                    </div>
-                  </Link>
+                    <Link to={`/candidate/${candidate.id}#${position.id}`} key={position.id} className="block p-2 rounded-md hover:bg-muted/50">
+                      <div className="text-base font-sans">
+                        <span className="font-medium">{position.rol}</span>
+                        <span className="text-muted-foreground ml-1 text-sm">
+                          ({position.periodo})
+                        </span>
+                      </div>
+                    </Link>
                   ))}
                 </div>
-                </AccordionContent>
-              </AccordionItem>
+              </AccordionContent>
+            </AccordionItem>
 
-                <AccordionItem value="presencia-digital">
-                <AccordionTrigger className="text-base font-semibold">
-                  <Radio size={16} className="mr-2" /> Presencia Digital
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-2 pt-2">
+            <AccordionItem value="presencia-digital">
+              <AccordionTrigger className="text-base font-semibold">
+                <Radio size={16} className="mr-2" /> Presencia Digital
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2 pt-2">
                   {candidate.presenciaDigital.plataformas.map((platform) => (
                     <a
-                    key={platform.nombre}
-                    href={platform.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Ver perfil de ${candidate.nombre} en ${platform.nombre}`}
-                    className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors"
+                      key={platform.nombre}
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Ver perfil de ${candidate.nombre} en ${platform.nombre}`}
+                      className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors"
                     >
-                    <div className="text-muted-foreground">
-                      <SocialIcon platform={platform.nombre as SocialPlatformType} />
-                    </div>
-                    <div>
-                      <div className="font-medium capitalize text-base font-sans">{platform.nombre}</div>
-                      <div className="text-sm text-muted-foreground">{platform.handle}</div>
-                    </div>
+                      <div className="text-muted-foreground">
+                        <SocialIcon platform={platform.nombre as SocialPlatformType} />
+                      </div>
+                      <div>
+                        <div className="font-medium capitalize text-base font-sans">{platform.nombre}</div>
+                        <div className="text-sm text-muted-foreground">{platform.handle}</div>
+                      </div>
                     </a>
                   ))}
-                  </div>
-                </AccordionContent>
-                </AccordionItem>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
 
             <AccordionItem value="mapa-de-poder">
               <AccordionTrigger className="text-base font-semibold">

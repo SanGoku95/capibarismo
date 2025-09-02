@@ -2,9 +2,11 @@ import { useCompareStore } from '@/store/useCompareStore';
 import { CandidateFullBody } from '../candidate/CandidateFullBody';
 import { CandidateFactSheet } from './ComparePanelDesktop';
 import { CandidateComparisonGrid } from './ComparePanelMobile';
+import { useState } from 'react';
 
 export function CompareView() {
   const { leftCandidate, rightCandidate } = useCompareStore();
+  const [openSection, setOpenSection] = useState<string | null>(null); // Shared state for accordion
 
   return (
     <div className="w-full h-full p-4">
@@ -24,12 +26,22 @@ export function CompareView() {
             
             {/* Left fighter stats */}
             <div className="flex items-start pt-8">
-              <CandidateFactSheet candidate={leftCandidate} side="left" />
+              <CandidateFactSheet
+                candidate={leftCandidate}
+                side="left"
+                openSection={openSection}
+                setOpenSection={setOpenSection}
+              />
             </div>
             
             {/* Right fighter stats */}
             <div className="flex items-start pt-8">
-              <CandidateFactSheet candidate={rightCandidate} side="right" />
+              <CandidateFactSheet
+                candidate={rightCandidate}
+                side="right"
+                openSection={openSection}
+                setOpenSection={setOpenSection}
+              />
             </div>
             
             {/* Right fighter */}
