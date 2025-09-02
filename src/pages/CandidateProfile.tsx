@@ -1,10 +1,10 @@
-import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { candidates } from '@/data/candidates';
 import NotFound from './NotFound';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon } from 'lucide-react';
+import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, Wand, Sparkles } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
 import {
@@ -43,11 +43,9 @@ export function CandidateProfile() {
         valueToOpen = hash.split('creencia-')[1];
         elementToScrollToId = 'creencias-clave';
       } else if (candidate.trayectoria.some(t => t.id === hash)) {
-        // If the hash is a specific trajectory ID, open it, but scroll to the main section
         valueToOpen = hash;
         elementToScrollToId = 'trayectoria';
       } else if (hash === 'trayectoria' && candidate.trayectoria.length > 0) {
-        // If the hash is for the whole section, open the first item
         valueToOpen = candidate.trayectoria[0].id;
       }
       
@@ -65,7 +63,7 @@ export function CandidateProfile() {
   }, [location, candidate]);
 
   const handleGoBack = () => {
-    navigate(-1); // This is equivalent to history.back()
+    navigate(-1);
   };
 
   if (!candidate) {
@@ -139,6 +137,12 @@ export function CandidateProfile() {
                     ))}
                   </Accordion>
                 )}
+                <Link to={`/chat?question=${encodeURIComponent(`¿Cómo se compara el proyecto político de ${candidate.nombre} con el de los otros candidatos?`)}`}>
+                  <Button variant="outline" className="mt-4 flex items-center gap-2">
+                    <Sparkles className="h-4 w-4" />
+                    Preguntar a la IA
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -169,6 +173,12 @@ export function CandidateProfile() {
                     </AccordionItem>
                   ))}
                 </Accordion>
+                <Link to={`/chat?question=${encodeURIComponent(`¿Qué opinas sobre las creencias clave de ${candidate.nombre}? comparadas con las de los otros candidatos?`)}`}>
+                  <Button variant="outline" className="mt-4 flex items-center gap-2">
+                    <Wand className="h-4 w-4" />
+                    Preguntar a la IA
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -209,6 +219,12 @@ export function CandidateProfile() {
                     </AccordionItem>
                   ))}
                 </Accordion>
+                <Link to={`/chat?question=${encodeURIComponent(`¿Cómo se compara la trayectoria de ${candidate.nombre} con la de los otros candidatos?`)}`}>
+                  <Button variant="outline" className="mt-4 flex items-center gap-2">
+                    <Wand className="h-4 w-4" />
+                    Preguntar a la IA
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -266,10 +282,6 @@ export function CandidateProfile() {
                   </div>
                 </div>
                  <Separator />
-                 <div>
-                  <h4 className="font-semibold text-lg">Base de Seguidores</h4>
-                  <p className="text-muted-foreground">{candidate.mapaDePoder.seguidores}</p>
-                </div>
               </CardContent>
             </Card>
           </div>

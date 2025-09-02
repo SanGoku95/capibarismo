@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Send, Shield, Users, Leaf } from 'lucide-react'; // Import new icons
 import React, { useEffect, useRef, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
+import { useSearchParams } from 'react-router-dom';
 
 interface Message {
     id: string;
@@ -38,6 +39,9 @@ const TypingIndicator = () => (
 );
 
 export default function ChatPage() {
+    const [searchParams] = useSearchParams();
+    const prefilledQuestion = searchParams.get('question') || '';
+
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
@@ -65,6 +69,12 @@ export default function ChatPage() {
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }
     }, [input]);
+
+    useEffect(() => {
+        if (prefilledQuestion) {
+            setInput(prefilledQuestion);
+        }
+    }, [prefilledQuestion]);
 
     const handleSend = (messageContent: string) => {
         if (!messageContent.trim()) return;

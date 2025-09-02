@@ -1081,10 +1081,8 @@ export const candidates: Candidate[] = [
       }
     ]
   },
-
-  // Compass (estimación con la evidencia disponible)
-  econ: 2,          // no hay plan económico; retórica de austeridad sin estatismo → ligera derecha
-  social: 9,        // pena de muerte, megacárceles, estados de excepción → autoritarismo alto
+  econ: 2,
+  social: 9,
   security: "pro",
   health: "neutral",
   education: "neutral"
