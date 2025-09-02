@@ -7,6 +7,9 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    proxy: {
+            '/api': 'http://localhost:3001'
+        }
   },
   plugins: [
     react(),
@@ -42,3 +45,4 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 1000,
   },
 }));
+

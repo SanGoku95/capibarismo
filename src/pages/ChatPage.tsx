@@ -66,7 +66,7 @@ export default function ChatPage() {
         }
     }, [input]);
 
-    const handleSend = (messageContent: string) => {
+    const handleSend = async (messageContent: string) => {
         if (!messageContent.trim()) return;
 
         const userMessage: Message = { id: nanoid(), role: 'user', content: messageContent };
@@ -74,11 +74,23 @@ export default function ChatPage() {
         setInput('');
         setIsTyping(true);
 
-        setTimeout(() => {
-            const assistantMessage: Message = { id: nanoid(), role: 'assistant', content: 'Capy Capy' };
+        try {
+            const response = await fetch('/api/deepseek', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: messageContent }),
+            });
+            const data = await response.json();
+            const assistantMessage: Message = { id: nanoid(), role: 'assistant', content: data.answer };
             setMessages((prev) => [...prev, assistantMessage]);
+        } catch (err) {
+            setMessages((prev) => [
+                ...prev,
+                { id: nanoid(), role: 'assistant', content: 'Ocurrió un error al consultar la IA.' }
+            ]);
+        } finally {
             setIsTyping(false);
-        }, 1500);
+        }
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
