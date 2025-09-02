@@ -346,7 +346,7 @@ export const candidates: Candidate[] = [
       ]
     },
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
-    fullBody: "/fotos_candidatos/rafael/full_body_rafael.png",
+    fullBody: "/fotos_candidatos/rafael/full_body_rafael.gif",
     econ: 8,
     social: 7
   },
@@ -1091,8 +1091,8 @@ export const candidates: Candidate[] = [
     "id": "cesar-acuna",
     "nombre": "César Acuña",
     "ideologia": "Populismo pragmático y clientelar",
-    "headshot": "https://scontent.fyto1-2.fna.fbcdn.net/v/t39.30808-6/464312545_8670841469649974_6456719888596036131_n.png?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=5Vzs_nTUJeQQ7kNvwGlBWdM&_nc_oc=AdlLJTTbx9rGFzYeTlj-nCxyQal4Gle0hplLZ47jBCgO3AN8lM_IBwsKLov8IgDUuo0&_nc_zt=23&_nc_ht=scontent.fyto1-2.fna&_nc_gid=XDFcnZVR3NCIL6tCk9BWOw&oh=00_AfVRE59W2qacBCIkVH9JKJshWrFdzwyUO9IqDu6Zfu-gOw&oe=68B68BC7",
-    "fullBody": "/fotos_candidatos/acuña/full_body_acuña.png",
+    "headshot": "https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg",
+    "fullBody": "/fotos_candidatos/acuña/full_body_acuña_move.gif",
     "proyectoPolitico": {
       "titulo": "Poder regional a través de obras de impacto y un modelo educativo-empresarial",
       "resumen": "Utiliza la vasta fortuna generada por su consorcio universitario (UCV, USS) para financiar un proyecto político regionalista, centrado en la ejecución de obras públicas de alto impacto visual y el establecimiento de una red clientelar para consolidar su poder en el norte del Perú.",
