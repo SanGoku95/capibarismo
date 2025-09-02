@@ -199,7 +199,7 @@ export const candidates: Candidate[] = [
       ]
     },
     headshot: "https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg",
-    fullBody: "/fotos_candidatos/keiko/full_body_keiko.png",
+    fullBody: "/fotos_candidatos/keiko/full_body_keiko.gif",
     education: "pro",
     security: "pro",
     health: "anti",
@@ -389,7 +389,7 @@ export const candidates: Candidate[] = [
       ]
     },
     headshot: "https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg",
-    fullBody: "/fotos_candidatos/lescano/full_body_lescano.png",
+    fullBody: "/fotos_candidatos/lescano/full_body_lescano.gif",
     econ: 2,
     social: 1
   },
@@ -398,7 +398,7 @@ export const candidates: Candidate[] = [
     nombre: "Antauro Humala",
     ideologia: "Izquierda Autoritaria",
     headshot: "https://pbs.twimg.com/profile_images/1561766942150737923/BJmWxtlq_400x400.jpg",
-    fullBody: "/fotos_candidatos/antauro/full_body_antauro.png",
+    fullBody: "/fotos_candidatos/antauro/full_body_antauro.gif",
     proyectoPolitico: {
       titulo: "Refundación Etnocacerista y Socialista",
       resumen: "Estatismo con énfasis en identidad andina y disciplina militar.",
@@ -570,7 +570,7 @@ export const candidates: Candidate[] = [
   nombre: "Martín Vizcarra",
   ideologia: "Centrista tecnocrático, descentralización",
   headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
-  fullBody: "/fotos_candidatos/vizcarra/full_body_vizcarra.png",
+  fullBody: "/fotos_candidatos/vizcarra/full_body_vizcarra.gif",
 
   proyectoPolitico: {
     titulo: "Reforma institucional anticorrupción y descentralización",
@@ -760,7 +760,7 @@ export const candidates: Candidate[] = [
     nombre: "Guillermo Bermejo",
     ideologia: "Marxista-Leninista, Socialista, Izquierda",
     headshot: "https://pbs.twimg.com/profile_images/1711746019795382272/ROaxERZY_400x400.jpg",
-    fullBody: "/fotos_candidatos/bermejo/full_body_bermejo.png",
+    fullBody: "/fotos_candidatos/bermejo/full_body_bermejo.gif",
     proyectoPolitico: {
       titulo: "Refundación socialista",
       resumen: "Nueva Constitución, criticando el modelo neoliberal y abogando por un rol más activo del Estado en la economía y la sociedad.",
