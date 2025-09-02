@@ -118,9 +118,9 @@ export const candidates: Candidate[] = [
       },
       {
         "id": "congresista-record",
-        "rol": "Congresista más votada de la historia",
+        "rol": "Una de las congresistas más votadas de la historia",
         "periodo": "2006 – 2011",
-        "descripcion": "Obtiene 602,869 votos, la cifra más alta para un legislador en la historia del Perú, consolidándose como la heredera indiscutible del fujimorismo.",
+        "descripcion": "Obtiene 602,869 votos, la tercera cifra más alta para un legislador en la historia del Perú, considerando los resultados de las elecciones del 2000",
         "fuente": "https://en.wikipedia.org/wiki/Keiko_Fujimori"
       },
       {
@@ -202,7 +202,9 @@ export const candidates: Candidate[] = [
     fullBody: "/fotos_candidatos/keiko/full_body_keiko.png",
     education: "pro",
     security: "pro",
-    health: "anti"
+    health: "anti",
+    "econ": 7,
+    "social": 6
   },
   {
     id: "rafael",
@@ -750,8 +752,8 @@ export const candidates: Candidate[] = [
       }
     ]
   },
-    econ: 2,
-    social: 2
+    econ: 4,
+    social: 4
 },
   {
     id: "guillermo-bermejo",
@@ -1240,7 +1242,7 @@ export const candidates: Candidate[] = [
         }
       ]
     },
-    "econ": 0,
-    "social": 0
+    "econ": 3,
+    "social": 1
   }
 ];
