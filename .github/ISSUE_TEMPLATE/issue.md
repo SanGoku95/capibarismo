@@ -20,13 +20,5 @@ Clear description of the issue or request.
 
 **Proposed correction:** What should it be changed to?
 
-**Sources:** Include reliable sources for any data changes
-- Source 1: [Link]
-- Source 2: [Link]
-
-**Political Neutrality:** 
-- [ ] Information is factual and sourced
-- [ ] Maintains political neutrality
-
 ## Additional Context
 Any other relevant information.
