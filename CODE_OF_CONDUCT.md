@@ -1,15 +1,19 @@
 # Código de Conducta
 
-## Nuestros Estándares
+### Principios Rectores
+- **Empirismo**: Priorizamos perspectivas basadas en hechos y en el método cientítico.
+- **Agencia**: Las personas establecen sus valores y perspectiva; nosotros exponemos un balance
+- **Verificabilidad**: Cada afirmación es rastreable hasta fuentes primarias
+- **Pluralismo**: Exponemos alternativas creíbles, no una sola "perspectiva"
+- **Humildad**: Mostramos incertidumbre y qué cambiaría las conclusiones
 
-Nos comprometemos a proporcionar un ambiente acogedor e inclusivo para todos, independientemente de su origen, identidad o afiliación política.
 
 ### Comportamiento Esperado
 - Ser respetuoso y constructivo
-- Usar lenguaje acogedor e inclusivo
+- Usar lenguaje acogedor
 - Enfocarse en información factual y verificable
 - **Seguir el Protocolo de Hechos** en todas las contribuciones de datos
-- Aceptar retroalimentación constructiva con elegancia
+- Aceptar retroalimentación constructiva
 
 ### Comportamiento Inaceptable
 - Acoso, trolling o ataques personales
@@ -30,12 +34,6 @@ Dado que este proyecto maneja información política, todas las contribuciones d
 - Aplicar **regla de simetría** (intentar datos equivalentes para todos los candidatos)
 - Incluir **paso de verificación** (instrucciones procedimentales de 1-2 líneas)
 
-## Principios Rectores
-
-- **Agencia**: Las personas establecen sus valores; exponemos las compensaciones
-- **Verificabilidad**: Cada afirmación es rastreable hasta fuentes primarias
-- **Pluralismo**: Exponemos alternativas creíbles, no una sola "puntuación"
-- **Humildad**: Mostramos incertidumbre y qué cambiaría las conclusiones
 
 ## Aplicación
 
