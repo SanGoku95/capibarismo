@@ -2,15 +2,44 @@
 
 *[Read in English](#english) | [Leer en Español](#español)*
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
+[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
+[![Political Neutrality](https://img.shields.io/badge/Political-Neutral-blue.svg)](CODE_OF_CONDUCT.md)
+
 **Interactive platform for comparing Peruvian presidential candidates with a retro gaming twist.**
 
 A modern web application that helps voters make informed decisions by comparing candidates' political positions, proposals, and trajectories through an engaging 90s fighting game-themed interface.
+
+> 🗳️ **Political Neutrality Statement**: This project maintains strict neutrality and presents only factual, verifiable information about candidates. All political content is sourced and treats candidates equally.
 
 ---
 
 ## English
 
 Presidential Punch Peru provides an interactive platform for comparing political candidates using modern visualization tools and detailed analysis. Built with React and TypeScript, it features a unique retro gaming aesthetic while delivering serious political insights.
+
+> 🇵🇪 **Open Source Community Project**: This project is developed by volunteers committed to promoting democratic transparency in Peru through technology. All contributions are welcome!
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
+
+## 🙏 Acknowledgments  
+
+- Thanks to all [contributors](https://github.com/Italosayan/presidential-punch-peru/contributors) who have helped make this project possible
+- Candidate information based on publicly available, verifiable sources
+- Inspired by the need for democratic transparency in Peru
+
+## 📞 Contact & Community
+
+- 🐛 **Issues**: [GitHub Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)  
+- 🛡️ **Security**: See [SECURITY.md](SECURITY.md) for reporting vulnerabilities
+
+---
+
+**Questions?** Don't hesitate to open an issue or start a discussion! We're here to help make democracy more accessible and transparent. 🇵🇪
 
 ### ✨ Key Features
 
@@ -60,11 +89,38 @@ npm run dev
 
 ### 🤝 Contributing
 
+We welcome contributions from the community! This is an open source project that benefits from diverse perspectives and expertise.
+
+**Quick Start for Contributors:**
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit changes (`git commit -m 'Add amazing feature'`)
 4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+**Important Guidelines:**
+- 📋 Read our [Contributing Guide](CONTRIBUTING.md) for detailed instructions
+- 🛡️ Follow our [Code of Conduct](CODE_OF_CONDUCT.md)
+- 🗳️ Maintain **political neutrality** in all contributions
+- 📚 All data must be **factual and properly sourced**
+- ✅ Test your changes locally before submitting
+
+**Ways to Contribute:**
+- 🐛 Report bugs or suggest features via [Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
+- 📊 Help verify and update candidate data
+- 🌐 Improve translations (Spanish/English)
+- 💻 Contribute code improvements
+- 📖 Enhance documentation
+
+### 🗂️ Data & Sources
+
+All candidate information in this project comes from publicly available, verifiable sources. We maintain:
+- **Factual accuracy** with proper source attribution
+- **Political neutrality** treating all candidates equally  
+- **Transparency** in our data collection methods
+- **Regular updates** to keep information current
+
+If you find inaccurate information, please [open a data issue](https://github.com/Italosayan/presidential-punch-peru/issues/new?template=data_update.md) with proper sources.
 
 ---
 
@@ -117,12 +173,45 @@ npm run dev
 
 ### 🤝 Contribución
 
+¡Damos la bienvenida a contribuciones de la comunidad! Este es un proyecto de código abierto que se beneficia de perspectivas y experiencia diversas.
+
+**Inicio Rápido para Contribuidores:**
 1. Haz fork del repositorio
 2. Crea una rama para tu feature (`git checkout -b feature/nueva-caracteristica`)
 3. Commit tus cambios (`git commit -m 'Añade nueva característica'`)
 4. Push a la rama (`git push origin feature/nueva-caracteristica`)
 5. Abre un Pull Request
 
+**Pautas Importantes:**
+- 📋 Lee nuestra [Guía de Contribución](CONTRIBUTING.md) para instrucciones detalladas
+- 🛡️ Sigue nuestro [Código de Conducta](CODE_OF_CONDUCT.md)
+- 🗳️ Mantén **neutralidad política** en todas las contribuciones
+- 📚 Todos los datos deben estar **basados en hechos y bien documentados**
+- ✅ Prueba tus cambios localmente antes de enviar
+
+**Formas de Contribuir:**
+- 🐛 Reportar bugs o sugerir características vía [Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
+- 📊 Ayudar a verificar y actualizar datos de candidatos
+- 🌐 Mejorar traducciones (Español/Inglés)
+- 💻 Contribuir mejoras de código
+- 📖 Mejorar documentación
+
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+## 🙏 Reconocimientos
+
+- Gracias a todos los [contribuidores](https://github.com/Italosayan/presidential-punch-peru/contributors) que han ayudado a hacer este proyecto posible
+- Información de candidatos basada en fuentes públicas y verificables
+- Inspirado en la necesidad de transparencia democrática en el Perú
+
+## 📞 Contacto & Comunidad
+
+- 🐛 **Issues**: [GitHub Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
+- 💬 **Discusiones**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)
+- 🛡️ **Seguridad**: Ver [SECURITY.md](SECURITY.md) para reportar vulnerabilidades
+
+---
+
+**¿Tienes preguntas?** ¡No dudes en abrir un issue o iniciar una discusión! Estamos aquí para ayudar a hacer la democracia más accesible y transparente. 🇵🇪
