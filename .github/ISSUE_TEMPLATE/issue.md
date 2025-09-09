@@ -22,7 +22,7 @@ Descripción clara del issue o solicitud.
 
 **Fuentes primarias:** Enlaces a documentos oficiales, leyes, registros públicos, etc.
 
-**Protocolo de Hechos:** ¿El dato propuesto es atomic (record/quote/official/event)?
+**Revisar Protocolo de Hechos en contributing.md:** ¿El dato propuesto es atomic (record/cita/instutcional/evento)?
 
 ## Contexto Adicional
 Cualquier otra información relevante.

@@ -2,6 +2,13 @@
 
 ¡Gracias por tu interés en contribuir! Este proyecto expone información sobre candidatos presidenciales peruanos siguiendo un protocolo riguroso de hechos.
 
+### Principios Rectores
+- **Empirismo**: Priorizamos perspectivas basadas en hechos y en el método cientítico.
+- **Agencia**: Las personas establecen sus valores y perspectiva; nosotros exponemos un balance
+- **Verificabilidad**: Cada afirmación es rastreable hasta fuentes primarias
+- **Pluralismo**: Exponemos alternativas creíbles, no una sola "perspectiva"
+- **Humildad**: Mostramos incertidumbre y qué cambiaría las conclusiones
+
 ## Cómo Contribuir
 
 1. **Fork del repositorio**
@@ -20,7 +27,11 @@
 Si quieres cambiar datos de candidatos, debes seguir estrictamente este protocolo:
 
 ### Hechos Atómicos Únicamente
-Cada elemento debe ser uno de: **record** (voto/resultado/número), **quote** (cita literal + fuente), **official** (manifiesto/presentación oficial) o **event** (quién/qué/cuándo/dónde). Sin análisis mezclado.
+Cada elemento debe ser uno de: 
+- **record** (voto/resultado/número)
+- **cita** (cita literal + fuente)
+- **oficial** (manifiesto/presentación oficial)
+- **evento** (quién/qué/cuándo/dónde). Sin análisis mezclado.
 
 ### Fuentes Primarias Primero
 Cada hecho debe tener ≥1 fuente primaria (lista de votación, ley en PDF, sitio oficial). Los enlaces a fuentes secundarias son opcionales.
@@ -39,13 +50,6 @@ Si destacas un tema para un candidato, debes intentar el hecho equivalente para 
 
 ### Paso de Verificación, No Editorial
 Cada hecho termina con una instrucción de "Cómo verificar" de 1–2 líneas. Ese es tu empujón: procedimental, no retórico.
-
-## Estrella del Norte
-
-- **Agencia**: Las personas establecen sus propios valores; tú expones las compensaciones
-- **Verificabilidad**: Cada afirmación es rastreable hasta las fuentes primarias
-- **Pluralismo**: Expone alternativas creíbles; no te limites a una sola "puntuación"
-- **Humildad**: Muestra incertidumbre y lo que cambiaría las conclusiones
 
 ## Qué Aceptamos
 

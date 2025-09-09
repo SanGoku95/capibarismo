@@ -7,7 +7,6 @@
 - **Pluralismo**: Exponemos alternativas creíbles, no una sola "perspectiva"
 - **Humildad**: Mostramos incertidumbre y qué cambiaría las conclusiones
 
-
 ### Comportamiento Esperado
 - Ser respetuoso y constructivo
 - Usar lenguaje acogedor
@@ -33,7 +32,6 @@ Dado que este proyecto maneja información política, todas las contribuciones d
 - Marcar **incertidumbre** cuando las fuentes se contradigan (`status: "contested"`)
 - Aplicar **regla de simetría** (intentar datos equivalentes para todos los candidatos)
 - Incluir **paso de verificación** (instrucciones procedimentales de 1-2 líneas)
-
 
 ## Aplicación
 
