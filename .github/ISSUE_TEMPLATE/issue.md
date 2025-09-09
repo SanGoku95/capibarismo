@@ -1,24 +1,31 @@
 ---
-name: Issue Report
-about: Report a bug, request a feature, or suggest data updates
+name: Reporte de Issue
+about: Reportar un error, solicitar una funcionalidad, o sugerir actualizaciones de datos
 title: ''
 labels: ''
 assignees: ''
 ---
 
-## Type of Issue
-- [ ] Bug report
-- [ ] Feature request
-- [ ] Data update/correction
-- [ ] Documentation improvement
+## Tipo de Issue
+- [ ] Reporte de error técnico
+- [ ] Solicitud de funcionalidad
+- [ ] Actualización/corrección de datos
+- [ ] Mejora de documentación
 
-## Description
-Clear description of the issue or request.
+## Descripción
+Descripción clara del issue o solicitud.
 
-## For Data Updates (if applicable)
-**Current information:** What needs to be changed?
+## Para Actualizaciones de Datos (si aplica)
+**Información actual:** ¿Qué necesita ser cambiado?
 
-**Proposed correction:** What should it be changed to?
+**Corrección propuesta:** ¿Cómo debería ser corregido?
 
-## Additional Context
-Any other relevant information.
+**Fuentes primarias:** Enlaces a documentos oficiales, leyes, registros públicos, etc.
+
+**Protocolo de Hechos:** ¿El dato propuesto es atomic (record/quote/official/event)?
+
+## Contexto Adicional
+Cualquier otra información relevante.
+
+## Cómo Verificar
+Instrucciones paso a paso de 1-2 líneas para que otros puedan verificar este dato.

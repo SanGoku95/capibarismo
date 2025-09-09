@@ -1,36 +1,46 @@
-# Code of Conduct
+# Código de Conducta
 
-## Our Standards
+## Nuestros Estándares
 
-We are committed to providing a welcoming, inclusive environment for everyone, regardless of background, identity, or political affiliation.
+Nos comprometemos a proporcionar un ambiente acogedor e inclusivo para todos, independientemente de su origen, identidad o afiliación política.
 
-### Expected Behavior
-- Be respectful and constructive
-- Use welcoming and inclusive language
-- Focus on factual, verifiable information
-- **Maintain political neutrality** in all discussions
-- Accept constructive feedback gracefully
+### Comportamiento Esperado
+- Ser respetuoso y constructivo
+- Usar lenguaje acogedor e inclusivo
+- Enfocarse en información factual y verificable
+- **Seguir el Protocolo de Hechos** en todas las contribuciones de datos
+- Aceptar retroalimentación constructiva con elegancia
 
-### Unacceptable Behavior
-- Harassment, trolling, or personal attacks
-- Political campaigning or advocacy for specific candidates
-- Spreading misinformation or unverified claims
-- Biased presentation of political information
-- Any conduct that could be considered inappropriate
+### Comportamiento Inaceptable
+- Acoso, trolling o ataques personales
+- Promoción política o advocacy por candidatos específicos
+- Difundir desinformación o afirmaciones no verificadas
+- Presentación sesgada de información política
+- Cualquier conducta que pueda considerarse inapropiada
 
-## Political Neutrality
+## Protocolo de Hechos para Contribuciones
 
-Since this project deals with political information:
-- All content must be **factual and sourced**
-- **No advocacy** for or against any candidate
-- **Equal treatment** of all candidates and viewpoints
-- Focus on **technical aspects** and **factual accuracy**
-- Resolve disagreements with **evidence**
+Dado que este proyecto maneja información política, todas las contribuciones de datos deben:
 
-## Enforcement
+- Seguir **hechos atómicos únicamente**: record, quote, official, o event
+- Incluir **fuentes primarias** (≥1 fuente verificable)
+- Especificar **tiempo y alcance** (`observed_at` + jurisdicción)
+- Usar **redacción exacta** sin adjetivos intensificadores
+- Marcar **incertidumbre** cuando las fuentes se contradigan (`status: "contested"`)
+- Aplicar **regla de simetría** (intentar datos equivalentes para todos los candidatos)
+- Incluir **paso de verificación** (instrucciones procedimentales de 1-2 líneas)
 
-Project maintainers will remove, edit, or reject contributions that don't align with this Code of Conduct. Repeated violations may result in temporary or permanent bans.
+## Principios Rectores
 
-## Reporting
+- **Agencia**: Las personas establecen sus valores; exponemos las compensaciones
+- **Verificabilidad**: Cada afirmación es rastreable hasta fuentes primarias
+- **Pluralismo**: Exponemos alternativas creíbles, no una sola "puntuación"
+- **Humildad**: Mostramos incertidumbre y qué cambiaría las conclusiones
 
-Report unacceptable behavior by opening an issue or contacting project maintainers directly.
+## Aplicación
+
+Los mantenedores del proyecto removerán, editarán o rechazarán contribuciones que no se alineen con este Código de Conducta. Las violaciones repetidas pueden resultar en prohibiciones temporales o permanentes.
+
+## Reportes
+
+Reporta comportamiento inaceptable abriendo un issue o contactando a los mantenedores del proyecto directamente.

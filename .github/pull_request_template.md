@@ -1,17 +1,23 @@
 # Pull Request
 
-## Description
-Brief description of the changes in this PR.
+## Descripción
+Breve descripción de los cambios en este PR.
 
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Documentation update
-- [ ] Data update/correction
+## Tipo de Cambio
+- [ ] Corrección de error técnico
+- [ ] Nueva funcionalidad
+- [ ] Actualización de documentación
+- [ ] Actualización/corrección de datos
 
-## Testing
-- [ ] Tested locally (`npm run dev`)
-- [ ] Changes work as expected
+## Para Actualizaciones de Datos (si aplica)
+- [ ] Seguí el Protocolo de Hechos (hechos atómicos, fuentes primarias, timestamps)
+- [ ] Incluí fuentes primarias verificables
+- [ ] Agregué instrucciones de verificación
+- [ ] Apliqué regla de simetría cuando es relevante
 
-## Related Issues
-- Closes #(issue number)
+## Pruebas
+- [ ] Probado localmente (`npm run dev`)
+- [ ] Los cambios funcionan como se esperaba
+
+## Issues Relacionados
+- Cierra #(número de issue)
