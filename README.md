@@ -34,8 +34,7 @@ This project is licensed under the [MIT License](LICENSE) - see the LICENSE file
 ## 📞 Contact & Community
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)  
-- 🛡️ **Security**: See [SECURITY.md](SECURITY.md) for reporting vulnerabilities
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)
 
 ---
 
@@ -210,7 +209,6 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
 - 💬 **Discusiones**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)
-- 🛡️ **Seguridad**: Ver [SECURITY.md](SECURITY.md) para reportar vulnerabilidades
 
 ---
 
