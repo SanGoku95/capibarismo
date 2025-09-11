@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Header } from "./components/layout/Header";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
 
@@ -34,23 +34,54 @@ const LoadingSpinner = () => (
   </div>
 );
 
+// Move Suspense from around <Routes> to around <Outlet> so Header stays mounted
 const AppLayout = () => (
   <>
     <Header />
     <main>
-      <Outlet />
+      <Suspense fallback={<LoadingSpinner />}>
+        <Outlet />
+      </Suspense>
     </main>
   </>
 );
 
-const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Suspense fallback={<LoadingSpinner />}>
+const App = () => {
+  // Prefetch common routes after idle to avoid first-click suspend
+  useEffect(() => {
+    const idle = 'requestIdleCallback' in window
+      ? (window as any).requestIdleCallback
+      : (cb: () => void) => setTimeout(cb, 500);
+    const cancel = 'cancelIdleCallback' in window
+      ? (window as any).cancelIdleCallback
+      : (id: number) => clearTimeout(id as any);
+
+    const id = idle(async () => {
+      try {
+        await Promise.all([
+          import("./pages/ComparePage"),
+          import("./pages/News"),
+          import("./pages/PoliticalCompassPage"),
+          import("./pages/ChatPage"),
+          import("./pages/About"),
+          import("./pages/CandidateProfile"),
+          import("./pages/EventDetail"),
+        ]);
+      } catch {
+        // ignore prefetch errors in dev
+      }
+    });
+
+    return () => cancel(id);
+  }, []);
+
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
             <Routes>
               <Route element={<AppLayout />}>
                 <Route path="/" element={<HomePage />} />
@@ -62,14 +93,20 @@ const App = () => (
                 <Route path="/about" element={<About />} />
                 <Route path="/chat" element={<ChatPage />} />
               </Route>
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
+              <Route
+                path="*"
+                element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <NotFound />
+                  </Suspense>
+                }
+              />
             </Routes>
-          </Suspense>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
-);
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  );
+};
 
 export default App;

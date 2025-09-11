@@ -30,44 +30,54 @@ const navItems = [
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [ignoreTap, setIgnoreTap] = React.useState(false);
+  const menuBtnRef = React.useRef<HTMLButtonElement | null>(null);
   const location = useLocation();
 
-  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    if (
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' ||
-        (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return;
-    }
-    setIsOpen(open);
+  // Detect iOS (including iPadOS that reports as Mac with touch)
+  const isIOS = React.useMemo(() => {
+    if (typeof navigator === 'undefined' || typeof window === 'undefined') return false;
+    const ua = navigator.userAgent;
+    return /iPad|iPhone|iPod/.test(ua) || (ua.includes('Mac') && 'ontouchend' in (window as any));
+  }, []);
+
+  const openDrawer = () => {
+    if (ignoreTap) return;
+    setIsOpen(true);
   };
 
+  const closeDrawer = () => {
+    setIsOpen(false);
+    setIgnoreTap(true);
+    window.setTimeout(() => setIgnoreTap(false), 400); // small bump for reliability
+    menuBtnRef.current?.blur();
+  };
+
+  React.useEffect(() => {
+    if (isOpen) closeDrawer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
   const list = () => (
-    <Box
-      sx={{ width: 250, height: '100%', bgcolor: 'hsl(var(--sidebar-background))' }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
+    <Box sx={{ width: 250, height: '100%', bgcolor: 'hsl(var(--sidebar-background))' }} role="menu">
       <List>
         {navItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton
               component={Link}
               to={item.path}
+              onClick={(e) => {
+                e.stopPropagation();
+                closeDrawer();
+              }}
               selected={location.pathname === item.path}
               sx={{
                 paddingY: 2,
-                '&:hover': {
-                  backgroundColor: 'hsl(var(--sidebar-accent) / 0.7)',
-                },
+                '&:hover': { backgroundColor: 'hsl(var(--sidebar-accent) / 0.7)' },
                 '&.Mui-selected': {
                   backgroundColor: 'hsl(var(--sidebar-accent))',
                   borderRight: '4px solid hsl(var(--primary))',
-                  '&:hover': {
-                    backgroundColor: 'hsl(var(--sidebar-accent))',
-                  },
+                  '&:hover': { backgroundColor: 'hsl(var(--sidebar-accent))' },
                 },
               }}
             >
@@ -90,10 +100,14 @@ export function MobileNav() {
   return (
     <>
       <IconButton
+        ref={menuBtnRef}
         color="inherit"
-        aria-label="open drawer"
+        aria-label="open navigation"
+        aria-haspopup="menu"
+        aria-expanded={isOpen ? 'true' : 'false'}
+        onClick={openDrawer}
+        disabled={ignoreTap}
         edge="start"
-        onClick={toggleDrawer(true)}
         sx={{ color: 'hsl(var(--foreground))' }}
       >
         <MenuIcon />
@@ -101,11 +115,21 @@ export function MobileNav() {
       <Drawer
         anchor="left"
         open={isOpen}
-        onClose={toggleDrawer(false)}
+        onClose={closeDrawer}
+        ModalProps={{
+          keepMounted: true,
+          disableScrollLock: true,
+          // Only relax focus on iOS; keep defaults elsewhere for a11y
+          disableAutoFocus: isIOS,
+          disableEnforceFocus: isIOS,
+          disableRestoreFocus: isIOS,
+        }}
+        transitionDuration={{ enter: 180, exit: 140 }}
         PaperProps={{
           sx: {
             backgroundColor: 'hsl(var(--sidebar-background))',
             borderRight: '4px solid hsl(var(--border))',
+            willChange: 'transform',
           },
         }}
       >
