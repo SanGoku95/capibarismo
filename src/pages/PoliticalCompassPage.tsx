@@ -8,7 +8,7 @@ export function PoliticalCompassPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-display text-accent mb-4">
-            COMPASS POLÍTICO
+            Coordenadas Ideológicas
           </h1>
           <p className="text-lg text-foreground/90 max-w-3xl mx-auto">
             Visualiza las posturas políticas de todos los candidatos en los ejes económico y social.
