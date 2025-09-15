@@ -52,8 +52,15 @@ export interface Candidate {
     }[];
   };
   // Compass coordinates
+  // Eje Econ: -10 (Izquierda) a 10 (Derecha)
   econ?: number;
+  // Eje Social: -10 (libertario) a 10 (autoritario)
   social?: number;
+    // Eje Territorial: -10 (muy Regionalista) a 10 (muy Centralista)
+  territorial?: number;
+  // Estilo de Poder: -10 (muy Institucionalista) a 10 (muy Populista/Antisistema)
+  power?: number;
+
   education?: string;
   security?: string;
   health?: string;
@@ -204,7 +211,9 @@ export const candidates: Candidate[] = [
     security: "pro",
     health: "anti",
     "econ": 7,
-    "social": 6
+    "social": 6,
+    "territorial": 3,
+    "power": 8,
   },
   {
     id: "rafael",
@@ -350,8 +359,10 @@ export const candidates: Candidate[] = [
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
     fullBody: "/fotos_candidatos/rafael/full_body_rafael.gif",
     econ: 8,
-    social: 7
-  },
+    social: 7,
+    territorial: 5, // Proyecto nacional centralizado, poder basado en Lima.
+    power: -4,      // Opera desde dentro del sistema (partido, congreso), aunque con retórica confrontacional.
+ },
   {
     id: "yonhy",
     nombre: "Yonhy Lescano",
@@ -391,7 +402,9 @@ export const candidates: Candidate[] = [
     headshot: "https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg",
     fullBody: "/fotos_candidatos/lescano/full_body_lescano.gif",
     econ: 2,
-    social: 1
+    social: 1,
+    territorial: -5, // Proviene de Puno, su partido (Acción Popular) tiene una fuerte tradición regional.
+    power: -7,       // Político de partido tradicional, congresista, respeta las instituciones.
   },
   {
     id: "antauro",
@@ -563,7 +576,9 @@ export const candidates: Candidate[] = [
       ]
     },
     econ: -8,
-    social: 9
+    social: 9,
+    territorial: -9, // Su ideología etnocacerista es explícitamente anti-establishment limeño y pro-andino.
+    power: 10,       // Lideró levantamientos armados. Es la definición de un actor antisistema.
   },
   {
   id: "martin-vizcarra",
@@ -753,8 +768,10 @@ export const candidates: Candidate[] = [
     ]
   },
     econ: 4,
-    social: 4
-},
+    social: 4,
+    territorial: -7, // Su carrera se forjó como Gobernador de Moquegua; su marca es la gestión regional.
+    power: 8,        // Disolvió el Congreso y basó su presidencia en la lucha contra el "establishment" político.
+  },
   {
     id: "guillermo-bermejo",
     nombre: "Guillermo Bermejo",
@@ -906,7 +923,10 @@ export const candidates: Candidate[] = [
       ]
     },
     econ: -8,
-    social: -3
+    social: -3,    
+    territorial: 0,  // Su discurso es nacional-popular, no tiene un enfoque regionalista o centralista marcado.
+    power: 7,        // Retórica antisistema ("no dejaremos el poder"), busca un cambio total vía Asamblea Constituyente.
+ 
   }
   ,
   {
@@ -1084,7 +1104,9 @@ export const candidates: Candidate[] = [
 
   // Compass (estimación con la evidencia disponible)
   econ: 2,          // no hay plan económico; retórica de austeridad sin estatismo → ligera derecha
-  social: 9,        // pena de muerte, megacárceles, estados de excepción → autoritarismo alto
+  social: 9,        // pena de muerte, megacárceles, estados de excepción → autoritarismo alto,
+  territorial: 1,  // Su enfoque es la seguridad a nivel nacional, sin un sesgo territorial claro.
+  power: 6,        // Se presenta como un outsider que critica a la clase política y propone medidas radicales.
   security: "pro",
   health: "neutral",
   education: "neutral"
@@ -1243,6 +1265,9 @@ export const candidates: Candidate[] = [
       ]
     },
     "econ": 3,
-    "social": 1
+    "social": 1,
+    territorial: -8, // Su poder emana de su bastión en La Libertad. Es el arquetipo del líder regional.
+    power: -5,       // Aunque usa métodos clientelares, es un "barón" que ha construido y domina sus propias instituciones.
+  
   }
 ];
