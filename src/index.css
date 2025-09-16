@@ -164,17 +164,16 @@
     }
 
     .fighting-game-bg-compare {
-      background: url('/background_congress.png') center top / cover no-repeat;
-      background-color: hsl(var(--background)); /* fallback */
+      background-color: hsl(var(--background)); /* Use the same background color */
       min-height: 100vh;
       width: 100%;
       overflow-y: auto; /* Allow scrolling */
       padding-bottom: 80px; /* Prevent footer overlap */
     }
+
     @media (min-width: 1000px) {
     .fighting-game-bg-compare {
-   background: url('/background_congress.png') center -700px / cover no-repeat;
-      background-color: hsl(var(--background)); /* fallback */
+    background-color: hsl(var(--background)); /* Same background for larger screens */
       min-height: 100vh;
       width: 100%;
     }
@@ -182,8 +181,7 @@
 
     /* Optional: dark mode tweak */
     .dark .fighting-game-bg-compare {
-      background: url('/public/background_congress.png') center top / cover no-repeat;
-      background-color: hsl(var(--background));
+      background-color: hsl(var(--background)); /* Same background for dark mode */
     }
 
   /* 2. Chunky, Solid Header */

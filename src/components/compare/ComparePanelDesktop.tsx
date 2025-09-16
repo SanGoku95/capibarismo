@@ -15,7 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Shield, Briefcase, Power, Radio } from 'lucide-react';
+import { Shield, Briefcase, Power, Radio, Sparkles, AlertTriangle } from 'lucide-react';
 import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
 
 interface CandidateFactSheetProps {
@@ -99,7 +99,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
             
             <AccordionItem value="creencias-clave">
               <AccordionTrigger className="text-base font-semibold">
-                Creencias Clave
+                <Sparkles size={16} className="mr-2" /> Creencias Clave
               </AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-wrap gap-2 pt-2">
@@ -158,6 +158,37 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                       </div>
                     </a>
                   ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* NEW: Controversias (before Mapa de Poder) */}
+            <AccordionItem value="controversias">
+              <AccordionTrigger className="text-base font-semibold">
+                <AlertTriangle size={16} className="mr-2" /> Controversias
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-1 pt-2">
+                  {candidate.controversias && candidate.controversias.length > 0 ? (
+                    candidate.controversias.slice(0, 3).map((c) => (
+                      <div key={c.id} className="block p-2 rounded-md hover:bg-muted/50">
+                        <Link
+                          to={`/candidate/${candidate.id}#controversia-${c.id}`}
+                          className="text-base font-sans font-medium hover:underline"
+                        >
+                          {c.titulo}
+                        </Link>
+                        <div className="text-sm text-muted-foreground">{c.descripcion}</div>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="underline">
+                            Fuente
+                          </a>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm text-muted-foreground italic">Sin controversias registradas.</p>
+                  )}
                 </div>
               </AccordionContent>
             </AccordionItem>

@@ -240,7 +240,71 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
                 }
               />
-              
+
+              {/* NEW: Controversias (before Mapa de Poder) */}
+              <ComparisonSection
+                title="Controversias"
+                sectionId="controversias"
+                leftCandidate={leftCandidate}
+                rightCandidate={rightCandidate}
+                leftContent={
+                  leftCandidate ? (
+                    leftCandidate.controversias && leftCandidate.controversias.length > 0 ? (
+                      <div className="space-y-2">
+                        {leftCandidate.controversias.slice(0, 2).map((c) => (
+                          <div key={c.id} className="font-sans">
+                            <Link
+                              to={`/candidate/${leftCandidate.id}#controversia-${c.id}`}
+                              className="text-sm text-foreground hover:underline"
+                            >
+                              {c.titulo}
+                            </Link>
+                            <a
+                              href={c.fuente}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block text-xs text-muted-foreground underline"
+                            >
+                              Fuente
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="font-sans text-sm text-muted-foreground">Sin controversias registradas</span>
+                    )
+                  ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
+                }
+                rightContent={
+                  rightCandidate ? (
+                    rightCandidate.controversias && rightCandidate.controversias.length > 0 ? (
+                      <div className="space-y-2">
+                        {rightCandidate.controversias.slice(0, 2).map((c) => (
+                          <div key={c.id} className="font-sans">
+                            <Link
+                              to={`/candidate/${rightCandidate.id}#controversia-${c.id}`}
+                              className="text-sm text-foreground hover:underline"
+                            >
+                              {c.titulo}
+                            </Link>
+                            <a
+                              href={c.fuente}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block text-xs text-muted-foreground underline"
+                            >
+                              Fuente
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="font-sans text-sm text-muted-foreground">Sin controversias registradas</span>
+                    )
+                  ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
+                }
+              />
+
               <ComparisonSection
                 title="Mapa de Poder"
                 sectionId="mapa-de-poder"
