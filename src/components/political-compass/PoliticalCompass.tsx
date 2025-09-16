@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { candidates } from '@/data/candidates';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card'; // removed CardHeader
 import { Button } from '@/components/ui/button';
 import { useLabelCollision, LabelPosition } from '@/hooks/useLabelCollision'; 
 
@@ -27,11 +27,19 @@ type Candidate = {
   fullBody?: string;
 };
 
-const axisLabels: Record<Axis, { name: string; low: string; high: string }> = {
+export const axisLabels: Record<Axis, { name: string; low: string; high: string }> = {
   econ: { name: 'EJE ECONÓMICO', low: 'IZQUIERDA', high: 'DERECHA' },
   social: { name: 'EJE SOCIAL', low: 'LIBERTARIO', high: 'AUTORITARIO' },
   territorial: { name: 'EJE TERRITORIAL', low: 'REGIONALISTA', high: 'CENTRALISTA' },
   power: { name: 'ESTILO DE PODER', low: 'INSTITUCIONALISTA', high: 'POPULISTA' },
+};
+
+// End-captions legibles por eje (se muestran en los extremos de los ejes)
+const axisEndCaptions: Record<Axis, { low: string; high: string }> = {
+  econ: { low: 'Intervención estatal', high: 'Libre mercado' },
+  social: { low: 'Liberal', high: 'Autoritario' },
+  territorial: { low: 'Regionalista', high: 'Centralista' },
+  power: { low: 'Institucionalista', high: 'Populista' },
 };
 
 // --- Componente de Línea Conectora ---
@@ -63,9 +71,10 @@ export function PoliticalCompass({
     if (!el) return;
     const ro = new ResizeObserver(([entry]) => {
       const containerWidth = entry.contentRect.width;
-      const availableHeight = window.innerHeight - 250; 
+      // Make the graph a bit bigger on tall screens
+      const availableHeight = window.innerHeight - 200; // was 250
       const maxSize = Math.min(containerWidth, availableHeight);
-      const size = Math.max(280, Math.min(900, maxSize));
+      const size = Math.max(320, Math.min(1000, maxSize)); // was [280, 900]
       setDims({ w: size, h: size });
     });
     ro.observe(el);
@@ -112,7 +121,64 @@ export function PoliticalCompass({
     labelHeight: LABEL_H,
   })), [displayCandidates, xAxisKey, yAxisKey, dims.w, LABEL_W, LABEL_H]);
 
-  const labelPositions = useLabelCollision(pointsForCollision, 200, 1, POINT_R);
+  // useLabelCollision(points, iterations = 100, pointRadius = 10)
+  const labelPositions = useLabelCollision(pointsForCollision, 200, POINT_R);
+
+  // Avoid clashes with axis text/lines: define keep-out bands and nudge labels out
+  const labelPositionsAdjusted = useMemo(() => {
+    const bandY = Math.max(16, FONT_SM + 10); // half-height of the horizontal keepout
+    const bandX = Math.max(16, FONT_SM + 10); // half-width of the vertical keepout
+
+    const keepouts = [
+      // Horizontal band centered on X-axis (protects the axis line and captions above it)
+      { x: 0, y: dims.h / 2 - bandY, width: dims.w, height: bandY * 2 },
+      // Vertical band centered on Y-axis
+      { x: dims.w / 2 - bandX, y: 0, width: bandX * 2, height: dims.h },
+    ];
+
+    const margin = 2;
+
+    function rectsOverlap(a: {x:number;y:number;width:number;height:number}, b:{x:number;y:number;width:number;height:number}) {
+      return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
+    }
+
+    return labelPositions.map(lp => {
+      let finalX = lp.finalX;
+      let finalY = lp.finalY;
+
+      const r = () => ({ x: finalX, y: finalY, width: LABEL_W, height: LABEL_H });
+
+      // Nudge vertically out of the horizontal keepout (X-axis)
+      const xAxisBand = keepouts[0];
+      if (rectsOverlap(r(), xAxisBand)) {
+        if (lp.y < dims.h / 2) {
+          // point is above the axis -> push label further up
+          finalY = xAxisBand.y - LABEL_H - margin;
+        } else {
+          // point is below the axis -> push label further down
+          finalY = xAxisBand.y + xAxisBand.height + margin;
+        }
+      }
+
+      // Nudge horizontally out of the vertical keepout (Y-axis)
+      const yAxisBand = keepouts[1];
+      if (rectsOverlap(r(), yAxisBand)) {
+        if (lp.x < dims.w / 2) {
+          // point is to the left -> push label further left
+          finalX = yAxisBand.x - LABEL_W - margin;
+        } else {
+          // point is to the right -> push label further right
+          finalX = yAxisBand.x + yAxisBand.width + margin;
+        }
+      }
+
+      // Keep labels inside the chart bounds
+      finalX = Math.max(PAD, Math.min(dims.w - PAD - LABEL_W, finalX));
+      finalY = Math.max(PAD, Math.min(dims.h - PAD - LABEL_H, finalY));
+
+      return { ...lp, finalX, finalY };
+    });
+  }, [labelPositions, LABEL_W, LABEL_H, dims.w, dims.h, PAD, FONT_SM]);
 
   // --- MANEJADORES DE EVENTOS ---
   
@@ -146,40 +212,22 @@ export function PoliticalCompass({
   
   const showTooltip = !!activeCandidate;
   const candidateData = displayCandidates.find(c => c.id === activeCandidate);
-  
-  const xLow = axisLabels[xAxisKey].low;
-  const xHigh = axisLabels[xAxisKey].high;
-  const yLow = axisLabels[yAxisKey].low;
-  const yHigh = axisLabels[yAxisKey].high;
-  
+  const xCaps = axisEndCaptions[xAxisKey];
+  const yCaps = axisEndCaptions[yAxisKey];
+
   // --- RENDERIZADO DEL COMPONENTE ---
   return (
     <>
       <Card className="fighting-game-card">
-        <CardHeader></CardHeader>
         <CardContent>
-          {/* Leyenda */}
-          <div className="mb-6 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3 md:grid-cols-4">
-            {displayCandidates.map((c, i) => (
-              <div key={c.id} className="flex items-center gap-2">
-                <span
-                  aria-hidden
-                  className="inline-block h-4 w-4 rounded-full"
-                  style={{
-                    background: generateColor(i, displayCandidates.length, c.color),
-                    border: '2px solid hsl(var(--foreground))',
-                  }}
-                />
-                <span className="text-sm font-medium">{c.nombre}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Contenedor del Gráfico */}
-          <div ref={containerRef} className="w-full flex justify-center max-h-[80vh] relative">
+          {/* Contenedor del Gráfico (añadimos padding vertical para separar del contenedor) */}
+          <div
+            ref={containerRef}
+            className="w-full flex justify-center max-h-[80vh] relative py-4"
+          >
             <svg
               role="img"
-              aria-label={`Mapa ideológico con eje X (${axisLabels[xAxisKey].name}) y eje Y (${axisLabels[yAxisKey].name})`}
+              aria-label={`Mapa ideológico con eje X (${xAxisKey}) y eje Y (${yAxisKey})`}
               width={dims.w}
               height={dims.h}
               viewBox={`0 0 ${dims.w} ${dims.h}`}
@@ -188,19 +236,63 @@ export function PoliticalCompass({
             >
               <rect width={dims.w} height={dims.h} fill="hsl(var(--background))" stroke="hsl(var(--foreground))" strokeWidth={2}/>
 
-              <line x1={PAD} y1={dims.h / 2} x2={dims.w - PAD} y2={dims.h / 2} stroke="hsl(var(--accent))" strokeWidth={AXIS_STROKE}/>
-              <line x1={dims.w / 2} y1={PAD} x2={dims.w / 2} y2={dims.h - PAD} stroke="hsl(var(--accent))" strokeWidth={AXIS_STROKE}/>
-              <text x={dims.w - PAD} y={dims.h / 2 - 4} textAnchor="end" fontFamily="'Press Start 2P', cursive" fontWeight="bold" fontSize={FONT_XSM} fill="hsl(var(--accent))" stroke="hsl(var(--background))" strokeWidth={1} style={{ paintOrder: 'stroke fill' }}>{axisLabels[xAxisKey].name}</text>
-              <text x={dims.w / 2 - PAD - 18} y={PAD - 10} textAnchor="middle" fontFamily="'Press Start 2P', cursive" fontWeight="bold" fontSize={FONT_XSM} fill="hsl(var(--accent))" stroke="hsl(var(--background))" strokeWidth={1} transform={`rotate(-90 ${dims.w / 2} ${PAD - 8})`} style={{ paintOrder: 'stroke fill' }}>{axisLabels[yAxisKey].name}</text>
-              
-              <g className="quadrant-labels" opacity="0.7" fontFamily="'Press Start 2P', cursive" fontSize={FONT_XSM} fill="hsl(var(--foreground))" style={{ pointerEvents: 'none' }}>
-                <text x={PAD + 3} y={PAD - 8}>{xLow}-{yHigh}</text>
-                <text x={dims.w - PAD - 3} y={PAD - 8} textAnchor="end">{xHigh}-{yHigh}</text>
-                <text x={PAD + 3} y={dims.h - PAD + 20}>{xLow}-{yLow}</text>
-                <text x={dims.w - PAD - 3} y={dims.h - PAD + 20} textAnchor="end">{xHigh}-{yLow}</text>
-              </g>
+              {/* Arrowheads for the axes */}
+              <defs>
+                <marker id="axis-arrow" viewBox="0 0 10 10" refX="8" refY="5"
+                        markerWidth={Math.max(4, AXIS_STROKE * 3)}
+                        markerHeight={Math.max(4, AXIS_STROKE * 3)}
+                        orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="hsl(var(--accent))" />
+                </marker>
+              </defs>
 
-              {labelPositions.map((labelPos, index) => {
+              {/* Ejes con flechas en ambos extremos */}
+              <line x1={PAD} y1={dims.h / 2} x2={dims.w - PAD} y2={dims.h / 2}
+                    stroke="hsl(var(--accent))" strokeWidth={AXIS_STROKE}
+                    markerStart="url(#axis-arrow)" markerEnd="url(#axis-arrow)"/>
+              <line x1={dims.w / 2} y1={PAD} x2={dims.w / 2} y2={dims.h - PAD}
+                    stroke="hsl(var(--accent))" strokeWidth={AXIS_STROKE}
+                    markerStart="url(#axis-arrow)" markerEnd="url(#axis-arrow)"/>
+
+              {/* End-captions along the axes (responsive) */}
+              <g fontFamily="'Inter', sans-serif" fontSize={FONT_SM} fill="hsl(var(--foreground))" opacity="0.9">
+                {/* X axis: labels near ends, slightly above the line */}
+                <text x={PAD + 10} y={dims.h / 2 - (6)} textAnchor="start">
+                  ← {xCaps.low}
+                </text>
+                <text x={dims.w - PAD - 10} y={dims.h / 2 - (6)} textAnchor="end">
+                  {xCaps.high} →
+                </text>
+
+                {/* Y axis: rotate labels to align with the vertical axis */}
+                {(() => {
+                  const inset = Math.max(24, FONT_SM * 2.5);
+                  const topY = PAD + inset;
+                  const bottomY = dims.h - PAD - inset;
+                  const xOff = 10; //// slight offset from the axis so text doesn't sit on the stroke
+                  return (
+                    <>
+                        <text
+                        x={dims.w / 2 - xOff}
+                        y={topY}
+                        textAnchor="middle"
+                        transform={`rotate(-90 ${dims.w / 2 - xOff} ${topY})`}
+                        >
+                        {yCaps.high} →
+                        </text>
+                      <text
+                        x={dims.w / 2 - xOff}
+                        y={bottomY}
+                        textAnchor="middle"
+                        transform={`rotate(-90 ${dims.w / 2 - xOff} ${bottomY})`}
+                      >
+                        ← {yCaps.low}
+                      </text>
+                    </>
+                  );
+                })()}
+              </g>
+              {labelPositionsAdjusted.map((labelPos, index) => {
                 const candidate = displayCandidates.find(c => c.id === labelPos.id);
                 if (!candidate) return null;
 
@@ -225,10 +317,10 @@ export function PoliticalCompass({
                     <LeaderLine from={{ x: labelPos.x, y: labelPos.y }} to={labelPos} />
 
                     <g transform={`translate(${labelPos.finalX}, ${labelPos.finalY})`}>
-                        <rect width={LABEL_W} height={LABEL_H} fill="hsl(var(--background))" stroke="hsl(var(--foreground))" strokeWidth={isActive ? 2 : 1} rx={4} />
-                        <text x={LABEL_W/2} y={LABEL_H/2} dominantBaseline="middle" textAnchor="middle" fontSize={FONT_SM} fill="hsl(var(--foreground))" fontFamily="'Inter', sans-serif" fontWeight={isActive ? 'bold' : 'normal'}>
-                            {truncate(candidate.nombre)}
-                        </text>
+                      <rect width={LABEL_W} height={LABEL_H} fill="hsl(var(--background))" stroke="hsl(var(--foreground))" strokeWidth={isActive ? 2 : 1} rx={4} />
+                      <text x={LABEL_W/2} y={LABEL_H/2} dominantBaseline="middle" textAnchor="middle" fontSize={FONT_SM} fill="hsl(var(--foreground))" fontFamily="'Inter', sans-serif" fontWeight={isActive ? 'bold' : 'normal'}>
+                        {truncate(candidate.nombre)}
+                      </text>
                     </g>
                   </g>
                 );
@@ -237,9 +329,9 @@ export function PoliticalCompass({
           </div>
         </CardContent>
       </Card>
-      
+
       {showTooltip && candidateData && (
-         <div
+        <div
           className="z-50 bg-background border-2 border-foreground rounded-lg shadow-lg p-4 w-48 flex flex-col gap-2"
           style={{
             position: 'fixed',
