@@ -102,6 +102,10 @@ export function PoliticalCompass({
   const LABEL_H = Math.max(14, Math.min(20, dims.w * 0.03));
   const LABEL_W = Math.max(80, Math.min(160, dims.w * 0.23));
 
+  // Insets para acercar los end-captions al centro
+  const CAPTION_INSET_X = Math.max(36, dims.w * 0.12);
+  const CAPTION_INSET_Y = Math.max(70, dims.h * 0.12);
+
   const toSvgX = (value: number) => ((value + 10) / 20) * (dims.w - 2 * PAD) + PAD;
   const toSvgY = (value: number) => ((10 - value) / 20) * (dims.h - 2 * PAD) + PAD;
   const maxNameChars = Math.max(5, Math.floor((LABEL_W - 20) / (FONT_SM * 0.6)));
@@ -257,29 +261,30 @@ export function PoliticalCompass({
               {/* End-captions along the axes (responsive) */}
               <g fontFamily="'Inter', sans-serif" fontSize={FONT_SM} fill="hsl(var(--foreground))" opacity="0.9">
                 {/* X axis: labels near ends, slightly above the line */}
-                <text x={PAD + 10} y={dims.h / 2 - (6)} textAnchor="start">
+                <text x={PAD + CAPTION_INSET_X} y={dims.h / 2 - 6} textAnchor="start">
                   ← {xCaps.low}
                 </text>
-                <text x={dims.w - PAD - 10} y={dims.h / 2 - (6)} textAnchor="end">
+                <text x={dims.w - PAD - CAPTION_INSET_X} y={dims.h / 2 - 6} textAnchor="end">
                   {xCaps.high} →
                 </text>
 
                 {/* Y axis: rotate labels to align with the vertical axis */}
                 {(() => {
-                  const inset = Math.max(24, FONT_SM * 2.5);
-                  const topY = PAD + inset;
-                  const bottomY = dims.h - PAD - inset;
+                  // acercar top/bottom hacia el centro
+                  const capY = CAPTION_INSET_Y;
+                  const topY = PAD + capY;
+                  const bottomY = dims.h - PAD - capY;
                   const xOff = 10; //// slight offset from the axis so text doesn't sit on the stroke
                   return (
                     <>
-                        <text
+                      <text
                         x={dims.w / 2 - xOff}
                         y={topY}
                         textAnchor="middle"
                         transform={`rotate(-90 ${dims.w / 2 - xOff} ${topY})`}
-                        >
+                      >
                         {yCaps.high} →
-                        </text>
+                      </text>
                       <text
                         x={dims.w / 2 - xOff}
                         y={bottomY}
