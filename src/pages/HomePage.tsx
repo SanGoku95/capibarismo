@@ -17,12 +17,12 @@ const featureCards = [
         cta: 'Comparar Ahora',
     },
     {
-        title: 'Compass Político',
+        title: 'Mapa Ideológico',
         description:
-            'Compara las posturas de todos los candidatos en políticas clave.',
+             'Crea tu propio mapa. Cambia los ejes y descubre las posturas similares.',
         link: '/compass',
         icon: <GavelIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Ir al Compass',
+        cta: 'Ir al Mapa',
     },
     {
         title: 'Chat IA',
