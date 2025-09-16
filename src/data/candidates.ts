@@ -57,16 +57,10 @@ export interface Candidate {
     descripcion: string;
     fuente: string;
   }[];
-  // Compass coordinates
-  // Eje Econ: -10 (Izquierda) a 10 (Derecha)
   econ?: number;
-  // Eje Social: -10 (libertario) a 10 (autoritario)
   social?: number;
-    // Eje Territorial: -10 (muy Regionalista) a 10 (muy Centralista)
   territorial?: number;
-  // Estilo de Poder: -10 (muy Institucionalista) a 10 (muy Populista/Antisistema)
   power?: number;
-
   education?: string;
   security?: string;
   health?: string;
@@ -394,9 +388,9 @@ export const candidates: Candidate[] = [
     fullBody: "/fotos_candidatos/rafael/full_body_rafael.gif",
     econ: 8,
     social: 7,
-    territorial: 5, 
-    power: -4,      
- },
+    territorial: 5,
+    power: -4,
+  },
   {
     id: "yonhy",
     nombre: "Yonhy Lescano",
@@ -538,8 +532,8 @@ export const candidates: Candidate[] = [
     ],
     econ: 2,
     social: 1,
-    territorial: -5, 
-    power: -7, 
+    territorial: -5,
+    power: -7,
   },
   {
     id: "antauro",
@@ -729,8 +723,8 @@ export const candidates: Candidate[] = [
     health: "anti",
     econ: -8,
     social: 9,
-    territorial: -9, 
-    power: 10, 
+    territorial: -9,
+    power: 10,
   },
   {
     id: "martin-vizcarra",
@@ -926,8 +920,6 @@ export const candidates: Candidate[] = [
         fuente: "https://es.wikipedia.org/wiki/Caso_Chinchero"
       }
     ],
-  },
-
     econ: 4,
     social: 4,
     territorial: -7, // Su carrera se forjó como Gobernador de Moquegua; su marca es la gestión regional.
@@ -935,7 +927,8 @@ export const candidates: Candidate[] = [
     education: "pro",
     security: "pro",
     health: "anti"
-    ,
+  },
+
   {
     id: "guillermo-bermejo",
     nombre: "Guillermo Bermejo",
@@ -1104,8 +1097,8 @@ export const candidates: Candidate[] = [
     security: "pro",
     health: "anti",
     econ: -8,
-    social: -3,    
-    territorial: 0,  
+    social: -3,
+    territorial: 0,
     power: 7,
   }
   ,
@@ -1292,6 +1285,7 @@ export const candidates: Candidate[] = [
     econ: 3,
     social: 1
   },
+
   {
     id: "cesar-acuna",
     nombre: "César Acuña",
@@ -1301,53 +1295,7 @@ export const candidates: Candidate[] = [
     proyectoPolitico: {
       titulo: "Poder regional a través de obras de impacto y un modelo educativo-empresarial",
       resumen: "Utiliza la vasta fortuna generada por su consorcio universitario (UCV, USS) para financiar un proyecto político regionalista, centrado en la ejecución de obras públicas de alto impacto visual y el establecimiento de una red clientelar para consolidar su poder en el norte del Perú.",
-      detalles: []
-    },
-    mapaDePoder: {
-      alianzas: [
-        {
-          nombre: "País Para Todos (inscrito ante JNE)",
-          descripcion:
-            "Vehículo político (agrupación nº34 habilitada para EG-2026)."
-        },
-        {
-          nombre: "Vladimir Meza (presidente del partido)",
-          descripcion:
-            "Lidera orgánica; convoca Congreso Nacional Extraordinario 2025."
-        }
-      ],
-      opositores: [
-        {
-          nombre: "ONGs y juristas de DD.HH.",
-          descripcion:
-            "Crítica a retiro del Pacto de San José y agenda punitiva."
-        },
-        {
-          nombre: "Investigación fiscal al partido (2025)",
-          descripcion:
-            "Fiscalía abrió diligencias preliminares sobre legalidad del partido."
-        }
-      ]
-  },
-
-  econ: 2,          
-  social: 9,       
-  territorial: 1,  
-  power: 6,        
-  security: "pro",
-  health: "neutral",
-  education: "neutral"
-},
-{
-    "id": "cesar-acuna",
-    "nombre": "César Acuña",
-    "ideologia": "Populismo pragmático y clientelar",
-    "headshot": "https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg",
-    "fullBody": "/fotos_candidatos/acuña/full_body_acuña_move.gif",
-    "proyectoPolitico": {
-      "titulo": "Poder regional a través de obras de impacto y un modelo educativo-empresarial",
-      "resumen": "Utiliza la vasta fortuna generada por su consorcio universitario (UCV, USS) para financiar un proyecto político regionalista, centrado en la ejecución de obras públicas de alto impacto visual y el establecimiento de una red clientelar para consolidar su poder en el norte del Perú.",
-      "detalles": [
+      detalles: [
         {
           subtitulo: "Proyectos de infraestructura a gran escala",
           texto: "Su gestión como gobernador se ha centrado en megaproyectos como el destrabe del Proyecto Especial Chavimochic III y la planificación de un nuevo Hospital Regional para Trujillo.",
@@ -1509,6 +1457,6 @@ export const candidates: Candidate[] = [
     social: 1,
     territorial: -8,
     power: -5,
-  
+
   }
 ];
