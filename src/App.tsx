@@ -14,7 +14,7 @@ const CandidateProfile = lazy(() => import("./pages/CandidateProfile").then(modu
 const NotFound = lazy(() => import("./pages/NotFound"));
 const About = lazy(() => import("./pages/About").then(module => ({ default: module.About })));
 const News = lazy(() => import("./pages/News"));
-const EventDetail = lazy(() => import("./pages/EventDetail"));
+const EventDetail = lazy(() => import("./pages/NewsDetail"));
 const ChatPage = lazy(() => import("./pages/ChatPage"));
 const PoliticalCompassPage = lazy(() => import("./pages/PoliticalCompassPage"));
 
@@ -65,7 +65,7 @@ const App = () => {
           import("./pages/ChatPage"),
           import("./pages/About"),
           import("./pages/CandidateProfile"),
-          import("./pages/EventDetail"),
+          import("./pages/NewsDetail"),
         ]);
       } catch {
         // ignore prefetch errors in dev

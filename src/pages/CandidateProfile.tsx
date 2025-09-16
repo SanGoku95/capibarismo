@@ -4,7 +4,7 @@ import { candidates } from '@/data/candidates';
 import NotFound from './NotFound';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, Wand, Sparkles } from 'lucide-react';
+import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, Wand, Sparkles, AlertTriangle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
 import {
@@ -47,6 +47,11 @@ export function CandidateProfile() {
         elementToScrollToId = 'trayectoria';
       } else if (hash === 'trayectoria' && candidate.trayectoria.length > 0) {
         valueToOpen = candidate.trayectoria[0].id;
+      } else if (hash.startsWith('controversia-')) {
+        valueToOpen = hash.split('controversia-')[1];
+        elementToScrollToId = 'controversias';
+      } else if (hash === 'controversias' && candidate.controversias && candidate.controversias.length > 0) {
+        valueToOpen = candidate.controversias[0].id;
       }
       
       setOpenAccordionItems(prev => [...new Set([...prev, valueToOpen])]);
@@ -282,6 +287,40 @@ export function CandidateProfile() {
                   </div>
                 </div>
                  <Separator />
+              </CardContent>
+            </Card>
+
+            {/* NEW: Controversias */}
+            <Card className="fighting-game-card scroll-mt-24" id="controversias">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><AlertTriangle size={20} /> Controversias</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {candidate.controversias && candidate.controversias.length > 0 ? (
+                  <Accordion
+                    type="multiple"
+                    className="w-full"
+                    value={openAccordionItems}
+                    onValueChange={setOpenAccordionItems}
+                  >
+                    {candidate.controversias.map((c) => (
+                      <AccordionItem value={c.id} key={c.id} id={`controversia-${c.id}`} className="border-b-muted-foreground/20">
+                        <AccordionTrigger>{c.titulo}</AccordionTrigger>
+                        <AccordionContent>
+                          <p className="text-base text-muted-foreground">{c.descripcion}</p>
+                          {c.fuente && (
+                            <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
+                              <LinkIcon size={12} />
+                              Fuente
+                            </a>
+                          )}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                ) : (
+                  <p className="text-sm text-muted-foreground">Sin controversias registradas.</p>
+                )}
               </CardContent>
             </Card>
           </div>

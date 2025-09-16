@@ -23,7 +23,7 @@ const navItems = [
   { text: 'Inicio', path: '/', icon: <HomeIcon /> },
   { text: 'Comparador', path: '/compare', icon: <CompareArrowsIcon /> },
   { text: 'Compass', path: '/compass', icon: <GavelIcon /> },
-  { text: 'Prensa', path: '/news', icon: <NewspaperIcon /> },
+  { text: 'Noticias', path: '/news', icon: <NewspaperIcon /> },
   { text: 'Chat', path: '/chat', icon: <ChatIcon /> },
   { text: 'Metodología', path: '/about', icon: <InfoOutlinedIcon /> },
 ];
