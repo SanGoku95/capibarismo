@@ -110,7 +110,7 @@ We welcome contributions from the community! This is an open source project that
 
 ## Español
 
-Web moderna para informar a candidatos sobre los distintos candidatos, sus posiciones políticas, propuestas, y trajectorias.
+Web moderna para informar sobre los distintos candidatos, sus posiciones políticas, propuestas, y trajectorias.
 
 > 🗳️ **Protocolo de Hechos**: Este proyecto sigue un protocolo riguroso de hechos verificables. Cada dato es rastreable hasta fuentes primarias y se presenta con marcas de tiempo, contexto y procedimientos de verificación.
 
