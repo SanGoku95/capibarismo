@@ -1458,5 +1458,5 @@ export const candidates: Candidate[] = [
     territorial: -8,
     power: -5,
 
-  }
+  },
 ];
