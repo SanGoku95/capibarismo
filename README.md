@@ -7,12 +7,6 @@
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 [![Facts Protocol](https://img.shields.io/badge/Facts-Protocol-blue.svg)](CODE_OF_CONDUCT.md)
 
-**Interactive platform for comparing Peruvian presidential candidates with a retro gaming twist.**
-
-A modern web application that helps voters make informed decisions by comparing candidates' political positions, proposals, and trajectories through an engaging 90s fighting game-themed interface.
-
-> 🗳️ **Protocolo de Hechos**: Este proyecto sigue un protocolo riguroso de hechos verificables. Cada dato es rastreable hasta fuentes primarias y se presenta con marcas de tiempo, contexto y procedimientos de verificación.
-
 ---
 
 ## English
@@ -20,6 +14,7 @@ A modern web application that helps voters make informed decisions by comparing 
 Presidential Punch Peru provides an interactive platform for comparing political candidates using modern visualization tools and detailed analysis. Built with React and TypeScript, it features a unique retro gaming aesthetic while delivering serious political insights.
 
 > 🇵🇪 **Open Source Community Project**: This project is developed by volunteers committed to promoting democratic transparency in Peru through technology. All contributions are welcome!
+> 🗳️ **Facts Protocol**: This project follows a secure fact protocol to verify truthfulness. Every fact can be traced back to their original source with time stamps.
 
 ## 📄 License
 
@@ -111,19 +106,13 @@ We welcome contributions from the community! This is an open source project that
 - 💻 Contribute code improvements
 - 📖 Enhance documentation
 
-### 🗂️ Datos & Fuentes
-
-Toda la información de candidatos en este proyecto proviene de fuentes verificables y públicas. Mantenemos:
-- **Precisión factual** con atribución adecuada de fuentes
-- **Protocolo de hechos** siguiendo estándares rigurosos de verificabilidad
-- **Transparencia** en nuestros métodos de recolección de datos
-- **Actualizaciones regulares** para mantener la información actualizada
-
-Si encuentras información inexacta, por favor [abre un issue de datos](https://github.com/Italosayan/presidential-punch-peru/issues/new?template=data_update.md) con fuentes apropiadas.
-
 ---
 
 ## Español
+
+Web moderna para informar a candidatos sobre los distintos candidatos, sus posiciones políticas, propuestas, y trajectorias.
+
+> 🗳️ **Protocolo de Hechos**: Este proyecto sigue un protocolo riguroso de hechos verificables. Cada dato es rastreable hasta fuentes primarias y se presenta con marcas de tiempo, contexto y procedimientos de verificación.
 
 ### ✨ Características Principales
 
@@ -209,6 +198,16 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
 - 💬 **Discusiones**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)
+
+### 🗂️ Datos & Fuentes
+
+Toda la información de candidatos en este proyecto proviene de fuentes verificables y públicas. Mantenemos:
+- **Precisión factual** con atribución adecuada de fuentes
+- **Protocolo de hechos** siguiendo estándares rigurosos de verificabilidad
+- **Transparencia** en nuestros métodos de recolección de datos
+- **Actualizaciones regulares** para mantener la información actualizada
+
+Si encuentras información inexacta, por favor [abre un issue de datos](https://github.com/Italosayan/presidential-punch-peru/issues/new?template=data_update.md) con fuentes apropiadas.
 
 ---
 
