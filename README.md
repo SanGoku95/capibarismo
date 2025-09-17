@@ -1,4 +1,4 @@
-# 🥊 Presidential Punch Peru
+# 🥊 Capibarismo
 
 *[Read in English](#english) | [Leer en Español](#español)*
 
