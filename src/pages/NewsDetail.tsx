@@ -48,64 +48,75 @@ const getMediaStyle = (key: string) => {
 
 type SortKey = 'views' | 'credibility';
 
-const EventDetail: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const event = eventsData.events.find(e => e.slug === slug);
+type RelatedVideo = {
+  video_id: string;
+  title: string;
+  url: string;
+  channel: string;
+  view_count: number;
+  credibility_score: number;
+  sintetization?: string;
+  bullet?: string;
+};
 
-  if (!event) {
-    return (
-      <div className="min-h-screen fighting-game-bg flex flex-col items-center justify-center text-center p-4">
-        <h2 className="font-display text-2xl text-destructive mb-4">Evento No Encontrado</h2>
-        <p className="text-muted-foreground mb-8">El evento solicitado no pudo ser localizado.</p>
-        <Link to="/news" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
-          <ArrowLeft className="h-4 w-4" />
-          Volver a Noticias
-        </Link>
-      </div>
-    );
-  }
+type EventRecord = {
+  id: number;
+  slug: string;
+  headline: string;
+  summary: string;
+  contrast_analysis?: string;
+  story_start: string;
+  total_view_count: number;
+  avg_credibility_score: number;
+  related_videos?: RelatedVideo[];
+};
 
-  // Deriva claves de medios desde los videos relacionados
+const events = eventsData.events as EventRecord[];
+
+const EventDetailContent: React.FC<{ event: EventRecord }> = ({ event }) => {
+  const relatedVideos = useMemo(() => event.related_videos ?? [], [event.related_videos]);
+
   const mediaKeys = useMemo(() => {
     const keys = new Set<string>();
-    (event.related_videos || []).forEach((v: any) => {
-      const channel = v?.channel ?? 'Desconocido';
+    relatedVideos.forEach((video) => {
+      const channel = video.channel ?? 'Desconocido';
       keys.add(getMediaKey(channel));
     });
     return Array.from(keys).sort();
-  }, [event.related_videos]);
+  }, [relatedVideos]);
 
-  // Controles de orden y filtro
   const [sortBy, setSortBy] = useState<SortKey>('views');
   const [activeMedia, setActiveMedia] = useState<Set<string>>(new Set());
 
   const toggleMedia = (key: string) => {
-    setActiveMedia(prev => {
+    setActiveMedia((prev) => {
       const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
       return next;
     });
   };
 
   const clearFilters = () => setActiveMedia(new Set());
 
-  // Lista derivada de videos según orden y filtros
   const preparedVideos = useMemo(() => {
-    let list = [...(event.related_videos || [])] as any[];
-    if (activeMedia.size > 0) {
-      list = list.filter(v => activeMedia.has(getMediaKey((v?.channel ?? 'Desconocido') as string)));
-    }
-    list.sort((a, b) => {
-      const av = Number(a?.view_count ?? 0);
-      const bv = Number(b?.view_count ?? 0);
-      const ac = Number(a?.credibility_score ?? 0);
-      const bc = Number(b?.credibility_score ?? 0);
+    const list = [...relatedVideos];
+    const filtered =
+      activeMedia.size > 0
+        ? list.filter((video) => activeMedia.has(getMediaKey(video.channel ?? 'Desconocido')))
+        : list;
+    return filtered.sort((a, b) => {
+      const av = Number(a.view_count ?? 0);
+      const bv = Number(b.view_count ?? 0);
+      const ac = Number(a.credibility_score ?? 0);
+      const bc = Number(b.credibility_score ?? 0);
       if (sortBy === 'views') return bv - av;
       return bc - ac;
     });
-    return list;
-  }, [event.related_videos, activeMedia, sortBy]);
+  }, [relatedVideos, activeMedia, sortBy]);
 
   return (
     <div className="min-h-screen fighting-game-bg">
@@ -239,14 +250,14 @@ const EventDetail: React.FC = () => {
           </Card>
         ) : (
           <div className="space-y-4">
-            {preparedVideos.map((video: any) => {
-              const mediaKey = getMediaKey(video?.channel ?? 'Desconocido');
+            {preparedVideos.map((video) => {
+              const mediaKey = getMediaKey(video.channel ?? 'Desconocido');
               const style = getMediaStyle(mediaKey);
-              const views = Number(video?.view_count ?? 0);
-              const cred = Number(video?.credibility_score ?? 0);
+              const views = Number(video.view_count ?? 0);
+              const cred = Number(video.credibility_score ?? 0);
               return (
                 <a
-                  key={video.video_id ?? `${mediaKey}-${video?.title ?? 'clip'}`}
+                  key={video.video_id ?? `${mediaKey}-${video.title ?? 'clip'}`}
                   href={video.url ?? '#'}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -305,6 +316,29 @@ const EventDetail: React.FC = () => {
       </main>
     </div>
   );
+};
+
+const EventDetail: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const event = events.find((item) => item.slug === slug);
+
+  if (!event) {
+    return (
+      <div className="min-h-screen fighting-game-bg flex flex-col items-center justify-center text-center p-4">
+        <h2 className="font-display text-2xl text-destructive mb-4">Evento No Encontrado</h2>
+        <p className="text-muted-foreground mb-8">El evento solicitado no pudo ser localizado.</p>
+        <Link
+          to="/news"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Volver a Noticias
+        </Link>
+      </div>
+    );
+  }
+
+  return <EventDetailContent event={event} />;
 };
 
 export default EventDetail;

@@ -62,7 +62,7 @@ export function CandidatePicker() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 lg:static w-full border-t-2 border-border bg-background/80 backdrop-blur-sm lg:flex-shrink-0 lg:h-auto">
+    <div className="fixed bottom-16 left-0 right-0 z-30 md:bottom-0 lg:static w-full border-t-2 border-border bg-background/80 backdrop-blur-sm lg:flex-shrink-0 lg:h-auto">
       <div className="container mx-auto p-2 lg:p-3">
         {/* Header with instructions */}
         <div className="flex items-center justify-between mb-2 lg:mb-3">

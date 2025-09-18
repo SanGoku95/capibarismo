@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import { Header } from "./components/layout/Header";
+import { BottomNav } from "./components/layout/BottomNav";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
 
 // Lazy load pages for code splitting
@@ -38,25 +39,42 @@ const LoadingSpinner = () => (
 const AppLayout = () => (
   <>
     <Header />
-    <main>
+    <main className="pb-20 md:pb-0">
       <Suspense fallback={<LoadingSpinner />}>
         <Outlet />
       </Suspense>
     </main>
+    <BottomNav />
   </>
 );
 
 const App = () => {
   // Prefetch common routes after idle to avoid first-click suspend
   useEffect(() => {
-    const idle = 'requestIdleCallback' in window
-      ? (window as any).requestIdleCallback
-      : (cb: () => void) => setTimeout(cb, 500);
-    const cancel = 'cancelIdleCallback' in window
-      ? (window as any).cancelIdleCallback
-      : (id: number) => clearTimeout(id as any);
+    const requestIdle = (callback: () => void): number => {
+      if ('requestIdleCallback' in window) {
+        return (
+          window as Window & typeof globalThis & {
+            requestIdleCallback: (cb: () => void) => number;
+          }
+        ).requestIdleCallback(callback);
+      }
+      return window.setTimeout(callback, 500);
+    };
 
-    const id = idle(async () => {
+    const cancelIdle = (handle: number) => {
+      if ('cancelIdleCallback' in window) {
+        (
+          window as Window & typeof globalThis & {
+            cancelIdleCallback: (id: number) => void;
+          }
+        ).cancelIdleCallback(handle);
+        return;
+      }
+      window.clearTimeout(handle);
+    };
+
+    const id = requestIdle(async () => {
       try {
         await Promise.all([
           import("./pages/ComparePage"),
@@ -72,7 +90,7 @@ const App = () => {
       }
     });
 
-    return () => cancel(id);
+    return () => cancelIdle(id);
   }, []);
 
   return (

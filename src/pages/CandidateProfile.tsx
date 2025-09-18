@@ -1,10 +1,28 @@
 import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { candidates } from '@/data/candidates';
+import { useEffect, useMemo, useState } from 'react';
+import { candidates, type Candidate } from '@/data/candidates';
 import NotFound from './NotFound';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, Wand, Sparkles, AlertTriangle } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import {
+  ArrowLeft,
+  ArrowLeftRight,
+  Shield,
+  Star,
+  Briefcase,
+  Radio,
+  Power,
+  Rss,
+  Link as LinkIcon,
+  Wand,
+  Sparkles,
+  AlertTriangle,
+  Share2,
+  Bookmark,
+  BookmarkCheck,
+  Clock,
+} from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
 import {
@@ -13,6 +31,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { shareOrCopy } from '@/lib/share';
+import { useSavedStore } from '@/store/useSavedStore';
+import eventsData from '@/data/events.json';
+import { getEventMeta } from '@/data/eventMeta';
+import { trendingMatchups } from '@/data/matchups';
 
 const socialIcons: { [key: string]: React.ReactElement } = {
   tiktok: <FaTiktok />,
@@ -23,6 +46,26 @@ const socialIcons: { [key: string]: React.ReactElement } = {
   web: <FaRegWindowRestore />,
 };
 
+type CandidateEvent = {
+  slug: string;
+  headline: string;
+  summary: string;
+  story_start: string;
+};
+
+const formatEventDate = (dateString: string) =>
+  new Date(dateString).toLocaleDateString('es-PE', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+
+const formatIssueLabel = (issue: string) =>
+  issue
+    .split('-')
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(' ');
+
 export function CandidateProfile() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
@@ -30,6 +73,33 @@ export function CandidateProfile() {
   const candidate = candidates.find((c) => c.id === id);
 
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
+  const toggleCandidate = useSavedStore((state) => state.toggleCandidate);
+  const isCandidateSaved = useSavedStore((state) => state.isCandidateSaved);
+
+  const candidateMap = useMemo(() => {
+    const map = new Map<string, Candidate>();
+    candidates.forEach((item) => map.set(item.id, item));
+    return map;
+  }, []);
+
+  const relatedEvents = useMemo(() => {
+    if (!candidate) return [];
+    const allEvents = eventsData.events as CandidateEvent[];
+    return allEvents
+      .filter((event) => {
+        const meta = getEventMeta(event.slug);
+        return meta?.focusCandidates.includes(candidate.id);
+      })
+      .sort(
+        (a, b) =>
+          new Date(b.story_start).getTime() - new Date(a.story_start).getTime()
+      );
+  }, [candidate]);
+
+  const relatedMatchups = useMemo(() => {
+    if (!candidate) return [];
+    return trendingMatchups.filter((matchup) => matchup.candidates.includes(candidate.id));
+  }, [candidate]);
 
   useEffect(() => {
     if (!candidate) return;
@@ -71,6 +141,15 @@ export function CandidateProfile() {
     navigate(-1);
   };
 
+  const handleShareProfile = async () => {
+    if (!candidate) return;
+    await shareOrCopy({
+      title: `Perfil de ${candidate.nombre}`,
+      text: `Revisa el perfil completo de ${candidate.nombre} y compáralo con otros candidatos en Capybarismo.`,
+      url: `${window.location.origin}/candidate/${candidate.id}`,
+    });
+  };
+
   if (!candidate) {
     return <NotFound />;
   }
@@ -78,12 +157,33 @@ export function CandidateProfile() {
   return (
     <div className="min-h-screen fighting-game-bg text-white">
       <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="container mx-auto flex items-center justify-between p-4">
+        <div className="container mx-auto flex flex-wrap items-center justify-between gap-3 p-4">
           <Button onClick={handleGoBack} variant="outline">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Volver
           </Button>
           <h1 className="text-xl font-bold">{candidate.nombre}</h1>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => toggleCandidate(candidate.id)}
+              className="inline-flex items-center gap-2"
+            >
+              {isCandidateSaved(candidate.id) ? (
+                <>
+                  <BookmarkCheck className="h-4 w-4" /> Siguiendo
+                </>
+              ) : (
+                <>
+                  <Bookmark className="h-4 w-4" /> Seguir
+                </>
+              )}
+            </Button>
+            <Button variant="outline" size="sm" onClick={handleShareProfile} className="inline-flex items-center gap-2">
+              <Share2 className="h-4 w-4" /> Compartir
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -323,8 +423,157 @@ export function CandidateProfile() {
                 )}
               </CardContent>
             </Card>
+
+            {relatedMatchups.length > 0 && (
+              <Card className="fighting-game-card scroll-mt-24" id="comparaciones-populares">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <ArrowLeftRight size={20} /> Comparaciones populares
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground">
+                    Descubre los duelos más comentados con {candidate.nombre} y mira cómo se posicionan lado a lado.
+                  </p>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {relatedMatchups.map((matchup) => {
+                    const [leftId, rightId] = matchup.candidates;
+                    const leftCandidateData = candidateMap.get(leftId);
+                    const rightCandidateData = candidateMap.get(rightId);
+
+                    if (!leftCandidateData || !rightCandidateData) {
+                      return null;
+                    }
+
+                    const alternateCandidateId =
+                      leftCandidateData.id === candidate.id
+                        ? rightCandidateData.id
+                        : leftCandidateData.id;
+                    const alternateCandidate = candidateMap.get(alternateCandidateId);
+
+                    return (
+                      <div
+                        key={matchup.id}
+                        className="rounded-lg border border-border/40 bg-background/60 p-4 shadow-sm"
+                      >
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                          <div className="space-y-3">
+                            <div>
+                              <h3 className="text-base font-semibold tracking-tight text-primary-foreground">
+                                {matchup.label}
+                              </h3>
+                              <p className="text-sm text-muted-foreground">{matchup.rationale}</p>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-3">
+                              <div className="flex items-center gap-2">
+                                <img
+                                  src={leftCandidateData.headshot}
+                                  alt={`Foto de ${leftCandidateData.nombre}`}
+                                  className="h-10 w-10 rounded-full object-cover ring-2 ring-primary/40"
+                                />
+                                <span className="text-sm font-medium text-primary-foreground">
+                                  {leftCandidateData.nombre}
+                                </span>
+                              </div>
+                              <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                                vs
+                              </span>
+                              <div className="flex items-center gap-2">
+                                <img
+                                  src={rightCandidateData.headshot}
+                                  alt={`Foto de ${rightCandidateData.nombre}`}
+                                  className="h-10 w-10 rounded-full object-cover ring-2 ring-primary/40"
+                                />
+                                <span className="text-sm font-medium text-primary-foreground">
+                                  {rightCandidateData.nombre}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex w-full flex-col gap-2 sm:w-44">
+                            <Button asChild size="sm" className="w-full">
+                              <Link to={`/compare?a=${leftId}&b=${rightId}`}>
+                                Comparar ahora
+                              </Link>
+                            </Button>
+                            <Button asChild variant="ghost" size="sm" className="w-full">
+                              <Link to={`/candidate/${alternateCandidateId}`}>
+                                {alternateCandidate
+                                  ? `Ver perfil de ${alternateCandidate.nombre.split(' ')[0]}`
+                                  : 'Ver al otro candidato'}
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
+
+        {relatedEvents.length > 0 && (
+          <section className="mt-12 space-y-6 pb-12">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="flex items-center gap-2 text-2xl font-bold text-primary-foreground">
+                <Clock size={20} /> ¿Qué cambió esta semana?
+              </h2>
+              <Button asChild variant="ghost" size="sm">
+                <Link to="/news">Ver todas las noticias</Link>
+              </Button>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {relatedEvents.map((event) => {
+                const meta = getEventMeta(event.slug);
+                const compareCandidateId = meta?.focusCandidates.find(
+                  (candidateId) => candidateId !== candidate.id
+                );
+
+                return (
+                  <Card key={event.slug} className="fighting-game-card h-full">
+                    <CardHeader className="space-y-1">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        {formatEventDate(event.story_start)}
+                      </p>
+                      <CardTitle className="text-lg leading-tight text-primary-foreground">
+                        {event.headline}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <p className="text-sm text-muted-foreground">{event.summary}</p>
+                      {meta?.relatedIssues && meta.relatedIssues.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {meta.relatedIssues.map((issue) => (
+                            <Badge
+                              key={issue}
+                              variant="outline"
+                              className="border-primary/40 bg-primary/10 text-primary"
+                            >
+                              {formatIssueLabel(issue)}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                    <CardFooter className="flex flex-wrap gap-3 pt-0">
+                      <Button asChild size="sm">
+                        <Link to={`/news/${event.slug}`}>Leer detalle</Link>
+                      </Button>
+                      {compareCandidateId && (
+                        <Button asChild variant="outline" size="sm">
+                          <Link to={`/compare?a=${candidate.id}&b=${compareCandidateId}`}>
+                            Comparar impacto
+                          </Link>
+                        </Button>
+                      )}
+                    </CardFooter>
+                  </Card>
+                );
+              })}
+            </div>
+          </section>
+        )}
       </main>
     </div>
   );
