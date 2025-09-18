@@ -46,34 +46,36 @@ const getMediaStyle = (key: string) => {
   return map[key] ?? { border: 'border-zinc-500', badgeBg: 'bg-zinc-500/20', badgeText: 'text-zinc-300' };
 };
 
+type RelatedVideo = {
+  video_id: string;
+  title: string;
+  url: string;
+  channel: string;
+  view_count: number;
+  credibility_score: number;
+  sintetization: string;
+  bullet: string;
+};
+
 type SortKey = 'views' | 'credibility';
 
 const EventDetail: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const event = eventsData.events.find(e => e.slug === slug);
-
-  if (!event) {
-    return (
-      <div className="min-h-screen fighting-game-bg flex flex-col items-center justify-center text-center p-4">
-        <h2 className="font-display text-2xl text-destructive mb-4">Evento No Encontrado</h2>
-        <p className="text-muted-foreground mb-8">El evento solicitado no pudo ser localizado.</p>
-        <Link to="/news" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
-          <ArrowLeft className="h-4 w-4" />
-          Volver a Noticias
-        </Link>
-      </div>
-    );
-  }
+  const { id } = useParams<{ id: string }>();
+  const event = eventsData.events.find(e => e.slug === id || String(e.id) === id);
+  const relatedVideos = useMemo<RelatedVideo[]>(
+    () => (event?.related_videos ?? []) as RelatedVideo[],
+    [event],
+  );
 
   // Deriva claves de medios desde los videos relacionados
   const mediaKeys = useMemo(() => {
     const keys = new Set<string>();
-    (event.related_videos || []).forEach((v: any) => {
-      const channel = v?.channel ?? 'Desconocido';
+    relatedVideos.forEach((video) => {
+      const channel = video?.channel ?? 'Desconocido';
       keys.add(getMediaKey(channel));
     });
     return Array.from(keys).sort();
-  }, [event.related_videos]);
+  }, [relatedVideos]);
 
   // Controles de orden y filtro
   const [sortBy, setSortBy] = useState<SortKey>('views');
@@ -92,9 +94,9 @@ const EventDetail: React.FC = () => {
 
   // Lista derivada de videos según orden y filtros
   const preparedVideos = useMemo(() => {
-    let list = [...(event.related_videos || [])] as any[];
+    let list = [...relatedVideos];
     if (activeMedia.size > 0) {
-      list = list.filter(v => activeMedia.has(getMediaKey((v?.channel ?? 'Desconocido') as string)));
+      list = list.filter(video => activeMedia.has(getMediaKey(video?.channel ?? 'Desconocido')));
     }
     list.sort((a, b) => {
       const av = Number(a?.view_count ?? 0);
@@ -105,7 +107,20 @@ const EventDetail: React.FC = () => {
       return bc - ac;
     });
     return list;
-  }, [event.related_videos, activeMedia, sortBy]);
+  }, [relatedVideos, activeMedia, sortBy]);
+
+  if (!event) {
+    return (
+      <div className="min-h-screen fighting-game-bg flex flex-col items-center justify-center text-center p-4">
+        <h2 className="font-display text-2xl text-destructive mb-4">Evento No Encontrado</h2>
+        <p className="text-muted-foreground mb-8">El evento solicitado no pudo ser localizado.</p>
+        <Link to="/news" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
+          <ArrowLeft className="h-4 w-4" />
+          Volver a Noticias
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen fighting-game-bg">
@@ -239,7 +254,7 @@ const EventDetail: React.FC = () => {
           </Card>
         ) : (
           <div className="space-y-4">
-            {preparedVideos.map((video: any) => {
+            {preparedVideos.map((video) => {
               const mediaKey = getMediaKey(video?.channel ?? 'Desconocido');
               const style = getMediaStyle(mediaKey);
               const views = Number(video?.view_count ?? 0);

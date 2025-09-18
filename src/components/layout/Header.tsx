@@ -26,6 +26,9 @@ export function Header() {
             <Link to="/chat">Chat</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
+            <Link to="/saved">Guardados</Link>
+          </Button>
+          <Button asChild variant="link" className="text-foreground">
             <Link to="/about">Acerca de</Link>
           </Button>
         </Box>

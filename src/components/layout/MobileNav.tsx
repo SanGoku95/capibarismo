@@ -1,5 +1,7 @@
 // filepath: src/components/MobileNav.tsx
 import * as React from 'react';
+import type { ReactElement } from 'react';
+import type { MouseEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Box,
@@ -16,15 +18,17 @@ import HomeIcon from '@mui/icons-material/Home';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import GavelIcon from '@mui/icons-material/Gavel';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import ChatIcon from '@mui/icons-material/Chat';
 
-const navItems = [
+const navItems: { text: string; path: string; icon: ReactElement }[] = [
   { text: 'Inicio', path: '/', icon: <HomeIcon /> },
   { text: 'Comparador', path: '/compare', icon: <CompareArrowsIcon /> },
-  { text: 'Compass', path: '/compass', icon: <GavelIcon /> },
+  { text: 'Brújula', path: '/compass', icon: <GavelIcon /> },
   { text: 'Noticias', path: '/news', icon: <NewspaperIcon /> },
   { text: 'Chat', path: '/chat', icon: <ChatIcon /> },
+  { text: 'Guardados', path: '/saved', icon: <BookmarkBorderIcon /> },
   { text: 'Metodología', path: '/about', icon: <InfoOutlinedIcon /> },
 ];
 
@@ -38,7 +42,8 @@ export function MobileNav() {
   const isIOS = React.useMemo(() => {
     if (typeof navigator === 'undefined' || typeof window === 'undefined') return false;
     const ua = navigator.userAgent;
-    return /iPad|iPhone|iPod/.test(ua) || (ua.includes('Mac') && 'ontouchend' in (window as any));
+    const hasTouch = 'ontouchend' in window;
+    return /iPad|iPhone|iPod/.test(ua) || (ua.includes('Mac') && hasTouch);
   }, []);
 
   const openDrawer = () => {
@@ -66,8 +71,8 @@ export function MobileNav() {
             <ListItemButton
               component={Link}
               to={item.path}
-              onClick={(e) => {
-                e.stopPropagation();
+              onClick={(event: MouseEvent<HTMLDivElement>) => {
+                event.stopPropagation();
                 closeDrawer();
               }}
               selected={location.pathname === item.path}

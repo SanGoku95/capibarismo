@@ -1,101 +1,185 @@
-import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
-import GavelIcon from '@mui/icons-material/Gavel';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import ChatIcon from '@mui/icons-material/Chat';
-import { NewsletterCTA } from '@/components/marketing/NewsletterCTA';
-
-const featureCards = [
-    {
-        title: 'Comparador',
-        description:
-            'Elige dos candidatos y compara sus perfiles, propuestas y trayectoria lado a lado.',
-        link: '/compare',
-        icon: <CompareArrowsIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Comparar Ahora',
-    },
-    {
-        title: 'Mapa Ideológico',
-        description:
-             'Crea tu propio mapa. Cambia los ejes y descubre las posturas similares.',
-        link: '/compass',
-        icon: <GavelIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Ir al Mapa',
-    },
-    {
-        title: 'Chat IA',
-        description:
-            'Pregúntale a nuestra IA sobre candidatos, propuestas y el proceso electoral.',
-        link: '/chat',
-        icon: <ChatIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Iniciar Chat',
-    },
-    {
-        title: 'Noticias',
-        description:
-            'Mantente al día con las últimas noticias, entrevistas y eventos importantes de la campaña.',
-        link: '/news',
-        icon: <NewspaperIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Ver Noticias',
-    },
-];
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { CompassOnboarding } from "@/components/onboarding/CompassOnboarding";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { NewsletterCTA } from "@/components/marketing/NewsletterCTA";
+import { useUserPreferences } from "@/store/useUserPreferences";
+import { candidates } from "@/data/candidates";
+import { trendingMatchups } from "@/data/issues";
 
 export function HomePage() {
-    return (
-        <div className="min-h-screen fighting-game-bg text-white">
-            <main className="container mx-auto px-4 py-8 sm:py-12 md:py-20">
-                {/* Hero Section */}
-                <div className="text-center mb-12 sm:mb-16">
-                    <h1
-                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase tracking-wider"
-                        style={{
-                            fontFamily: "'Press Start 2P', cursive",
-                            color: 'hsl(var(--accent))',
-                            textShadow:
-                                '2px 2px 0px hsl(var(--background)), 4px 4px 0px hsl(var(--border))',
-                        }}
-                    >
-                        CAPYBARISMO
-                    </h1>
-                    <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-foreground/90 font-sans px-2">
-                        Tu guía interactiva para las elecciones presidenciales de Perú 2026.
-                        Compara candidatos, entiende sus posturas y mantente informado.
-                    </p>
-                </div>
+  const navigate = useNavigate();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const {
+    onboardingCompleted,
+    lastMatchup,
+    lastQuizResult,
+    savedCandidateIds,
+    highIntentCount,
+    markOnboardingComplete,
+  } = useUserPreferences();
 
-                {/* Feature Cards - "Level Select" */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
-                    {featureCards.map((feature) => (
-                        <Link to={feature.link} key={feature.title} className="block group">
-                            <Card className="fighting-game-card h-full flex flex-col text-center transform group-hover:-translate-y-2 transition-transform duration-200 min-h-[200px] sm:min-h-[250px]">
-                                <CardHeader className="pb-3 sm:pb-4">
-                                    {feature.icon}
-                                    <CardTitle className="text-sm sm:text-lg lg:text-xl font-display leading-tight">
-                                        {feature.title}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className="flex-grow flex flex-col justify-between pt-0">
-                                    <CardDescription className="mb-4 sm:mb-6 font-sans text-xs sm:text-sm lg:text-base leading-relaxed px-1">
-                                        {feature.description}
-                                    </CardDescription>
-                                    <div className="font-bold text-accent group-hover:text-white transition-colors flex items-center justify-center text-xs sm:text-sm">
-                                        <span className="hidden sm:inline">{feature.cta}</span>
-                                        <span className="sm:hidden">Ir</span>
-                                        <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 transform group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    ))}
-                </div>
+  const savedCandidates = useMemo(
+    () => candidates.filter((candidate) => savedCandidateIds.includes(candidate.id)),
+    [savedCandidateIds],
+  );
 
-                {/* Newsletter CTA */}
-                <div className="max-w-6xl mx-auto mt-12 sm:mt-16">
-                    <NewsletterCTA />
-                </div>
-            </main>
+  const resumeMatchupLabel = useMemo(() => {
+    if (!lastMatchup) return null;
+    const left = candidates.find((candidate) => candidate.id === lastMatchup.a);
+    const right = candidates.find((candidate) => candidate.id === lastMatchup.b);
+    if (!left || !right) return null;
+    return `${left.nombre.split(" ")[0]} vs ${right.nombre.split(" ")[0]}`;
+  }, [lastMatchup]);
+
+  const handleStart = () => {
+    setShowOnboarding(true);
+  };
+
+  const handleComplete = ({ issues, lean }: { issues: string[]; lean: number | null }) => {
+    markOnboardingComplete(issues, lean);
+    navigate("/compass", { replace: false });
+  };
+
+  return (
+    <div className="min-h-screen fighting-game-bg text-white">
+      <main className="container mx-auto px-4 pb-24 pt-10">
+        <div className="space-y-6 text-center">
+          <div>
+            <h1 className="text-3xl font-display uppercase tracking-wider text-accent md:text-4xl">Encuentra tu match 2026</h1>
+            <p className="mt-3 text-sm text-muted-foreground md:text-base">
+              Responde un quiz relámpago y compara candidatos presidenciales en segundos.
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <Button size="lg" onClick={handleStart} className="w-full max-w-xs sm:w-auto">
+              Encuentra tu match
+            </Button>
+            <Button
+              variant="ghost"
+              size="lg"
+              onClick={() => navigate("/compare")}
+              className="text-muted-foreground hover:text-accent"
+            >
+              O compara candidatos top
+            </Button>
+          </div>
+
+          {!onboardingCompleted && (
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">
+              Primero uso recomendado · 10 s · resultados instantáneos
+            </p>
+          )}
         </div>
-    );
+
+        <section className="mt-10 space-y-4">
+          {(resumeMatchupLabel || lastQuizResult) && (
+            <Card className="fighting-game-card border-accent/40 bg-background/80">
+              <CardContent className="space-y-4 p-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="font-display text-lg text-accent">Retoma tu sesión</h2>
+                  <Button variant="outline" size="sm" onClick={() => navigate("/saved")}>Ver todo</Button>
+                </div>
+                {lastQuizResult && (
+                  <div className="flex flex-col items-start gap-2 rounded-lg border border-border/60 bg-background/40 p-3 text-left">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground">Resultado reciente</div>
+                    <div className="text-sm font-semibold text-primary-foreground">
+                      {lastQuizResult.topMatches[0]
+                        ? `Tu mejor match: ${candidates.find((c) => c.id === lastQuizResult.topMatches[0]?.candidateId)?.nombre ?? ""}`
+                        : "Completa tu brújula"}
+                    </div>
+                    <Button
+                      size="sm"
+                      onClick={() => navigate("/compass")}
+                      variant="secondary"
+                      className="self-start"
+                    >
+                      Volver a la brújula
+                    </Button>
+                  </div>
+                )}
+                {resumeMatchupLabel && (
+                  <div className="flex flex-col items-start gap-2 rounded-lg border border-border/60 bg-background/40 p-3 text-left">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground">Comparación reciente</div>
+                    <div className="text-sm font-semibold text-primary-foreground">{resumeMatchupLabel}</div>
+                    <Button
+                      size="sm"
+                      onClick={() => navigate(`/compare?a=${lastMatchup?.a}&b=${lastMatchup?.b}`)}
+                      variant="secondary"
+                      className="self-start"
+                    >
+                      Reanudar comparador
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Card className="fighting-game-card">
+              <CardContent className="space-y-3 p-4">
+                <h3 className="font-display text-base text-accent">Tendencias del ring</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  {trendingMatchups.map((matchup) => {
+                    const left = candidates.find((candidate) => candidate.id === matchup.a);
+                    const right = candidates.find((candidate) => candidate.id === matchup.b);
+                    if (!left || !right) return null;
+                    return (
+                      <li key={`${matchup.a}-${matchup.b}`} className="flex items-center justify-between gap-2">
+                        <span>{matchup.headline}</span>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => navigate(`/compare?a=${matchup.a}&b=${matchup.b}`)}
+                        >
+                          Ver duelo
+                        </Button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="fighting-game-card">
+              <CardContent className="space-y-3 p-4">
+                <h3 className="font-display text-base text-accent">Tus favoritos</h3>
+                {savedCandidates.length > 0 ? (
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    {savedCandidates.slice(0, 4).map((candidate) => (
+                      <li key={candidate.id} className="flex items-center justify-between gap-2">
+                        <span>{candidate.nombre}</span>
+                        <Button size="sm" variant="outline" onClick={() => navigate(`/candidate/${candidate.id}`)}>
+                          Ver perfil
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-sm text-muted-foreground">Aún no sigues a ningún candidato. Usa el comparador y guarda tus favoritos.</p>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {highIntentCount >= 2 && (
+          <section className="mt-12">
+            <NewsletterCTA />
+          </section>
+        )}
+      </main>
+
+      <CompassOnboarding
+        open={showOnboarding}
+        onClose={() => setShowOnboarding(false)}
+        onComplete={handleComplete}
+      />
+    </div>
+  );
 }
+
+export default HomePage;

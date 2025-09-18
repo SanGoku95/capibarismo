@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import { Header } from "./components/layout/Header";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
+import { BottomNav } from "./components/layout/BottomNav";
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import("./pages/HomePage").then(module => ({ default: module.HomePage })));
@@ -17,6 +18,7 @@ const News = lazy(() => import("./pages/News"));
 const EventDetail = lazy(() => import("./pages/NewsDetail"));
 const ChatPage = lazy(() => import("./pages/ChatPage"));
 const PoliticalCompassPage = lazy(() => import("./pages/PoliticalCompassPage"));
+const SavedPage = lazy(() => import("./pages/SavedPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,25 +40,19 @@ const LoadingSpinner = () => (
 const AppLayout = () => (
   <>
     <Header />
-    <main>
+    <main className="pb-20 md:pb-0">
       <Suspense fallback={<LoadingSpinner />}>
         <Outlet />
       </Suspense>
     </main>
+    <BottomNav />
   </>
 );
 
 const App = () => {
   // Prefetch common routes after idle to avoid first-click suspend
   useEffect(() => {
-    const idle = 'requestIdleCallback' in window
-      ? (window as any).requestIdleCallback
-      : (cb: () => void) => setTimeout(cb, 500);
-    const cancel = 'cancelIdleCallback' in window
-      ? (window as any).cancelIdleCallback
-      : (id: number) => clearTimeout(id as any);
-
-    const id = idle(async () => {
+    const handle = window.setTimeout(async () => {
       try {
         await Promise.all([
           import("./pages/ComparePage"),
@@ -70,9 +66,9 @@ const App = () => {
       } catch {
         // ignore prefetch errors in dev
       }
-    });
+    }, 500);
 
-    return () => cancel(id);
+    return () => window.clearTimeout(handle);
   }, []);
 
   return (
@@ -86,10 +82,11 @@ const App = () => {
               <Route element={<AppLayout />}>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/news" element={<News />} />
-                <Route path="/news/:slug" element={<EventDetail />} />
+                <Route path="/news/:id" element={<EventDetail />} />
                 <Route path="/compare" element={<ComparePage />} />
                 <Route path="/compass" element={<PoliticalCompassPage />} />
-                <Route path="/candidate/:id" element={<CandidateProfile />} />
+                <Route path="/candidate/:slug" element={<CandidateProfile />} />
+                <Route path="/saved" element={<SavedPage />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/chat" element={<ChatPage />} />
               </Route>

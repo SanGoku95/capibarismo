@@ -24,10 +24,10 @@ const socialIcons: { [key: string]: React.ReactElement } = {
 };
 
 export function CandidateProfile() {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const location = useLocation();
   const navigate = useNavigate();
-  const candidate = candidates.find((c) => c.id === id);
+  const candidate = candidates.find((c) => c.id === slug);
 
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
 
