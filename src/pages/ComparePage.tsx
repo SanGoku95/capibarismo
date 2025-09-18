@@ -35,13 +35,23 @@ const ComparePage = () => {
   const saveMatchup = useSavedStore((state) => state.saveMatchup);
   const setResumeCompare = useSavedStore((state) => state.setResumeCompare);
 
+  const queryLeft = searchParams.get('a');
+  const queryRight = searchParams.get('b');
+
   useEffect(() => {
-    const a = searchParams.get('a');
-    const b = searchParams.get('b');
-    if (a || b) {
-      setCandidatesByIds(a, b);
+    if (!queryLeft && !queryRight) {
+      return;
     }
-  }, [searchParams, setCandidatesByIds]);
+
+    const currentLeft = leftCandidate?.id ?? null;
+    const currentRight = rightCandidate?.id ?? null;
+
+    if (currentLeft === (queryLeft ?? null) && currentRight === (queryRight ?? null)) {
+      return;
+    }
+
+    setCandidatesByIds(queryLeft, queryRight);
+  }, [queryLeft, queryRight, leftCandidate?.id, rightCandidate?.id, setCandidatesByIds]);
 
   useEffect(() => {
     if (leftCandidate || rightCandidate) {
