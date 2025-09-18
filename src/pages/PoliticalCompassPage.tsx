@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { NewsletterCTA } from "@/components/marketing/NewsletterCTA";
 import { useUserPreferences } from "@/store/useUserPreferences";
+import { useCompareStore } from "@/store/useCompareStore";
 import { calculateMatchScores, CompassAnswerMap, getQuestionsForUser, buildCompareUrl } from "@/lib/compass";
 import { toast } from "@/hooks/use-toast";
 
@@ -74,7 +75,9 @@ export function PoliticalCompassPage() {
     incrementHighIntent,
     toggleSavedCandidate,
     savedCandidateIds,
+    recordMatchupView,
   } = useUserPreferences();
+  const { setPair } = useCompareStore();
 
   const questions = useMemo(() => getQuestionsForUser(selectedIssues), [selectedIssues]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -136,8 +139,16 @@ export function PoliticalCompassPage() {
     if (scores.length === 0) {
       return;
     }
+    setAnswers(finalAnswers);
     setIsComplete(true);
     const topThree = scores.slice(0, 3);
+    const [topOne, topTwo] = topThree;
+    const leftCandidate = topOne ? candidates.find((candidate) => candidate.id === topOne.candidateId) ?? null : null;
+    const rightCandidate = topTwo ? candidates.find((candidate) => candidate.id === topTwo.candidateId) ?? null : null;
+    if (leftCandidate && rightCandidate) {
+      setPair(leftCandidate, rightCandidate);
+      recordMatchupView(leftCandidate.id, rightCandidate.id);
+    }
     const shareUrl = topThree[1]
       ? buildCompareUrl(topThree[0].candidateId, topThree[1].candidateId)
       : buildCompareUrl(topThree[0].candidateId, topThree[0].candidateId);
@@ -166,8 +177,8 @@ export function PoliticalCompassPage() {
   return (
     <div className="relative min-h-screen fighting-game-bg">
       <ConfettiBurst active={showConfetti} />
-      <main className="container mx-auto px-4 pb-24 pt-8">
-        <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-background/90 p-6 shadow-2xl">
+      <main className="container mx-auto px-4 pb-24 pt-10 md:pt-16">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-background/90 p-6 shadow-2xl md:max-w-3xl md:p-8 lg:max-w-4xl lg:p-10">
           {!isComplete ? (
             <div className="space-y-6">
               <div className="space-y-2">
@@ -210,25 +221,30 @@ export function PoliticalCompassPage() {
                 <h2 className="text-3xl font-display text-primary-foreground">Así quedó el podio</h2>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-3 md:grid md:grid-cols-3 md:gap-4 md:space-y-0">
                 {topMatchCandidates.map((match, index) => (
                   <Card key={match.candidate!.id} className="border-accent/40 bg-background/80">
-                    <CardContent className="flex items-center justify-between gap-4 p-3">
-                      <div className="flex items-center gap-3">
+                    <CardContent className="flex items-center justify-between gap-4 p-3 md:flex-col md:items-center md:gap-3 md:text-center">
+                      <div className="flex items-center gap-3 md:flex-col md:text-center">
                         <span className="text-2xl font-display text-accent">#{index + 1}</span>
                         <img
                           src={match.candidate!.headshot}
                           alt={match.candidate!.nombre}
                           className="h-12 w-12 rounded-full object-cover"
                         />
-                        <div>
+                        <div className="md:space-y-1">
                           <div className="text-sm font-semibold text-primary-foreground">{match.candidate!.nombre}</div>
                           <div className="text-xs text-muted-foreground">{match.candidate!.ideologia}</div>
                         </div>
                       </div>
-                      <div className="text-right">
+                      <div className="text-right md:text-center">
                         <div className="text-xl font-display text-accent">{match.score}%</div>
-                        <Button size="sm" variant="outline" onClick={() => navigate(`/candidate/${match.candidate!.id}`)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="md:mt-2 md:w-full"
+                          onClick={() => navigate(`/candidate/${match.candidate!.id}`)}
+                        >
                           Ver perfil
                         </Button>
                       </div>
@@ -238,7 +254,7 @@ export function PoliticalCompassPage() {
               </div>
 
               {topMatchCandidates.length >= 2 && (
-                <div className="flex flex-col gap-2">
+                <div className="grid gap-2 md:grid-cols-2">
                   <Button
                     size="lg"
                     onClick={() =>
@@ -250,6 +266,7 @@ export function PoliticalCompassPage() {
                   <Button
                     size="lg"
                     variant="secondary"
+                    className="md:col-span-2"
                     onClick={async () => {
                       const left = topMatchCandidates[0]?.candidate?.nombre ?? "";
                       const right = topMatchCandidates[1]?.candidate?.nombre ?? "";
@@ -263,45 +280,50 @@ export function PoliticalCompassPage() {
                   >
                     Compartir resultado
                   </Button>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      className="flex-1"
-                      onClick={() => {
-                        const top = topMatchCandidates[0]?.candidate;
-                        if (!top) return;
-                        const alreadyFollowing = savedCandidateIds.includes(top.id);
-                        toggleSavedCandidate(top.id);
-                        toast({
-                          title: alreadyFollowing ? "Guardado" : "Seguido",
-                          description: alreadyFollowing
-                            ? "Tu match principal permanece en favoritos"
-                            : "Añadido a tu lista de seguidos",
-                        });
-                      }}
-                    >
-                      {topMatchCandidates[0] && savedCandidateIds.includes(topMatchCandidates[0].candidate!.id)
-                        ? "Siguiendo"
-                        : "Seguir top 1"}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="flex-1"
-                      onClick={() =>
-                        shareOnWhatsApp(
-                          "Mira mis matches presidenciales",
-                          buildCompareUrl(
-                            topMatchCandidates[0].candidate!.id,
-                            topMatchCandidates[1]?.candidate?.id ?? topMatchCandidates[0].candidate!.id,
-                          ),
-                        )
-                      }
-                    >
-                      Enviar por WhatsApp
-                    </Button>
-                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const top = topMatchCandidates[0]?.candidate;
+                      if (!top) return;
+                      const alreadyFollowing = savedCandidateIds.includes(top.id);
+                      toggleSavedCandidate(top.id);
+                      toast({
+                        title: alreadyFollowing ? "Guardado" : "Seguido",
+                        description: alreadyFollowing
+                          ? "Tu match principal permanece en favoritos"
+                          : "Añadido a tu lista de seguidos",
+                      });
+                    }}
+                  >
+                    {topMatchCandidates[0] && savedCandidateIds.includes(topMatchCandidates[0].candidate!.id)
+                      ? "Siguiendo"
+                      : "Seguir top 1"}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() =>
+                      shareOnWhatsApp(
+                        "Mira mis matches presidenciales",
+                        buildCompareUrl(
+                          topMatchCandidates[0].candidate!.id,
+                          topMatchCandidates[1]?.candidate?.id ?? topMatchCandidates[0].candidate!.id,
+                        ),
+                      )
+                    }
+                  >
+                    Enviar por WhatsApp
+                  </Button>
                 </div>
               )}
+
+              <div className="flex flex-wrap gap-2">
+                <Button variant="ghost" size="sm" onClick={() => navigate("/saved")}>
+                  Ver guardados
+                </Button>
+                <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
+                  Ir al inicio
+                </Button>
+              </div>
 
               <NewsletterCTA />
             </div>

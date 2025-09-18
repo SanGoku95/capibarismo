@@ -55,7 +55,7 @@ export function SavedPage() {
 
   return (
     <div className="min-h-screen fighting-game-bg pb-24 pt-10 text-white">
-      <main className="container mx-auto px-4">
+      <main className="container mx-auto max-w-5xl px-4">
         <header className="mb-8 text-center">
           <h1 className="text-3xl font-display uppercase tracking-wider text-accent">Tu esquina guardada</h1>
           <p className="mt-2 text-sm text-muted-foreground">
