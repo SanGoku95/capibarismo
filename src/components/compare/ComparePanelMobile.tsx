@@ -4,7 +4,6 @@ import { Candidate } from '@/data/candidates';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { CandidatePicker } from './CandidatePicker';
-import { SocialIcon } from '../common/SocialIcon';
 import { PLAYER_INDICATORS, UI_CLASSES, type CandidateSide } from '@/lib/constants';
 
 interface CandidateComparisonGridProps {
@@ -159,7 +158,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   </Link>
                 }
               />
-              
+
               <ComparisonSection
                 title="Creencias Clave"
                 sectionId="creencias-clave"
@@ -216,32 +215,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 }
               />
 
-              <ComparisonSection
-                title="Presencia en Medios"
-                sectionId="presencia-digital"
-                leftCandidate={leftCandidate}
-                rightCandidate={rightCandidate}
-                leftContent={
-                  leftCandidate ? (
-                    <Link to={`/candidate/${leftCandidate.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground hover:underline">
-                    {leftCandidate.presenciaDigital.plataformas.length > 0
-                      ? `Activo en: ${leftCandidate.presenciaDigital.plataformas.map(p => p.nombre).join(', ')}`
-                      : "Sin presencia digital registrada"}
-                    </Link>
-                  ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
-                }
-                rightContent={
-                  rightCandidate ? (
-                    <Link to={`/candidate/${rightCandidate.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground hover:underline">
-                    {rightCandidate.presenciaDigital.plataformas.length > 0
-                      ? `Activo en: ${rightCandidate.presenciaDigital.plataformas.map(p => p.nombre).join(', ')}`
-                      : "Sin presencia digital registrada"}
-                    </Link>
-                  ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
-                }
-              />
-
-              {/* NEW: Controversias (before Mapa de Poder) */}
+              {/* Controversias now comes before Mapa de Poder (unchanged position) */}
               <ComparisonSection
                 title="Controversias"
                 sectionId="controversias"
@@ -323,6 +297,31 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                       <div><span className="font-semibold text-foreground">Alianzas:</span> {rightCandidate.mapaDePoder.alianzas.slice(0, 1).map(a => a.nombre).join(', ')}...</div>
                     </Link>
                   ) : <span className="font-sans">Sin datos</span>
+                }
+              />
+
+              <ComparisonSection
+                title="Presencia en Medios"
+                sectionId="presencia-digital"
+                leftCandidate={leftCandidate}
+                rightCandidate={rightCandidate}
+                leftContent={
+                  leftCandidate ? (
+                    <Link to={`/candidate/${leftCandidate.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground hover:underline">
+                      {leftCandidate.presenciaDigital.plataformas.length > 0
+                        ? `Activo en: ${leftCandidate.presenciaDigital.plataformas.map(p => p.nombre).join(', ')}`
+                        : "Sin presencia digital registrada"}
+                    </Link>
+                  ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
+                }
+                rightContent={
+                  rightCandidate ? (
+                    <Link to={`/candidate/${rightCandidate.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground hover:underline">
+                      {rightCandidate.presenciaDigital.plataformas.length > 0
+                        ? `Activo en: ${rightCandidate.presenciaDigital.plataformas.map(p => p.nombre).join(', ')}`
+                        : "Sin presencia digital registrada"}
+                    </Link>
+                  ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
                 }
               />
             </motion.div>
