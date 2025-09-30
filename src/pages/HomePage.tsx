@@ -57,7 +57,7 @@ export function HomePage() {
                                 '2px 2px 0px hsl(var(--background)), 4px 4px 0px hsl(var(--border))',
                         }}
                     >
-                        CAPYBARISMO
+                        CAPIBARISMO
                     </h1>
                     <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-foreground/90 font-sans px-2">
                         Tu guía interactiva para las elecciones presidenciales de Perú 2026.
