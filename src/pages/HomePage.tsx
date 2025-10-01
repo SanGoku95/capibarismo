@@ -43,7 +43,7 @@ export function HomePage() {
               textShadow: '2px 2px 0px hsl(var(--background)), 4px 4px 0px hsl(var(--border))',
             }}
           >
-            CAPYBARISMO
+            CAPIBARISMO
           </h1>
           <p className="mt-2.5 text-[0.78rem] sm:text-sm md:text-base max-w-2xl mx-auto text-foreground/85 font-sans px-2">
             Compara candidatos y entiende sus posturas clave para las elecciones 2026.
