@@ -72,8 +72,8 @@ export const candidates: Candidate[] = [
     nombre: "Keiko Fujimori",
     ideologia: "Centro-derecha",
     proyectoPolitico: {
-      titulo: "Restauración del legado fujimorista: Orden y 'mano dura'",
-      resumen: "Su carrera es un esfuerzo continuo por reivindicar y heredar el proyecto político de su padre, Alberto Fujimori, basado en un discurso de 'mano dura' y políticas de mercado. Su principal desafío es superar el 'techo de cristal' del antifujimorismo.",
+      titulo: "Orden y mercado",
+      resumen: "Reivindica fujimorismo con mano dura y economía de mercado; enfrenta antifujimorismo.",
       detalles: [
         {
           subtitulo: "Legislación de 'mano dura'",
@@ -95,21 +95,21 @@ export const candidates: Candidate[] = [
     creenciasClave: [
       {
         id: "legado-paterno",
-        nombre: "Heredera y defensora del legado Fujimori",
+        nombre: "Legado Fujimori",
         resumen: "Su capital político emana del legado de su padre, lo que es a la vez su mayor activo y su principal lastre.",
         detalle: "Toda su carrera se define por su lealtad al proyecto político de su padre. Tomó el lugar de su madre como Primera Dama, asumió el liderazgo del movimiento y ha hecho de la defensa de su padre una bandera política.",
         fuente: "https://es.wikipedia.org/wiki/Keiko_Fujimori"
       },
       {
         id: "antifujimorismo",
-        nombre: "El 'techo de cristal' del antifujimorismo",
+        nombre: "Combatir Antifujimorismo",
         resumen: "Es la encarnación de la polarización; su figura activa una poderosa coalición opositora en su contra.",
         detalle: "El patrón de sus tres derrotas presidenciales es claro: su base leal la lleva a la segunda vuelta, pero el sentimiento 'antifujimorista' aglutina a una diversa mayoría de votantes con el único fin de impedir su victoria.",
         fuente: "https://en.wikipedia.org/wiki/Keiko_Fujimori"
       },
       {
         id: "lawfare",
-        nombre: "Uso del sistema legal como campo de batalla ('Lawfare')",
+        nombre: "Tribunales como escenario",
         resumen: "Su estrategia de defensa se ha centrado en atacar la validez del proceso judicial en su contra.",
         detalle: "El juicio en su contra fue anulado y retrocedido a una etapa anterior gracias a fallos del Tribunal Constitucional basados en tecnicismos procesales, lo que sugiere una estrategia deliberada para dilatar el proceso hasta su eventual prescripción.",
         fuente: "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori"
@@ -234,8 +234,8 @@ export const candidates: Candidate[] = [
     nombre: "Rafael L. Aliaga",
     ideologia: "Derecha",
     proyectoPolitico: {
-      titulo: "'Restauración patriarcal' con 'mano dura' y gestión gerencial",
-      resumen: "Propone un modelo que amalgama un liberalismo económico con políticas sociales anti-liberales y una fuerte base en el catolicismo conservador, bajo la promesa de aplicar la eficiencia del sector privado a la gestión pública.",
+      titulo: "Mano dura gerencial",
+      resumen: "Liberalismo económico, conservadurismo social y gestión privada aplicada al Estado.",
       detalles: [
         {
           subtitulo: "'Lima Potencia Mundial': Infraestructura y Seguridad",
@@ -257,21 +257,21 @@ export const candidates: Candidate[] = [
     creenciasClave: [
       {
         id: "ultraconservadurismo-religioso",
-        nombre: "Cruzada moral y valores tradicionales",
+        nombre: "Valores tradicionales",
         resumen: "Miembro numerario del Opus Dei, practica el celibato y basa su plataforma en un discurso explícitamente religioso.",
         detalle: "Su fe no es un detalle biográfico, sino un componente central de su marca política, que informa directamente su plataforma social ultraconservadora (anti-liberal) y su discurso de 'restauración patriarcal'.",
         fuente: "https://es.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
       },
       {
         id: "gestion-empresarial",
-        nombre: "El empresario exitoso en la política",
+        nombre: "Empresario exitoso en política",
         resumen: "Se presenta como un gestor competente capaz de replicar el éxito del sector privado en la administración pública.",
         detalle: "Utiliza su historial como fundador de un conglomerado en finanzas y turismo (Grupo Acres, PeruRail) para construir una narrativa de eficiencia y prometer transformar Lima en una 'potencia mundial', aunque la solidez de su éxito empresarial ha sido cuestionada.",
         fuente: "https://ojo-publico.com/2520/lopez-aliaga-los-negocios-un-candidato-ultraconservador"
       },
       {
         id: "mano-dura",
-        nombre: "Mano dura contra la delincuencia",
+        nombre: "Mano dura",
         resumen: "Abrazó el apodo de 'el Bolsonaro peruano', centrando su plataforma en un discurso de mano dura.",
         detalle: "Una de las promesas centrales de su gestión como alcalde y de su campaña presidencial es una política de tolerancia cero contra el crimen, ejemplificada en su propuesta de adquirir 10,000 motocicletas para patrullaje.",
         fuente: "https://www.actualidadambiental.pe/wp-content/uploads/2022/09/Plan-de-Gobierno-Renovacion-Popular-Elecciones-2022.pdf"
@@ -398,9 +398,9 @@ export const candidates: Candidate[] = [
     headshot: "https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg",
     fullBody: "/fotos_candidatos/lescano/full_body_lescano.gif",
     proyectoPolitico: {
-      titulo: "Propuesta Centrista",
+      titulo: "Centro Institucional",
       resumen:
-        "Un enfoque equilibrado que prioriza la institucionalidad, la lucha anticorrupción y la defensa del consumidor.",
+        "Institucionalidad, anticorrupción y defensa del consumidor con enfoque equilibrado.",
       detalles: [
         {
           subtitulo: "Defensa del consumidor y control de abusos",
@@ -542,8 +542,8 @@ export const candidates: Candidate[] = [
     headshot: "https://pbs.twimg.com/profile_images/1561766942150737923/BJmWxtlq_400x400.jpg",
     fullBody: "/fotos_candidatos/antauro/full_body_antauro.gif",
     proyectoPolitico: {
-      titulo: "Refundación Etnocacerista y Socialista",
-      resumen: "Estatismo con énfasis en identidad andina y disciplina militar.",
+      titulo: "Nueva Constitución Etnocacerista",
+      resumen: "Estatismo, identidad andina y disciplina militar con nacionalismo radical.",
       detalles: [
         {
           subtitulo: "Asamblea Constituyente y Nueva Constitución",
@@ -581,28 +581,28 @@ export const candidates: Candidate[] = [
     creenciasClave: [
       {
         id: "etnocacerismo",
-        nombre: "Etnocacerismo y velasquimo como doctrina",
+        nombre: "Etnocacerismo",
         resumen: "Identidad andina (‘raza cobriza’) como base de la nación.",
         detalle: "Nacionalismo étnico‑militar inspirado en Andrés Avelino Cáceres.",
         fuente: "https://antaurohumala.pe/libros/"
       },
       {
         id: "democracia-directa",
-        nombre: "Crítica a la 'Falsa Democracia'",
+        nombre: "Falsa Democracia",
         resumen: "Sistema capturado por élites criollas y extranjeras.",
         detalle: "Aboga por control popular permanente y revocatoria de autoridades.",
         fuente: "https://antaurohumala.pe/libros/"
       },
       {
         id: "orden-militarista",
-        nombre: "Orden y Disciplina Militar",
+        nombre: "Disciplina Militar",
         resumen: "Autoridad firme como remedio a la corrupción.",
         detalle: "Valores castrenses para imponer disciplina social y administrativa.",
         fuente: "https://antaurohumala.pe/libros/"
       },
       {
         id: "antiimperialismo",
-        nombre: "Unidad Latinoamericana Anti Imperialismo",
+        nombre: "Anti Imperialista",
         resumen: "Confluencia de pueblos del Sur contra neoliberalismo y hegemonía extranjera.",
         detalle: "Promueve Runasur y alianzas con Evo Morales para un bloque socialista andino‑amazónico.",
         fuente: "https://www.youtube.com/watch?v=gf17QftscYU"
@@ -734,9 +734,9 @@ export const candidates: Candidate[] = [
     fullBody: "/fotos_candidatos/vizcarra/full_body_vizcarra.gif",
 
     proyectoPolitico: {
-      titulo: "Reforma institucional anticorrupción y descentralización",
+      titulo: "Reforma y descentralización",
       resumen:
-        "Reformas al sistema político y promocionando la descentralización del Perú.",
+        "Reformas anticorrupción y apuesta sostenida por la descentralización del Estado.",
       detalles: [
         {
           subtitulo: "Indulto a Pedro Castillo y PPK",
@@ -761,7 +761,7 @@ export const candidates: Candidate[] = [
     creenciasClave: [
       {
         id: "anticorrupcion-institucional",
-        nombre: "Anticorrupción por rediseño institucional",
+        nombre: "Reformas Anticorrupción",
         resumen: "Usó referéndum y cuestión de confianza para forzar cambios.",
         detalle: "Reformas a financiamiento político, eliminación de reelección inmediata de congresistas y pulso constante con un Congreso opositor.",
         fuente: "https://www.reuters.com/article/world/peruvians-back-anti-corruption-reforms-in-referendum-exit-poll-idUSKBN1O80L9/"
@@ -775,7 +775,7 @@ export const candidates: Candidate[] = [
       },
       {
         id: "mineria-licencia-social",
-        nombre: "Crecimiento con 'licencia social'",
+        nombre: "Crecimiento social",
         resumen: "No imponer proyectos con rechazo social activo.",
         detalle: "Suspensión de Tía María mientras no existan condiciones; simultáneamente impulso de Quellaveco.",
         fuente: "https://conexionambiental.pe/tia-maria-un-conflicto-con-final-inesperado/"
@@ -936,8 +936,8 @@ export const candidates: Candidate[] = [
     headshot: "https://pbs.twimg.com/profile_images/1711746019795382272/ROaxERZY_400x400.jpg",
     fullBody: "/fotos_candidatos/bermejo/full_body_bermejo.gif",
     proyectoPolitico: {
-      titulo: "Refundación socialista",
-      resumen: "Nueva Constitución, criticando el modelo neoliberal y abogando por un rol más activo del Estado en la economía y la sociedad.",
+      titulo: "Nueva Constitución Socialista",
+      resumen: "Nueva Constitución, Estado activo e industrialización; crítica al modelo neoliberal.",
       detalles: [
         {
           subtitulo: "Asamblea Constituyente y Nueva Constitución",
@@ -966,14 +966,14 @@ export const candidates: Candidate[] = [
       },
       {
         id: "anti-neoliberalismo",
-        nombre: "Anti-neoliberalismo y Crítica a la Oligarquía",
+        nombre: "Crítica a la Oligarquía",
         resumen: "Rechaza el modelo económico neoliberal y critica a las élites económicas y políticas tradicionales.",
         detalle: "Su postura antisistema lo posiciona como opositor a las estructuras de poder establecidas, buscando un mayor control estatal sobre los recursos y sectores estratégicos.",
         fuente: "https://www.youtube.com/watch?v=PMm960A6ZHA"
       },
       {
         id: "estabilidad-politica",
-        nombre: "Estabilidad Política y Rechazo a la Vacancia",
+        nombre: "Rechazo a la Vacancia Presidencial",
         resumen: "Expresa su rechazo a las mociones de 'vacancia' presidencial y a la inestabilidad política recurrente, defendiendo la legitimidad del mandato de cinco años.",
         detalle: "Critica la confrontación constante entre poderes ejecutivo y legislativo, abogando por la coordinación. Su lealtad al presidente está condicionada a la probidad.",
         fuente: "https://www.youtube.com/watch?v=PMm960A6ZHA"
@@ -1109,9 +1109,9 @@ export const candidates: Candidate[] = [
     headshot: "https://portal.andina.pe/EDPfotografia3/Thumbnail/2018/05/03/000501027W.jpg",
     fullBody: "/fotos_candidatos/alvarez/full_body_alvarez.gif",
     proyectoPolitico: {
-      titulo: "Orden y mano de hierro contra el crimen",
+      titulo: "Mano dura punitiva.",
       resumen:
-        "Prioriza seguridad con pena de muerte, megacárceles, estados de excepción y expulsión de delincuentes extranjeros.",
+        "Seguridad prioritaria con pena de muerte, megacárceles y expulsión de extranjeros.",
       detalles: [
         {
           subtitulo: "Pena de muerte, salida del Pacto de San José, 'Mano de Hierro'",
@@ -1138,7 +1138,7 @@ export const candidates: Candidate[] = [
     creenciasClave: [
       {
         id: "orden-sobre-garantismo",
-        nombre: "El orden público por encima del garantismo",
+        nombre: "Orden público por encima del garantismo",
         resumen:
           "El fin (recuperar orden) justifica endurecer reglas procesales y excepciones.",
         detalle:
@@ -1176,7 +1176,7 @@ export const candidates: Candidate[] = [
       },
       {
         id: "antiprivilegios-estatales",
-        nombre: "Austeridad y antiprivilegios del Estado",
+        nombre: "Antiprivilegios del Estado",
         resumen:
           "Rechazo a aumentos y privilegios de autoridades como señal política.",
         detalle:
@@ -1293,8 +1293,8 @@ export const candidates: Candidate[] = [
     headshot: "https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg",
     fullBody: "/fotos_candidatos/acuña/full_body_acuña_move.gif",
     proyectoPolitico: {
-      titulo: "Poder regional a través de obras de impacto y un modelo educativo-empresarial",
-      resumen: "Utiliza la vasta fortuna generada por su consorcio universitario (UCV, USS) para financiar un proyecto político regionalista, centrado en la ejecución de obras públicas de alto impacto visual y el establecimiento de una red clientelar para consolidar su poder en el norte del Perú.",
+      titulo: "Poder pragmático y un modelo educativo-empresarial",
+      resumen: "Obras públicas visibles, red territorial norteña y modelo educativo-empresarial.",
       detalles: [
         {
           subtitulo: "Proyectos de infraestructura a gran escala",
@@ -1316,21 +1316,21 @@ export const candidates: Candidate[] = [
     creenciasClave: [
       {
         id: "plata-como-cancha",
-        nombre: "'Plata como cancha': El dinero como herramienta política",
+        nombre: "Plata como cancha",
         resumen: "Su poder se sustenta en su vasta fortuna, usada explícitamente para financiar campañas y asegurar apoyo popular.",
         detalle: "La frase, originada en un audio filtrado de 2010, encapsula su visión pragmática del poder, donde los recursos económicos son una herramienta fundamental para ganar elecciones y consolidar su influencia política.",
         fuente: "https://es.wikipedia.org/wiki/Caso_Plata_como_cancha"
       },
       {
         id: "educacion-poder",
-        nombre: "Sinergia Educación-Política",
+        nombre: "Imperio Educativo",
         resumen: "Su imperio educativo es la infraestructura de su poder político.",
         detalle: "Las universidades (UCV, USS, Autónoma) no solo financian su partido, Alianza para el Progreso, sino que también actúan como centros de reclutamiento y bases políticas, utilizando la imagen de 'educador' para capitalizarla en las urnas.",
         fuente: "https://www.infobae.com/peru/2024/02/16/cesar-acuna-a-cuanto-asciende-el-patrimonio-del-gobernador-de-la-libertad/"
       },
       {
         id: "alcalde-constructor",
-        nombre: "Obras como fuente de legitimidad",
+        nombre: "Obras Visibles",
         resumen: "Cimenta su popularidad en obras públicas de alto impacto visual y popular.",
         detalle: "Durante su gestión como alcalde de Trujillo, invirtió más de 800 millones de soles en proyectos como el bypass de Mansiche y el complejo deportivo Chan Chan, consolidando su imagen de 'alcalde constructor' y gestor eficaz.",
         fuente: "https://trujilloenlinea.pe/noticias/politica/16/02/2018/cesar-acuna-niega-corrupcion-durante-su-gestion-edil-en-trujillo"

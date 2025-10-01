@@ -24,19 +24,11 @@ export function HomePage() {
     <div className="min-h-screen flex flex-col fighting-game-bg text-white">
       <main className="relative w-full mx-auto px-3 sm:px-4 pt-6 sm:pt-7 pb-20 sm:pb-16 max-w-6xl">
         <div className="text-center mb-6 sm:mb-8">
-          <div className="mx-auto mb-3 inline-flex items-center justify-center rounded-xl border border-accent/50 bg-accent/10 px-4 py-2.5 shadow-[0_0_0_3px_rgba(0,0,0,0.4)] backdrop-blur-sm">
-            <svg aria-label="Logo" width="42" height="42" viewBox="0 0 64 64" className="drop-shadow-md">
-              <rect x="4" y="4" width="56" height="56" rx="8" className="fill-accent/80 stroke-white/20" strokeWidth="2" />
-              <path
-                d="M18 44V20h6l6 10 6-10h6v24h-6V32l-6 10-6-10v12h-6Z"
-                className="fill-background stroke-white"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <div className="mx-auto mb-3 flex h-28 w-28 items-center justify-center rounded-full bg-background/80 shadow-[0_6px_18px_rgba(0,0,0,0.28)]">
+            <img src="/capi_log.png" alt="Capibara logo" className="h-24 w-24" />
           </div>
           <h1
-            className="text-[1.85rem] leading-tight sm:text-[2.6rem] md:text-[3rem] font-bold uppercase tracking-wider"
+            className="text-[1.2rem] leading-tight sm:text-[1.6rem] md:text-[1.9rem] font-bold uppercase tracking-wider"
             style={{
               fontFamily: "'Press Start 2P', cursive",
               color: 'hsl(var(--accent))',
