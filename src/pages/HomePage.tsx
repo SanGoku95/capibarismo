@@ -49,7 +49,7 @@ export function HomePage() {
             Compara candidatos y entiende sus posturas clave para las elecciones 2026.
           </p>
         </div>
-
+        
         {/* Primary call-to-actions */}
         <section className="w-full max-w-xl mx-auto mb-6 sm:mb-7">
           <div className="rounded-2xl border border-border/60 bg-background/75 shadow-[0_8px_20px_rgba(0,0,0,0.32)] backdrop-blur-sm p-4 sm:p-5">
