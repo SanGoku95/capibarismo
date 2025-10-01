@@ -62,14 +62,14 @@ export function HomePage() {
             <div className="mt-3 sm:mt-4 flex flex-col gap-2 sm:gap-2.5">
               <Link
                 to="/compare"
-                className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-4 py-2.75 text-sm font-semibold uppercase tracking-[0.16em] transition-transform hover:-translate-y-[1px] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3 text-sm font-semibold uppercase tracking-[0.16em] transition-transform hover:-translate-y-[1px] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
               >
                 <span>⚖️ Comparar candidatos</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/compass"
-                className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-4 py-2.75 text-sm font-semibold uppercase tracking-[0.16em] text-foreground transition-colors hover:border-primary/60 hover:bg-primary hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-3.5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-foreground transition-colors hover:border-primary/60 hover:bg-primary hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               >
                 <span>
                   <Compass className="mr-2 inline h-4 w-4" />
