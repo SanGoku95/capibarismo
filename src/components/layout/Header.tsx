@@ -20,12 +20,6 @@ export function Header() {
             <Link to="/compass">Mapa Ideológico</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
-            <Link to="/news">Noticias</Link>
-          </Button>
-          <Button asChild variant="link" className="text-foreground">
-            <Link to="/chat">Chat</Link>
-          </Button>
-          <Button asChild variant="link" className="text-foreground">
             <Link to="/about">Acerca de</Link>
           </Button>
         </Box>

@@ -1,101 +1,118 @@
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
-import GavelIcon from '@mui/icons-material/Gavel';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import ChatIcon from '@mui/icons-material/Chat';
+import { ArrowRight, Compass } from 'lucide-react';
 import { NewsletterCTA } from '@/components/marketing/NewsletterCTA';
-
-const featureCards = [
-    {
-        title: 'Comparador',
-        description:
-            'Elige dos candidatos y compara sus perfiles, propuestas y trayectoria lado a lado.',
-        link: '/compare',
-        icon: <CompareArrowsIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Comparar Ahora',
-    },
-    {
-        title: 'Mapa Ideológico',
-        description:
-             'Crea tu propio mapa. Cambia los ejes y descubre las posturas similares.',
-        link: '/compass',
-        icon: <GavelIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Ir al Mapa',
-    },
-    {
-        title: 'Chat IA',
-        description:
-            'Pregúntale a nuestra IA sobre candidatos, propuestas y el proceso electoral.',
-        link: '/chat',
-        icon: <ChatIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Iniciar Chat',
-    },
-    {
-        title: 'Noticias',
-        description:
-            'Mantente al día con las últimas noticias, entrevistas y eventos importantes de la campaña.',
-        link: '/news',
-        icon: <NewspaperIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Ver Noticias',
-    },
-];
+import { candidates } from '@/data/candidates';
+import { useMemo } from 'react';
 
 export function HomePage() {
-    return (
-        <div className="min-h-screen fighting-game-bg text-white">
-            <main className="container mx-auto px-4 py-8 sm:py-12 md:py-20">
-                {/* Hero Section */}
-                <div className="text-center mb-12 sm:mb-16">
-                    <h1
-                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase tracking-wider"
-                        style={{
-                            fontFamily: "'Press Start 2P', cursive",
-                            color: 'hsl(var(--accent))',
-                            textShadow:
-                                '2px 2px 0px hsl(var(--background)), 4px 4px 0px hsl(var(--border))',
-                        }}
-                    >
-                        CAPIBARISMO
-                    </h1>
-                    <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-foreground/90 font-sans px-2">
-                        Tu guía interactiva para las elecciones presidenciales de Perú 2026.
-                        Compara candidatos, entiende sus posturas y mantente informado.
-                    </p>
-                </div>
+  const quickPairs = useMemo(() => {
+    const lookup = Object.fromEntries(candidates.map(c => [c.id, c]));
+    const raw = [
+      { a: 'keiko', b: 'rafael' },
+      { a: 'antauro', b: 'martin-vizcarra' },
+      { a: 'martin-vizcarra', b: 'carlos-alvarez' },
+    ];
+    return raw
+      .filter(p => lookup[p.a] && lookup[p.b])
+      .map(p => ({
+        ...p,
+        label: `${lookup[p.a].nombre} vs ${lookup[p.b].nombre}`,
+      }));
+  }, []);
 
-                {/* Feature Cards - "Level Select" */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
-                    {featureCards.map((feature) => (
-                        <Link to={feature.link} key={feature.title} className="block group">
-                            <Card className="fighting-game-card h-full flex flex-col text-center transform group-hover:-translate-y-2 transition-transform duration-200 min-h-[200px] sm:min-h-[250px]">
-                                <CardHeader className="pb-3 sm:pb-4">
-                                    {feature.icon}
-                                    <CardTitle className="text-sm sm:text-lg lg:text-xl font-display leading-tight">
-                                        {feature.title}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className="flex-grow flex flex-col justify-between pt-0">
-                                    <CardDescription className="mb-4 sm:mb-6 font-sans text-xs sm:text-sm lg:text-base leading-relaxed px-1">
-                                        {feature.description}
-                                    </CardDescription>
-                                    <div className="font-bold text-accent group-hover:text-white transition-colors flex items-center justify-center text-xs sm:text-sm">
-                                        <span className="hidden sm:inline">{feature.cta}</span>
-                                        <span className="sm:hidden">Ir</span>
-                                        <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 transform group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    ))}
-                </div>
-
-                {/* Newsletter CTA */}
-                <div className="max-w-6xl mx-auto mt-12 sm:mt-16">
-                    <NewsletterCTA />
-                </div>
-            </main>
+  return (
+    <div className="min-h-screen flex flex-col fighting-game-bg text-white">
+      <main className="relative w-full mx-auto px-3 sm:px-4 pt-6 sm:pt-7 pb-20 sm:pb-16 max-w-6xl">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="mx-auto mb-3 inline-flex items-center justify-center rounded-xl border border-accent/50 bg-accent/10 px-4 py-2.5 shadow-[0_0_0_3px_rgba(0,0,0,0.4)] backdrop-blur-sm">
+            <svg aria-label="Logo" width="42" height="42" viewBox="0 0 64 64" className="drop-shadow-md">
+              <rect x="4" y="4" width="56" height="56" rx="8" className="fill-accent/80 stroke-white/20" strokeWidth="2" />
+              <path
+                d="M18 44V20h6l6 10 6-10h6v24h-6V32l-6 10-6-10v12h-6Z"
+                className="fill-background stroke-white"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <h1
+            className="text-[1.85rem] leading-tight sm:text-[2.6rem] md:text-[3rem] font-bold uppercase tracking-wider"
+            style={{
+              fontFamily: "'Press Start 2P', cursive",
+              color: 'hsl(var(--accent))',
+              textShadow: '2px 2px 0px hsl(var(--background)), 4px 4px 0px hsl(var(--border))',
+            }}
+          >
+            CAPIBARISMO
+          </h1>
+          <p className="mt-2.5 text-[0.78rem] sm:text-sm md:text-base max-w-2xl mx-auto text-foreground/85 font-sans px-2">
+            Compara candidatos y entiende sus posturas clave para las elecciones 2026.
+          </p>
         </div>
-    );
+        
+        {/* Primary call-to-actions */}
+        <section className="w-full max-w-xl mx-auto mb-6 sm:mb-7">
+          <div className="rounded-2xl border border-border/60 bg-background/75 shadow-[0_8px_20px_rgba(0,0,0,0.32)] backdrop-blur-sm p-4 sm:p-5">
+            <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground/75">
+              Empieza aquí
+            </p>
+            <p className="mt-2 text-xs sm:text-sm text-foreground/85">
+              Elige entre comparar perfiles o encontrar afinidad ideológica.
+            </p>
+            <div className="mt-3 sm:mt-4 flex flex-col gap-2 sm:gap-2.5">
+              <Link
+                to="/compare"
+                className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3 text-sm font-semibold uppercase tracking-[0.16em] transition-transform hover:-translate-y-[1px] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+              >
+                <span>⚖️ Comparar candidatos</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                to="/compass"
+                className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-3.5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-foreground transition-colors hover:border-primary/60 hover:bg-primary hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              >
+                <span>
+                  <Compass className="mr-2 inline h-4 w-4" />
+                  Compass ideológico
+                </span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Quick compares */}
+        <section className="w-full max-w-4xl mx-auto">
+          <div className="rounded-2xl border border-border/60 bg-background/60 backdrop-blur-sm p-4 sm:p-5 shadow-[0_8px_20px_rgba(0,0,0,0.28)]">
+            <h2 className="text-xs sm:text-sm tracking-wide font-semibold uppercase text-accent/90">
+              Comparaciones rápidas
+            </h2>
+            <p className="mt-1.5 text-[11px] sm:text-xs text-muted-foreground/80">
+              Acceso directo a duelos populares.
+            </p>
+            <div className="mt-3 grid gap-2 sm:gap-2.5 sm:grid-cols-3">
+              {quickPairs.map(pair => (
+                <Link
+                  key={pair.a + pair.b}
+                  to={`/compare?a=${pair.a}&b=${pair.b}`}
+                  className="group flex items-center justify-between rounded-xl border border-border/70 bg-background/70 px-3.5 py-2.5 text-xs sm:text-sm font-medium text-foreground transition-colors hover:border-accent/60 hover:bg-accent/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+                >
+                  <span className="pr-2 group-hover:text-accent">{pair.label}</span>
+                  <ArrowRight className="h-4 w-4 text-accent/80 transition-transform group-hover:translate-x-1" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <div className="max-w-4xl mx-auto mt-9 sm:mt-11">
+          <NewsletterCTA />
+        </div>
+
+        <div className="mt-7 text-center text-[10px] sm:text-[11px] text-foreground/60 font-sans">
+          Datos en evolución. Este sitio es orientativo.
+        </div>
+      </main>
+    </div>
+  );
 }

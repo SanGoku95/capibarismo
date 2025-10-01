@@ -13,9 +13,6 @@ const ComparePage = lazy(() => import("./pages/ComparePage"));
 const CandidateProfile = lazy(() => import("./pages/CandidateProfile").then(module => ({ default: module.CandidateProfile })));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const About = lazy(() => import("./pages/About").then(module => ({ default: module.About })));
-const News = lazy(() => import("./pages/News"));
-const EventDetail = lazy(() => import("./pages/NewsDetail"));
-const ChatPage = lazy(() => import("./pages/ChatPage"));
 const PoliticalCompassPage = lazy(() => import("./pages/PoliticalCompassPage"));
 
 const queryClient = new QueryClient({
@@ -60,12 +57,9 @@ const App = () => {
       try {
         await Promise.all([
           import("./pages/ComparePage"),
-          import("./pages/News"),
           import("./pages/PoliticalCompassPage"),
-          import("./pages/ChatPage"),
           import("./pages/About"),
           import("./pages/CandidateProfile"),
-          import("./pages/NewsDetail"),
         ]);
       } catch {
         // ignore prefetch errors in dev
@@ -85,13 +79,10 @@ const App = () => {
             <Routes>
               <Route element={<AppLayout />}>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/news" element={<News />} />
-                <Route path="/news/:slug" element={<EventDetail />} />
                 <Route path="/compare" element={<ComparePage />} />
                 <Route path="/compass" element={<PoliticalCompassPage />} />
                 <Route path="/candidate/:id" element={<CandidateProfile />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/chat" element={<ChatPage />} />
               </Route>
               <Route
                 path="*"

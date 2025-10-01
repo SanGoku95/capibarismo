@@ -80,8 +80,8 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
             type="single"
             collapsible
             className="w-full"
-            value={openSection} // Use shared state
-            onValueChange={(value) => setOpenSection(value)} // Update shared state
+            value={openSection}
+            onValueChange={(value) => setOpenSection(value)}
           >
             <AccordionItem value="proyecto-politico">
               <AccordionTrigger className="text-base font-semibold">
@@ -96,7 +96,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                 </div>
               </AccordionContent>
             </AccordionItem>
-            
+
             <AccordionItem value="creencias-clave">
               <AccordionTrigger className="text-base font-semibold">
                 <Sparkles size={16} className="mr-2" /> Creencias Clave
@@ -113,7 +113,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                 </div>
               </AccordionContent>
             </AccordionItem>
-            
+
             <AccordionItem value="trayectoria">
               <AccordionTrigger className="text-base font-semibold">
                 <Briefcase size={16} className="mr-2" /> Trayectoria
@@ -134,35 +134,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="presencia-digital">
-              <AccordionTrigger className="text-base font-semibold">
-                <Radio size={16} className="mr-2" /> Presencia Digital
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-2 pt-2">
-                  {candidate.presenciaDigital.plataformas.map((platform) => (
-                    <a
-                      key={platform.nombre}
-                      href={platform.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Ver perfil de ${candidate.nombre} en ${platform.nombre}`}
-                      className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors"
-                    >
-                      <div className="text-muted-foreground">
-                        <SocialIcon platform={platform.nombre as SocialPlatformType} />
-                      </div>
-                      <div>
-                        <div className="font-medium capitalize text-base font-sans">{platform.nombre}</div>
-                        <div className="text-sm text-muted-foreground">{platform.handle}</div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* NEW: Controversias (before Mapa de Poder) */}
+            {/* Controversias antes de Mapa de Poder */}
             <AccordionItem value="controversias">
               <AccordionTrigger className="text-base font-semibold">
                 <AlertTriangle size={16} className="mr-2" /> Controversias
@@ -201,10 +173,41 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                 <div className="space-y-2 pt-2 text-base font-sans">
                   <Link to={`/candidate/${candidate.id}#mapa-de-poder`} className="block p-2 rounded-md hover:bg-muted/50">
                     <span className="font-medium">Alianzas:</span>
-                    <span className="text-muted-foreground ml-1">{candidate.mapaDePoder.alianzas.map(a => a.nombre).join(', ')}</span>
+                    <span className="text-muted-foreground ml-1">
+                      {candidate.mapaDePoder.alianzas.map(a => a.nombre).join(', ')}
+                    </span>
                   </Link>
-                   <Link to={`/candidate/${candidate.id}#mapa-de-poder`} className="block p-2 rounded-md hover:bg-muted/50">
+                  <Link to={`/candidate/${candidate.id}#mapa-de-poder`} className="block p-2 rounded-md hover:bg-muted/50">
                   </Link>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* MOVED: Presencia Digital ahora al final */}
+            <AccordionItem value="presencia-digital">
+              <AccordionTrigger className="text-base font-semibold">
+                <Radio size={16} className="mr-2" /> Presencia Digital
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2 pt-2">
+                  {candidate.presenciaDigital.plataformas.map((platform) => (
+                    <a
+                      key={platform.nombre}
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Ver perfil de ${candidate.nombre} en ${platform.nombre}`}
+                      className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="text-muted-foreground">
+                        <SocialIcon platform={platform.nombre as SocialPlatformType} />
+                      </div>
+                      <div>
+                        <div className="font-medium capitalize text-base font-sans">{platform.nombre}</div>
+                        <div className="text-sm text-muted-foreground">{platform.handle}</div>
+                      </div>
+                    </a>
+                  ))}
                 </div>
               </AccordionContent>
             </AccordionItem>
