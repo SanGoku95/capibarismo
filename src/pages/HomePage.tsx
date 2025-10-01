@@ -1,101 +1,144 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
-import GavelIcon from '@mui/icons-material/Gavel';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import ChatIcon from '@mui/icons-material/Chat';
+import { ArrowRight, Compass } from 'lucide-react';
 import { NewsletterCTA } from '@/components/marketing/NewsletterCTA';
-
-const featureCards = [
-    {
-        title: 'Comparador',
-        description:
-            'Elige dos candidatos y compara sus perfiles, propuestas y trayectoria lado a lado.',
-        link: '/compare',
-        icon: <CompareArrowsIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Comparar Ahora',
-    },
-    {
-        title: 'Mapa Ideológico',
-        description:
-             'Crea tu propio mapa. Cambia los ejes y descubre las posturas similares.',
-        link: '/compass',
-        icon: <GavelIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Ir al Mapa',
-    },
-    {
-        title: 'Chat IA',
-        description:
-            'Pregúntale a nuestra IA sobre candidatos, propuestas y el proceso electoral.',
-        link: '/chat',
-        icon: <ChatIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Iniciar Chat',
-    },
-    {
-        title: 'Noticias',
-        description:
-            'Mantente al día con las últimas noticias, entrevistas y eventos importantes de la campaña.',
-        link: '/news',
-        icon: <NewspaperIcon className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4 text-primary" />,
-        cta: 'Ver Noticias',
-    },
-];
+import { candidates } from '@/data/candidates';
+import { useMemo } from 'react';
 
 export function HomePage() {
-    return (
-        <div className="min-h-screen fighting-game-bg text-white">
-            <main className="container mx-auto px-4 py-8 sm:py-12 md:py-20">
-                {/* Hero Section */}
-                <div className="text-center mb-12 sm:mb-16">
-                    <h1
-                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase tracking-wider"
-                        style={{
-                            fontFamily: "'Press Start 2P', cursive",
-                            color: 'hsl(var(--accent))',
-                            textShadow:
-                                '2px 2px 0px hsl(var(--background)), 4px 4px 0px hsl(var(--border))',
-                        }}
-                    >
-                        CAPYBARISMO
-                    </h1>
-                    <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-foreground/90 font-sans px-2">
-                        Tu guía interactiva para las elecciones presidenciales de Perú 2026.
-                        Compara candidatos, entiende sus posturas y mantente informado.
-                    </p>
-                </div>
+  // Fixed quick comparisons (only 3)
+  const quickPairs = useMemo(() => {
+    const lookup = Object.fromEntries(candidates.map(c => [c.id, c]));
+    const raw = [
+      { a: 'keiko', b: 'rafael' },
+      { a: 'antauro', b: 'martin-vizcarra' },
+      { a: 'martin-vizcarra', b: 'carlos-alvarez' },
+    ];
+    return raw
+      .filter(p => lookup[p.a] && lookup[p.b])
+      .map(p => ({
+        ...p,
+        label: `${lookup[p.a].nombre} vs ${lookup[p.b].nombre}`,
+      }));
+  }, []);
 
-                {/* Feature Cards - "Level Select" */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
-                    {featureCards.map((feature) => (
-                        <Link to={feature.link} key={feature.title} className="block group">
-                            <Card className="fighting-game-card h-full flex flex-col text-center transform group-hover:-translate-y-2 transition-transform duration-200 min-h-[200px] sm:min-h-[250px]">
-                                <CardHeader className="pb-3 sm:pb-4">
-                                    {feature.icon}
-                                    <CardTitle className="text-sm sm:text-lg lg:text-xl font-display leading-tight">
-                                        {feature.title}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className="flex-grow flex flex-col justify-between pt-0">
-                                    <CardDescription className="mb-4 sm:mb-6 font-sans text-xs sm:text-sm lg:text-base leading-relaxed px-1">
-                                        {feature.description}
-                                    </CardDescription>
-                                    <div className="font-bold text-accent group-hover:text-white transition-colors flex items-center justify-center text-xs sm:text-sm">
-                                        <span className="hidden sm:inline">{feature.cta}</span>
-                                        <span className="sm:hidden">Ir</span>
-                                        <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 transform group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    ))}
-                </div>
-
-                {/* Newsletter CTA */}
-                <div className="max-w-6xl mx-auto mt-12 sm:mt-16">
-                    <NewsletterCTA />
-                </div>
-            </main>
+  return (
+    <div className="min-h-screen flex flex-col fighting-game-bg text-white">
+      <main className="relative w-full mx-auto px-4 pt-8 sm:pt-10 pb-24 sm:pb-20 max-w-6xl">
+        {/* Hero / Logo */}
+        <div className="text-center mb-8 sm:mb-12">
+          <div className="mx-auto mb-4 inline-flex items-center justify-center rounded-xl border border-accent/50 bg-accent/10 px-5 py-3 shadow-[0_0_0_3px_rgba(0,0,0,0.4)] backdrop-blur-sm">
+            <svg aria-label="Logo" width="46" height="46" viewBox="0 0 64 64" className="drop-shadow-md">
+              <rect x="4" y="4" width="56" height="56" rx="8" className="fill-accent/80 stroke-white/20" strokeWidth="2" />
+              <path
+                d="M18 44V20h6l6 10 6-10h6v24h-6V32l-6 10-6-10v12h-6Z"
+                className="fill-background stroke-white"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <h1
+            className="text-[1.9rem] leading-tight sm:text-4xl md:text-5xl font-bold uppercase tracking-wider"
+            style={{
+              fontFamily: "'Press Start 2P', cursive",
+              color: 'hsl(var(--accent))',
+              textShadow: '2px 2px 0px hsl(var(--background)), 4px 4px 0px hsl(var(--border))',
+            }}
+          >
+            CAPYBARISMO
+          </h1>
+          <p className="mt-3 text-[0.8rem] sm:text-sm md:text-lg max-w-3xl mx-auto text-foreground/90 font-sans px-2">
+            Compara candidatos y entiende sus posturas clave para las elecciones 2026.
+          </p>
         </div>
-    );
+
+        {/* Primary Actions (Two Options) */}
+        <div className="grid gap-4 md:gap-8 md:grid-cols-2 max-w-4xl mx-auto mb-10 sm:mb-12">
+          <Link
+            to="/compare"
+            className="group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 rounded-lg"
+          >
+            <Card className="fighting-game-card h-full flex flex-col justify-between overflow-hidden">
+              <CardHeader className="pb-4 relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-transparent pointer-events-none" />
+                <span className="w-9 h-9 mb-3 flex items-center justify-center text-2xl drop-shadow-md">⚖️</span>
+                <CardTitle className="text-base sm:text-xl font-display">
+                  Comparar Candidatos
+                </CardTitle>
+                <CardDescription className="text-xs sm:text-sm mt-2 font-sans leading-relaxed">
+                  Elige dos y revisa diferencias en trayectoria, ideas y controversias.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="mt-1 text-accent font-bold flex items-center group-hover:text-white transition-colors text-sm">
+                  Empezar
+                  <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link
+            to="/compass"
+            className="group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 rounded-lg"
+          >
+            <Card className="fighting-game-card h-full flex flex-col justify-between overflow-hidden">
+              <CardHeader className="pb-4 relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-transparent pointer-events-none" />
+                <Compass className="w-9 h-9 mb-3 text-accent drop-shadow-md" />
+                <CardTitle className="text-base sm:text-xl font-display">
+                  Mapa Ideológico
+                </CardTitle>
+                <CardDescription className="text-xs sm:text-sm mt-2 font-sans leading-relaxed">
+                  Responde preguntas y descubre coincidencias al instante.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="mt-1 text-accent font-bold flex items-center group-hover:text-white transition-colors text-sm">
+                  Iniciar
+                  <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+
+        {/* Quick Compare Section */}
+        <section className="max-w-5xl mx-auto">
+          <h2 className="text-xs sm:text-sm tracking-wide font-semibold uppercase text-accent/90 mb-3 pl-1">
+            Comparaciones Rápidas
+          </h2>
+          <div className="flex flex-col gap-3">
+            {quickPairs.map(pair => (
+              <Link
+                key={pair.a + pair.b}
+                to={`/compare?a=${pair.a}&b=${pair.b}`}
+                className="group rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+              >
+                <div className="p-4 rounded-lg border bg-background/40 backdrop-blur-sm hover:bg-accent/10 hover:border-accent/50 transition-colors fighting-game-card-inner">
+                  <div className="flex items-center justify-between">
+                    <span className="font-sans text-sm sm:text-base font-medium group-hover:text-accent">
+                      {pair.label}
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-accent/80 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Newsletter */}
+        <div className="max-w-5xl mx-auto mt-12 sm:mt-14">
+          <NewsletterCTA />
+        </div>
+
+        {/* Foot Micro Copy */}
+        <div className="mt-10 text-center text-[10px] sm:text-[11px] text-foreground/60 font-sans">
+          Datos en evolución. Este sitio es orientativo.
+        </div>
+      </main>
+    </div>
+  );
 }
