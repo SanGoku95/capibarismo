@@ -151,6 +151,18 @@
     scroll-behavior: smooth;
   }
 
+  /* Enhanced focus visibility for accessibility */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Improved link and button focus states */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
   /* --- 90s Video Game UI Overhaul --- */
 
   /* 1. Pixelated Grid Background */

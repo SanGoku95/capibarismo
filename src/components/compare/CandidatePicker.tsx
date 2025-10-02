@@ -32,7 +32,8 @@ export function CandidatePicker() {
         className={cn(
           "relative aspect-square transition-all duration-200",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-          "flex-shrink-0 w-20 lg:w-20 overflow-hidden"
+          "flex-shrink-0 w-20 lg:w-20 overflow-hidden rounded-lg",
+          "min-h-[80px]" // Ensure minimum 44px touch target (80px is even better)
         )}
         aria-label={`Seleccionar a ${candidate.nombre} para comparar`}
         tabIndex={0}
