@@ -45,7 +45,7 @@ export function NewsletterCTA() {
         <CardTitle className="text-2xl md:text-3xl font-display text-accent">
           Mira la Verdad Electoral
         </CardTitle>
-        <CardDescription className="max-w-xl mx-auto text-base mt-2 font-sans text-left">
+        <div className="max-w-xl mx-auto text-base mt-2 font-sans text-left text-muted-foreground">
           <p className="mb-4">
             Otros medios te muestran su versión de la historia, nosotros te damos el menú completo. Recibe en tu correo:
           </p>
@@ -54,7 +54,7 @@ export function NewsletterCTA() {
             <li>Alertas de noticias clave.</li>
             <li>Sin sesgos ni agendas ocultas.</li>
           </ul>
-        </CardDescription>
+        </div>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md mx-auto">

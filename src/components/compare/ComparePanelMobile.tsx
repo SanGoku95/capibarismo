@@ -90,12 +90,19 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                     </div>
                   </>
                 ) : (
-                  <div className="flex flex-col items-center">
-                    <div className="w-32 h-48 md:w-40 md:h-56 bg-muted/20 rounded border-2 border-dashed border-muted-foreground/30 flex items-center justify-center mb-4">
-                      <span className="text-sm text-muted-foreground font-bold">P1</span>
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex flex-col items-center"
+                  >
+                    <div className="w-32 h-48 md:w-40 md:h-56 bg-team-left/10 rounded border-2 border-dashed border-team-left/40 flex flex-col items-center justify-center mb-4 gap-2">
+                      <div className="w-16 h-16 rounded-full bg-team-left flex items-center justify-center text-white text-2xl font-bold">
+                        1
+                      </div>
+                      <span className="text-xs text-muted-foreground font-semibold">Candidato 1</span>
                     </div>
-                    <span className="text-xs text-gray-400">Selecciona Candidato</span>
-                  </div>
+                    <span className="text-xs text-muted-foreground">Elige abajo</span>
+                  </motion.div>
                 )}
               </div>
 
@@ -122,12 +129,19 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                     </div>
                   </>
                 ) : (
-                  <div className="flex flex-col items-center">
-                    <div className="w-32 h-48 md:w-40 md:h-56 bg-muted/20 rounded border-2 border-dashed border-muted-foreground/30 flex items-center justify-center mb-4">
-                      <span className="text-sm text-muted-foreground font-bold">P2</span>
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex flex-col items-center"
+                  >
+                    <div className="w-32 h-48 md:w-40 md:h-56 bg-team-right/10 rounded border-2 border-dashed border-team-right/40 flex flex-col items-center justify-center mb-4 gap-2">
+                      <div className="w-16 h-16 rounded-full bg-team-right flex items-center justify-center text-white text-2xl font-bold">
+                        2
+                      </div>
+                      <span className="text-xs text-muted-foreground font-semibold">Candidato 2</span>
                     </div>
-                    <span className="text-xs text-gray-400">Selecciona Candidato</span>
-                  </div>
+                    <span className="text-xs text-muted-foreground">Elige abajo</span>
+                  </motion.div>
                 )}
               </div>
             </div>
