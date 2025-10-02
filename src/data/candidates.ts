@@ -588,7 +588,7 @@ export const candidates: Candidate[] = [
       },
       {
         id: "democracia-directa",
-        nombre: "Falsa Democrácia",
+        nombre: "Falsa Democracia",
         resumen: "Sistema capturado por élites criollas y extranjeras.",
         detalle: "Aboga por control popular permanente y revocatoria de autoridades.",
         fuente: "https://antaurohumala.pe/libros/"
