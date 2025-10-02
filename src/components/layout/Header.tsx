@@ -8,7 +8,7 @@ export function Header() {
     <header className="sticky top-0 z-30 w-full fighting-game-header">
       <div className="container mx-auto flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2 text-xl font-display text-primary">
-          <img src="/capi_log.png" alt="Capibara logo" className="h-11 w-11" />
+          <img src="/capi_logo.png" alt="Capibara logo" className="h-11 w-11" />
           <span>CAPIBARISMO</span>
         </Link>
         
