@@ -10,22 +10,17 @@ const Index = () => {
   const { setLeftCandidate, setRightCandidate, leftCandidate, rightCandidate } = useCompareStore();
 
   useEffect(() => {
-    // Only process URL params if both slots are currently empty
-    if (leftCandidate || rightCandidate) {
-      return;
-    }
-
     const aParam = searchParams.get('a');
     const bParam = searchParams.get('b');
 
+    // If URL has parameters, update candidates accordingly
     if (aParam || bParam) {
       const leftCand = aParam ? candidates.find(c => c.id === aParam) : null;
       const rightCand = bParam ? candidates.find(c => c.id === bParam) : null;
 
-      if (leftCand) {
+      // Only update if the URL params are different from current selection
+      if (leftCand?.id !== leftCandidate?.id || rightCand?.id !== rightCandidate?.id) {
         setLeftCandidate(leftCand);
-      }
-      if (rightCand) {
         setRightCandidate(rightCand);
       }
     }
