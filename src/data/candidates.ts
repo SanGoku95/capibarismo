@@ -1293,7 +1293,7 @@ export const candidates: Candidate[] = [
     headshot: "https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg",
     fullBody: "/fotos_candidatos/acuña/full_body_acuña_move.gif",
     proyectoPolitico: {
-      titulo: "Poder pragmático y un modelo educativo-empresarial",
+      titulo: "Poder clientelar",
       resumen: "Obras públicas visibles, red territorial norteña y modelo educativo-empresarial.",
       detalles: [
         {
