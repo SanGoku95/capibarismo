@@ -286,17 +286,37 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 rightCandidate={rightCandidate}
                 leftContent={
                   leftCandidate ? (
-                    <Link to={`/candidate/${leftCandidate.id}#mapa-de-poder`} className="font-sans text-sm space-y-1 text-muted-foreground hover:underline">
-                      <div><span className="font-semibold text-foreground">Alianzas:</span> {leftCandidate.mapaDePoder.alianzas.slice(0, 1).map(a => a.nombre).join(', ')}...</div>
-                    </Link>
-                  ) : <span className="font-sans">Sin datos</span>
+                    <div className="space-y-3">
+                      {leftCandidate.mapaDePoder.alianzas.slice(0, 3).map((alianza) => (
+                        <Link
+                          key={alianza.nombre}
+                          to={`/candidate/${leftCandidate.id}#mapa-de-poder`}
+                          className="block border-l-2 border-team-left/50 pl-3 font-sans hover:bg-white/5 rounded-r-md"
+                        >
+                          <div className="font-medium text-base text-foreground">{alianza.nombre}</div>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="font-sans">Sin datos</span>
+                  )
                 }
                 rightContent={
                   rightCandidate ? (
-                    <Link to={`/candidate/${rightCandidate.id}#mapa-de-poder`} className="font-sans text-sm space-y-1 text-muted-foreground hover:underline">
-                      <div><span className="font-semibold text-foreground">Alianzas:</span> {rightCandidate.mapaDePoder.alianzas.slice(0, 1).map(a => a.nombre).join(', ')}...</div>
-                    </Link>
-                  ) : <span className="font-sans">Sin datos</span>
+                    <div className="space-y-3">
+                      {rightCandidate.mapaDePoder.alianzas.slice(0, 3).map((alianza) => (
+                        <Link
+                          key={alianza.nombre}
+                          to={`/candidate/${rightCandidate.id}#mapa-de-poder`}
+                          className="block border-l-2 border-team-right/50 pl-3 font-sans hover:bg-white/5 rounded-r-md"
+                        >
+                          <div className="font-medium text-base text-foreground">{alianza.nombre}</div>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="font-sans">Sin datos</span>
+                  )
                 }
               />
 

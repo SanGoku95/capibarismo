@@ -196,7 +196,7 @@ export const candidates: Candidate[] = [
           descripcion: "Una diversa y poderosa coalición de ciudadanos y grupos políticos de diferentes ideologías que se activa electoralmente con el objetivo principal de impedir su llegada al poder."
         },
         {
-          nombre: "Equipo Especial de la Fiscalía (Caso Lava Jato)",
+          nombre: "Equipo de Fiscalía",
           descripcion: "El equipo de fiscales, liderado por José Domingo Pérez, que ha investigado el 'Caso Cócteles' y la acusa de liderar una organización criminal."
         },
         {
@@ -498,12 +498,12 @@ export const candidates: Candidate[] = [
     mapaDePoder: {
       alianzas: [
         {
-          nombre: "Acción Popular (bases regionales)",
+          nombre: "Bases de Acción Popular",
           descripcion:
             "Estructura partidaria y capital político construido en Puno y el sur andino."
         },
         {
-          nombre: "Asociaciones de consumidores y colegios profesionales",
+          nombre: "Asociaciones de consumidores",
           descripcion:
             "Redes vinculadas a agendas de regulación y protección al usuario."
         }
@@ -677,15 +677,15 @@ export const candidates: Candidate[] = [
     mapaDePoder: {
       alianzas: [
         {
-          nombre: "Ina Andrade de Humala, Máximo Grillo, Edwin Morales, Luzmila Ayay, Armando Masse, Fabian Quispe, Carmen Huidobro, Pilar Roca",
+          nombre: "Ina Andrade de Humala, Máximo Grillo",
           descripcion: "Columna vertebral del movimiento; redes de excombatientes."
         },
         {
-          nombre: "Reservistas y Veteranos de las FFAA",
+          nombre: "Veteranos FFAA",
           descripcion: "Columna vertebral del movimiento; redes de excombatientes."
         },
         {
-          nombre: "Juntos por el Perú (Verónika Mendoza), Partido Democrático Federal",
+          nombre: "Juntos por el Perú",
           descripcion: "Alianza electoral para Asamblea Constituyente y programa anticorrupción."
         },
         {
@@ -887,7 +887,7 @@ export const candidates: Candidate[] = [
           descripcion: "Estructura partidaria propia (inscrita) usada como vehículo de retorno político, aunque él esté inhabilitado."
         },
         {
-          nombre: "Redes de técnicos/gestores regionales",
+          nombre: "Gestores Moqueguanos",
           descripcion: "Afinidades con perfiles tecnocráticos y cuadros subnacionales (herencia moqueguana/mesa de diálogo)."
         },
         {
@@ -1044,23 +1044,23 @@ export const candidates: Candidate[] = [
     mapaDePoder: {
       alianzas: [
         {
-          nombre: "Coordinadora Continental Bolivariana-Perú (CCB-CP)",
+          nombre: "CCB-CP",
           descripcion: "Organización de la que 'Todas las Voces' fue parte, con la que Bermejo realizó viajes internacionales a Bolivia y Venezuela para eventos con círculos afines. ",
         },
         {
-          nombre: "Perú Libre (anterior)",
+          nombre: "Perú Libre",
           descripcion: "Partido por el que fue elegido congresista en 2021, siendo el más votado en Lima. 'Todas las Voces' se integró a Perú Libre antes de la campaña.",
         },
         {
-          nombre: "Perú Democrático (fundador)",
+          nombre: "Perú Democrático",
           descripcion: "Grupo formado por Bermejo junto a Héctor Valer tras su salida de Perú Libre en 2021, con el objetivo de promover una nueva constitución.",
         },
         {
-          nombre: "Juntos por el Perú - Voces del Pueblo (actual)",
+          nombre: "Juntos por el Perú",
           descripcion: "Bancada a la que actualmente pertenece en el Congreso.",
         },
         {
-          nombre: "Pedro Castillo (expresidente)",
+          nombre: "Pedro Castillo",
           descripcion: "Mantuvo una buena relación con el expresidente Pedro Castillo, reuniéndose con él con frecuencia, a pesar de su ruptura con Perú Libre.",
         }
       ],
@@ -1251,12 +1251,12 @@ export const candidates: Candidate[] = [
     mapaDePoder: {
       alianzas: [
         {
-          nombre: "País Para Todos (inscrito ante JNE)",
+          nombre: "País Para Todos",
           descripcion:
             "Vehículo político (agrupación nº34 habilitada para EG-2026)."
         },
         {
-          nombre: "Vladimir Meza (presidente del partido)",
+          nombre: "Vladimir Meza",
           descripcion:
             "Lidera orgánica; convoca Congreso Nacional Extraordinario 2025."
         }
@@ -1420,11 +1420,11 @@ export const candidates: Candidate[] = [
     mapaDePoder: {
       alianzas: [
         {
-          nombre: "Alianza para el Progreso (APP)",
+          nombre: "Alianza para el Progreso",
           descripcion: "Partido político que él mismo fundó en 2001, que funciona como el brazo político de su conglomerado empresarial y vehículo para sus ambiciones."
         },
         {
-          nombre: "Consorcio educativo (UCV, USS, UAP)",
+          nombre: "Consorcio educativo",
           descripcion: "El motor económico y la base social de su poder. La red de estudiantes, egresados y personal constituye una base política natural y un canal de difusión de su mensaje."
         }
       ],

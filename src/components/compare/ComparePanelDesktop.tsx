@@ -170,15 +170,22 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                 <Power size={16} className="mr-2" /> Mapa de Poder
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-2 pt-2 text-base font-sans">
-                  <Link to={`/candidate/${candidate.id}#mapa-de-poder`} className="block p-2 rounded-md hover:bg-muted/50">
-                    <span className="font-medium">Alianzas:</span>
-                    <span className="text-muted-foreground ml-1">
-                      {candidate.mapaDePoder.alianzas.map(a => a.nombre).join(', ')}
-                    </span>
-                  </Link>
-                  <Link to={`/candidate/${candidate.id}#mapa-de-poder`} className="block p-2 rounded-md hover:bg-muted/50">
-                  </Link>
+                <div className="space-y-1 pt-2">
+                  {candidate.mapaDePoder?.alianzas?.length
+                    ? candidate.mapaDePoder.alianzas.slice(0, 3).map((alianza) => (
+                        <Link
+                          to={`/candidate/${candidate.id}#mapa-de-poder`}
+                          key={alianza.nombre}
+                          className="block p-2 rounded-md hover:bg-muted/50"
+                        >
+                          <div className="text-base font-sans font-medium">{alianza.nombre}</div>
+                        </Link>
+                      ))
+                    : (
+                      <p className="text-sm text-muted-foreground italic">
+                        Sin alianzas registradas.
+                      </p>
+                    )}
                 </div>
               </AccordionContent>
             </AccordionItem>
