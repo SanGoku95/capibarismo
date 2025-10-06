@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Compass } from 'lucide-react';
-import { NewsletterCTA } from '@/components/marketing/NewsletterCTA';
 import { candidates } from '@/data/candidates';
 import { useMemo } from 'react';
 
@@ -96,10 +95,33 @@ export function HomePage() {
             </div>
           </div>
         </section>
-
-        <div className="max-w-4xl mx-auto mt-9 sm:mt-11">
-          <NewsletterCTA />
-        </div>
+         {/* Support CTA */}
+        <section className="w-full max-w-xl mx-auto mt-9">
+          <div className="rounded-3xl border border-border/45 bg-background/80 backdrop-blur-sm shadow-[0_10px_26px_rgba(0,0,0,0.18)] px-5 py-6 text-center">
+            <h2 className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-accent/75">
+              Apoya el proyecto
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-foreground/80 leading-relaxed">
+              Cada aporte ayuda a mantener los datos actualizados y la experiencia libre para todos.
+            </p>
+            <div className="mt-5 flex justify-center">
+              <a
+                href="https://ko-fi.com/D1D31GKBY9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-2xl border border-accent/50 bg-accent/15 px-4 py-3 transition-all duration-200 hover:bg-accent/25 hover:-translate-y-[2px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+                aria-label="Apoya el proyecto en Ko-fi"
+              >
+                <img
+                  height={36}
+                  style={{ border: 0, height: 36 }}
+                  src="https://storage.ko-fi.com/cdn/kofi2.png?v=6"
+                  alt="Apoya el proyecto en Ko-fi"
+                />
+              </a>
+            </div>
+          </div>
+        </section>
 
         <div className="mt-7 text-center text-[10px] sm:text-[11px] text-foreground/60 font-sans">
           Datos en evolución. Este sitio es orientativo.
