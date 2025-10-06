@@ -1294,7 +1294,7 @@ export const candidates: Candidate[] = [
     fullBody: "/fotos_candidatos/acuña/full_body_acuña_move.gif",
     proyectoPolitico: {
       titulo: "Poder clientelar",
-      resumen: "Obras públicas visibles, red territorial norteña y modelo educativo-empresarial.",
+      resumen: "Obras públicas visibles y red territorial norteña.",
       detalles: [
         {
           subtitulo: "Proyectos de infraestructura a gran escala",
@@ -1459,4 +1459,227 @@ export const candidates: Candidate[] = [
     power: -5,
 
   },
+  {
+  id: "phillip",
+  nombre: "Phillip Butters",
+  ideologia: "Derecha conservadora",
+  headshot: "https://pbo.pe/wp-content/uploads/2018/01/PHILLIP-BUTTERS-760x741.png",
+  fullBody: "https://pbo.pe/wp-content/uploads/2018/01/PHILLIP-BUTTERS-760x741.png",
+
+  proyectoPolitico: {
+    titulo: "Orden, mano dura y shock mediático",
+    resumen:
+      "Conservadurismo social, libre mercado y mano dura.",
+    detalles: [
+      {
+        subtitulo: "Seguridad ciudadana con tecnología",
+        texto:
+          "Promueve uso de drones y operativos focalizados para combatir delincuencia; narrativa de “mano dura” repetida en lives/entrevistas.",
+        fuente: "https://www.youtube.com/watch?v=4xfF9Dymrg0"
+      },
+      {
+        subtitulo: "Educación: ‘4,000 colegios en un año’ (módulos)",
+        texto:
+          "Promesa reiterada en entrevistas y piezas de campaña∫.",
+        fuente: "https://www.facebook.com/jhonomarrr/videos/phillip-butters-4000-colegios-al-año/4182106268776524/"
+      },
+      {
+        subtitulo: "Minería e inversión privada",
+        texto:
+          "Se presenta favorable a la inversión minera como eje de crecimiento y formalización.",
+        fuente: "https://www.youtube.com/watch?v=vAgG9mSdQnA"
+      },
+      {
+        subtitulo: "Sistema de pensiones",
+        texto:
+          "Ha señalado que derogaría la ‘última ley de AFP’ si Avanza País es gobierno.",
+        fuente:
+          "https://www.facebook.com/photo.php?fbid=1372115741585853&set=a.510355094428593&type=3"
+      },
+      {
+        subtitulo: "Estilo de gobierno (presencialismo interno)",
+        texto:
+          "Ha indicado que, de llegar a la presidencia, ‘saldría del país lo menos posible’ para enfocarse en la gestión interna.",
+        fuente:
+          "https://www.facebook.com/larepublicape/videos/%EF%B8%8F-en-entrevista-con-curwen-phillip-butters-asegur%C3%B3-que-de-llegar-a-la-presidenci/1180307983937972/"
+      },
+      {
+        subtitulo: "Pena de muerte (debate público)",
+        texto:
+          "Se ha pronunciado sobre la pena de muerte en piezas de campaña; posicionamiento enmarcado en su discurso de orden y castigo.",
+        fuente: "https://www.instagram.com/reel/DLDRDM-NcZX/"
+      }
+    ]
+  },
+
+  creenciasClave: [
+    {
+      id: "conservadurismo-social",
+      nombre: "Rechazo al enfoque de género",
+      resumen: "Participó y apoyó activamente ‘Con mis hijos no te metas’.",
+      detalle:
+        "Se posiciona contra la ideología de género y la educación sexual integral del Minedu.",
+      fuente:
+        "https://diariocorreo.pe/peru/con-mis-hijos-no-te-metas-phillip-butters-y-su-encendido-discurso-contra-la-ministra-martens-735131/"
+    },
+    {
+      id: "mano-dura-seguridad",
+      nombre: "Ley y orden",
+      resumen:
+        "Discurso de mano dura contra la delincuencia, énfasis en operativos y vigilancia.",
+      detalle:
+        "Insiste en decir la verdad sobre inseguridad y ejecutar planes operativos con apoyo tecnológico (drones, patrullaje intensivo).",
+      fuente: "https://www.youtube.com/watch?v=4xfF9Dymrg0"
+    },
+    {
+      id: "outsider-mediatico",
+      nombre: "Outsider mediático-empresarial",
+      resumen:
+        "Fundador de PBO y conductor de Combutters; usa su plataforma como base política.",
+      detalle:
+        "Construye capital político desde PBO y su audiencia, más que desde estructuras partidarias tradicionales.",
+      fuente: "https://es.wikipedia.org/wiki/PBO_Radio"
+    }
+  ],
+
+  trayectoria: [
+    {
+      id: "biografia-medios",
+      rol: "Presentador/locutor y empresario de medios",
+      periodo: "2001 – presente",
+      descripcion:
+        "Carrera en TV y radio (Canal N, Panamericana, Latina, Exitosa); luego conductor de ‘Combutters’.",
+      detalles: [
+        {
+          subtitulo: "Combutters",
+          texto: "Programa nocturno (Willax 2017–2024; luego por PBO).",
+          fuente: "https://es.wikipedia.org/wiki/Combutters"
+        },
+        {
+          subtitulo: "Fundación de PBO",
+          texto:
+            "Crea y dirige PBO como plataforma multiplataforma; episodios regulatorios por el uso de la 91.9 FM.",
+          fuente: "https://es.wikipedia.org/wiki/PBO_Radio"
+        }
+      ],
+      fuente: "https://es.wikipedia.org/wiki/Phillip_Butters"
+    },
+    {
+      id: "avanza-pais",
+      rol: "Afiliado/precandidato presidencial (Avanza País)",
+      periodo: "2024 – presente",
+      descripcion:
+        "Se incorpora a Avanza País y se posiciona como precandidato para 2026; realiza mitines y giras (Tacna, etc.).",
+      detalles: [
+        {
+          subtitulo: "Mitines y giras",
+          texto:
+            "Presenta propuestas en eventos partidarios con cobertura orgánica en redes de Avanza País.",
+          fuente:
+            "https://www.avanzapais.org/blog/articulo/phillip-butters-realiza-mitin-multitudinario-y-presenta-propuestas-para-potenciar-el-desarrollo-regional/"
+        }
+      ],
+      fuente: "https://es.wikipedia.org/wiki/Phillip_Butters"
+    }
+  ],
+
+  presenciaDigital: {
+    plataformas: [
+      {
+        nombre: "web",
+        url: "https://pbo.pe/",
+        estrategia: "Centro de operaciones: streaming en vivo, agenda y posicionamiento."
+      },
+      {
+        nombre: "youtube",
+        url: "https://www.youtube.com/channel/UCgR0st4ZLABi-LQcWNu3wnQ",
+        estrategia:
+          "Programas diarios y lives como vehículo de campaña (‘Combutters’/PBO)."
+      },
+      {
+        nombre: "instagram",
+        handle: "@phillipbuttersperu",
+        url: "https://www.instagram.com/phillipbuttersperu/",
+        estrategia: "Narrativa de precandidatura y microclips de propuestas."
+      },
+      {
+        nombre: "facebook",
+        url: "https://www.facebook.com/PBOPeru/",
+        estrategia:
+          "Amplificación de contenidos de PBO y posicionamiento político."
+      },
+      {
+        nombre: "twitter",
+        url: "https://x.com/pboperu",
+        estrategia: "Mensajería rápida y enlaces a transmisiones."
+      }
+    ]
+  },
+
+  mapaDePoder: {
+    alianzas: [
+      {
+        nombre: "Avanza País",
+        descripcion:
+          "Partido vehículo de su precandidatura y giras; estructura organizativa y logística."
+      },
+      {
+        nombre: "PBO (propio medio)",
+        descripcion:
+          "Activos mediáticos propios como fuente central de influencia y movilización."
+      },
+      {
+        nombre: "Ecosistema derecha dura (Willax y afines)",
+        descripcion:
+          "Historial de colaboración/afinidad con medios y figuras conservadoras."
+      }
+    ],
+    opositores: [
+      {
+        nombre: "Colectivos pro derechos / Minedu (2017)",
+        descripcion:
+          "Antagonismo por su postura anti ‘enfoque de género’ y declaraciones de 2017."
+      }
+    ]
+  },
+
+  controversias: [
+    {
+      id: "willax-2017",
+      titulo: "Suspensión de ‘Combutters’ por comentarios racistas",
+      descripcion:
+        "Willax suspendió su programa tras llamar ‘cocodrilos’ y ‘mono/gorila’ a futbolistas ecuatorianos; hubo condena pública.",
+      fuente:
+        "https://www.concortv.gob.pe/ministerio-de-cultura-se-pronuncia-frente-comentarios-del-periodista-phillip-butters/"
+    },
+    {
+      id: "ecuador-2017",
+      titulo: "Rechazo oficial de Ecuador por expresiones racistas",
+      descripcion:
+        "La Cancillería de Ecuador rechazó enérgicamente sus declaraciones.",
+      fuente:
+        "https://www.cancilleria.gob.ec/2017/06/16/cancilleria-ecuatoriana-rechaza-energicamente-declaraciones-racistas-de-periodista-peruano/"
+    },
+    {
+      id: "carlin-2011",
+      titulo: "Altercado con el actor Carlos Carlín",
+      descripcion:
+        "Enfrentamiento con agresiones verbales y un incidente en un local de Miraflores.",
+      fuente: "https://es.wikipedia.org/wiki/Phillip_Butters"
+    },
+    {
+      id: "pbo-919",
+      titulo: "Intervención a PBO Radio 91.9 FM (regulatorio)",
+      descripcion:
+        "Allanamiento y medida cautelar por operar sin concesión vigente de la 91.9 FM; la emisora continuó por streaming.",
+      fuente: "https://es.wikipedia.org/wiki/PBO_Radio"
+    }
+  ],
+
+  econ: 8, 
+  social: 8,
+  territorial: 4,
+  power: -2,
+
+}
 ];
