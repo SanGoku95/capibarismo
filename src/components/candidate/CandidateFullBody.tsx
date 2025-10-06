@@ -9,10 +9,27 @@ interface CandidateFullBodyProps {
 export function CandidateFullBody({ candidate, side }: CandidateFullBodyProps) {
   if (!candidate) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <span className="text-muted-foreground text-lg font-bold">
-          {side === 'left' ? '' : ''}
-        </span>
+      <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="flex flex-col items-center gap-4"
+        >
+          <div className={`w-32 h-32 rounded-full flex items-center justify-center text-6xl font-bold ${
+            side === 'left' ? 'bg-team-left/20 text-team-left' : 'bg-team-right/20 text-team-right'
+          }`}>
+            {side === 'left' ? '1' : '2'}
+          </div>
+          <div className="space-y-2">
+            <p className="text-lg font-bold text-foreground">
+              Candidato {side === 'left' ? '1' : '2'}
+            </p>
+            <p className="text-sm text-muted-foreground max-w-xs">
+              Selecciona un candidato abajo para comenzar la comparación
+            </p>
+          </div>
+        </motion.div>
       </div>
     );
   }

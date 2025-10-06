@@ -67,20 +67,20 @@ function AxisControls({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-2 justify-center items-stretch mb-3 p-2 rounded-md border border-accent/40 max-w-lg mx-auto">
-      <div className="w-full sm:w-1/2 flex flex-col gap-1">
-        <div className="text-[12px] font-display text-accent px-1 leading-none">Eje Horizontal</div>
+    <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch mb-4 p-4 rounded-lg border border-accent/40 bg-background/60 backdrop-blur-sm shadow-md max-w-lg mx-auto">
+      <div className="w-full sm:w-1/2 flex flex-col gap-2">
+        <div className="text-xs font-display text-accent px-1 leading-none">Eje Horizontal</div>
         <div className="flex items-center gap-2">
           <label htmlFor="x-axis-select" className="sr-only">
             Eje Horizontal
           </label>
           <Select value={xAxis} onValueChange={(v) => onXChange(v as Axis)}>
-            <SelectTrigger id="x-axis-select" className="h-8 px-2 text-xs">
+            <SelectTrigger id="x-axis-select" className="h-9 px-3 text-xs">
               <SelectValue placeholder="Eje Horizontal" />
             </SelectTrigger>
             <SelectContent className="text-xs py-1">
               {availableAxes.map((axis) => (
-                <SelectItem key={axis.key} value={axis.key} disabled={axis.key === yAxis} className="text-xs py-1.5">
+                <SelectItem key={axis.key} value={axis.key} disabled={axis.key === yAxis} className="text-xs py-2">
                   {axis.label}
                 </SelectItem>
               ))}
@@ -90,19 +90,19 @@ function AxisControls({
         </div>
       </div>
 
-      <div className="w-full sm:w-1/2 flex flex-col gap-1">
-        <div className="text-[12px] font-display text-accent px-1 leading-none">Eje Vertical</div>
+      <div className="w-full sm:w-1/2 flex flex-col gap-2">
+        <div className="text-xs font-display text-accent px-1 leading-none">Eje Vertical</div>
         <div className="flex items-center gap-2">
           <label htmlFor="y-axis-select" className="sr-only">
             Eje Vertical
           </label>
           <Select value={yAxis} onValueChange={(v) => onYChange(v as Axis)}>
-            <SelectTrigger id="y-axis-select" className="h-8 px-2 text-xs">
+            <SelectTrigger id="y-axis-select" className="h-9 px-3 text-xs">
               <SelectValue placeholder="Eje Vertical" />
             </SelectTrigger>
             <SelectContent className="text-xs py-1">
               {availableAxes.map((axis) => (
-                <SelectItem key={axis.key} value={axis.key} disabled={axis.key === xAxis} className="text-xs py-1.5">
+                <SelectItem key={axis.key} value={axis.key} disabled={axis.key === xAxis} className="text-xs py-2">
                   {axis.label}
                 </SelectItem>
               ))}
@@ -121,11 +121,11 @@ export function PoliticalCompassPage() {
 
   return (
     <div className="min-h-screen fighting-game-bg">
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="text-center mb-4">
-          <h1 className="text-3xl md:text-4xl font-display text-accent mb-2">Mapa Ideológico</h1>
-          <p className="text-sm md:text-base text-foreground/90 max-w-3xl mx-auto">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl md:text-4xl font-display text-accent mb-3">Mapa Ideológico</h1>
+          <p className="text-sm md:text-base text-foreground/90 max-w-3xl mx-auto leading-relaxed">
             Crea tu propio cuadrilátero. Cambia los ejes para cruzar posturas y descubrir nuevas perspectivas.
           </p>
         </div>
@@ -134,7 +134,7 @@ export function PoliticalCompassPage() {
         <AxisControls xAxis={xAxis} yAxis={yAxis} onXChange={setXAxis} onYChange={setYAxis} />
 
         {/* Main Compass */}
-        <div className="max-w-6xl mx-auto mb-8">
+        <div className="max-w-6xl mx-auto mb-8 mt-6">
           <PoliticalCompass width={700} height={700} xAxisKey={xAxis} yAxisKey={yAxis} />
         </div>
       </div>

@@ -28,16 +28,16 @@ export function HomePage() {
             <img src="/capi_logo.png" alt="Capibara logo" className="h-24 w-24" />
           </div>
           <h1
-            className="text-[1.2rem] leading-tight sm:text-[1.6rem] md:text-[1.9rem] font-bold uppercase tracking-wider"
+            className="text-[1.3rem] leading-tight sm:text-[1.75rem] md:text-[2rem] font-bold uppercase tracking-wider"
             style={{
               fontFamily: "'Press Start 2P', cursive",
               color: 'hsl(var(--accent))',
-              textShadow: '2px 2px 0px hsl(var(--background)), 4px 4px 0px hsl(var(--border))',
+              textShadow: '3px 3px 0px hsl(var(--background)), 5px 5px 0px hsl(var(--border))',
             }}
           >
             CAPIBARISMO
           </h1>
-          <p className="mt-2.5 text-[0.78rem] sm:text-sm md:text-base max-w-2xl mx-auto text-foreground/85 font-sans px-2">
+          <p className="mt-3 text-[0.85rem] sm:text-base md:text-lg max-w-2xl mx-auto text-foreground/90 font-sans px-2 leading-relaxed">
             Compara candidatos y entiende sus posturas clave para las elecciones 2026.
           </p>
         </div>
@@ -54,14 +54,14 @@ export function HomePage() {
             <div className="mt-3 sm:mt-4 flex flex-col gap-2 sm:gap-2.5">
               <Link
                 to="/compare"
-                className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3 text-sm font-semibold uppercase tracking-[0.16em] transition-transform hover:-translate-y-[1px] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+                className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 active:translate-y-0"
               >
                 <span>⚖️ Comparar candidatos</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/compass"
-                className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-3.5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-foreground transition-colors hover:border-primary/60 hover:bg-primary hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] text-foreground transition-all duration-200 hover:border-primary/60 hover:bg-primary hover:text-black hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:translate-y-0"
               >
                 <span>
                   <Compass className="mr-2 inline h-4 w-4" />
@@ -87,9 +87,9 @@ export function HomePage() {
                 <Link
                   key={pair.a + pair.b}
                   to={`/compare?a=${pair.a}&b=${pair.b}`}
-                  className="group flex items-center justify-between rounded-xl border border-border/70 bg-background/70 px-3.5 py-2.5 text-xs sm:text-sm font-medium text-foreground transition-colors hover:border-accent/60 hover:bg-accent/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+                  className="group flex items-center justify-between rounded-xl border border-border/70 bg-background/70 px-3.5 py-3 text-xs sm:text-sm font-medium text-foreground transition-all duration-200 hover:border-accent/60 hover:bg-accent/10 hover:-translate-y-[1px] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 active:translate-y-0"
                 >
-                  <span className="pr-2 group-hover:text-accent">{pair.label}</span>
+                  <span className="pr-2 group-hover:text-accent transition-colors">{pair.label}</span>
                   <ArrowRight className="h-4 w-4 text-accent/80 transition-transform group-hover:translate-x-1" />
                 </Link>
               ))}
