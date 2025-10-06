@@ -1289,7 +1289,7 @@ export const candidates: Candidate[] = [
   {
     id: "cesar-acuna",
     nombre: "César Acuña",
-    ideologia: "Populismo pragmático y clientelar",
+    ideologia: "Populismo clientelar",
     headshot: "https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg",
     fullBody: "/fotos_candidatos/acuña/full_body_acuña_move.gif",
     proyectoPolitico: {
