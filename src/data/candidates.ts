@@ -729,7 +729,7 @@ export const candidates: Candidate[] = [
   {
     id: "martin-vizcarra",
     nombre: "Martín Vizcarra",
-    ideologia: "Centro regionalista",
+    ideologia: "Centro Regionalista",
     headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
     fullBody: "/fotos_candidatos/vizcarra/full_body_vizcarra.gif",
 
@@ -932,7 +932,7 @@ export const candidates: Candidate[] = [
   {
     id: "guillermo-bermejo",
     nombre: "Guillermo Bermejo",
-    ideologia: "Marxista Izquierda",
+    ideologia: "Izquierda Marxista",
     headshot: "https://pbs.twimg.com/profile_images/1711746019795382272/ROaxERZY_400x400.jpg",
     fullBody: "/fotos_candidatos/bermejo/full_body_bermejo.gif",
     proyectoPolitico: {
