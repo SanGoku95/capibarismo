@@ -18,7 +18,7 @@ Presidential Punch Peru provides an interactive platform for comparing political
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
+This project is licensed under the [Apache License 2.0](LICENSE) - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments  
 
