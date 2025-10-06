@@ -70,7 +70,7 @@ export const candidates: Candidate[] = [
   {
     id: "keiko",
     nombre: "Keiko Fujimori",
-    ideologia: "Centro-derecha",
+    ideologia: "Derecha Populista",
     proyectoPolitico: {
       titulo: "Orden y mercado",
       resumen: "Reivindica fujimorismo con mano dura y economía de mercado; enfrenta antifujimorismo.",
@@ -232,7 +232,7 @@ export const candidates: Candidate[] = [
   {
     id: "rafael",
     nombre: "Rafael L. Aliaga",
-    ideologia: "Derecha",
+    ideologia: "Derecha Conservadora",
     proyectoPolitico: {
       titulo: "Mano dura gerencial",
       resumen: "Liberalismo económico, conservadurismo social y gestión privada aplicada al Estado.",
@@ -394,7 +394,7 @@ export const candidates: Candidate[] = [
   {
     id: "yonhy",
     nombre: "Yonhy Lescano",
-    ideologia: "Centro",
+    ideologia: "Centro Institucional",
     headshot: "https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg",
     fullBody: "/fotos_candidatos/lescano/full_body_lescano.gif",
     proyectoPolitico: {
@@ -729,7 +729,7 @@ export const candidates: Candidate[] = [
   {
     id: "martin-vizcarra",
     nombre: "Martín Vizcarra",
-    ideologia: "Centrista tecnocrático, descentralización",
+    ideologia: "Centrista regional",
     headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
     fullBody: "/fotos_candidatos/vizcarra/full_body_vizcarra.gif",
 
@@ -932,7 +932,7 @@ export const candidates: Candidate[] = [
   {
     id: "guillermo-bermejo",
     nombre: "Guillermo Bermejo",
-    ideologia: "Marxista-Leninista, Socialista, Izquierda",
+    ideologia: "Marxista Izquierda",
     headshot: "https://pbs.twimg.com/profile_images/1711746019795382272/ROaxERZY_400x400.jpg",
     fullBody: "/fotos_candidatos/bermejo/full_body_bermejo.gif",
     proyectoPolitico: {
