@@ -1463,8 +1463,8 @@ export const candidates: Candidate[] = [
   id: "phillip",
   nombre: "Phillip Butters",
   ideologia: "Derecha conservadora",
-  headshot: "https://pbo.pe/wp-content/uploads/2018/01/PHILLIP-BUTTERS-760x741.png",
-  fullBody: "https://pbo.pe/wp-content/uploads/2018/01/PHILLIP-BUTTERS-760x741.png",
+  headshot: "/fotos_candidatos/phillip/phillip_headshot.png",
+  fullBody: "/fotos_candidatos/phillip/phillip_full_body.png",
 
   proyectoPolitico: {
     titulo: "Orden, mano dura y shock mediático",
