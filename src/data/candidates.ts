@@ -729,7 +729,7 @@ export const candidates: Candidate[] = [
   {
     id: "martin-vizcarra",
     nombre: "Martín Vizcarra",
-    ideologia: "Centrista regional",
+    ideologia: "Centro regionalista",
     headshot: "https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150",
     fullBody: "/fotos_candidatos/vizcarra/full_body_vizcarra.gif",
 
@@ -1105,7 +1105,7 @@ export const candidates: Candidate[] = [
   {
     id: "carlos-alvarez",
     nombre: "Carlos Álvarez",
-    ideologia: "Derecha punitiva",
+    ideologia: "Derecha Punitiva",
     headshot: "https://portal.andina.pe/EDPfotografia3/Thumbnail/2018/05/03/000501027W.jpg",
     fullBody: "/fotos_candidatos/alvarez/full_body_alvarez.gif",
     proyectoPolitico: {
@@ -1289,7 +1289,7 @@ export const candidates: Candidate[] = [
   {
     id: "cesar-acuna",
     nombre: "César Acuña",
-    ideologia: "Populismo clientelar",
+    ideologia: "Populismo Clientelar",
     headshot: "https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg",
     fullBody: "/fotos_candidatos/acuña/full_body_acuña_move.gif",
     proyectoPolitico: {
@@ -1462,7 +1462,7 @@ export const candidates: Candidate[] = [
   {
   id: "phillip",
   nombre: "Phillip Butters",
-  ideologia: "Derecha conservadora",
+  ideologia: "Derecha Conservadora",
   headshot: "/fotos_candidatos/phillip/phillip_headshot.png",
   fullBody: "/fotos_candidatos/phillip/phillip_full_body.png",
 
