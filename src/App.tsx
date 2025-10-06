@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import { Header } from "./components/layout/Header";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import("./pages/HomePage").then(module => ({ default: module.HomePage })));
