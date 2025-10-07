@@ -41,8 +41,6 @@ This project is licensed under the [Apache License 2.0](LICENSE) - see the LICEN
 - **🧭 Political Compass**: Interactive visualization positioning candidates on economic and social axes  
 - **👤 Detailed Profiles**: Comprehensive candidate information including biography, trajectory, and beliefs
 - **🎯 Smart Filtering**: Dynamic filtering and personalized comparisons
-- **📰 News Center**: Campaign news and electoral event tracking
-- **🤖 AI Assistant**: Interactive chat for candidate queries and proposals
 - **📱 Responsive Design**: Optimized for mobile and desktop with 90s gaming theme
 - **♿ Accessibility**: Built with accessibility-first design principles
 
@@ -120,9 +118,8 @@ Web moderna para informar sobre los distintos candidatos, sus posiciones políti
 *   **🧭 Brújula Política**: Visualización interactiva que posiciona candidatos en los ejes económico y social
 *   **👤 Perfiles Detallados**: Información completa de cada candidato con biografía, trayectoria y creencias
 *   **🔍 Filtros Dinámicos**: Filtra y personaliza las comparaciones por candidatos de interés
-*   **📰 Centro de Noticias**: Seguimiento de eventos y noticias relevantes de la campaña electoral
-*   **🤖 Asistente IA**: Chat interactivo para consultas sobre propuestas y posturas
 *   **📱 Diseño Responsivo**: Interfaz optimizada para móviles y escritorio con tema de videojuegos de los 90s
+*   **♿ Accesibilidad**: Construido con principios de diseño centrados en accesibilidad
 
 ### 🛠️ Stack Tecnológico
 

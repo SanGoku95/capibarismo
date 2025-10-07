@@ -95,10 +95,8 @@ src/components/
 ├── candidate/          # Candidate-specific components
 ├── compare/            # Comparison functionality
 ├── political-compass/  # Political positioning visualization
-├── events/            # News and events display
-├── layout/            # Layout and navigation components
-├── common/            # Shared utilities and components
-└── marketing/         # Landing page components
+├── layout/             # Layout and navigation components
+├── common/             # Shared utilities and components
 ```
 
 ### Component Design Patterns
