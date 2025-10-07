@@ -21,7 +21,7 @@ const navItems = [
   { text: 'Inicio', path: '/', icon: <HomeIcon /> },
   { text: 'Comparador', path: '/compare', icon: <CompareArrowsIcon /> },
   { text: 'Mapa Político', path: '/compass', icon: <GavelIcon /> },
-  { text: 'Metodología', path: '/about', icon: <InfoOutlinedIcon /> },
+  { text: 'Acerca de', path: '/about', icon: <InfoOutlinedIcon /> },
 ];
 
 export function MobileNav() {
