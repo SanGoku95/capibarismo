@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { candidates } from '@/data/candidates';
-import { Card, CardContent } from '@/components/ui/card'; // removed CardHeader
 import { Button } from '@/components/ui/button';
 import { useLabelCollision, LabelPosition } from '@/hooks/useLabelCollision'; 
 
@@ -222,8 +221,6 @@ export function PoliticalCompass({
   // --- RENDERIZADO DEL COMPONENTE ---
   return (
     <>
-      <Card className="fighting-game-card">
-        <CardContent>
           {/* Contenedor del Gráfico (añadimos padding vertical para separar del contenedor) */}
           <div
             ref={containerRef}
@@ -332,8 +329,6 @@ export function PoliticalCompass({
               })}
             </svg>
           </div>
-        </CardContent>
-      </Card>
 
       {showTooltip && candidateData && (
         <div
