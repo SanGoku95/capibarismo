@@ -208,7 +208,7 @@ export function PoliticalCompassPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-3xl md:text-4xl font-display text-accent mb-3">Mapa Ideológico</h1>
+          <h1 className="text-3xl md:text-4xl font-display text-accent mb-3">Mapa Político</h1>
           <p className="text-sm md:text-base text-foreground/90 max-w-3xl mx-auto leading-relaxed">
             Crea tu propio cuadrilátero. Cambia los ejes para cruzar posturas y descubrir nuevas perspectivas.
           </p>

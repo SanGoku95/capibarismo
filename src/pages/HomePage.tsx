@@ -37,7 +37,7 @@ export function HomePage() {
             CAPIBARISMO
           </h1>
           <p className="mt-3 text-[0.85rem] sm:text-base md:text-lg max-w-2xl mx-auto text-foreground/90 font-sans px-2 leading-relaxed">
-            Tu Dibujito Observador
+            Tu Dibujito Observador: Elecciones 2026
           </p>
         </div>
         
@@ -48,7 +48,7 @@ export function HomePage() {
               Empieza aquí
             </p>
             <p className="mt-2 text-xs sm:text-sm text-foreground/85">
-              Elige entre comparar perfiles o encontrar afinidad ideológica.
+              Elige entre comparar candidatos o ver el mapa político del Perú.
             </p>
             <div className="mt-3 sm:mt-4 flex flex-col gap-2 sm:gap-2.5">
               <Link
@@ -64,7 +64,7 @@ export function HomePage() {
               >
                 <span>
                   <Compass className="mr-2 inline h-4 w-4" />
-                  Compass ideológico
+                  Mapa Político
                 </span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
@@ -79,7 +79,7 @@ export function HomePage() {
               Comparaciones rápidas
             </h2>
             <p className="mt-1.5 text-[11px] sm:text-xs text-muted-foreground/80">
-              Acceso directo a duelos populares.
+              Acceso directo a comparaciones populares.
             </p>
             <div className="mt-3 grid gap-2 sm:gap-2.5 sm:grid-cols-3">
               {quickPairs.map(pair => (
