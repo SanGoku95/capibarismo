@@ -2,7 +2,7 @@
 
 *[Read in English](#english) | [Leer en Español](#español)*
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/license/apache-2-0)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 [![Facts Protocol](https://img.shields.io/badge/Facts-Protocol-blue.svg)](CODE_OF_CONDUCT.md)
@@ -186,7 +186,7 @@ npm run dev
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la Licencia Apache 2.0. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
 ## 🙏 Reconocimientos
 
