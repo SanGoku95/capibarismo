@@ -228,7 +228,7 @@ export function PoliticalCompass({
           >
             <svg
               role="img"
-              aria-label={`Mapa ideológico con eje X (${xAxisKey}) y eje Y (${yAxisKey})`}
+              aria-label={`Mapa Político con eje X (${xAxisKey}) y eje Y (${yAxisKey})`}
               width={dims.w}
               height={dims.h}
               viewBox={`0 0 ${dims.w} ${dims.h}`}

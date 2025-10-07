@@ -18,7 +18,7 @@ export function Header() {
             <Link to="/compare">Comparador</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
-            <Link to="/compass">Mapa Ideológico</Link>
+            <Link to="/compass">Mapa Político</Link>
           </Button>
           <Button asChild variant="link" className="text-foreground">
             <Link to="/about">Acerca de</Link>
