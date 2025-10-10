@@ -18,6 +18,10 @@ import {
 import { Shield, Briefcase, Power, Radio, Sparkles, AlertTriangle } from 'lucide-react';
 import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
 
+// + imports para tooltip/popover
+import { useId, useRef, useState } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
 interface CandidateFactSheetProps {
   candidate: Candidate | null;
   side: CandidateSide;
@@ -155,9 +159,20 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                               {c.titulo}
                             </Link>
                             <div className="flex flex-wrap gap-2 my-1">
-                              {/* removed rank badge */}
-                              <Badge className={s.className}>{s.label}</Badge>
-                              <Badge className={l.className}>{l.label}</Badge>
+                              <InfoBadge
+                                className={s.className}
+                                label={s.label}
+                                description={
+                                  <div><span className="font-semibold">Severidad:</span> {sevHelp(c.severidad)}</div>
+                                }
+                              />
+                              <InfoBadge
+                                className={l.className}
+                                label={l.label}
+                                description={
+                                  <div><span className="font-semibold">Estado legal:</span> {legHelp(c.legal)}</div>
+                                }
+                              />
                             </div>
                             <div className="text-sm text-muted-foreground">{c.descripcion}</div>
                             <div className="text-xs text-muted-foreground mt-1">
@@ -251,3 +266,86 @@ const legProps = (l?: string) => {
     default:              return { label: '—',             className: 'bg-muted text-foreground' };
   }
 };
+
+// NEW: ayudas de texto
+const sevHelp = (sev?: string) => {
+  switch (sev) {
+    case 'muy-alta': return 'Controversia de muy alto impacto público o institucional.';
+    case 'alta':     return 'Controversia de impacto significativo o con medidas relevantes.';
+    case 'media':    return 'Controversia relevante en seguimiento.';
+    default:         return 'Sin clasificación específica.';
+  }
+};
+const legHelp = (l?: string) => {
+  switch (l) {
+    case 'rumor':         return 'Señalamientos públicos o mediáticos sin proceso formal.';
+    case 'investigacion': return 'Indagación fiscal/policial abierta; sin acusación formal.';
+    case 'acusacion':     return 'Acusación fiscal o denuncia admitida; proceso en curso.';
+    case 'sentencia':     return 'Decisión firme (judicial o administrativa) aplicable al hecho.';
+    default:              return 'Sin estatus legal especificado.';
+  }
+};
+
+// NEW: Badge con explicación (hover y click) — Popover controlado con timer
+function InfoBadge({
+  label,
+  className,
+  description,
+}: { label: string; className?: string; description: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef<number | null>(null);
+  const descId = useId();
+
+  const clearTimer = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const openHover = () => {
+    clearTimer();
+    setOpen(true);
+  };
+
+  const closeHover = () => {
+    clearTimer();
+    // pequeño retraso para permitir pasar del trigger al contenido sin cerrar
+    closeTimer.current = window.setTimeout(() => setOpen(false), 120);
+  };
+
+  const onClick = () => setOpen(v => !v);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Badge
+          className={className}
+          role="button"
+          tabIndex={0}
+          aria-haspopup="dialog"
+          aria-expanded={open}
+          aria-describedby={descId}
+          onMouseEnter={openHover}
+          onMouseLeave={closeHover}
+          onFocus={openHover}
+          onBlur={closeHover}
+          onClick={onClick}
+        >
+          {label}
+        </Badge>
+      </PopoverTrigger>
+      <PopoverContent
+        side="top"
+        align="start"
+        sideOffset={8}
+        className="max-w-xs text-sm z-50"
+        // Mantener abierto mientras el puntero esté sobre el contenido
+        onMouseEnter={openHover}
+        onMouseLeave={closeHover}
+      >
+        <div id={descId}>{description}</div>
+      </PopoverContent>
+    </Popover>
+  );
+}

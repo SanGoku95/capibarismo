@@ -14,6 +14,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from '@/components/ui/badge';
+// + imports para tooltip/popover
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const socialIcons: { [key: string]: React.ReactElement } = {
   tiktok: <FaTiktok />,
@@ -42,6 +45,51 @@ const legalProps = (legal?: string) => {
     default:             return { label: 'Legal: —',              className: 'bg-muted text-foreground' };
   }
 };
+
+// NEW: helpers para explicación
+const severityHelp = (sev?: string) => {
+  switch (sev) {
+    case 'muy-alta': return 'Controversia de muy alto impacto público o institucional.';
+    case 'alta':     return 'Controversia de impacto significativo o con medidas relevantes.';
+    case 'media':    return 'Controversia relevante en seguimiento.';
+    default:         return 'Sin clasificación específica.';
+  }
+};
+const legalHelp = (l?: string) => {
+  switch (l) {
+    case 'rumor':         return 'Señalamientos públicos o mediáticos sin proceso formal.';
+    case 'investigacion': return 'Indagación fiscal/policial abierta; sin acusación formal.';
+    case 'acusacion':     return 'Acusación fiscal o denuncia admitida; proceso en curso.';
+    case 'sentencia':     return 'Decisión firme (judicial o administrativa) aplicable al hecho.';
+    default:              return 'Sin estatus legal especificado.';
+  }
+};
+// NEW: explicación combinada
+const combinedHelp = (sev?: string, legal?: string) => (
+  <div className="space-y-1">
+    <div><span className="font-semibold">Estado legal:</span> {legalHelp(legal)}</div>
+    <div><span className="font-semibold">Severidad:</span> {severityHelp(sev)}</div>
+  </div>
+);
+
+// NEW: Badge con hover/click explicativo
+const ExplainBadge = ({ label, className, description }: { label: string; className?: string; description: React.ReactNode }) => (
+  <Popover>
+    <TooltipProvider delayDuration={100}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <PopoverTrigger asChild>
+            <Badge className={className} role="button" tabIndex={0}>
+              {label}
+            </Badge>
+          </PopoverTrigger>
+        </TooltipTrigger>
+        <TooltipContent className="max-w-xs text-sm z-50">{description}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+    <PopoverContent className="max-w-xs text-sm z-50">{description}</PopoverContent>
+  </Popover>
+);
 
 export function CandidateProfile() {
   const { id } = useParams<{ id: string }>();
@@ -336,9 +384,21 @@ export function CandidateProfile() {
                           <AccordionTrigger>{c.titulo}</AccordionTrigger>
                           <AccordionContent>
                             <div className="flex flex-wrap gap-2 mb-2">
-                              {/* removed rank badge */}
-                              <Badge className={sev.className}>{sev.label}</Badge>
-                              <Badge className={leg.className}>{leg.label}</Badge>
+                              {/* replaced badges with ExplainBadge */}
+                              <ExplainBadge
+                                className={sev.className}
+                                label={sev.label}
+                                description={
+                                  <div><span className="font-semibold">Severidad:</span> {severityHelp(c.severidad)}</div>
+                                }
+                              />
+                              <ExplainBadge
+                                className={leg.className}
+                                label={leg.label}
+                                description={
+                                  <div><span className="font-semibold">Estado legal:</span> {legalHelp(c.legal)}</div>
+                                }
+                              />
                             </div>
                             <p className="text-base text-muted-foreground">{c.descripcion}</p>
                             {c.fuente && (

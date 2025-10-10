@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 import { CandidatePicker } from './CandidatePicker';
 import { PLAYER_INDICATORS, UI_CLASSES, type CandidateSide } from '@/lib/constants';
 
+// + imports para tooltip/popover
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
 interface CandidateComparisonGridProps {
   leftCandidate: Candidate | null;
   rightCandidate: Candidate | null;
@@ -250,8 +254,16 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                               </Link>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {/* removed rank chip */}
-                                <Chip className={sevChip(c.severidad)}>{c.severidad === 'muy-alta' ? 'Muy alta' : c.severidad ? c.severidad[0].toUpperCase()+c.severidad.slice(1) : '—'}</Chip>
-                                <Chip className={legChip(c.legal)}>{c.legal ? c.legal[0].toUpperCase()+c.legal.slice(1) : '—'}</Chip>
+                                <ExplainChip
+                                  className={sevChip(c.severidad)}
+                                  label={c.severidad === 'muy-alta' ? 'Muy alta' : c.severidad ? c.severidad[0].toUpperCase()+c.severidad.slice(1) : '—'}
+                                  description={<div><span className="font-semibold">Severidad:</span> {sevHelp(c.severidad)}</div>}
+                                />
+                                <ExplainChip
+                                  className={legChip(c.legal)}
+                                  label={c.legal ? c.legal[0].toUpperCase()+c.legal.slice(1) : '—'}
+                                  description={<div><span className="font-semibold">Estado legal:</span> {legHelp(c.legal)}</div>}
+                                />
                               </div>
                               <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="block text-xs text-white/80 underline mt-1">Fuente</a>
                             </div>
@@ -277,8 +289,16 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                               </Link>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {/* removed rank chip */}
-                                <Chip className={sevChip(c.severidad)}>{c.severidad === 'muy-alta' ? 'Muy alta' : c.severidad ? c.severidad[0].toUpperCase()+c.severidad.slice(1) : '—'}</Chip>
-                                <Chip className={legChip(c.legal)}>{c.legal ? c.legal[0].toUpperCase()+c.legal.slice(1) : '—'}</Chip>
+                                <ExplainChip
+                                  className={sevChip(c.severidad)}
+                                  label={c.severidad === 'muy-alta' ? 'Muy alta' : c.severidad ? c.severidad[0].toUpperCase()+c.severidad.slice(1) : '—'}
+                                  description={<div><span className="font-semibold">Severidad:</span> {sevHelp(c.severidad)}</div>}
+                                />
+                                <ExplainChip
+                                  className={legChip(c.legal)}
+                                  label={c.legal ? c.legal[0].toUpperCase()+c.legal.slice(1) : '—'}
+                                  description={<div><span className="font-semibold">Estado legal:</span> {legHelp(c.legal)}</div>}
+                                />
                               </div>
                               <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="block text-xs text-white/80 underline mt-1">Fuente</a>
                             </div>
@@ -387,8 +407,49 @@ const legChip = (l?: string) => {
     default:              return 'bg-muted text-foreground';
   }
 };
-const Chip = ({ className = '', children }: { className?: string; children: ReactNode }) => (
-  <span className={cn('px-1.5 py-0.5 text-[10px] rounded-md border border-white/10', className)}>
-    {children}
-  </span>
+
+// NEW: ayudas de texto
+const sevHelp = (sev?: string) => {
+  switch (sev) {
+    case 'muy-alta': return 'Controversia de muy alto impacto público o institucional.';
+    case 'alta':     return 'Controversia de impacto significativo o con medidas relevantes.';
+    case 'media':    return 'Controversia relevante en seguimiento.';
+    default:         return 'Sin clasificación específica.';
+  }
+};
+const legHelp = (l?: string) => {
+  switch (l) {
+    case 'rumor':         return 'Señalamientos públicos o mediáticos sin proceso formal.';
+    case 'investigacion': return 'Indagación fiscal/policial abierta; sin acusación formal.';
+    case 'acusacion':     return 'Acusación fiscal o denuncia admitida; proceso en curso.';
+    case 'sentencia':     return 'Decisión firme (judicial o administrativa) aplicable al hecho.';
+    default:              return 'Sin estatus legal especificado.';
+  }
+};
+
+// NEW: explicación combinada
+const combinedHelp = (sev?: string, legal?: string) => (
+  <div className="space-y-1">
+    <div><span className="font-semibold">Estado legal:</span> {legHelp(legal)}</div>
+    <div><span className="font-semibold">Severidad:</span> {sevHelp(sev)}</div>
+  </div>
+);
+
+// NEW: Chip con explicación (hover/click)
+const ExplainChip = ({ className = '', label, description }: { className?: string; label: string; description: React.ReactNode }) => (
+  <Popover>
+    <TooltipProvider delayDuration={100}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <PopoverTrigger asChild>
+            <span role="button" tabIndex={0} className={cn('px-1.5 py-0.5 text-[10px] rounded-md border border-white/10', className)}>
+              {label}
+            </span>
+          </PopoverTrigger>
+        </TooltipTrigger>
+        <TooltipContent className="max-w-xs text-xs z-50">{description}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+    <PopoverContent className="max-w-xs text-xs z-50">{description}</PopoverContent>
+  </Popover>
 );
