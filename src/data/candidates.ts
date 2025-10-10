@@ -211,7 +211,7 @@ export const candidates: Candidate[] = [
     controversias: [
       {
         id: "cocteles",
-        titulo: "Caso Cócteles",
+        titulo: "Caso ‘Cócteles’: presunto lavado de aportes",
         descripcion: "Acusada de liderar una organización criminal y lavar dinero (Odebrecht)",
         fuente: "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori",
         rank: 1,
@@ -229,7 +229,7 @@ export const candidates: Candidate[] = [
       },
       {
         id: "obstruccion-2016-2018",
-        titulo: "Obstrucción al ejecutivo (2016–2018)",
+        titulo: "Confrontación con el Ejecutivo (2016–2018)",
         descripcion: "Choque con ejecutivo usando mayoría en el Congreso.",
         fuente: "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi",
         rank: 3,
@@ -238,8 +238,8 @@ export const candidates: Candidate[] = [
       },
       {
         id: "mamanivideos-indulto",
-        titulo: "‘Mamanivideos’ e indulto a Alberto Fujimori",
-        descripcion: "Grabaciones de negociación de votos; polémica sobre indulto a su padre.",
+        titulo: "Mamanivideos e indulto a Alberto Fujimori",
+        descripcion: "Videos de negociación de votos y polémica por el indulto a Alberto Fujimori.",
         fuente: "https://es.wikipedia.org/wiki/Mamanivideos",
         rank: 4,
         legal: "investigacion",
@@ -247,7 +247,7 @@ export const candidates: Candidate[] = [
       },
       {
         id: "compra-propiedades-ramirez",
-        titulo: "Compra irregular de propiedades (caso Joaquín Ramírez)",
+        titulo: "Caso Joaquín Ramírez: compras inmobiliarias",
         descripcion: "Lavado de dinero vía inmuebles vinculados al exsecretario general.",
         fuente: "https://rpp.pe/politica/judiciales/poder-judicial-ordeno-al-ministerio-publico-concluir-investigacion-contra-el-alcalde-de-cajamarca-joaquin-ramirez-noticia-1616395",
         rank: 5,
@@ -256,7 +256,7 @@ export const candidates: Candidate[] = [
       },
       {
         id: "susana-higuchi",
-        titulo: "Conflicto con Susana Higuchi (denuncias de tortura)",
+        titulo: "Caso Susana Higuchi: Negó denuncias de tortura",
         descripcion: "Negó las torturas denunciadas por su madre; polémica familiar y política.",
         fuente: "https://ojo-publico.com/221/hermanos-keiko-culparon-su-madre-para-salvar-fujimori-la-extradicion",
         rank: 6,
@@ -418,7 +418,7 @@ export const candidates: Candidate[] = [
     controversias: [
       {
         id: "rutas-de-lima-brookfield",
-        titulo: "Rutas de Lima vs Estado Peruano ~US$2.700 millones",
+        titulo: "Rutas de Lima: disputa por peajes $2.700 millones",
         descripcion: "Busca anular concesiones de peajes; posibles cobros contra el Estado",
         fuente: "https://www.infobae.com/peru/2025/10/05/rafael-lopez-aliaga-anuncia-que-reclamara-a-brookfield-una-indemnizacion-de-mas-de-s-3-mil-millones",
         rank: 1,
@@ -427,15 +427,15 @@ export const candidates: Candidate[] = [
       },
       {
         id: "deuda-bonos-mml",
-        titulo: "Deuda de la Municipalidad de Lima. S/1.300 millones",
-        descripcion: "MML en deuda. Moody’s degrada calificación a bonos basura",
+        titulo: "Deuda y rebaja de calificación de la MML S/1.300 millones",
+        descripcion: "Moody’s bajó la calificación; se proyecta deuda de hasta S/ 1,300 millones.",
         fuente: "https://www.infobae.com/peru/2025/06/14/moodys-degrada-calificacion-de-la-municipalidad-de-lima-se-endeudara-hasta-por-s1300-millones/",
         rank: 2,
         severidad: "alta"
       },
       {
         id: "monopolio-perurail",
-        titulo: "Monopolio ferroviario y litigios agresivos",
+        titulo: "PeruRail: dominio de ruta y disputas legales",
         descripcion: "Socio de PerúRail desde 1999; dominio de la ruta a Machu Picchu y disputas con competidores y el Estado.",
         fuente: "https://wayka.pe/rafael-lopez-aliaga-los-artificios-en-defensa-de-su-monopolio-ferroviario/",
         rank: 3,
@@ -444,7 +444,7 @@ export const candidates: Candidate[] = [
       },
       {
         id: "panama-papers-lavado",
-        titulo: "Deudas millonarias y presunto lavado (Panama Papers)",
+        titulo: "Panama Papers y deudas tributarias",
         descripcion: "Registros de sociedades offshore y deudas coactivas; pesquisas por presunto lavado.",
         fuente: "https://www.idl-reporteros.pe/lopez-aliaga-y-los-panama-papers/",
         rank: 4,
@@ -462,7 +462,7 @@ export const candidates: Candidate[] = [
       },
       {
         id: "conflicto-phillip-butters",
-        titulo: "Conflicto con Phillip Butters y financiamiento político",
+        titulo: "Cruce con Phillip Butters por préstamo y campaña",
         descripcion: "Préstamo de US$250 mil y acusaciones cruzadas sobre trolls, favores y 'mermelada'.",
         fuente: "https://willax.pe/politica/butters-sobre-supuesto-prestamo-de-rafael-lopez-aliaga-por-60-mil-dolares-no-le-debo-un-mango",
         rank: 6,
@@ -471,8 +471,8 @@ export const candidates: Candidate[] = [
       },
       {
         id: "caso-jose-miguel-castro",
-        titulo: "Muerte de José Miguel Castro y acusaciones cruzadas",
-        descripcion: "Afirmó que fue homicidio; la viuda señaló sentir temor hacia RLA; controversia sin evidencias concluyentes.",
+        titulo: "Muerte de José Miguel Castro: versiones enfrentadas",
+        descripcion: "Declaraciones cruzadas sobre la causa del deceso; sin conclusión firme.",
         fuente: "https://www.infobae.com/peru/2025/09/28/crimen-o-suicidio-la-muerte-de-jose-miguel-castro-enfrenta-versiones-entre-el-informe-forense-y-la-pericia-policial/",
         rank: 7,
         legal: "rumor",
@@ -628,7 +628,7 @@ controversias: [
       },
       {
         id: "canazo-con-sal",
-        titulo: "Declaraciones 'Cañazo con sal' (COVID‑19)",
+        titulo: "'Cañazo con sal' en pandemia",
         descripcion: "Recomendación sin sustento durante la pandemia.",
         fuente: "https://rpp.pe/politica/congreso/yonhy-lescano-y-su-recomendacion-del-canazo-con-sal-para-evitar-el-coronavirus-noticia-1251154",
         rank: 2,
@@ -637,7 +637,7 @@ controversias: [
       },
       {
         id: "agradecimiento-guzman",
-        titulo: "Agradecimiento de Abimael Guzmán",
+        titulo: "Polémica por mención de Abimael Guzmán",
         descripcion: "Mención en publicación del cabecilla terrorista generó polémica.",
         fuente: "https://es.wikipedia.org/wiki/Yonhy_Lescano",
         rank: 3,
@@ -646,8 +646,8 @@ controversias: [
       },
       {
         id: "lopez-meneses",
-        titulo: "Acusación de vínculo con López Meneses",
-        descripcion: "Se le vinculó con el operador montesinista; hubo denuncias preliminares.",
+        titulo: "Señalamientos de vínculo con López Meneses",
+        descripcion: "Hubo señalamientos y diligencias preliminares; negó vínculos.",
         fuente: "https://www.americatv.com.pe/noticias/actualidad/yonhy-lescano-niega-vinculos-caso-lopez-meneses-n162084",
         rank: 4,
         legal: "investigacion",
@@ -831,7 +831,7 @@ controversias: [
     controversias: [
       {
       id: "expropiacion-medios-empresas",
-      titulo: "Propuesta de expropiación de medios y grandes empresas",
+      titulo: "Expropiación de medios y grandes empresas",
       descripcion: "Propone expropiar medios de comunicación y grandes empresas como parte de su plataforma.",
       fuente: "https://convoca.pe/agenda-propia/el-mensaje-extremista-que-antauro-humala-esta-llevando-las-regiones-del-peru",
       rank: 1,
@@ -873,7 +873,7 @@ controversias: [
     },
     {
       id: "privilegios-en-prision",
-      titulo: "Acusaciones de corrupción y privilegios en prisión",
+      titulo: "Privilegios y presunto cohecho en prisión",
       descripcion: "Investigado por presunto cohecho y privilegios carcelarios mientras cumplía condena.",
       fuente: "https://www.infobae.com/peru/2024/12/08/archivan-investigacion-contra-antauro-humala-por-cohecho-pese-a-que-admitio-y-motivo-sobornos-en-el-inpe/",
       rank: 6,
@@ -882,7 +882,7 @@ controversias: [
     },
     {
       id: "homofobia-lgbt",
-      titulo: "Conflictos éticos y homofobia/discriminación LGBT",
+      titulo: "Declaraciónes sobre población LGBT",
       descripcion: "Declaraciones homofóbicas reiteradas que generaron críticas y rechazo público.",
       fuente: "https://elcomercio.pe/opinion/columnistas/antauro-humala-anibal-torres-y-todos-los-demas-por-hector-villalobos-noticia/",
       rank: 7,
@@ -891,7 +891,7 @@ controversias: [
     },
     {
       id: "apologia-sl",
-      titulo: "Apología a Sendero Luminoso",
+      titulo: "Polémica por comentarios sobre Sendero Luminoso",
       descripcion: "Afirmó que SL fue lo mejor de la izquierda; generó polémica y condena pública.",
       fuente: "https://www.youtube.com/watch?v=She-lmSObpk",
       rank: 8,
@@ -899,7 +899,7 @@ controversias: [
     },
     {
       id: "conflicto-ollanta",
-      titulo: "Conflicto con su hermano Ollanta Humala",
+      titulo: "Ruptura con Ollanta Humala",
       descripcion: "Ruptura política con acusaciones cruzadas y confrontación pública.",
       fuente: "https://es.wikipedia.org/wiki/Antauro_Humala",
       rank: 9,
@@ -1098,7 +1098,7 @@ controversias: [
     controversias: [
   {
     id: "corrupcion-moquegua-lomas-ilo-hospital",
-    titulo: "Corrupción como gobernador (Lomas de Ilo / Hospital de Moquegua)",
+    titulo: "Moquegua: presuntos sobornos (Lomas de Ilo / Hospital de Moquegua)",
     descripcion: "Acusado por presuntos sobornos y direccionamiento de obras en Moquegua.",
     fuente: "https://www.pj.gob.pe/wps/wcm/connect/3b7c3280450a72f6a6a9eee5406a4592/TEMP_202000033500223704620250725165505%2B%281%29.pdf?CACHEID=3b7c3280450a72f6a6a9eee5406a4592&MOD=AJPERES",
     rank: 1,
@@ -1107,7 +1107,7 @@ controversias: [
   },
   {
     id: "intocables-provias",
-    titulo: "Liderazgo de 'Los Intocables de la Corrupción' (Provías)",
+    titulo: "Caso 'Intocables de la Corrupción' (Provías)",
     descripcion: "Se le imputa red para coimas en obras públicas vinculadas a Provías.",
     fuente: "https://www.gob.pe/institucion/mpfn/noticias/899517-eficcop-logra-detencion-de-exfuncionarios-de-provias-descentralizado-investigados-en-presunta-red-criminal-los-intocables-de-la-corrupcion",
     rank: 2,
@@ -1116,16 +1116,16 @@ controversias: [
   },
   {
     id: "disolucion-congreso-inhabilitaciones",
-    titulo: "Cierre del Congreso e inhabilitaciones por juicio político",
+    titulo: "Cierre del Congreso(2019)",
     descripcion: "Disolvió el Congreso (aval del TC); registró inhabilitaciones posteriores por juicio político.",
-    fuente: "https://tc.gob.pe/jurisprudencia/2020/0006-2019-CC.shtml",
+    fuente: "https://es.wikipedia.org/wiki/Disoluci%C3%B3n_del_Congreso_de_la_Rep%C3%BAblica_del_Per%C3%BA_en_2019",
     rank: 3,
     legal: "sentencia",
     severidad: "muy-alta"
   },
   {
     id: "vacunagate-inhabilitacion",
-    titulo: "Vacunagate e inhabilitación (COVID-19)",
+    titulo: "Vacunagate e inhabilitación por 10 años",
     descripcion: "Vacunación irregular con Sinopharm; inhabilitado 10 años para ejercer función pública.",
     fuente: "https://rpp.pe/politica/congreso/martin-vizcarra-congreso-oficializo-inhabilitacion-politica-por-10-anos-por-el-caso-vacunagate-noticia-1332053",
     rank: 4,
@@ -1143,7 +1143,7 @@ controversias: [
   },
   {
     id: "richard-swing",
-    titulo: "Caso Richard Swing y obstrucción a la justicia",
+    titulo: "Caso Richard Swing: Obstrucción a la justicia",
     descripcion: "Contratos irregulares y audios comprometedores; diligencias fiscales y administrativas.",
     fuente: "https://elcomercio.pe/politica/justicia/caso-richard-swing-que-se-sabe-sobre-la-investigacion-que-involucra-a-martin-vizcarra-noticia/",
     rank: 6,
@@ -1170,7 +1170,7 @@ controversias: [
   },
   {
     id: "reuniones-keiko-opacidad",
-    titulo: "Opacidad sobre reuniones con Keiko Fujimori",
+    titulo: "Reuniones reservadas con Keiko Fujimori",
     descripcion: "Negó reuniones secretas; posterior reconocimiento generó crisis de credibilidad.",
     fuente: "https://rpp.pe/politica/gobierno/vizcarra-reconoce-error-de-haber-mantenido-reuniones-con-keiko-fujimori-en-reserva-noticia-1145883",
     rank: 9,
@@ -1179,8 +1179,8 @@ controversias: [
   },
   {
     id: "responsabilidad-bancada-somos-peru",
-    titulo: "Responsabilidad política por la bancada Somos Perú (2021)",
-    descripcion: "Fue el más votado; él mismo calificó a su bancada como 'nefasta'.",
+    titulo: "Bancada Somos Perú (2021)",
+    descripcion: "Fue el más votado; calificó a su bancada como nefasta.",
     fuente: "https://elcomercio.pe/elecciones-2021/elecciones-2021-martin-vizcarra-y-los-candidatos-que-se-proyectan-como-los-mas-votados-onpe-jne-elecciones-generales-peru-2021-martin-vizcarra-jose-luna-jorge-montoya-peru-libre-noticia/",
     rank: 10,
     legal: "rumor",
@@ -1349,7 +1349,7 @@ controversias: [
     controversias: [
     {
       id: "arcc-operadores-reconstruccion",
-      titulo: "Tráfico de influencias en ARCC ('Operadores de la Reconstrucción')",
+      titulo: "ARCC: presunto tráfico de influencias",
       descripcion: "Investigado por presuntos sobornos para direccionar obras en Piura mediante operadores vinculados a la ARCC.",
       fuente: "https://gestion.pe/peru/politica/los-operadores-de-la-reconstruccion-fiscalia-abre-investigacion-a-guillermo-bermejo-noticia/",
       rank: 1,
@@ -1385,7 +1385,7 @@ controversias: [
     },
     {
       id: "presunto-atentado-embajada-eeuu-2010",
-      titulo: "Presunto atentado a Embajada de EE. UU. (2010)",
+      titulo: "Embajada de EE. UU. (2010): sindicaciones y detención",
       descripcion: "Detención por sindicaciones; sin condena firme reportada.",
       fuente: "https://peru21.pe/politica/las-pelotudeces-del-che-guillermo-bermejo-noticia/",
       rank: 5,
@@ -1394,7 +1394,7 @@ controversias: [
     },
     {
       id: "presunto-pacto-ilegal-absolucion",
-      titulo: "Presunto pacto ilegal para absolución judicial",
+      titulo: "Señalamientos de pacto para evitar justicia",
       descripcion: "Acusación de reunión con un juez para asegurar absolución; en indagación preliminar.",
       fuente: "https://diariocorreo.pe/politica/guillermo-bermejo-congresista-habria-pactado-con-juez-para-ser-absuelto-en-caso-de-terrorismo-noticia",
       rank: 6,
