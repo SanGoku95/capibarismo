@@ -13,6 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from '@/components/ui/badge';
 
 const socialIcons: { [key: string]: React.ReactElement } = {
   tiktok: <FaTiktok />,
@@ -21,6 +22,25 @@ const socialIcons: { [key: string]: React.ReactElement } = {
   facebook: <FaFacebook />,
   twitter: <FaTwitter />,
   web: <FaRegWindowRestore />,
+};
+
+// NEW: helpers for controversy badges
+const severityProps = (sev?: string) => {
+  switch (sev) {
+    case 'muy-alta': return { label: 'Severidad: Muy alta', className: 'bg-red-600/90 text-white' };
+    case 'alta':     return { label: 'Severidad: Alta',     className: 'bg-orange-600/90 text-white' };
+    case 'media':    return { label: 'Severidad: Media',    className: 'bg-amber-300/90 text-foreground' };
+    default:         return { label: 'Severidad: —',        className: 'bg-muted text-foreground' };
+  }
+};
+const legalProps = (legal?: string) => {
+  switch (legal) {
+    case 'rumor':        return { label: 'Legal: Rumor',          className: 'bg-slate-500/90 text-white' };
+    case 'investigacion':return { label: 'Legal: Investigación',  className: 'bg-amber-500/90 text-black' };
+    case 'acusacion':    return { label: 'Legal: Acusación',      className: 'bg-orange-700/90 text-white' };
+    case 'sentencia':    return { label: 'Legal: Sentencia',      className: 'bg-red-700/90 text-white' };
+    default:             return { label: 'Legal: —',              className: 'bg-muted text-foreground' };
+  }
 };
 
 export function CandidateProfile() {
@@ -74,6 +94,11 @@ export function CandidateProfile() {
   if (!candidate) {
     return <NotFound />;
   }
+
+  // NEW: sort controversies by rank
+  const controversiesSorted = (candidate.controversias || [])
+    .slice()
+    .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99));
 
   return (
     <div className="min-h-screen fighting-game-bg text-white">
@@ -296,27 +321,36 @@ export function CandidateProfile() {
                 <CardTitle className="flex items-center gap-2"><AlertTriangle size={20} /> Controversias</CardTitle>
               </CardHeader>
               <CardContent>
-                {candidate.controversias && candidate.controversias.length > 0 ? (
+                {controversiesSorted && controversiesSorted.length > 0 ? (
                   <Accordion
                     type="multiple"
                     className="w-full"
                     value={openAccordionItems}
                     onValueChange={setOpenAccordionItems}
                   >
-                    {candidate.controversias.map((c) => (
-                      <AccordionItem value={c.id} key={c.id} id={`controversia-${c.id}`} className="border-b-muted-foreground/20">
-                        <AccordionTrigger>{c.titulo}</AccordionTrigger>
-                        <AccordionContent>
-                          <p className="text-base text-muted-foreground">{c.descripcion}</p>
-                          {c.fuente && (
-                            <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
-                              <LinkIcon size={12} />
-                              Fuente
-                            </a>
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
+                    {controversiesSorted.map((c) => {
+                      const sev = severityProps(c.severidad);
+                      const leg = legalProps(c.legal);
+                      return (
+                        <AccordionItem value={c.id} key={c.id} id={`controversia-${c.id}`} className="border-b-muted-foreground/20">
+                          <AccordionTrigger>{c.titulo}</AccordionTrigger>
+                          <AccordionContent>
+                            <div className="flex flex-wrap gap-2 mb-2">
+                              {/* removed rank badge */}
+                              <Badge className={sev.className}>{sev.label}</Badge>
+                              <Badge className={leg.className}>{leg.label}</Badge>
+                            </div>
+                            <p className="text-base text-muted-foreground">{c.descripcion}</p>
+                            {c.fuente && (
+                              <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
+                                <LinkIcon size={12} />
+                                Fuente
+                              </a>
+                            )}
+                          </AccordionContent>
+                        </AccordionItem>
+                      );
+                    })}
                   </Accordion>
                 ) : (
                   <p className="text-sm text-muted-foreground">Sin controversias registradas.</p>

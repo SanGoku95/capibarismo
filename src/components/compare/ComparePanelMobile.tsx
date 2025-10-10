@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { memo } from 'react';
+import { memo, type ReactNode } from 'react';
 import { Candidate } from '@/data/candidates';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
@@ -239,24 +239,23 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   leftCandidate ? (
                     leftCandidate.controversias && leftCandidate.controversias.length > 0 ? (
                       <div className="space-y-2">
-                        {leftCandidate.controversias.slice(0, 2).map((c) => (
-                          <div key={c.id} className="font-sans">
-                            <Link
-                              to={`/candidate/${leftCandidate.id}#controversia-${c.id}`}
-                              className="text-sm text-foreground hover:underline"
-                            >
-                              {c.titulo}
-                            </Link>
-                            <a
-                              href={c.fuente}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block text-xs text-muted-foreground underline"
-                            >
-                              Fuente
-                            </a>
-                          </div>
-                        ))}
+                        {leftCandidate.controversias
+                          .slice()
+                          .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
+                          .slice(0, 2)
+                          .map((c) => (
+                            <div key={c.id} className="font-sans">
+                              <Link to={`/candidate/${leftCandidate.id}#controversia-${c.id}`} className="text-sm text-foreground hover:underline">
+                                {c.titulo}
+                              </Link>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {/* removed rank chip */}
+                                <Chip className={sevChip(c.severidad)}>{c.severidad === 'muy-alta' ? 'Muy alta' : c.severidad ? c.severidad[0].toUpperCase()+c.severidad.slice(1) : '—'}</Chip>
+                                <Chip className={legChip(c.legal)}>{c.legal ? c.legal[0].toUpperCase()+c.legal.slice(1) : '—'}</Chip>
+                              </div>
+                              <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="block text-xs text-white/80 underline mt-1">Fuente</a>
+                            </div>
+                          ))}
                       </div>
                     ) : (
                       <span className="font-sans text-sm text-muted-foreground">Sin controversias registradas</span>
@@ -267,24 +266,23 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                   rightCandidate ? (
                     rightCandidate.controversias && rightCandidate.controversias.length > 0 ? (
                       <div className="space-y-2">
-                        {rightCandidate.controversias.slice(0, 2).map((c) => (
-                          <div key={c.id} className="font-sans">
-                            <Link
-                              to={`/candidate/${rightCandidate.id}#controversia-${c.id}`}
-                              className="text-sm text-foreground hover:underline"
-                            >
-                              {c.titulo}
-                            </Link>
-                            <a
-                              href={c.fuente}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block text-xs text-muted-foreground underline"
-                            >
-                              Fuente
-                            </a>
-                          </div>
-                        ))}
+                        {rightCandidate.controversias
+                          .slice()
+                          .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
+                          .slice(0, 2)
+                          .map((c) => (
+                            <div key={c.id} className="font-sans">
+                              <Link to={`/candidate/${rightCandidate.id}#controversia-${c.id}`} className="text-sm text-foreground hover:underline">
+                                {c.titulo}
+                              </Link>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {/* removed rank chip */}
+                                <Chip className={sevChip(c.severidad)}>{c.severidad === 'muy-alta' ? 'Muy alta' : c.severidad ? c.severidad[0].toUpperCase()+c.severidad.slice(1) : '—'}</Chip>
+                                <Chip className={legChip(c.legal)}>{c.legal ? c.legal[0].toUpperCase()+c.legal.slice(1) : '—'}</Chip>
+                              </div>
+                              <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="block text-xs text-white/80 underline mt-1">Fuente</a>
+                            </div>
+                          ))}
                       </div>
                     ) : (
                       <span className="font-sans text-sm text-muted-foreground">Sin controversias registradas</span>
@@ -370,3 +368,27 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
     </div>
   );
 }
+
+// UI chips for Controversias (mobile-friendly)
+const sevChip = (sev?: string) => {
+  switch (sev) {
+    case 'muy-alta': return 'bg-red-600/90 text-white';
+    case 'alta':     return 'bg-orange-600/90 text-white';
+    case 'media':    return 'bg-amber-300/90 text-foreground';
+    default:         return 'bg-muted text-foreground';
+  }
+};
+const legChip = (l?: string) => {
+  switch (l) {
+    case 'rumor':         return 'bg-slate-500/90 text-white';
+    case 'investigacion': return 'bg-amber-500/90 text-black';
+    case 'acusacion':     return 'bg-orange-700/90 text-white';
+    case 'sentencia':     return 'bg-red-700/90 text-white';
+    default:              return 'bg-muted text-foreground';
+  }
+};
+const Chip = ({ className = '', children }: { className?: string; children: ReactNode }) => (
+  <span className={cn('px-1.5 py-0.5 text-[10px] rounded-md border border-white/10', className)}>
+    {children}
+  </span>
+);

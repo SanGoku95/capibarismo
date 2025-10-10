@@ -142,22 +142,30 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               <AccordionContent>
                 <div className="space-y-1 pt-2">
                   {candidate.controversias && candidate.controversias.length > 0 ? (
-                    candidate.controversias.slice(0, 3).map((c) => (
-                      <div key={c.id} className="block p-2 rounded-md hover:bg-muted/50">
-                        <Link
-                          to={`/candidate/${candidate.id}#controversia-${c.id}`}
-                          className="text-base font-sans font-medium hover:underline"
-                        >
-                          {c.titulo}
-                        </Link>
-                        <div className="text-sm text-muted-foreground">{c.descripcion}</div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="underline">
-                            Fuente
-                          </a>
-                        </div>
-                      </div>
-                    ))
+                    candidate.controversias
+                      .slice()
+                      .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
+                      .slice(0, 3)
+                      .map((c) => {
+                        const s = sevProps(c.severidad);
+                        const l = legProps(c.legal);
+                        return (
+                          <div key={c.id} className="block p-2 rounded-md hover:bg-muted/50">
+                            <Link to={`/candidate/${candidate.id}#controversia-${c.id}`} className="text-base font-sans font-medium hover:underline">
+                              {c.titulo}
+                            </Link>
+                            <div className="flex flex-wrap gap-2 my-1">
+                              {/* removed rank badge */}
+                              <Badge className={s.className}>{s.label}</Badge>
+                              <Badge className={l.className}>{l.label}</Badge>
+                            </div>
+                            <div className="text-sm text-muted-foreground">{c.descripcion}</div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="underline">Fuente</a>
+                            </div>
+                          </div>
+                        );
+                      })
                   ) : (
                     <p className="text-sm text-muted-foreground italic">Sin controversias registradas.</p>
                   )}
@@ -224,3 +232,22 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
     </motion.div>
   );
 }
+
+// NEW: local helpers
+const sevProps = (sev?: string) => {
+  switch (sev) {
+    case 'muy-alta': return { label: 'Muy alta', className: 'bg-red-600/90 text-white' };
+    case 'alta':     return { label: 'Alta',     className: 'bg-orange-600/90 text-white' };
+    case 'media':    return { label: 'Media',    className: 'bg-amber-300/90 text-foreground' };
+    default:         return { label: '—',        className: 'bg-muted text-foreground' };
+  }
+};
+const legProps = (l?: string) => {
+  switch (l) {
+    case 'rumor':         return { label: 'Rumor',         className: 'bg-slate-500/90 text-white' };
+    case 'investigacion': return { label: 'Investigación', className: 'bg-amber-500/90 text-black' };
+    case 'acusacion':     return { label: 'Acusación',     className: 'bg-orange-700/90 text-white' };
+    case 'sentencia':     return { label: 'Sentencia',     className: 'bg-red-700/90 text-white' };
+    default:              return { label: '—',             className: 'bg-muted text-foreground' };
+  }
+};

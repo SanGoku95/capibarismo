@@ -56,6 +56,9 @@ export interface Candidate {
     titulo: string;
     descripcion: string;
     fuente: string;
+    rank?: number; // 1..n por candidato (usa Rank_candidato)
+    legal?: 'rumor' | 'investigacion' | 'acusacion' | 'sentencia'; // badge legal
+    severidad?: 'media' | 'alta' | 'muy-alta'; // personas + impacto + dinero (3 niveles)
   }[];
   econ?: number;
   social?: number;
@@ -208,15 +211,57 @@ export const candidates: Candidate[] = [
     controversias: [
       {
         id: "cocteles",
-        titulo: "Caso 'Cócteles' y presunto lavado de activos",
-        descripcion: "La fiscalía la acusa de liderar una organización criminal y lavar aportes ilícitos (Odebrecht, etc.); cumplió prisión preventiva y el proceso ha sido anulado y retrocedido por el TC.",
-        fuente: "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori"
+        titulo: "Caso Cócteles",
+        descripcion: "La fiscalía la acusa de liderar una organización criminal y lavar dinero (Odebrecht)",
+        fuente: "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori",
+        rank: 1,
+        legal: "investigacion",
+        severidad: "muy-alta"
       },
       {
-        id: "fraude-2021",
-        titulo: "Denuncias sin pruebas de 'fraude' en 2021",
-        descripcion: "Tras perder ante Pedro Castillo, denunció fraude generalizado; observadores y autoridades electorales descartaron irregularidades sistemáticas.",
-        fuente: "https://www.wola.org/es/analysis/peru-tiene-nuevo-presidente-fujimori-empeligra-democracia/"
+        id: "captura-instituciones",
+        titulo: "Captura de la justicia",
+        descripcion: "Influencia para decidir magistrados y juicios.",
+        fuente: "https://www.ohchr.org/en/press-releases/2023/11/peru-un-expert-concerned-about-proceedings-peruvian-congress-seeking-removal",
+        rank: 2,
+        legal: "investigacion",
+        severidad: "alta"
+      },
+      {
+        id: "obstruccion-2016-2018",
+        titulo: "Obstrucción sistemática (2016–2018)",
+        descripcion: "Mayoría congresal de 73 escaños; confrontación al Ejecutivo y bloqueo de agenda.",
+        fuente: "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi",
+        rank: 3,
+        legal: "rumor",
+        severidad: "alta"
+      },
+      {
+        id: "mamanivideos-indulto",
+        titulo: "‘Mamanivideos’ e indulto a Alberto Fujimori",
+        descripcion: "Grabaciones de negociación de votos; polémica sobre indulto a su padre.",
+        fuente: "https://es.wikipedia.org/wiki/Mamanivideos",
+        rank: 4,
+        legal: "investigacion",
+        severidad: "media"
+      },
+      {
+        id: "compra-propiedades-ramirez",
+        titulo: "Compra irregular de propiedades (caso Joaquín Ramírez)",
+        descripcion: "Hipótesis de legalizar dinero vía inmuebles vinculados al exsecretario general.",
+        fuente: "https://rpp.pe/politica/judiciales/poder-judicial-ordeno-al-ministerio-publico-concluir-investigacion-contra-el-alcalde-de-cajamarca-joaquin-ramirez-noticia-1616395",
+        rank: 5,
+        legal: "investigacion",
+        severidad: "media"
+      },
+      {
+        id: "susana-higuchi",
+        titulo: "Conflicto con Susana Higuchi (denuncias de tortura)",
+        descripcion: "Negó las torturas denunciadas por su madre; polémica familiar y política.",
+        fuente: "https://ojo-publico.com/221/hermanos-keiko-culparon-su-madre-para-salvar-fujimori-la-extradicion",
+        rank: 6,
+        legal: "investigacion",
+        severidad: "alta"
       }
     ],
     headshot: "https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg",
@@ -372,16 +417,66 @@ export const candidates: Candidate[] = [
     },
     controversias: [
       {
-        id: "panama-papers",
-        titulo: "Vínculos con offshore en los Panama Papers",
-        descripcion: "IDL-Reporteros detalló sociedades offshore y maniobras societarias en disputa con su socio Lorenzo Sousa.",
-        fuente: "https://www.idl-reporteros.pe/lopez-aliaga-y-los-panama-papers/"
+        id: "rutas-de-lima-brookfield",
+        titulo: "Rutas de Lima vs Perú ~US$2.700 millones",
+        descripcion: "Busca anular concesiones de peajes; posibles cobros contra el Estado",
+        fuente: "https://www.infobae.com/peru/2025/10/05/rafael-lopez-aliaga-anuncia-que-reclamara-a-brookfield-una-indemnizacion-de-mas-de-s-3-mil-millones",
+        rank: 1,
+        legal: "sentencia",
+        severidad: "muy-alta"
       },
       {
-        id: "deudas-sunat",
-        titulo: "Elevadas deudas tributarias de empresas vinculadas",
-        descripcion: "Investigaciones reportan deudas coactivas ante SUNAT por decenas de millones y estrategias para eludir el cobro.",
-        fuente: "https://ojo-publico.com/2520/lopez-aliaga-los-negocios-un-candidato-ultraconservador"
+        id: "deuda-bonos-mml",
+        titulo: "Deuda de la Municipalidad de Lima. S/1.300 millones",
+        descripcion: "MML en deuda. Moody’s degrada calificación a bonos basura",
+        fuente: "https://www.infobae.com/peru/2025/06/14/moodys-degrada-calificacion-de-la-municipalidad-de-lima-se-endeudara-hasta-por-s1300-millones/",
+        rank: 2,
+        severidad: "alta"
+      },
+      {
+        id: "monopolio-perurail",
+        titulo: "Monopolio ferroviario y litigios agresivos",
+        descripcion: "Socio de PerúRail desde 1999; dominio de la ruta a Machu Picchu y disputas con competidores y el Estado.",
+        fuente: "https://wayka.pe/rafael-lopez-aliaga-los-artificios-en-defensa-de-su-monopolio-ferroviario/",
+        rank: 3,
+        legal: "sentencia",
+        severidad: "media"
+      },
+      {
+        id: "panama-papers-lavado",
+        titulo: "Deudas millonarias y presunto lavado (Panama Papers)",
+        descripcion: "Registros de sociedades offshore y deudas coactivas; pesquisas por presunto lavado.",
+        fuente: "https://www.idl-reporteros.pe/lopez-aliaga-y-los-panama-papers/",
+        rank: 4,
+        legal: "investigacion",
+        severidad: "media"
+      },
+      {
+        id: "capacitacion-chibolin",
+        titulo: "Uso de fondos públicos para 'capacitaciones' (caso Chibolín)",
+        descripcion: "Fiscalía investiga pagos de más de S/650 mil a una empresa vinculada a TV por charlas/capacitaciones.",
+        fuente: "https://www.infobae.com/peru/2024/10/06/fiscalia-investiga-vinculo-entre-renovacion-popular-y-andres-hurtado-partido-pago-mas-de-medio-millon-de-soles-a-productor-de-chibolin/",
+        rank: 5,
+        legal: "investigacion",
+        severidad: "media"
+      },
+      {
+        id: "conflicto-phillip-butters",
+        titulo: "Conflicto con Phillip Butters y financiamiento político",
+        descripcion: "Préstamo de US$250 mil y acusaciones cruzadas sobre trolls, favores y 'mermelada'.",
+        fuente: "https://willax.pe/politica/butters-sobre-supuesto-prestamo-de-rafael-lopez-aliaga-por-60-mil-dolares-no-le-debo-un-mango",
+        rank: 6,
+        legal: "rumor",
+        severidad: "media"
+      },
+      {
+        id: "caso-jose-miguel-castro",
+        titulo: "Muerte de José Miguel Castro y acusaciones cruzadas",
+        descripcion: "Afirmó que fue homicidio; la viuda señaló sentir temor hacia RLA; controversia sin evidencias concluyentes.",
+        fuente: "https://www.infobae.com/peru/2025/09/28/crimen-o-suicidio-la-muerte-de-jose-miguel-castro-enfrenta-versiones-entre-el-informe-forense-y-la-pericia-policial/",
+        rank: 7,
+        legal: "rumor",
+        severidad: "media"
       }
     ],
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
@@ -521,13 +616,42 @@ export const candidates: Candidate[] = [
         }
       ]
     },
-    controversias: [
+controversias: [
       {
-        id: "suspension-2019-acoso",
-        titulo: "Suspensión congresal por presunto acoso sexual (2019)",
-        descripcion:
-          "El Pleno del Congreso lo suspendió 120 días sin goce de haber por mensajes considerados de acoso hacia una periodista; Lescano negó los hechos y alegó clonación de su teléfono.",
-        fuente: "https://es.wikipedia.org/wiki/Yonhy_Lescano"
+        id: "acoso-2019",
+        titulo: "Denuncia de acoso sexual (2019) y suspensión",
+        descripcion: "Denunciado por periodista; el Pleno lo suspendió 120 días sin goce de haber.",
+        fuente: "https://es.wikipedia.org/wiki/Yonhy_Lescano",
+        rank: 1,
+        legal: "sentencia",
+        severidad: "alta"
+      },
+      {
+        id: "canazo-con-sal",
+        titulo: "Declaraciones 'Cañazo con sal' (COVID‑19)",
+        descripcion: "Recomendación sin sustento durante la pandemia; generó amplia crítica pública.",
+        fuente: "https://rpp.pe/politica/congreso/yonhy-lescano-y-su-recomendacion-del-canazo-con-sal-para-evitar-el-coronavirus-noticia-1251154",
+        rank: 2,
+        legal: "rumor",
+        severidad: "alta"
+      },
+      {
+        id: "agradecimiento-guzman",
+        titulo: "Agradecimiento de Abimael Guzmán",
+        descripcion: "Mención en publicación del cabecilla terrorista generó polémica.",
+        fuente: "https://es.wikipedia.org/wiki/Yonhy_Lescano",
+        rank: 3,
+        legal: "rumor",
+        severidad: "media"
+      },
+      {
+        id: "lopez-meneses",
+        titulo: "Acusación de vínculo con López Meneses",
+        descripcion: "Se le vinculó con el operador montesinista; hubo denuncias preliminares.",
+        fuente: "https://www.americatv.com.pe/noticias/actualidad/yonhy-lescano-niega-vinculos-caso-lopez-meneses-n162084",
+        rank: 4,
+        legal: "investigacion",
+        severidad: "media"
       }
     ],
     econ: 2,
@@ -706,17 +830,82 @@ export const candidates: Candidate[] = [
     },
     controversias: [
       {
-        id: "andahuaylazo",
-        titulo: "Andahuaylazo (2005): levantamiento con 6 muertos",
-        descripcion: "Toma de comisaría en Andahuaylas; fue condenado y cumplió 17 años de prisión.",
-        fuente: "https://es.wikipedia.org/wiki/Andahuaylazo"
-      },
-      {
-        id: "salida-2022",
-        titulo: "Liberación por redención de pena (2022) cuestionada",
-        descripcion: "Su salida generó controversia y críticas sobre la regularidad del beneficio penitenciario.",
-        fuente: "https://www.reuters.com/world/americas/peru-frees-nationalist-antauro-humala-after-17-years-prison-2022-08-21/"
-      }
+      id: "expropiacion-medios-empresas",
+      titulo: "Propuesta de expropiación de medios y grandes empresas",
+      descripcion: "Propone expropiar medios de comunicación y grandes empresas como parte de su plataforma.",
+      fuente: "https://convoca.pe/agenda-propia/el-mensaje-extremista-que-antauro-humala-esta-llevando-las-regiones-del-peru",
+      rank: 1,
+      severidad: "muy-alta"
+    },
+    {
+      id: "andahuaylazo-condena",
+      titulo: "Condena por el 'Andahuaylazo' (2005)",
+      descripcion: "Asonada con saldo de 4 policías fallecidos; cumplió alrededor de 17 años de condena.",
+      fuente: "https://es.wikipedia.org/wiki/Andahuaylazo",
+      rank: 2,
+      legal: "sentencia",
+      severidad: "alta"
+    },
+    {
+      id: "xenofobia-campamento-venezolanos",
+      titulo: "Xenofobia: Campamento para venezolanos",
+      descripcion: "Propone instalar campamentos para migrantes venezolanos; críticas por discriminación.",
+      fuente: "https://panampost.com/oriana-rivas/2023/10/06/antauro-humala-el-criminal-peruano-que-pide-campos-de-refugiados-para-migrantes/#google_vignette",
+      rank: 3,
+      severidad: "alta"
+    },
+    {
+      id: "fusilamiento-corruptos",
+      titulo: "Propuesta de fusilamiento de corruptos",
+      descripcion: "Defiende pena de muerte por fusilamiento para casos de corrupción.",
+      fuente: "https://edition.cnn.com/videos/spanish/2022/09/03/ideas-extremistas-antauro-humala-etnocacerista-pena-muerte-corruptos-peru-fernando-del-rincon-conclusiones-cnne.cnn",
+      rank: 4,
+      severidad: "media"
+    },
+    {
+      id: "reparacion-civil-incumplida",
+      titulo: "No paga reparación civil por el Andahuaylazo",
+      descripcion: "No habría pagado más de S/1 millón correspondiente a la reparación civil.",
+      fuente: "https://www.infobae.com/peru/2024/01/02/antauro-humala-no-ha-pagado-la-reparacion-civil-de-mas-de-un-millon-de-soles-a-los-deudos-del-andahuaylazo/",
+      rank: 5,
+      legal: "investigacion",
+      severidad: "alta"
+    },
+    {
+      id: "privilegios-en-prision",
+      titulo: "Acusaciones de corrupción y privilegios en prisión",
+      descripcion: "Investigado por presunto cohecho y privilegios carcelarios mientras cumplía condena.",
+      fuente: "https://www.infobae.com/peru/2024/12/08/archivan-investigacion-contra-antauro-humala-por-cohecho-pese-a-que-admitio-y-motivo-sobornos-en-el-inpe/",
+      rank: 6,
+      legal: "rumor",
+      severidad: "media"
+    },
+    {
+      id: "homofobia-lgbt",
+      titulo: "Conflictos éticos y homofobia/discriminación LGBT",
+      descripcion: "Declaraciones homofóbicas reiteradas que generaron críticas y rechazo público.",
+      fuente: "https://elcomercio.pe/opinion/columnistas/antauro-humala-anibal-torres-y-todos-los-demas-por-hector-villalobos-noticia/",
+      rank: 7,
+      legal: "rumor",
+      severidad: "media"
+    },
+    {
+      id: "apologia-sl",
+      titulo: "Apología a Sendero Luminoso",
+      descripcion: "Afirmó que SL fue lo mejor de la izquierda; generó polémica y condena pública.",
+      fuente: "https://www.youtube.com/watch?v=She-lmSObpk",
+      rank: 8,
+      severidad: "media"
+    },
+    {
+      id: "conflicto-ollanta",
+      titulo: "Conflicto con su hermano Ollanta Humala",
+      descripcion: "Ruptura política con acusaciones cruzadas y confrontación pública.",
+      fuente: "https://es.wikipedia.org/wiki/Antauro_Humala",
+      rank: 9,
+      legal: "rumor",
+      severidad: "media"
+    }
     ],
     education: "pro",
     security: "pro",
@@ -1274,14 +1463,25 @@ export const candidates: Candidate[] = [
         }
       ]
     },
-    controversias: [
-      {
-        id: "xenofobia-migracion",
-        titulo: "Acusaciones de xenofobia por mensajes sobre migración",
-        descripcion: "Recibió críticas por insistir en expulsiones inmediatas de extranjeros que delinquen y por el tono de sus declaraciones, percibidas como estigmatizantes por sectores de la opinión pública.",
-        fuente: "https://www.youtube.com/watch?v=hb5PHqWNTqk"
-      },
-    ],
+    controversias:  [
+    {
+      id: "mano-dura-pena-muerte",
+      titulo: "Propuestas de mano dura (pena de muerte y salida del Pacto)",
+      descripcion: "Implica denunciar el Pacto de San José para habilitar la pena de muerte.",
+      fuente: "https://www.youtube.com/watch?v=_Qxl-JD_7w8",
+      rank: 1,
+      severidad: "alta"
+    },
+    {
+      id: "vinculos-fujimorato-montesinos",
+      titulo: "Acusaciones históricas de vínculos con el fujimorato/Montesinos",
+      descripcion: "Investigado mediáticamente por presuntos pagos del SIN en los 90s.",
+      fuente: "https://www.hildebrandtensustrece.com/opinion/articulo/2116",
+      rank: 2,
+      legal: "rumor",
+      severidad: "media"
+    },
+  ],
     econ: 3,
     social: 1
   },
@@ -1440,19 +1640,96 @@ export const candidates: Candidate[] = [
       ]
     },
     controversias: [
-      {
-        id: "plagio",
-        titulo: "Acusaciones de plagio en maestría y doctorado",
-        descripcion: "Denuncias por plagio en tesis de la Universidad Complutense y de Lima; generaron investigaciones y cuestionamientos.",
-        fuente: "https://elpais.com/internacional/2016/02/08/actualidad/1454948660_913928.html"
-      },
-      {
-        id: "exclusion-2016",
-        titulo: "Excluido de la elección presidencial 2016 por dádivas",
-        descripcion: "El JNE lo retiró de la contienda por entregar dinero en campaña.",
-        fuente: "https://es.wikipedia.org/wiki/C%C3%A9sar_Acu%C3%B1a"
-      }
-    ],
+  {
+    id: "dadivas-exclusion-jne-2016",
+    titulo: "Exclusión electoral por dádivas (JNE, 2016)",
+    descripcion: "El JNE lo excluyó de la elección presidencial por infringir la ley al entregar dinero durante campaña (resolución electoral firme; no es sentencia penal).",
+    fuente: "https://rpp.pe/politica/elecciones/elecciones-2016-jee-excluye-candidatura-de-cesar-acuna-de-alianza-para-el-progreso-noticia-943203",
+    rank: 1,
+    legal: "sentencia",
+    severidad: "muy-alta"
+  },
+  {
+    id: "contratos-315m-gobernador",
+    titulo: "Contraloría pide anular contratos por S/ 315 millones",
+    descripcion: "Informe de control recomienda anular dos contratos (vía Trujillo–Huanchaco y hospital de Virú) por presuntas irregularidades. No es acusación fiscal ni sentencia.",
+    fuente: "https://caretas.pe/politica/contraloria-pide-anular-contratos-millonarios-de-cesar-acuna-en-la-libertad/",
+    rank: 2,
+    legal: "investigacion",
+    severidad: "alta"
+  },
+  {
+    id: "multas-onpe-financiamiento",
+    titulo: "Multa de ONPE por exceso de aportes (APP–UCV)",
+    descripcion: "ONPE ratificó multa millonaria a APP por exceder el tope de aportes de la UCV en 2010; el cobro siguió la vía judicial. Sanción administrativa a la organización política.",
+    fuente: "https://peru21.pe/politica/onpe-ratifica-multa-s-9-millones-alianza-progreso-122662-noticia/",
+    rank: 3,
+    legal: "sentencia",
+    severidad: "alta"
+  },
+  {
+    id: "difamacion-christopher-acosta",
+    titulo: "Querella por difamación contra Christopher Acosta (concluida)",
+    descripcion: "Hubo condena en 1ª instancia (ene-2022), pero el querellante desistió en jun-2022 antes de la vista de apelación. No quedó condena firme.",
+    fuente: "https://www.swissinfo.ch/spa/empresario-y-excandidato-peruano-retir%C3%B3-sonada-demanda-contra-periodista/47680628",
+    rank: 4,
+    severidad: "media"
+  },
+  {
+    id: "acuniagate-alto-trujillo",
+    titulo: "Audios y presión por Alto Trujillo; pesquisa preliminar",
+    descripcion: "Se difundieron audios donde pide priorizar un proyecto ligado a Alto Trujillo. El Congreso censuró a Lady Camones y la Fiscalía abrió investigación preliminar por tráfico de influencias.",
+    fuente: "https://www.gob.pe/institucion/mpfn/noticias/647443-fiscalia-inicia-diligencias-por-investigacion-contra-cesar-acuna",
+    rank: 5,
+    legal: "investigacion",
+    severidad: "media"
+  },
+  {
+    id: "subvenciones-trujillo",
+    titulo: "Denuncia por subvenciones municipales (archivada en 2012)",
+    descripcion: "El Ministerio Público archivó la denuncia por presunto desvío de subvenciones en la Municipalidad de Trujillo. No prosperó.",
+    fuente: "https://rpp.pe/peru/actualidad/archivan-denuncia-por-desvio-de-subvenciones-en-municipio-de-trujillo-noticia-511859",
+    rank: 6,
+    legal: "rumor",
+    severidad: "media"
+  },
+  {
+    id: "lavado-activos",
+    titulo: "Investigación preliminar por lavado de activos (2018)",
+    descripcion: "Fue citado por la Fiscalía de Lavado de Activos en 2018 por movimientos financieros; no hay acusación ni sentencia públicas. Declaraciones posteriores vincularon el tema con su visa a EE.UU.",
+    fuente: "https://rpp.pe/politica/judiciales/cesar-acuna-sera-interrogado-en-la-fiscalia-por-investigacion-por-lavado-de-activos-noticia-1161512",
+    rank: 7,
+    legal: "investigacion",
+    severidad: "media"
+  },
+  {
+    id: "plagio-academico",
+    titulo: "Sanción de Indecopi por plagio (tesis y libro)",
+    descripcion: "Indecopi sancionó en 2016 por infracción al derecho de autor (tesis doctoral y libro atribuido). Sanción administrativa; no es condena penal.",
+    fuente: "https://rpp.pe/economia/economia/indecopi-multo-a-cesar-acuna-por-plagio-de-libro-y-tesis-doctoral-noticia-993039",
+    rank: 8,
+    legal: "sentencia",
+    severidad: "media"
+  },
+  {
+    id: "violencia-familiar",
+    titulo: "Denuncias de violencia familiar (sin fallo)",
+    descripcion: "Exesposa y expareja lo denunciaron por maltrato. No hay sentencia conocida.",
+    fuente: "https://www.infobae.com/america/peru/2022/09/03/los-escandalos-politicos-y-legales-que-rodean-a-cesar-acuna-el-millonario-lider-de-app/",
+    rank: 9,
+    legal: "acusacion",
+    severidad: "media"
+  },
+  {
+    id: "vinculos-sin",
+    titulo: "Señalamientos sobre visitas al SIN en los 90",
+    descripcion: "Apariciones en medios y testimonios lo mencionan; no hay decisión judicial. Trátese como señalamiento no corroborado.",
+    fuente: "https://www.youtube.com/watch?v=CKiYQbGNMxA",
+    rank: 10,
+    legal: "rumor",
+    severidad: "media"
+  }
+],
     econ: 3,
     social: 1,
     territorial: -8,
