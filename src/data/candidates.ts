@@ -212,7 +212,7 @@ export const candidates: Candidate[] = [
       {
         id: "cocteles",
         titulo: "Caso Cócteles",
-        descripcion: "La fiscalía la acusa de liderar una organización criminal y lavar dinero (Odebrecht)",
+        descripcion: "Acusada de liderar una organización criminal y lavar dinero (Odebrecht)",
         fuente: "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori",
         rank: 1,
         legal: "investigacion",
@@ -229,8 +229,8 @@ export const candidates: Candidate[] = [
       },
       {
         id: "obstruccion-2016-2018",
-        titulo: "Obstrucción sistemática (2016–2018)",
-        descripcion: "Mayoría congresal de 73 escaños; confrontación al Ejecutivo y bloqueo de agenda.",
+        titulo: "Obstrucción al ejecutivo (2016–2018)",
+        descripcion: "Choque con ejecutivo usando mayoría en el Congreso.",
         fuente: "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi",
         rank: 3,
         legal: "rumor",
@@ -248,7 +248,7 @@ export const candidates: Candidate[] = [
       {
         id: "compra-propiedades-ramirez",
         titulo: "Compra irregular de propiedades (caso Joaquín Ramírez)",
-        descripcion: "Hipótesis de legalizar dinero vía inmuebles vinculados al exsecretario general.",
+        descripcion: "Lavado de dinero vía inmuebles vinculados al exsecretario general.",
         fuente: "https://rpp.pe/politica/judiciales/poder-judicial-ordeno-al-ministerio-publico-concluir-investigacion-contra-el-alcalde-de-cajamarca-joaquin-ramirez-noticia-1616395",
         rank: 5,
         legal: "investigacion",
@@ -418,7 +418,7 @@ export const candidates: Candidate[] = [
     controversias: [
       {
         id: "rutas-de-lima-brookfield",
-        titulo: "Rutas de Lima vs Perú ~US$2.700 millones",
+        titulo: "Rutas de Lima vs Estado Peruano ~US$2.700 millones",
         descripcion: "Busca anular concesiones de peajes; posibles cobros contra el Estado",
         fuente: "https://www.infobae.com/peru/2025/10/05/rafael-lopez-aliaga-anuncia-que-reclamara-a-brookfield-una-indemnizacion-de-mas-de-s-3-mil-millones",
         rank: 1,
@@ -453,7 +453,7 @@ export const candidates: Candidate[] = [
       },
       {
         id: "capacitacion-chibolin",
-        titulo: "Uso de fondos públicos para 'capacitaciones' (caso Chibolín)",
+        titulo: "Caso Chibolín: Uso de fondos públicos para 'capacitaciones'",
         descripcion: "Fiscalía investiga pagos de más de S/650 mil a una empresa vinculada a TV por charlas/capacitaciones.",
         fuente: "https://www.infobae.com/peru/2024/10/06/fiscalia-investiga-vinculo-entre-renovacion-popular-y-andres-hurtado-partido-pago-mas-de-medio-millon-de-soles-a-productor-de-chibolin/",
         rank: 5,
@@ -629,7 +629,7 @@ controversias: [
       {
         id: "canazo-con-sal",
         titulo: "Declaraciones 'Cañazo con sal' (COVID‑19)",
-        descripcion: "Recomendación sin sustento durante la pandemia; generó amplia crítica pública.",
+        descripcion: "Recomendación sin sustento durante la pandemia.",
         fuente: "https://rpp.pe/politica/congreso/yonhy-lescano-y-su-recomendacion-del-canazo-con-sal-para-evitar-el-coronavirus-noticia-1251154",
         rank: 2,
         legal: "rumor",
@@ -1096,19 +1096,97 @@ controversias: [
       ]
     },
     controversias: [
-      {
-        id: "vacunagate",
-        titulo: "Vacunagate: vacunación irregular y 10 años de inhabilitación",
-        descripcion: "Se vacunó irregularmente con Sinopharm cuando era presidente; fue inhabilitado por el Congreso por 10 años.",
-        fuente: "https://www.reuters.com/world/americas/peruvian-ex-president-vizcarra-banned-public-office-over-vaccines-scandal-2021-04-17/"
-      },
-      {
-        id: "chinchero",
-        titulo: "Caso Chinchero y renuncia al MTC (2017)",
-        descripcion: "Renunció como ministro tras la polémica por la adenda del aeropuerto de Chinchero.",
-        fuente: "https://es.wikipedia.org/wiki/Caso_Chinchero"
-      }
-    ],
+  {
+    id: "corrupcion-moquegua-lomas-ilo-hospital",
+    titulo: "Corrupción como gobernador (Lomas de Ilo / Hospital de Moquegua)",
+    descripcion: "Acusado por presuntos sobornos y direccionamiento de obras en Moquegua.",
+    fuente: "https://www.pj.gob.pe/wps/wcm/connect/3b7c3280450a72f6a6a9eee5406a4592/TEMP_202000033500223704620250725165505%2B%281%29.pdf?CACHEID=3b7c3280450a72f6a6a9eee5406a4592&MOD=AJPERES",
+    rank: 1,
+    legal: "acusacion",
+    severidad: "muy-alta"
+  },
+  {
+    id: "intocables-provias",
+    titulo: "Liderazgo de 'Los Intocables de la Corrupción' (Provías)",
+    descripcion: "Se le imputa red para coimas en obras públicas vinculadas a Provías.",
+    fuente: "https://www.gob.pe/institucion/mpfn/noticias/899517-eficcop-logra-detencion-de-exfuncionarios-de-provias-descentralizado-investigados-en-presunta-red-criminal-los-intocables-de-la-corrupcion",
+    rank: 2,
+    legal: "investigacion",
+    severidad: "muy-alta"
+  },
+  {
+    id: "disolucion-congreso-inhabilitaciones",
+    titulo: "Cierre del Congreso e inhabilitaciones por juicio político",
+    descripcion: "Disolvió el Congreso (aval del TC); registró inhabilitaciones posteriores por juicio político.",
+    fuente: "https://tc.gob.pe/jurisprudencia/2020/0006-2019-CC.shtml",
+    rank: 3,
+    legal: "sentencia",
+    severidad: "muy-alta"
+  },
+  {
+    id: "vacunagate-inhabilitacion",
+    titulo: "Vacunagate e inhabilitación (COVID-19)",
+    descripcion: "Vacunación irregular con Sinopharm; inhabilitado 10 años para ejercer función pública.",
+    fuente: "https://rpp.pe/politica/congreso/martin-vizcarra-congreso-oficializo-inhabilitacion-politica-por-10-anos-por-el-caso-vacunagate-noticia-1332053",
+    rank: 4,
+    legal: "sentencia",
+    severidad: "muy-alta"
+  },
+  {
+    id: "renuncia-chinchero",
+    titulo: "Renuncia como ministro por el caso Chinchero",
+    descripcion: "Dejó el MTC tras la polémica por la adenda del aeropuerto de Chinchero.",
+    fuente: "https://elcomercio.pe/politica/gobierno/martin-vizcarra-renuncia-al-ministerio-de-transportes-y-comunicaciones-noticia-1975218",
+    rank: 5,
+    legal: "investigacion",
+    severidad: "alta"
+  },
+  {
+    id: "richard-swing",
+    titulo: "Caso Richard Swing y obstrucción a la justicia",
+    descripcion: "Contratos irregulares y audios comprometedores; diligencias fiscales y administrativas.",
+    fuente: "https://elcomercio.pe/politica/justicia/caso-richard-swing-que-se-sabe-sobre-la-investigacion-que-involucra-a-martin-vizcarra-noticia/",
+    rank: 6,
+    legal: "investigacion",
+    severidad: "alta"
+  },
+  {
+    id: "inhabilitacion-conflicto-intereses",
+    titulo: "Inhabilitación por conflicto de intereses empresarial",
+    descripcion: "Sanción por no renunciar a su empresa mientras fue ministro.",
+    fuente: "https://comunicaciones.congreso.gob.pe/noticias/representacion-nacional-aprueba-inhabilitar-por-cinco-anos-al-expresidente-martin-vizcarra/",
+    rank: 7,
+    legal: "sentencia",
+    severidad: "alta"
+  },
+  {
+    id: "designacion-ilegal-daniel-soria",
+    titulo: "Acusación por designación ilegal de Daniel Soria",
+    descripcion: "Acusación constitucional por presunta designación irregular del procurador general.",
+    fuente: "https://rpp.pe/politica/congreso/subcomision-aprueba-denuncia-constitucional-contra-martin-vizcarra-por-nombramiento-de-daniel-soria-noticia-1459360",
+    rank: 8,
+    legal: "acusacion",
+    severidad: "alta"
+  },
+  {
+    id: "reuniones-keiko-opacidad",
+    titulo: "Opacidad sobre reuniones con Keiko Fujimori",
+    descripcion: "Negó reuniones secretas; posterior reconocimiento generó crisis de credibilidad.",
+    fuente: "https://rpp.pe/politica/gobierno/vizcarra-reconoce-error-de-haber-mantenido-reuniones-con-keiko-fujimori-en-reserva-noticia-1145883",
+    rank: 9,
+    legal: "investigacion",
+    severidad: "media"
+  },
+  {
+    id: "responsabilidad-bancada-somos-peru",
+    titulo: "Responsabilidad política por la bancada Somos Perú (2021)",
+    descripcion: "Fue el más votado; él mismo calificó a su bancada como 'nefasta'.",
+    fuente: "https://elcomercio.pe/elecciones-2021/elecciones-2021-martin-vizcarra-y-los-candidatos-que-se-proyectan-como-los-mas-votados-onpe-jne-elecciones-generales-peru-2021-martin-vizcarra-jose-luna-jorge-montoya-peru-libre-noticia/",
+    rank: 10,
+    legal: "rumor",
+    severidad: "media"
+  }
+],
     econ: 4,
     social: 4,
     territorial: -7, // Su carrera se forjó como Gobernador de Moquegua; su marca es la gestión regional.
@@ -1269,19 +1347,61 @@ controversias: [
       ]
     },
     controversias: [
-      {
-        id: "audio-2020",
-        titulo: "Audio: 'Si tomamos el poder, no lo vamos a dejar'",
-        descripcion: "Grabación de 2020 generó críticas y cuestionamientos sobre su talante democrático.",
-        fuente: "https://es.wikipedia.org/wiki/Guillermo_Bermejo"
-      },
-      {
-        id: "juicio-terrorismo",
-        titulo: "Juicio por presunta afiliación terrorista (absuelto en 2021)",
-        descripcion: "La fiscalía solicitó 20 años por presunta afiliación a terrorismo; fue absuelto en primera instancia en 2021.",
-        fuente: "https://es.wikipedia.org/wiki/Guillermo_Bermejo"
-      }
-    ],
+    {
+      id: "arcc-operadores-reconstruccion",
+      titulo: "Tráfico de influencias en ARCC ('Operadores de la Reconstrucción')",
+      descripcion: "Investigado por presuntos sobornos para direccionar obras en Piura mediante operadores vinculados a la ARCC.",
+      fuente: "https://gestion.pe/peru/politica/los-operadores-de-la-reconstruccion-fiscalia-abre-investigacion-a-guillermo-bermejo-noticia/",
+      rank: 1,
+      legal: "investigacion",
+      severidad: "alta"
+    },
+    {
+      id: "procesos-terrorismo",
+      titulo: "Vínculos con Sendero Luminoso y procesos por terrorismo",
+      descripcion: "Procesos por presunta afiliación al terrorismo; fue absuelto en un caso, otros antecedentes fueron archivados.",
+      fuente: "https://es.wikipedia.org/wiki/Guillermo_Bermejo",
+      rank: 2,
+      legal: "rumor",
+      severidad: "media"
+    },
+    {
+      id: "obstruccion-justicia-sacha",
+      titulo: "Obstrucción de la justicia (intimidación de testigo 'Sacha')",
+      descripcion: "A juicio oral por presunta obstrucción a la justicia en investigación vinculada a terrorismo.",
+      fuente: "https://elcomercio.pe/politica/justicia/guillermo-bermejo-y-guido-bellido-iran-a-juicio-por-presuntamente-obstruir-una-investigacion-por-terrorismo-para-cuando-se-espera-una-sentencia-noticia/",
+      rank: 3,
+      legal: "acusacion",
+      severidad: "media"
+    },
+    {
+      id: "uso-indebido-recursos-campana",
+      titulo: "Uso indebido de recursos públicos para campaña",
+      descripcion: "Colaborador afirma que usó viáticos y viajes del Congreso para actividades proselitistas.",
+      fuente: "https://gestion.pe/peru/politica/bermejo-financia-su-campana-presidencial-con-recursos-publicos-afirma-colaborador-noticia/",
+      rank: 4,
+      legal: "investigacion",
+      severidad: "media"
+    },
+    {
+      id: "presunto-atentado-embajada-eeuu-2010",
+      titulo: "Presunto atentado a Embajada de EE. UU. (2010)",
+      descripcion: "Detención por sindicaciones; sin condena firme reportada.",
+      fuente: "https://peru21.pe/politica/las-pelotudeces-del-che-guillermo-bermejo-noticia/",
+      rank: 5,
+      legal: "investigacion",
+      severidad: "alta"
+    },
+    {
+      id: "presunto-pacto-ilegal-absolucion",
+      titulo: "Presunto pacto ilegal para absolución judicial",
+      descripcion: "Acusación de reunión con un juez para asegurar absolución; en indagación preliminar.",
+      fuente: "https://diariocorreo.pe/politica/guillermo-bermejo-congresista-habria-pactado-con-juez-para-ser-absuelto-en-caso-de-terrorismo-noticia",
+      rank: 6,
+      legal: "investigacion",
+      severidad: "media"
+    }
+  ],
     education: "pro",
     security: "pro",
     health: "anti",
@@ -1921,37 +2041,97 @@ controversias: [
   },
 
   controversias: [
-    {
-      id: "willax-2017",
-      titulo: "Suspensión de ‘Combutters’ por comentarios racistas",
-      descripcion:
-        "Willax suspendió su programa tras llamar ‘cocodrilos’ y ‘mono/gorila’ a futbolistas ecuatorianos; hubo condena pública.",
-      fuente:
-        "https://www.concortv.gob.pe/ministerio-de-cultura-se-pronuncia-frente-comentarios-del-periodista-phillip-butters/"
-    },
-    {
-      id: "ecuador-2017",
-      titulo: "Rechazo oficial de Ecuador por expresiones racistas",
-      descripcion:
-        "La Cancillería de Ecuador rechazó enérgicamente sus declaraciones.",
-      fuente:
-        "https://www.cancilleria.gob.ec/2017/06/16/cancilleria-ecuatoriana-rechaza-energicamente-declaraciones-racistas-de-periodista-peruano/"
-    },
-    {
-      id: "carlin-2011",
-      titulo: "Altercado con el actor Carlos Carlín",
-      descripcion:
-        "Enfrentamiento con agresiones verbales y un incidente en un local de Miraflores.",
-      fuente: "https://es.wikipedia.org/wiki/Phillip_Butters"
-    },
-    {
-      id: "pbo-919",
-      titulo: "Intervención a PBO Radio 91.9 FM (regulatorio)",
-      descripcion:
-        "Allanamiento y medida cautelar por operar sin concesión vigente de la 91.9 FM; la emisora continuó por streaming.",
-      fuente: "https://es.wikipedia.org/wiki/PBO_Radio"
-    }
-  ],
+  {
+    id: "incendiaria-declaracion-manifestantes",
+    titulo: "Incendiaria declaración contra manifestantes",
+    descripcion: "Sugirió el uso de fuerza letal contra manifestantes.",
+    fuente: "https://lpderecho.pe/video-por-que-a-estos-senores-no-les-han-metido-un-balazo-defensoria-rechaza-expresiones-de-conductor-phillip-butters/",
+    rank: 1,
+    legal: "investigacion",
+    severidad: "alta"
+  },
+  {
+    id: "irregularidades-fondos-avanza-pais",
+    titulo: "Irregularidades en gasto de fondos públicos de Avanza País",
+    descripcion: "Pagos observados (p. ej., S/465 mil) por 'capacitaciones'.",
+    fuente: "https://rpp.pe/peru/actualidad/avanza-pais-pago-por-capacitaciones-s-465-000-con-fondos-publicos-a-empresa-que-funciona-en-un-puesto-de-fotocopias-noticia-1469171",
+    rank: 2,
+    legal: "investigacion",
+    severidad: "media"
+  },
+  {
+    id: "riesgo-designar-funcionarios-cuestionados",
+    titulo: "Riesgo de designar funcionarios cuestionados",
+    descripcion: "Equipo con figuras con cuestionamientos.",
+    fuente: "https://limagris.com/phillip-butters-el-terror-de-los-progres/",
+    rank: 3,
+    legal: "rumor",
+    severidad: "media"
+  },
+  {
+    id: "tenencia-armas-sin-licencia",
+    titulo: "Tenencia de armas sin licencia",
+    descripcion: "Admitió portar armas sin permiso.",
+    fuente: "https://lpderecho.pe/phillip-butters-reconoce-porto-armas-sin-licencia-gobierno-castillo/",
+    rank: 4,
+    legal: "investigacion",
+    severidad: "media"
+  },
+  {
+    id: "declaraciones-discriminatorias-homofobicas",
+    titulo: "Declaraciones discriminatorias y homofóbicas",
+    descripcion: "Expresiones contra personas LGBT y un futbolista.",
+    fuente: "https://www.concortv.gob.pe/sancionan-a-radio-capital-por-frases-homofobicas-de-phillip-butters/",
+    rank: 5,
+    legal: "rumor",
+    severidad: "media"
+  },
+  {
+    id: "afiliacion-bancada-cuestionada",
+    titulo: "Afiliación a bancada cuestionada (Avanza País)",
+    descripcion: "Rostro de partido con votaciones controversiales.",
+    fuente: "https://elcomercio.pe/politica/congreso/avanza-pais-votara-en-contra-de-reconsideracion-para-adelanto-de-elecciones-al-2023-noticia/",
+    rank: 6,
+    legal: "rumor",
+    severidad: "media"
+  },
+  {
+    id: "relacion-conflictiva-rla",
+    titulo: "Relación conflictiva y acusaciones con RLA",
+    descripcion: "Préstamo de US$250 mil y acusaciones cruzadas.",
+    fuente: "https://www.atv.pe/noticia/desmienten-a-phillip-butters-y-muestran-pruebas-de-prestamo-que-le-hizo-rafael-lopez-aliaga/",
+    rank: 7,
+    legal: "rumor",
+    severidad: "media"
+  },
+  {
+    id: "filtracion-chantaje-silencio-estampa",
+    titulo: "Supuesta filtración/chantaje (Silencio Estampa)",
+    descripcion: "Afirmó tener información para 'tumbar' la campaña de RLA.",
+    fuente: "https://www.infobae.com/peru/2025/09/05/phillip-butters-denuncia-que-rafael-lopez-aliaga-paga-trolls-para-atacar-y-lo-amenaza-si-hablo-se-acaba-su-candidatura/",
+    rank: 8,
+    legal: "rumor",
+    severidad: "media"
+  },
+  {
+    id: "vinculo-cuellos-blancos",
+    titulo: "Vínculo en caso 'Cuellos Blancos'",
+    descripcion: "Vinculado a empresario clave; presunta documentación falsa.",
+    fuente: "https://www.atv.pe/noticia/cual-es-la-historia-del-vinculo-entre-phillip-butters-y-antonio-camayo/",
+    rank: 9,
+    legal: "investigacion",
+    severidad: "media"
+  },
+  {
+    id: "falta-experiencia-gestion-publica",
+    titulo: "Falta de experiencia en gestión pública",
+    descripcion: "Outsider sin historial en cargos públicos.",
+    fuente: "https://es.wikipedia.org/wiki/Phillip_Butters",
+    rank: 10,
+    legal: "rumor",
+    severidad: "media"
+  }
+],
 
   econ: 8, 
   social: 8,
