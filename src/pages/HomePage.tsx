@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Compass } from 'lucide-react';
+import { ArrowRight, Compass, Scale } from 'lucide-react';
 import { candidates } from '@/data/candidates';
 import { useMemo } from 'react';
 
@@ -55,7 +55,10 @@ export function HomePage() {
                 to="/compare"
                 className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 active:translate-y-0"
               >
-                <span>⚖️ Comparar candidatos</span>
+                <span className="flex items-center gap-2">
+                  <Scale className="h-4 w-4 text-black" />
+                  <span>Comparar candidatos</span>
+                </span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
