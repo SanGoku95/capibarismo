@@ -104,7 +104,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
 
             <AccordionItem value="creencias-clave">
               <AccordionTrigger className="text-base font-semibold">
-                <Sparkles size={16} className="mr-2" /> Creencias Clave
+                <Sparkles size={16} className="mr-2" /> Creencias
               </AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-wrap gap-2 pt-2">
@@ -214,10 +214,9 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               </AccordionContent>
             </AccordionItem>
 
-            {/* MOVED: Presencia Digital ahora al final */}
             <AccordionItem value="presencia-digital">
               <AccordionTrigger className="text-base font-semibold">
-                <Radio size={16} className="mr-2" /> Presencia Digital
+                <Radio size={16} className="mr-2" /> Redes
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-2 pt-2">

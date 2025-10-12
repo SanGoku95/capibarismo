@@ -178,7 +178,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               />
 
               <ComparisonSection
-                title="Creencias Clave"
+                title="Creencias"
                 sectionId="creencias-clave"
                 leftCandidate={leftCandidate}
                 rightCandidate={rightCandidate}
@@ -353,7 +353,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               />
 
               <ComparisonSection
-                title="Presencia en Medios"
+                title="Redes"
                 sectionId="presencia-digital"
                 leftCandidate={leftCandidate}
                 rightCandidate={rightCandidate}
