@@ -19,8 +19,9 @@ import { Shield, Briefcase, Power, Radio, Sparkles, AlertTriangle } from 'lucide
 import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
 
 // + imports para tooltip/popover
-import { useId, useRef, useState } from 'react';
+import { type ReactNode, useId, useRef, useState, useEffect } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface CandidateFactSheetProps {
   candidate: Candidate | null;
@@ -263,7 +264,7 @@ const legProps = (l?: string) => {
     case 'en_curso': return { label: 'En Curso', className: 'bg-amber-500/90 text-black' };
     case 'sancion':  return { label: 'Sanción',     className: 'bg-rose-600/90 text-white'};
     case 'cerrado_sin_sancion':  return { label: 'Cerrado sin sanción',     className: 'bg-emerald-600/90 text-white' };
-    case 'condena':              return { label: 'condena',             className:'bg-red-700/90 text-white' };
+    case 'condena':              return { label: 'Condena',             className:'bg-red-700/90 text-white' };
     default:                     return { label: '—', className:'bg-muted text-foreground'};
   }
 };
@@ -293,60 +294,75 @@ function InfoBadge({
   label,
   className,
   description,
-}: { label: string; className?: string; description: React.ReactNode }) {
+}: { label: string; className?: string; description: ReactNode }) {
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<number | null>(null);
-  const descId = useId();
+  const contentId = useId();
 
   const clearTimer = () => {
-    if (closeTimer.current) {
-      clearTimeout(closeTimer.current);
+    if (closeTimer.current !== null) {
+      window.clearTimeout(closeTimer.current);
       closeTimer.current = null;
     }
   };
 
-  const openHover = () => {
-    clearTimer();
-    setOpen(true);
+  const handlePointerEnter = (event: React.PointerEvent) => {
+    if (event.pointerType !== 'touch') {
+      clearTimer();
+      setOpen(true);
+    }
   };
 
-  const closeHover = () => {
-    clearTimer();
-    // pequeño retraso para permitir pasar del trigger al contenido sin cerrar
-    closeTimer.current = window.setTimeout(() => setOpen(false), 120);
+  const handlePointerLeave = (event: React.PointerEvent) => {
+    if (event.pointerType !== 'touch') {
+      clearTimer();
+      closeTimer.current = window.setTimeout(() => setOpen(false), 120);
+    }
   };
 
-  const onClick = () => setOpen(v => !v);
+  const handleClick = (event: React.MouseEvent | React.TouchEvent) => {
+    event.preventDefault();
+    clearTimer();
+    setOpen(prev => !prev);
+  };
+
+  useEffect(() => () => clearTimer(), []);
+
+  const triggerClasses = cn(
+    "inline-flex items-center gap-1 rounded-full border border-white/12 bg-card/80 px-2.5 py-1 text-[11px] font-medium lowercase tracking-wide text-foreground/80 shadow-[0_10px_24px_-12px_rgba(0,0,0,0.55)] transition-all duration-200 ease-out backdrop-blur-md",
+    "hover:border-primary/70 hover:text-primary-foreground hover:bg-primary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-primary/70 focus-visible:ring-offset-background",
+    open && "border-primary/80 bg-primary/85 text-primary-foreground shadow-[0_0_28px_rgba(244,63,94,0.45)]",
+    className,
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Badge
-          className={className}
-          role="button"
-          tabIndex={0}
-          aria-haspopup="dialog"
-          aria-expanded={open}
-          aria-describedby={descId}
-          onMouseEnter={openHover}
-          onMouseLeave={closeHover}
-          onFocus={openHover}
-          onBlur={closeHover}
-          onClick={onClick}
+        <button
+          type="button"
+          className={triggerClasses}
+          aria-describedby={contentId}
+          onClick={handleClick}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
         >
-          {label}
-        </Badge>
+          <span className="h-1.5 w-1.5 rounded-full bg-white/30 transition-colors group-hover:bg-white/80" />
+          <span className="leading-none">{label}</span>
+        </button>
       </PopoverTrigger>
       <PopoverContent
+        id={contentId}
         side="top"
         align="start"
-        sideOffset={8}
-        className="max-w-xs text-sm z-50"
-        // Mantener abierto mientras el puntero esté sobre el contenido
-        onMouseEnter={openHover}
-        onMouseLeave={closeHover}
+        sideOffset={12}
+        className="max-w-xs rounded-2xl border border-white/12 bg-card/95 p-4 text-sm leading-relaxed text-foreground/85 shadow-[0_22px_42px_-24px_rgba(0,0,0,0.65)] backdrop-blur-xl"
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
       >
-        <div id={descId}>{description}</div>
+        <div className="flex items-start gap-2">
+          <span className="mt-1 h-1.5 w-10 rounded-full bg-gradient-to-r from-primary/70 via-accent/60 to-secondary/65" />
+          <div>{description}</div>
+        </div>
       </PopoverContent>
     </Popover>
   );
