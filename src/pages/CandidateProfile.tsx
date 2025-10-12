@@ -64,13 +64,6 @@ const legalHelp = (l?: string) => {
     default:              return 'Sin estatus legal especificado.';
   }
 };
-// NEW: explicación combinada
-const combinedHelp = (sev?: string, legal?: string) => (
-  <div className="space-y-1">
-    <div><span className="font-semibold">Estado legal:</span> {legalHelp(legal)}</div>
-    <div><span className="font-semibold">Severidad:</span> {severityHelp(sev)}</div>
-  </div>
-);
 
 // NEW: Badge con hover/click explicativo
 const ExplainBadge = ({ label, className, description }: { label: string; className?: string; description: React.ReactNode }) => (
