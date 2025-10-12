@@ -630,7 +630,7 @@ controversias: [
         id: "canazo-con-sal",
         titulo: "'Cañazo con sal' en pandemia",
         descripcion: "Recomendación sin sustento durante la pandemia.",
-        fuente: "https://rpp.pe/politica/congreso/yonhy-lescano-y-su-recomendacion-del-canazo-con-sal-para-evitar-el-coronavirus-noticia-1251154",
+        fuente: "https://www.swissinfo.ch/spa/candidato-a-presidente-de-per%C3%BA-insiste-en-tratar-la-covid-19-con-aguardiente/46489840",
         rank: 2,
         legal: "denuncia_en_medios",
         severidad: "alta"
