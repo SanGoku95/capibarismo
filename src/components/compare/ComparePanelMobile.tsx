@@ -400,11 +400,12 @@ const sevChip = (sev?: string) => {
 };
 const legChip = (l?: string) => {
   switch (l) {
-    case 'rumor':         return 'bg-slate-500/90 text-white';
-    case 'investigacion': return 'bg-amber-500/90 text-black';
-    case 'acusacion':     return 'bg-orange-700/90 text-white';
-    case 'sentencia':     return 'bg-red-700/90 text-white';
-    default:              return 'bg-muted text-foreground';
+    case 'denuncia_en_medios':   return 'bg-sky-600/90 text-white';
+    case 'en_curso':             return 'bg-amber-500/90 text-black';
+    case 'sancion':              return 'bg-rose-600/90 text-white';
+    case 'cerrado_sin_sancion':  return 'bg-emerald-600/90 text-white';
+    case 'condena':              return 'bg-red-700/90 text-white';
+    default:                     return 'bg-muted text-foreground';
   }
 };
 
@@ -419,21 +420,14 @@ const sevHelp = (sev?: string) => {
 };
 const legHelp = (l?: string) => {
   switch (l) {
-    case 'rumor':         return 'Señalamientos públicos o mediáticos sin proceso formal.';
-    case 'investigacion': return 'Indagación fiscal/policial abierta; sin acusación formal.';
-    case 'acusacion':     return 'Acusación fiscal o denuncia admitida; proceso en curso.';
-    case 'sentencia':     return 'Decisión firme (judicial o administrativa) aplicable al hecho.';
-    default:              return 'Sin estatus legal especificado.';
+    case 'denuncia_en_medios':  return 'Se dijo en prensa/redes; sin trámite oficial.';
+    case 'en_curso':            return 'Trámite oficial abierto (investigación o juicio).';
+    case 'sancion':             return 'Hubo sanción institucional (no es condena penal).';
+    case 'cerrado_sin_sancion': return 'Archivado o absuelto; sin sanción.';
+    case 'condena':             return 'Sentencia penal firme de culpabilidad.';
+    default:                    return 'Sin datos suficientes para clasificar.';
   }
 };
-
-// NEW: explicación combinada
-const combinedHelp = (sev?: string, legal?: string) => (
-  <div className="space-y-1">
-    <div><span className="font-semibold">Estado legal:</span> {legHelp(legal)}</div>
-    <div><span className="font-semibold">Severidad:</span> {sevHelp(sev)}</div>
-  </div>
-);
 
 // NEW: Chip con explicación (hover/click)
 const ExplainChip = ({ className = '', label, description }: { className?: string; label: string; description: React.ReactNode }) => (

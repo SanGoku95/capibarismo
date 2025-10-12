@@ -57,7 +57,7 @@ export interface Candidate {
     descripcion: string;
     fuente: string;
     rank?: number; // 1..n por candidato (usa Rank_candidato)
-    legal?: 'rumor' | 'investigacion' | 'acusacion' | 'sentencia'; // badge legal
+    legal?: 'denuncia_en_medios' | 'en_curso' | 'sancion' | 'cerrado_sin_sancion' | 'condena'; // badge legal
     severidad?: 'media' | 'alta' | 'muy-alta'; // personas + impacto + dinero (3 niveles)
   }[];
   econ?: number;
@@ -215,16 +215,25 @@ export const candidates: Candidate[] = [
         descripcion: "Acusada de liderar una organización criminal y lavar dinero (Odebrecht)",
         fuente: "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori",
         rank: 1,
-        legal: "investigacion",
+        legal: "en_curso",
         severidad: "muy-alta"
+      },
+      {
+        id: "compra-propiedades-ramirez",
+        titulo: "Caso Joaquín Ramírez: compras inmobiliarias",
+        descripcion: "Lavado de dinero vía inmuebles vinculados al exsecretario general.",
+        fuente: "https://rpp.pe/politica/judiciales/poder-judicial-ordeno-al-ministerio-publico-concluir-investigacion-contra-el-alcalde-de-cajamarca-joaquin-ramirez-noticia-1616395",
+        rank: 2,
+        legal: "en_curso",
+        severidad: "media"
       },
       {
         id: "captura-instituciones",
         titulo: "Captura de la justicia",
         descripcion: "Influencia para decidir magistrados y juicios.",
         fuente: "https://www.ohchr.org/en/press-releases/2023/11/peru-un-expert-concerned-about-proceedings-peruvian-congress-seeking-removal",
-        rank: 2,
-        legal: "investigacion",
+        rank: 3,
+        legal: "denuncia_en_medios",
         severidad: "alta"
       },
       {
@@ -232,8 +241,8 @@ export const candidates: Candidate[] = [
         titulo: "Confrontación con el Ejecutivo (2016–2018)",
         descripcion: "Choque con ejecutivo usando mayoría en el Congreso.",
         fuente: "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi",
-        rank: 3,
-        legal: "rumor",
+        rank: 4,
+        legal: "denuncia_en_medios",
         severidad: "alta"
       },
       {
@@ -241,17 +250,8 @@ export const candidates: Candidate[] = [
         titulo: "Mamanivideos e indulto a Alberto Fujimori",
         descripcion: "Videos de negociación de votos y polémica por el indulto a Alberto Fujimori.",
         fuente: "https://es.wikipedia.org/wiki/Mamanivideos",
-        rank: 4,
-        legal: "investigacion",
-        severidad: "media"
-      },
-      {
-        id: "compra-propiedades-ramirez",
-        titulo: "Caso Joaquín Ramírez: compras inmobiliarias",
-        descripcion: "Lavado de dinero vía inmuebles vinculados al exsecretario general.",
-        fuente: "https://rpp.pe/politica/judiciales/poder-judicial-ordeno-al-ministerio-publico-concluir-investigacion-contra-el-alcalde-de-cajamarca-joaquin-ramirez-noticia-1616395",
         rank: 5,
-        legal: "investigacion",
+        legal: "denuncia_en_medios",
         severidad: "media"
       },
       {
@@ -260,7 +260,7 @@ export const candidates: Candidate[] = [
         descripcion: "Negó las torturas denunciadas por su madre; polémica familiar y política.",
         fuente: "https://ojo-publico.com/221/hermanos-keiko-culparon-su-madre-para-salvar-fujimori-la-extradicion",
         rank: 6,
-        legal: "investigacion",
+        legal: "denuncia_en_medios",
         severidad: "alta"
       }
     ],
@@ -422,12 +422,12 @@ export const candidates: Candidate[] = [
         descripcion: "Busca anular concesiones de peajes; posibles cobros contra el Estado",
         fuente: "https://www.infobae.com/peru/2025/10/05/rafael-lopez-aliaga-anuncia-que-reclamara-a-brookfield-una-indemnizacion-de-mas-de-s-3-mil-millones",
         rank: 1,
-        legal: "sentencia",
+        legal: "en_curso",
         severidad: "muy-alta"
       },
       {
         id: "deuda-bonos-mml",
-        titulo: "Deuda y rebaja de calificación de la MML S/1.300 millones",
+        titulo: "Deuda de la MML: S/1.300 millones",
         descripcion: "Moody’s bajó la calificación; se proyecta deuda de hasta S/ 1,300 millones.",
         fuente: "https://www.infobae.com/peru/2025/06/14/moodys-degrada-calificacion-de-la-municipalidad-de-lima-se-endeudara-hasta-por-s1300-millones/",
         rank: 2,
@@ -439,25 +439,25 @@ export const candidates: Candidate[] = [
         descripcion: "Socio de PerúRail desde 1999; dominio de la ruta a Machu Picchu y disputas con competidores y el Estado.",
         fuente: "https://wayka.pe/rafael-lopez-aliaga-los-artificios-en-defensa-de-su-monopolio-ferroviario/",
         rank: 3,
-        legal: "sentencia",
+        legal: "sancion",
         severidad: "media"
       },
       {
         id: "panama-papers-lavado",
-        titulo: "Panama Papers y deudas tributarias",
+        titulo: "Panama Papers: Lavado de activos y deudas tributarias",
         descripcion: "Registros de sociedades offshore y deudas coactivas; pesquisas por presunto lavado.",
         fuente: "https://www.idl-reporteros.pe/lopez-aliaga-y-los-panama-papers/",
         rank: 4,
-        legal: "investigacion",
+        legal: "en_curso",
         severidad: "media"
       },
       {
         id: "capacitacion-chibolin",
-        titulo: "Caso Chibolín: Uso de fondos públicos para 'capacitaciones'",
+        titulo: "Caso Chibolín: Capacitaciones de Renovación Popular",
         descripcion: "Fiscalía investiga pagos de más de S/650 mil a una empresa vinculada a TV por charlas/capacitaciones.",
         fuente: "https://www.infobae.com/peru/2024/10/06/fiscalia-investiga-vinculo-entre-renovacion-popular-y-andres-hurtado-partido-pago-mas-de-medio-millon-de-soles-a-productor-de-chibolin/",
         rank: 5,
-        legal: "investigacion",
+        legal: "en_curso",
         severidad: "media"
       },
       {
@@ -466,7 +466,7 @@ export const candidates: Candidate[] = [
         descripcion: "Préstamo de US$250 mil y acusaciones cruzadas sobre trolls, favores y 'mermelada'.",
         fuente: "https://willax.pe/politica/butters-sobre-supuesto-prestamo-de-rafael-lopez-aliaga-por-60-mil-dolares-no-le-debo-un-mango",
         rank: 6,
-        legal: "rumor",
+        legal: "denuncia_en_medios",
         severidad: "media"
       },
       {
@@ -475,7 +475,7 @@ export const candidates: Candidate[] = [
         descripcion: "Declaraciones cruzadas sobre la causa del deceso; sin conclusión firme.",
         fuente: "https://www.infobae.com/peru/2025/09/28/crimen-o-suicidio-la-muerte-de-jose-miguel-castro-enfrenta-versiones-entre-el-informe-forense-y-la-pericia-policial/",
         rank: 7,
-        legal: "rumor",
+        legal: "denuncia_en_medios",
         severidad: "media"
       }
     ],
@@ -620,10 +620,10 @@ controversias: [
       {
         id: "acoso-2019",
         titulo: "Denuncia de acoso sexual (2019) y suspensión",
-        descripcion: "Denunciado por periodista; el Pleno lo suspendió 120 días sin goce de haber.",
+        descripcion: "Denunciado por periodista; el congreso lo suspendió 120 días sin goce de haber.",
         fuente: "https://es.wikipedia.org/wiki/Yonhy_Lescano",
         rank: 1,
-        legal: "sentencia",
+        legal: "sancion",
         severidad: "alta"
       },
       {
@@ -632,7 +632,7 @@ controversias: [
         descripcion: "Recomendación sin sustento durante la pandemia.",
         fuente: "https://rpp.pe/politica/congreso/yonhy-lescano-y-su-recomendacion-del-canazo-con-sal-para-evitar-el-coronavirus-noticia-1251154",
         rank: 2,
-        legal: "rumor",
+        legal: "denuncia_en_medios",
         severidad: "alta"
       },
       {
@@ -641,7 +641,7 @@ controversias: [
         descripcion: "Mención en publicación del cabecilla terrorista generó polémica.",
         fuente: "https://es.wikipedia.org/wiki/Yonhy_Lescano",
         rank: 3,
-        legal: "rumor",
+        legal: "denuncia_en_medios",
         severidad: "media"
       },
       {
@@ -650,7 +650,7 @@ controversias: [
         descripcion: "Hubo señalamientos y diligencias preliminares; negó vínculos.",
         fuente: "https://www.americatv.com.pe/noticias/actualidad/yonhy-lescano-niega-vinculos-caso-lopez-meneses-n162084",
         rank: 4,
-        legal: "investigacion",
+        legal: "cerrado_sin_sancion",
         severidad: "media"
       }
     ],
@@ -843,7 +843,7 @@ controversias: [
       descripcion: "Asonada con saldo de 4 policías fallecidos; cumplió alrededor de 17 años de condena.",
       fuente: "https://es.wikipedia.org/wiki/Andahuaylazo",
       rank: 2,
-      legal: "sentencia",
+      legal: "condena",
       severidad: "alta"
     },
     {
@@ -868,7 +868,7 @@ controversias: [
       descripcion: "No habría pagado más de S/1 millón correspondiente a la reparación civil.",
       fuente: "https://www.infobae.com/peru/2024/01/02/antauro-humala-no-ha-pagado-la-reparacion-civil-de-mas-de-un-millon-de-soles-a-los-deudos-del-andahuaylazo/",
       rank: 5,
-      legal: "investigacion",
+      legal: "condena",
       severidad: "alta"
     },
     {
@@ -877,7 +877,7 @@ controversias: [
       descripcion: "Investigado por presunto cohecho y privilegios carcelarios mientras cumplía condena.",
       fuente: "https://www.infobae.com/peru/2024/12/08/archivan-investigacion-contra-antauro-humala-por-cohecho-pese-a-que-admitio-y-motivo-sobornos-en-el-inpe/",
       rank: 6,
-      legal: "rumor",
+      legal: "cerrado_sin_sancion",
       severidad: "media"
     },
     {
@@ -886,7 +886,7 @@ controversias: [
       descripcion: "Declaraciones homofóbicas reiteradas que generaron críticas y rechazo público.",
       fuente: "https://elcomercio.pe/opinion/columnistas/antauro-humala-anibal-torres-y-todos-los-demas-por-hector-villalobos-noticia/",
       rank: 7,
-      legal: "rumor",
+      legal: "denuncia_en_medios",
       severidad: "media"
     },
     {
@@ -903,7 +903,7 @@ controversias: [
       descripcion: "Ruptura política con acusaciones cruzadas y confrontación pública.",
       fuente: "https://es.wikipedia.org/wiki/Antauro_Humala",
       rank: 9,
-      legal: "rumor",
+      legal: "denuncia_en_medios",
       severidad: "media"
     }
     ],
@@ -1102,7 +1102,7 @@ controversias: [
     descripcion: "Acusado por presuntos sobornos y direccionamiento de obras en Moquegua.",
     fuente: "https://www.pj.gob.pe/wps/wcm/connect/3b7c3280450a72f6a6a9eee5406a4592/TEMP_202000033500223704620250725165505%2B%281%29.pdf?CACHEID=3b7c3280450a72f6a6a9eee5406a4592&MOD=AJPERES",
     rank: 1,
-    legal: "acusacion",
+    legal: "en_curso",
     severidad: "muy-alta"
   },
   {
@@ -1111,7 +1111,7 @@ controversias: [
     descripcion: "Se le imputa red para coimas en obras públicas vinculadas a Provías.",
     fuente: "https://www.gob.pe/institucion/mpfn/noticias/899517-eficcop-logra-detencion-de-exfuncionarios-de-provias-descentralizado-investigados-en-presunta-red-criminal-los-intocables-de-la-corrupcion",
     rank: 2,
-    legal: "investigacion",
+    legal: "en_curso",
     severidad: "muy-alta"
   },
   {
@@ -1120,7 +1120,7 @@ controversias: [
     descripcion: "Disolvió el Congreso (aval del TC); registró inhabilitaciones posteriores por juicio político.",
     fuente: "https://es.wikipedia.org/wiki/Disoluci%C3%B3n_del_Congreso_de_la_Rep%C3%BAblica_del_Per%C3%BA_en_2019",
     rank: 3,
-    legal: "sentencia",
+    legal: "sancion",
     severidad: "muy-alta"
   },
   {
@@ -1129,16 +1129,16 @@ controversias: [
     descripcion: "Vacunación irregular con Sinopharm; inhabilitado 10 años para ejercer función pública.",
     fuente: "https://rpp.pe/politica/congreso/martin-vizcarra-congreso-oficializo-inhabilitacion-politica-por-10-anos-por-el-caso-vacunagate-noticia-1332053",
     rank: 4,
-    legal: "sentencia",
+    legal: "sancion",
     severidad: "muy-alta"
   },
   {
-    id: "renuncia-chinchero",
+    id: "arbitraje-chinchero",
     titulo: "Renuncia como ministro por el caso Chinchero",
-    descripcion: "Dejó el MTC tras la polémica por la adenda del aeropuerto de Chinchero.",
-    fuente: "https://elcomercio.pe/politica/gobierno/martin-vizcarra-renuncia-al-ministerio-de-transportes-y-comunicaciones-noticia-1975218",
+    descripcion: "Deuda millonaria tras el arbitraje de Chinchero.",
+    fuente: "https://elcomercio.pe/politica/procuraduria-del-mtc-prepara-denuncia-contra-martin-vizcarra-por-deuda-del-caso-kuntur-wasi-ultimas-noticia",
     rank: 5,
-    legal: "investigacion",
+    legal: "en_curso",
     severidad: "alta"
   },
   {
@@ -1147,7 +1147,7 @@ controversias: [
     descripcion: "Contratos irregulares y audios comprometedores; diligencias fiscales y administrativas.",
     fuente: "https://elcomercio.pe/politica/justicia/caso-richard-swing-que-se-sabe-sobre-la-investigacion-que-involucra-a-martin-vizcarra-noticia/",
     rank: 6,
-    legal: "investigacion",
+    legal: "en_curso",
     severidad: "alta"
   },
   {
@@ -1156,16 +1156,16 @@ controversias: [
     descripcion: "Sanción por no renunciar a su empresa mientras fue ministro.",
     fuente: "https://comunicaciones.congreso.gob.pe/noticias/representacion-nacional-aprueba-inhabilitar-por-cinco-anos-al-expresidente-martin-vizcarra/",
     rank: 7,
-    legal: "sentencia",
+    legal: "sancion",
     severidad: "alta"
   },
   {
     id: "designacion-ilegal-daniel-soria",
     titulo: "Acusación por designación ilegal de Daniel Soria",
     descripcion: "Acusación constitucional por presunta designación irregular del procurador general.",
-    fuente: "https://rpp.pe/politica/congreso/subcomision-aprueba-denuncia-constitucional-contra-martin-vizcarra-por-nombramiento-de-daniel-soria-noticia-1459360",
+    fuente: "https://comunicaciones.congreso.gob.pe/noticias/comision-permanente-aprobo-informe-final-que-recomienda-acusar-a-martin-vizcarra-por-delitos-contra-la-administracion-publica/",
     rank: 8,
-    legal: "acusacion",
+    legal: "en_curso",
     severidad: "alta"
   },
   {
@@ -1174,7 +1174,7 @@ controversias: [
     descripcion: "Negó reuniones secretas; posterior reconocimiento generó crisis de credibilidad.",
     fuente: "https://rpp.pe/politica/gobierno/vizcarra-reconoce-error-de-haber-mantenido-reuniones-con-keiko-fujimori-en-reserva-noticia-1145883",
     rank: 9,
-    legal: "investigacion",
+    legal: "denuncia_en_medios",
     severidad: "media"
   },
   {
@@ -1183,7 +1183,7 @@ controversias: [
     descripcion: "Fue el más votado; calificó a su bancada como nefasta.",
     fuente: "https://elcomercio.pe/elecciones-2021/elecciones-2021-martin-vizcarra-y-los-candidatos-que-se-proyectan-como-los-mas-votados-onpe-jne-elecciones-generales-peru-2021-martin-vizcarra-jose-luna-jorge-montoya-peru-libre-noticia/",
     rank: 10,
-    legal: "rumor",
+    legal: "denuncia_en_medios",
     severidad: "media"
   }
 ],
@@ -1353,7 +1353,7 @@ controversias: [
       descripcion: "Investigado por presuntos sobornos para direccionar obras en Piura mediante operadores vinculados a la ARCC.",
       fuente: "https://gestion.pe/peru/politica/los-operadores-de-la-reconstruccion-fiscalia-abre-investigacion-a-guillermo-bermejo-noticia/",
       rank: 1,
-      legal: "investigacion",
+      legal: "en_curso",
       severidad: "alta"
     },
     {
@@ -1362,7 +1362,7 @@ controversias: [
       descripcion: "Procesos por presunta afiliación al terrorismo; fue absuelto en un caso, otros antecedentes fueron archivados.",
       fuente: "https://es.wikipedia.org/wiki/Guillermo_Bermejo",
       rank: 2,
-      legal: "rumor",
+      legal: "cerrado_sin_sancion",
       severidad: "media"
     },
     {
@@ -1371,7 +1371,7 @@ controversias: [
       descripcion: "A juicio oral por presunta obstrucción a la justicia en investigación vinculada a terrorismo.",
       fuente: "https://elcomercio.pe/politica/justicia/guillermo-bermejo-y-guido-bellido-iran-a-juicio-por-presuntamente-obstruir-una-investigacion-por-terrorismo-para-cuando-se-espera-una-sentencia-noticia/",
       rank: 3,
-      legal: "acusacion",
+      legal: "en_curso",
       severidad: "media"
     },
     {
@@ -1380,16 +1380,16 @@ controversias: [
       descripcion: "Colaborador afirma que usó viáticos y viajes del Congreso para actividades proselitistas.",
       fuente: "https://gestion.pe/peru/politica/bermejo-financia-su-campana-presidencial-con-recursos-publicos-afirma-colaborador-noticia/",
       rank: 4,
-      legal: "investigacion",
+      legal: "denuncia_en_medios",
       severidad: "media"
     },
     {
-      id: "presunto-atentado-embajada-eeuu-2010",
+      id: "sindicacion-embajada-eeuu-2010",
       titulo: "Embajada de EE. UU. (2010): sindicaciones y detención",
       descripcion: "Detención por sindicaciones; sin condena firme reportada.",
       fuente: "https://peru21.pe/politica/las-pelotudeces-del-che-guillermo-bermejo-noticia/",
       rank: 5,
-      legal: "investigacion",
+      legal: "cerrado_sin_sancion",
       severidad: "alta"
     },
     {
@@ -1398,7 +1398,7 @@ controversias: [
       descripcion: "Acusación de reunión con un juez para asegurar absolución; en indagación preliminar.",
       fuente: "https://diariocorreo.pe/politica/guillermo-bermejo-congresista-habria-pactado-con-juez-para-ser-absuelto-en-caso-de-terrorismo-noticia",
       rank: 6,
-      legal: "investigacion",
+      legal: "denuncia_en_medios",
       severidad: "media"
     }
   ],
@@ -1598,7 +1598,7 @@ controversias: [
       descripcion: "Investigado mediáticamente por presuntos pagos del SIN en los 90s.",
       fuente: "https://www.hildebrandtensustrece.com/opinion/articulo/2116",
       rank: 2,
-      legal: "rumor",
+      legal: "denuncia_en_medios",
       severidad: "media"
     },
   ],
@@ -1766,7 +1766,7 @@ controversias: [
     descripcion: "El JNE lo excluyó de la elección presidencial por infringir la ley al entregar dinero durante campaña (resolución electoral firme; no es sentencia penal).",
     fuente: "https://rpp.pe/politica/elecciones/elecciones-2016-jee-excluye-candidatura-de-cesar-acuna-de-alianza-para-el-progreso-noticia-943203",
     rank: 1,
-    legal: "sentencia",
+    legal: "sancion",
     severidad: "muy-alta"
   },
   {
@@ -1775,7 +1775,7 @@ controversias: [
     descripcion: "Informe de control recomienda anular dos contratos (vía Trujillo–Huanchaco y hospital de Virú) por presuntas irregularidades. No es acusación fiscal ni sentencia.",
     fuente: "https://caretas.pe/politica/contraloria-pide-anular-contratos-millonarios-de-cesar-acuna-en-la-libertad/",
     rank: 2,
-    legal: "investigacion",
+    legal: "en_curso",
     severidad: "alta"
   },
   {
@@ -1784,7 +1784,7 @@ controversias: [
     descripcion: "ONPE ratificó multa millonaria a APP por exceder el tope de aportes de la UCV en 2010; el cobro siguió la vía judicial. Sanción administrativa a la organización política.",
     fuente: "https://peru21.pe/politica/onpe-ratifica-multa-s-9-millones-alianza-progreso-122662-noticia/",
     rank: 3,
-    legal: "sentencia",
+    legal: "sancion",
     severidad: "alta"
   },
   {
@@ -1793,6 +1793,7 @@ controversias: [
     descripcion: "Hubo condena en 1ª instancia (ene-2022), pero el querellante desistió en jun-2022 antes de la vista de apelación. No quedó condena firme.",
     fuente: "https://www.swissinfo.ch/spa/empresario-y-excandidato-peruano-retir%C3%B3-sonada-demanda-contra-periodista/47680628",
     rank: 4,
+    legal: "cerrado_sin_sancion",
     severidad: "media"
   },
   {
@@ -1801,7 +1802,7 @@ controversias: [
     descripcion: "Se difundieron audios donde pide priorizar un proyecto ligado a Alto Trujillo. El Congreso censuró a Lady Camones y la Fiscalía abrió investigación preliminar por tráfico de influencias.",
     fuente: "https://www.gob.pe/institucion/mpfn/noticias/647443-fiscalia-inicia-diligencias-por-investigacion-contra-cesar-acuna",
     rank: 5,
-    legal: "investigacion",
+    legal: "en_curso",
     severidad: "media"
   },
   {
@@ -1810,7 +1811,7 @@ controversias: [
     descripcion: "El Ministerio Público archivó la denuncia por presunto desvío de subvenciones en la Municipalidad de Trujillo. No prosperó.",
     fuente: "https://rpp.pe/peru/actualidad/archivan-denuncia-por-desvio-de-subvenciones-en-municipio-de-trujillo-noticia-511859",
     rank: 6,
-    legal: "rumor",
+    legal: "cerrado_sin_sancion",
     severidad: "media"
   },
   {
@@ -1819,7 +1820,7 @@ controversias: [
     descripcion: "Fue citado por la Fiscalía de Lavado de Activos en 2018 por movimientos financieros; no hay acusación ni sentencia públicas. Declaraciones posteriores vincularon el tema con su visa a EE.UU.",
     fuente: "https://rpp.pe/politica/judiciales/cesar-acuna-sera-interrogado-en-la-fiscalia-por-investigacion-por-lavado-de-activos-noticia-1161512",
     rank: 7,
-    legal: "investigacion",
+    legal: "en_curso",
     severidad: "media"
   },
   {
@@ -1828,7 +1829,7 @@ controversias: [
     descripcion: "Indecopi sancionó en 2016 por infracción al derecho de autor (tesis doctoral y libro atribuido). Sanción administrativa; no es condena penal.",
     fuente: "https://rpp.pe/economia/economia/indecopi-multo-a-cesar-acuna-por-plagio-de-libro-y-tesis-doctoral-noticia-993039",
     rank: 8,
-    legal: "sentencia",
+    legal: "sancion",
     severidad: "media"
   },
   {
@@ -1837,7 +1838,7 @@ controversias: [
     descripcion: "Exesposa y expareja lo denunciaron por maltrato. No hay sentencia conocida.",
     fuente: "https://www.infobae.com/america/peru/2022/09/03/los-escandalos-politicos-y-legales-que-rodean-a-cesar-acuna-el-millonario-lider-de-app/",
     rank: 9,
-    legal: "acusacion",
+    legal: "denuncia_en_medios",
     severidad: "media"
   },
   {
@@ -1846,7 +1847,7 @@ controversias: [
     descripcion: "Apariciones en medios y testimonios lo mencionan; no hay decisión judicial. Trátese como señalamiento no corroborado.",
     fuente: "https://www.youtube.com/watch?v=CKiYQbGNMxA",
     rank: 10,
-    legal: "rumor",
+    legal: "denuncia_en_medios",
     severidad: "media"
   }
 ],
@@ -2047,7 +2048,7 @@ controversias: [
     descripcion: "Sugirió el uso de fuerza letal contra manifestantes.",
     fuente: "https://lpderecho.pe/video-por-que-a-estos-senores-no-les-han-metido-un-balazo-defensoria-rechaza-expresiones-de-conductor-phillip-butters/",
     rank: 1,
-    legal: "investigacion",
+    legal: "denuncia_en_medios",
     severidad: "alta"
   },
   {
@@ -2056,7 +2057,7 @@ controversias: [
     descripcion: "Pagos observados (p. ej., S/465 mil) por 'capacitaciones'.",
     fuente: "https://rpp.pe/peru/actualidad/avanza-pais-pago-por-capacitaciones-s-465-000-con-fondos-publicos-a-empresa-que-funciona-en-un-puesto-de-fotocopias-noticia-1469171",
     rank: 2,
-    legal: "investigacion",
+    legal: "denuncia_en_medios",
     severidad: "media"
   },
   {
@@ -2065,7 +2066,7 @@ controversias: [
     descripcion: "Equipo con figuras con cuestionamientos.",
     fuente: "https://limagris.com/phillip-butters-el-terror-de-los-progres/",
     rank: 3,
-    legal: "rumor",
+    legal: "denuncia_en_medios",
     severidad: "media"
   },
   {
@@ -2074,7 +2075,7 @@ controversias: [
     descripcion: "Admitió portar armas sin permiso.",
     fuente: "https://lpderecho.pe/phillip-butters-reconoce-porto-armas-sin-licencia-gobierno-castillo/",
     rank: 4,
-    legal: "investigacion",
+    legal: "denuncia_en_medios",
     severidad: "media"
   },
   {
@@ -2083,7 +2084,7 @@ controversias: [
     descripcion: "Expresiones contra personas LGBT y un futbolista.",
     fuente: "https://www.concortv.gob.pe/sancionan-a-radio-capital-por-frases-homofobicas-de-phillip-butters/",
     rank: 5,
-    legal: "rumor",
+    legal: "sancion",
     severidad: "media"
   },
   {
@@ -2092,7 +2093,7 @@ controversias: [
     descripcion: "Rostro de partido con votaciones controversiales.",
     fuente: "https://elcomercio.pe/politica/congreso/avanza-pais-votara-en-contra-de-reconsideracion-para-adelanto-de-elecciones-al-2023-noticia/",
     rank: 6,
-    legal: "rumor",
+    legal: "denuncia_en_medios",
     severidad: "media"
   },
   {
@@ -2101,7 +2102,7 @@ controversias: [
     descripcion: "Préstamo de US$250 mil y acusaciones cruzadas.",
     fuente: "https://www.atv.pe/noticia/desmienten-a-phillip-butters-y-muestran-pruebas-de-prestamo-que-le-hizo-rafael-lopez-aliaga/",
     rank: 7,
-    legal: "rumor",
+    legal: "denuncia_en_medios",
     severidad: "media"
   },
   {
@@ -2110,7 +2111,7 @@ controversias: [
     descripcion: "Afirmó tener información para 'tumbar' la campaña de RLA.",
     fuente: "https://www.infobae.com/peru/2025/09/05/phillip-butters-denuncia-que-rafael-lopez-aliaga-paga-trolls-para-atacar-y-lo-amenaza-si-hablo-se-acaba-su-candidatura/",
     rank: 8,
-    legal: "rumor",
+    legal: "denuncia_en_medios",
     severidad: "media"
   },
   {
@@ -2119,7 +2120,7 @@ controversias: [
     descripcion: "Vinculado a empresario clave; presunta documentación falsa.",
     fuente: "https://www.atv.pe/noticia/cual-es-la-historia-del-vinculo-entre-phillip-butters-y-antonio-camayo/",
     rank: 9,
-    legal: "investigacion",
+    legal: "denuncia_en_medios",
     severidad: "media"
   },
   {
@@ -2128,7 +2129,7 @@ controversias: [
     descripcion: "Outsider sin historial en cargos públicos.",
     fuente: "https://es.wikipedia.org/wiki/Phillip_Butters",
     rank: 10,
-    legal: "rumor",
+    legal: "denuncia_en_medios",
     severidad: "media"
   }
 ],
