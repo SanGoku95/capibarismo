@@ -243,7 +243,7 @@ export function CandidateProfile() {
             {/* Proyecto Político después de Trayectoria */}
             <Card className="fighting-game-card scroll-mt-24" id="proyecto-politico">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Shield size={20} /> Proyecto Político</CardTitle>
+                <CardTitle className="flex items-center gap-2"><Shield size={20} /> Agenda</CardTitle>
               </CardHeader>
               <CardContent>
                 <h3 className="text-xl font-bold mb-2">{candidate.proyectoPolitico.titulo}</h3>
