@@ -40,6 +40,34 @@ export function About() {
                 El diseño busca simplificar temas complejos. Las "creencias clave" son resúmenes de las posturas más recurrentes en el discurso de un candidato. El "mapa de poder" visualiza la experiencia relevante que podría influir en su gestión. Los "clips" son una selección de apariciones mediáticas para que puedas escuchar directamente a los candidatos.
               </p>
             </section>
+            <section>
+              <h3 className="font-bold text-xl text-foreground mb-3">¿Cómo medimos el Mapa Político?</h3>
+              <p>
+                Para entender a fondo a quienes aspiran a dirigir el país, hemos diseñado una metodología que va más allá de las etiquetas tradicionales. Nuestro análisis es <em>cuadridimensional</em> y califica a cada candidato en <strong>cuatro ejes</strong>, con puntajes de <strong>-10 a +10</strong> en cada uno.
+              </p>
+              <p className="mt-3 font-medium">Estos cuatro ejes son:</p>
+              <ul className="list-disc pl-6 space-y-2 mt-2">
+                <li>
+                  <strong>Eje Económico:</strong> mide si el candidato prefiere un Estado que interviene y controla la economía (<em>Izquierda Intervencionista</em>) o uno que fomenta la libre competencia y la inversión privada (<em>Derecha Pro‑Mercado</em>).
+                </li>
+                <li>
+                  <strong>Eje Social:</strong> evalúa las posturas sobre libertades individuales. Va desde quienes defienden la expansión de derechos para las minorías (<em>Progresismo Liberal</em>) hasta quienes priorizan el “orden” y los valores tradicionales (<em>Autoritarismo Conservador</em>).
+                </li>
+                <li>
+                  <strong>Eje Territorial:</strong> analiza la visión sobre la distribución del poder. Mapea desde quienes buscan dar más autonomía y recursos a las regiones (<em>Regionalismo</em>) hasta quienes prefieren concentrar las decisiones en Lima (<em>Centralismo</em>).
+                </li>
+                <li>
+                  <strong>Eje de Gobernanza (Estilo de Poder):</strong> examina el respeto por las reglas democráticas. Distingue entre quienes buscan fortalecer las instituciones (<em>Institucionalismo</em>) y quienes proponen un cambio radical del sistema, a menudo con un discurso de confrontación (<em>Populismo Antisistema</em>).
+                </li>
+              </ul>
+              <p className="mt-3">
+                Este sistema nos permite construir un <em>perfil político multidimensional</em> y más matizado de cada candidato, revelando sus prioridades y su posible estilo de gobierno. No buscamos decirte por quién votar, sino darte una herramienta poderosa para un voto informado y consciente.
+              </p>
+              <p className="mt-2 text-sm">
+                ¿Quieres saber más sobre nuestro método o aplicarlo a otros análisis? Escríbenos a
+                {' '}<a className="underline hover:text-accent" href="mailto:info@capibarismo.com">info@capibarismo.com</a>.
+              </p>
+            </section>
              <p className="text-center text-foreground pt-6 border-t border-border/50 mt-8 text-sm">
               Este es un proyecto independiente y sin fines de lucro.
             </p>

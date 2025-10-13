@@ -269,10 +269,10 @@ export const candidates: Candidate[] = [
     education: "pro",
     security: "pro",
     health: "anti",
-    econ: 7,
-    social: 6,
-    territorial: 3,
-    power: 8,
+    econ: 8,
+    social: 8,
+    territorial: 6,
+    power: 3,
   },
   {
     id: "rafael",
@@ -481,10 +481,10 @@ export const candidates: Candidate[] = [
     ],
     headshot: "https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg",
     fullBody: "/fotos_candidatos/rafael/full_body_rafael.gif",
-    econ: 8,
-    social: 7,
-    territorial: 5,
-    power: -4,
+    econ: 6,
+    social: 10,
+    territorial: -3,
+    power: 8,
   },
   {
     id: "yonhy",
@@ -654,10 +654,10 @@ controversias: [
         severidad: "media"
       }
     ],
-    econ: 2,
-    social: 1,
-    territorial: -5,
-    power: -7,
+    econ: -3,
+    social: -1,
+    territorial: -6,
+    power: -6,
   },
   {
     id: "antauro",
@@ -910,9 +910,9 @@ controversias: [
     education: "pro",
     security: "pro",
     health: "anti",
-    econ: -8,
-    social: 9,
-    territorial: -9,
+    econ: -10,
+    social: 10,
+    territorial: -8,
     power: 10,
   },
   {
@@ -1187,10 +1187,10 @@ controversias: [
     severidad: "media"
   }
 ],
-    econ: 4,
-    social: 4,
-    territorial: -7, // Su carrera se forjó como Gobernador de Moquegua; su marca es la gestión regional.
-    power: 8,
+    econ: 1,
+    social: -3,
+    territorial: -3, // Su carrera se forjó como Gobernador de Moquegua; su marca es la gestión regional.
+    power: 1,
     education: "pro",
     security: "pro",
     health: "anti"
@@ -1406,9 +1406,9 @@ controversias: [
     security: "pro",
     health: "anti",
     econ: -8,
-    social: -3,
-    territorial: 0,
-    power: 7,
+    social: -6,
+    territorial: -6,
+    power: 8,
   }
   ,
   {
@@ -1603,7 +1603,9 @@ controversias: [
     },
   ],
     econ: 3,
-    social: 1
+    social: 6,
+    territorial: 1,
+    power: 6
   },
 
   {
@@ -1851,10 +1853,10 @@ controversias: [
     severidad: "media"
   }
 ],
-    econ: 3,
-    social: 1,
-    territorial: -8,
-    power: -5,
+  econ: 3,
+  social: 3,
+  territorial: -1,
+  power: 3,
 
   },
   {
@@ -2136,8 +2138,8 @@ controversias: [
 
   econ: 8, 
   social: 8,
-  territorial: 4,
-  power: -2,
+  territorial: 6,
+  power: 6,
 
 }
 ];
