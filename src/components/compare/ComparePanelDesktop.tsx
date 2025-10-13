@@ -21,7 +21,6 @@ import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
 // + imports para tooltip/popover
 import { type ReactNode, useId, useRef, useState, useEffect } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface CandidateFactSheetProps {
   candidate: Candidate | null;
@@ -88,19 +87,6 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
             value={openSection}
             onValueChange={(value) => setOpenSection(value)}
           >
-            <AccordionItem value="proyecto-politico">
-              <AccordionTrigger className="text-base font-semibold">
-                <Shield size={16} className="mr-2" /> Proyecto Político
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="pt-2">
-                  <Link to={`/candidate/${candidate.id}#proyecto-politico`} className="font-bold text-foreground hover:underline">{candidate.proyectoPolitico.titulo}</Link>
-                  <p className="text-base font-sans text-muted-foreground leading-relaxed mt-1 line-clamp-4">
-                    {candidate.proyectoPolitico.resumen}
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
 
             <AccordionItem value="creencias-clave">
               <AccordionTrigger className="text-base font-semibold">
@@ -185,6 +171,20 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                   ) : (
                     <p className="text-sm text-muted-foreground italic">Sin controversias registradas.</p>
                   )}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="proyecto-politico">
+              <AccordionTrigger className="text-base font-semibold">
+                <Shield size={16} className="mr-2" /> Agenda
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="pt-2">
+                  <Link to={`/candidate/${candidate.id}#proyecto-politico`} className="font-bold text-foreground hover:underline">{candidate.proyectoPolitico.titulo}</Link>
+                  <p className="text-base font-sans text-muted-foreground leading-relaxed mt-1 line-clamp-4">
+                    {candidate.proyectoPolitico.resumen}
+                  </p>
                 </div>
               </AccordionContent>
             </AccordionItem>
