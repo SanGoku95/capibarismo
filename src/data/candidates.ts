@@ -21,18 +21,6 @@ export interface Candidate {
     detalle?: string;
     fuente?: string;
   }[];
-  trayectoria: {
-    id: string;
-    rol: string;
-    periodo: string;
-    descripcion: string;
-    detalles?: {
-      subtitulo: string;
-      texto: string;
-      fuente?: string;
-    }[];
-    fuente?: string;
-  }[];
   presenciaDigital: {
     plataformas: {
       nombre: 'tiktok' | 'youtube' | 'instagram' | 'facebook' | 'twitter' | 'web';
@@ -115,50 +103,6 @@ export const candidates: Candidate[] = [
         nombre: "Tribunales como escenario",
         resumen: "Su estrategia de defensa se ha centrado en atacar la validez del proceso judicial en su contra.",
         detalle: "El juicio en su contra fue anulado y retrocedido a una etapa anterior gracias a fallos del Tribunal Constitucional basados en tecnicismos procesales, lo que sugiere una estrategia deliberada para dilatar el proceso hasta su eventual prescripción.",
-        fuente: "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori"
-      }
-    ],
-    trayectoria: [
-      {
-        id: "primera-dama",
-        rol: "Primera Dama del Perú",
-        periodo: "1994 – 2000",
-        descripcion: "Con solo 19 años, es nombrada Primera Dama por su padre, tras la destitución de su madre, Susana Higuchi. Se alinea indeleblemente con el proyecto político paterno.",
-        fuente: "https://es.wikipedia.org/wiki/Keiko_Fujimori"
-      },
-      {
-        id: "congresista-record",
-        rol: "Una de las congresistas más votadas de la historia",
-        periodo: "2006 – 2011",
-        descripcion: "Obtiene 602,869 votos, la tercera cifra más alta para un legislador en la historia del Perú, considerando los resultados de las elecciones del 2000",
-        fuente: "https://en.wikipedia.org/wiki/Keiko_Fujimori"
-      },
-      {
-        id: "fundacion-fuerza-popular",
-        rol: "Fundadora y Presidenta de Fuerza Popular",
-        periodo: "2010 – Presente",
-        descripcion: "Funda su propio partido, Fuerza 2011 (luego Fuerza Popular), creando un vehículo político a su medida para sus tres intentos presidenciales.",
-        fuente: "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi"
-      },
-      {
-        id: "campanas-presidenciales",
-        rol: "Candidata presidencial derrotada (3 veces)",
-        periodo: "2011, 2016, 2021",
-        descripcion: "Llega a la segunda vuelta en tres elecciones consecutivas, pero es derrotada por Ollanta Humala (2011), PPK (2016) y Pedro Castillo (2021).",
-        fuente: "https://es.wikipedia.org/wiki/Keiko_Fujimori"
-      },
-      {
-        id: "prision-preventiva",
-        rol: "Encarcelada por el 'Caso Cócteles'",
-        periodo: "2018 – 2020",
-        descripcion: "Cumple más de 16 meses de prisión preventiva en varios periodos, acusada de liderar una organización criminal para lavar dinero de aportes de campaña ilícitos (Odebrecht, etc.).",
-        fuente: "https://en.wikipedia.org/wiki/Keiko_Fujimori"
-      },
-      {
-        id: "juicio-oral",
-        rol: "Enjuiciada por organización criminal",
-        periodo: "2024 – Presente",
-        descripcion: "Se inicia el juicio oral donde la fiscalía pide 30 años de prisión. El proceso es posteriormente anulado por el TC y retrocedido a una etapa anterior, quedando en un limbo legal.",
         fuente: "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori"
       }
     ],
@@ -320,57 +264,6 @@ export const candidates: Candidate[] = [
         resumen: "Abrazó el apodo de 'el Bolsonaro peruano', centrando su plataforma en un discurso de mano dura.",
         detalle: "Una de las promesas centrales de su gestión como alcalde y de su campaña presidencial es una política de tolerancia cero contra el crimen, ejemplificada en su propuesta de adquirir 10,000 motocicletas para patrullaje.",
         fuente: "https://www.actualidadambiental.pe/wp-content/uploads/2022/09/Plan-de-Gobierno-Renovacion-Popular-Elecciones-2022.pdf"
-      }
-    ],
-    trayectoria: [
-      {
-        id: "formacion-empresarial",
-        rol: "Empresario y miembro del Opus Dei",
-        periodo: "1961 – 2006",
-        descripcion: "Ingeniero Industrial con MBA. Desde los 19 años es miembro numerario del Opus Dei. Fundó el Grupo Acres y se convirtió en un actor clave en el sector turismo (PeruRail).",
-        fuente: "https://es.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
-      },
-      {
-        id: "regidor-lima",
-        rol: "Regidor de la Municipalidad de Lima",
-        periodo: "2007 – 2010",
-        descripcion: "Ingresó a la política de la mano del alcalde Luis Castañeda Lossio. Apoyó la concesión de Línea Amarilla a la empresa brasileña OAS, luego implicada en el caso Lava Jato.",
-        fuente: "https://es.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
-      },
-      {
-        id: "panama-papers",
-        rol: "Implicado en los Panama Papers",
-        periodo: "Revelado en 2016",
-        descripcion: "Una investigación de IDL-Reporteros expuso su uso de estructuras offshore y presuntas maniobras fraudulentas en una guerra corporativa contra su socio, Lorenzo Sousa.",
-        fuente: "https://www.idl-reporteros.pe/lopez-aliaga-y-los-panama-papers/"
-      },
-      {
-        id: "deudas-sunat",
-        rol: "Controversia por deudas tributarias",
-        periodo: "Permanente",
-        descripcion: "Empresas vinculadas a él, como Peruval Corp SA, mantienen deudas coactivas con la SUNAT por decenas de millones de soles, usando tácticas como figurar como 'no habidas' para obstaculizar el cobro.",
-        fuente: "https://www.youtube.com/watch?v=EO2mr4WDAfY&pp=0gcJCfwAo7VqN5tD"
-      },
-      {
-        id: "refundacion-partido",
-        rol: "Fundador de Renovación Popular",
-        periodo: "2020",
-        descripcion: "Tras el fracaso electoral de Solidaridad Nacional, lo 'refunda' como Renovación Popular, un partido con una ideología explícitamente religiosa y ultraconservadora.",
-        fuente: "https://es.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
-      },
-      {
-        id: "campana-presidencial-2021",
-        rol: "Candidato Presidencial",
-        periodo: "2021",
-        descripcion: "Se posiciona como 'el Bolsonaro peruano' y obtiene el tercer lugar with 11.75% de los votos, consolidándose como una nueva fuerza hegemónica en la derecha.",
-        fuente: "https://en.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
-      },
-      {
-        id: "alcalde-lima",
-        rol: "Alcalde de Lima Metropolitana",
-        periodo: "2023 – Presente",
-        descripcion: "Asume el cargo el 1 de enero de 2023. Su gestión ha sido criticada por la baja ejecución presupuestaria y por priorizar una aparente campaña presidencial perpetua sobre la gestión municipal.",
-        fuente: "https://www.gob.pe/institucion/munilima/noticias/693302-rafael-lopez-aliaga-juro-como-alcalde-de-lima-en-ceremonia-realizada-en-el-teatro-municipal"
       }
     ],
     presenciaDigital: {
@@ -547,31 +440,6 @@ export const candidates: Candidate[] = [
         fuente: "https://es.wikipedia.org/wiki/Yonhy_Lescano"
       }
     ],
-    trayectoria: [
-      {
-        id: "abogado-1985",
-        rol: "Abogado",
-        periodo: "1985 – 2000",
-        descripcion: "Ejercicio profesional y docencia antes de su ingreso al Congreso.",
-        fuente: "https://es.wikipedia.org/wiki/Yonhy_Lescano"
-      },
-      {
-        id: "congresista-2001-2019",
-        rol: "Congresista de la República (Acción Popular)",
-        periodo: "2001 – 2019",
-        descripcion:
-          "Legislador por varios periodos hasta la disolución del Congreso en 2019; labor destacada en defensa del consumidor.",
-        fuente: "https://es.wikipedia.org/wiki/Yonhy_Lescano"
-      },
-      {
-        id: "candidato-2021",
-        rol: "Candidato presidencial por Acción Popular",
-        periodo: "2021",
-        descripcion:
-          "Postuló a la presidencia en 2021; no accedió a la segunda vuelta.",
-        fuente: "https://es.wikipedia.org/wiki/Elecciones_generales_de_Per%C3%BA_de_2021"
-      }
-    ],
     presenciaDigital: {
       plataformas: [
         {
@@ -732,65 +600,6 @@ controversias: [
         fuente: "https://www.youtube.com/watch?v=gf17QftscYU"
       }
     ],
-
-    trayectoria: [
-      {
-        id: "infancia-formacion",
-        rol: "Niñez y formación",
-        periodo: "1963 – 1980",
-        descripcion: "Creció en familia nacionalista; educación bilingüe en Lima y Cusco con énfasis andino.",
-        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala",
-        detalles: [
-          {
-            subtitulo: "Influencias familiares",
-            texto: "Padre Isaac Humala inculcó misión política y nombres incaicos."
-          },
-          {
-            subtitulo: "Educación escolar",
-            texto: "Peruano Japonés, Franco Peruano y Ciencias del Cusco; contacto temprano con historia incaica."
-          },
-          {
-            subtitulo: "Logia de tenientes",
-            texto: "Fundó la primera célula etnocacerista en 1989 dentro del Ejército."
-          }
-        ]
-      },
-      {
-        id: "militar",
-        rol: "Mayor del Ejército Peruano (en retiro)",
-        periodo: "1980 – 2000",
-        descripcion: "Combatió a Sendero Luminoso y en el Cenepa; baja en 1998 por activismo doctrinario.",
-        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala"
-      },
-      {
-        id: "lider-etnocacerista",
-        rol: "Fundador del Movimiento Etnocacerista (MEC)",
-        periodo: "2000 – Presente",
-        descripcion: "Ideólogo; levantamientos de Locumba (2000) y Andahuaylazo (2005) con 6 muertos.",
-        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala",
-        detalles: [
-          {
-            subtitulo: "Levantamientos Armados",
-            texto: "Objetaron legitimidad de Fujimori y Toledo; resultaron en condena de 19 años."
-          }
-        ]
-      },
-      {
-        id: "prision-liberacion",
-        rol: "Reo y excarcelado",
-        periodo: "2005 – 2022",
-        descripcion: "Cumplió 17 años y salió por redención de pena; desde la cárcel articuló base reservista.",
-        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala"
-      },
-      {
-        id: "lider-partido-antauro",
-        rol: "Líder del partido A.N.T.A.U.R.O.",
-        periodo: "2023 – Presente",
-        descripcion: "Intento de inscripción anulado por JNE; busca alianza con Juntos por el Perú para 2026.",
-        fuente: "https://es.wikipedia.org/wiki/Antauro_Humala"
-      }
-    ],
-
     presenciaDigital: {
       plataformas: [
         { nombre: "tiktok", handle: "@antauroigorhumalatasso", url: "https://www.tiktok.com/@antauroigorhumalatasso", estrategia: "Ha lanzado una campaña para mostrar un lado más personal y humano, en respuesta a los juicios en curso. Los videos suelen ser cortos, con música de tendencia y enfocados en su vida familiar." },
@@ -968,79 +777,6 @@ controversias: [
         resumen: "No imponer proyectos con rechazo social activo.",
         detalle: "Suspensión de Tía María mientras no existan condiciones; simultáneamente impulso de Quellaveco.",
         fuente: "https://conexionambiental.pe/tia-maria-un-conflicto-con-final-inesperado/"
-      }
-    ],
-
-    trayectoria: [
-      {
-        id: "formacion",
-        rol: "Ingeniero civil (UNI) y gestor",
-        periodo: "1963 – 2010",
-        descripcion: "Nacido en Lima; carrera técnica y activismo regional en Moquegua.",
-        fuente: "https://en.wikipedia.org/wiki/Mart%C3%ADn_Vizcarra"
-      },
-      {
-        id: "gobernador-moquegua",
-        rol: "Gobernador Regional de Moquegua",
-        periodo: "2011 – 2014",
-        descripcion: "Gestión con diálogo minero y mejora en indicadores sociales.",
-        fuente: "https://en.wikipedia.org/wiki/Mart%C3%ADn_Vizcarra"
-      },
-      {
-        id: "mtc-chinchero",
-        rol: "Ministro de Transportes y Comunicaciones",
-        periodo: "2016 – 2017",
-        descripcion: "Renunció en medio de la controversia por la adenda del Aeropuerto de Chinchero.",
-        fuente: "https://es.wikipedia.org/wiki/Caso_Chinchero"
-      },
-      {
-        id: "vice-embajador",
-        rol: "Primer Vicepresidente / Embajador en Canadá",
-        periodo: "2016 – 2018",
-        descripcion: "Sale del MTC, pasa a la embajada; regresa al suceder a PPK.",
-        fuente: "https://en.wikipedia.org/wiki/Mart%C3%ADn_Vizcarra"
-      },
-      {
-        id: "presidencia",
-        rol: "Presidente del Perú (60.º)",
-        periodo: "2018 – 2020",
-        descripcion: "Referéndum de reformas (2018) y cierre del Congreso (2019) para destrabar agenda; COVID-19 golpea duro.",
-        fuente: "https://www.theguardian.com/world/2019/oct/01/perus-president-dissolves-congress-to-push-through-anti-corruption-reforms"
-      },
-      {
-        id: "vacancia-2020",
-        rol: "Destituido por 'incapacidad moral'",
-        periodo: "Nov 2020",
-        descripcion: "Congreso vota 105–16 para removerlo; protestas masivas; Merino dura 6 días.",
-        fuente: "https://en.wikipedia.org/wiki/Second_impeachment_and_removal_of_Mart%C3%ADn_Vizcarra"
-      },
-      {
-        id: "peru-primero",
-        rol: "Fundador de Perú Primero",
-        periodo: "2021 – Presente",
-        descripcion: "Partido inscrito; Vizcarra no puede postular mientras rija la inhabilitación.",
-        fuente: "https://rpp.pe/politica/elecciones/martin-vizcarra-rechazan-anular-inscripcion-del-partido-peru-primero-al-registro-de-organizaciones-politicas-noticia-1639174"
-      },
-      {
-        id: "nueva-inhabilitacion-2025",
-        rol: "Tercera inhabilitación (10 años) por cierre del Congreso en 2019",
-        periodo: "Jun 2025 – 2035 (si queda firme)",
-        descripcion: "El Congreso oficializa otra inhabilitación por infracción al art. 134.",
-        fuente: "https://comunicaciones.congreso.gob.pe/noticias/congreso-inhabilita-por-10-anos-al-expresidente-martin_vizcarra-por-cierre-del-congreso/"
-      },
-      {
-        id: "juicio-lomas-hospital",
-        rol: "Juicio oral por presuntos sobornos (Moquegua)",
-        periodo: "2024 – Presente",
-        descripcion: "Fiscalía pide 15 años por cohecho (Lomas de Ilo y Hospital de Moquegua). En junio 2025 un juez niega prisión preventiva y le impone impedimento de salida por 6 meses.",
-        fuente: "https://gestion.pe/peru/politica/martin-vizcarra-conoce-la-cronologia-del-caso-lomas-de-ilo-y-hospital-de-moquegua-noticia/"
-      },
-      {
-        id: "audiencia-2025",
-        rol: "Medidas restrictivas en vez de preventiva",
-        periodo: "Jun 2025",
-        descripcion: "Juez rechaza preventiva; mantiene restricciones mientras sigue el juicio.",
-        fuente: "https://www.reuters.com/latam/domestico/WSUYDLDSGNI3RCZBGDVZAYYMVE-2025-06-28/"
       }
     ],
     presenciaDigital: {
@@ -1244,46 +980,6 @@ controversias: [
         resumen: "Expresa su rechazo a las mociones de 'vacancia' presidencial y a la inestabilidad política recurrente, defendiendo la legitimidad del mandato de cinco años.",
         detalle: "Critica la confrontación constante entre poderes ejecutivo y legislativo, abogando por la coordinación. Su lealtad al presidente está condicionada a la probidad.",
         fuente: "https://www.youtube.com/watch?v=PMm960A6ZHA"
-      }
-    ],
-    trayectoria: [
-      {
-        id: "infancia-formacion",
-        rol: "Niñez, estudios y activismo temprano",
-        periodo: "1975 - 2011",
-        descripcion: "Nacido en Lima, de madre trujillana, estudió en el colegio Claretiano y luego la carrera de Derecho en la Universidad Inca Garcilaso de la Vega, la cual no concluyó. En este periodo, inició su activismo político y trabajó como asistente administrativo en el Parlamento Andino.",
-        fuente: "https://es.wikipedia.org/wiki/Guillermo_Bermejo",
-        detalles: [
-          {
-            subtitulo: "Estudios y trabajo",
-            texto: "Creció en Lima, asistió al colegio Claretiano y, aunque comenzó a estudiar Derecho, no obtuvo un título universitario. Entre 2010 y 2011, se desempeñó como asistente administrativo en el Parlamento Andino."
-          },
-          {
-            subtitulo: "Activismo y 'Todas las Voces'",
-            texto: "En 2004, fundó el movimiento marxista-leninista 'Todas las Voces', que formaba parte de la Coordinadora Continental Bolivariana-Perú (CCB-CP). Bajo su liderazgo, realizó viajes a países como Bolivia y Venezuela para eventos con círculos afines."
-          }
-        ]
-      },
-      {
-        id: "congresista-peru-libre",
-        rol: "Congresista por Perú Libre",
-        periodo: "2021 – 2021",
-        descripcion: "Fue elegido congresista por Perú Libre para el período 2021-2026, siendo el candidato más votado del partido en Lima. Poco antes de la campaña, 'Todas las Voces' se integró a Perú Libre. Una grabación de audio de 2020 reveló su afirmación: 'Si tomamos el poder, no lo vamos a dejar'.",
-        fuente: "https://en.wikipedia.org/wiki/Guillermo_Bermejo"
-      },
-      {
-        id: "ruptura-peru-libre",
-        rol: "Fundador de Perú Democrático y Afiliación Actual",
-        periodo: "2021 – Presente",
-        descripcion: "Renunció a Perú Libre en diciembre de 2021, criticando a Vladimir Cerrón por 'personalizar la política' y la falta de liderazgo del partido. Formó el grupo Perú Democrático con Héctor Valer para promover una nueva constitución. Actualmente, forma parte de la bancada 'Juntos por el Perú - Voces del Pueblo' y preside la Comisión de Pueblos Andinos.",
-        fuente: "https://en.wikipedia.org/wiki/Guillermo_Bermejo"
-      },
-      {
-        id: "desafios-legales-actuales",
-        rol: "Figura con Desafíos Legales Recurrentes",
-        periodo: "2017 – Presente",
-        descripcion: "A pesar de su absolución en 2017, la Fiscalía ha continuado con nuevas acusaciones. Se le ha acusado de obstrucción a la justicia y de recibir sobornos, con una nueva acusación de la Fiscalía en 2025 que solicita 20 años de cárcel. Bermejo también ha denunciado a la fiscal Marita Barreto por presunta filtración de información.",
-        fuente: "https://es.wikipedia.org/wiki/Guillermo_Bermejo"
       }
     ],
     presenciaDigital: {
@@ -1494,36 +1190,6 @@ controversias: [
       }
     ],
 
-    trayectoria: [
-      {
-        id: "afiliacion-2024",
-        rol: "Afiliado a País Para Todos",
-        periodo: "jul 2024 – Presente",
-        descripcion:
-          "Anuncia afiliación y su eventual postulación interna para 2026.",
-        fuente:
-          "https://elcomercio.pe/politica/partidos/carlos-alvarez-anuncia-que-se-afiliara-como-militante-al-partido-pais-para-todos-elecciones-2026-jne-ultimas-noticia/"
-      },
-      {
-        id: "precandidato-2025",
-        rol: "Precandidato / aspirante presidencial",
-        periodo: "2025 – Presente",
-        descripcion:
-          "Declara disposición a postular; fija agenda punitiva en medios.",
-        fuente:
-          "https://rpp.pe/peru/actualidad/carlos-alvarez-anuncia-su-disposicion-de-postular-a-la-presidencia-y-propone-pena-de-muerte-contra-criminales-noticia-1625714"
-      },
-      {
-        id: "carrera-artistica",
-        rol: "Comediante y presentador",
-        periodo: "1983 – Presente",
-        descripcion:
-          "Figura de sátira política en TV y redes; capital comunicacional.",
-        fuente:
-          "https://www.youtube.com/watch?v=XSlKGdApdQw"
-      }
-    ],
-
     presenciaDigital: {
       plataformas: [
         {
@@ -1656,71 +1322,6 @@ controversias: [
         resumen: "Cimenta su popularidad en obras públicas de alto impacto visual y popular.",
         detalle: "Durante su gestión como alcalde de Trujillo, invirtió más de 800 millones de soles en proyectos como el bypass de Mansiche y el complejo deportivo Chan Chan, consolidando su imagen de 'alcalde constructor' y gestor eficaz.",
         fuente: "https://trujilloenlinea.pe/noticias/politica/16/02/2018/cesar-acuna-niega-corrupcion-durante-su-gestion-edil-en-trujillo"
-      }
-    ],
-    trayectoria: [
-      {
-        id: "formacion-empresarial",
-        rol: "Fundador del consorcio UCV",
-        periodo: "1952 – 1991",
-        descripcion: "Nacido en Cajamarca, se gradúa de Ingeniero Químico y en 1991 funda la Universidad César Vallejo (UCV) en Trujillo, pilar de su imperio empresarial.",
-        fuente: "https://es.wikipedia.org/wiki/Universidad_C%C3%A9sar_Vallejo"
-      },
-      {
-        id: "congresista",
-        rol: "Congresista de la República",
-        periodo: "2000 – 2006",
-        descripcion: "Elegido por dos periodos. En 2001 funda su partido, Alianza para el Progreso (APP). Se le critica por legislar en materia de educación privada, existiendo un conflicto de interés.",
-        fuente: "https://es.wikipedia.org/wiki/C%C3%A9sar_Acu%C3%B1a"
-      },
-      {
-        id: "alcalde-trujillo",
-        rol: "Alcalde de Trujillo",
-        periodo: "2007 – 2014",
-        descripcion: "Pone fin a 44 años de hegemonía aprista en la ciudad. Es reelegido en 2010. Basa su gestión en obras de alto impacto.",
-        fuente: "https://en.wikipedia.org/wiki/C%C3%A9sar_Acu%C3%B1a"
-      },
-      {
-        id: "gobernador-libertad-1",
-        rol: "Gobernador Regional de La Libertad",
-        periodo: "2015",
-        descripcion: "Asume el cargo pero renuncia a los diez meses para postular a la presidencia en 2016, generando críticas por su falta de compromiso.",
-        fuente: "https://www.regionlalibertad.gob.pe/noticias/regionales/5916-cesar-acuna-renuncia-a-la-gobernacion-regional-de-la-libertad"
-      },
-      {
-        id: "investigacion-plagio",
-        rol: "Acusado de plagio académico",
-        periodo: "2016 – Presente",
-        descripcion: "Surgen graves y fundamentadas acusaciones de plagio en su tesis doctoral de la U. Complutense de Madrid y en su tesis de maestría de la U. de Lima.",
-        fuente: "https://www.ulima.edu.pe/la-universidad/noticias/comunicado-1"
-      },
-      {
-        id: "exclusion-presidencial-2016",
-        rol: "Excluido de la elección presidencial",
-        periodo: "Mar 2016",
-        descripcion: "El Jurado Nacional de Elecciones lo excluye por entregar dinero a comerciantes durante una actividad de campaña, en aplicación de la ley que prohíbe dádivas.",
-        fuente: "https://en.wikipedia.org/wiki/C%C3%A9sar_Acu%C3%B1a"
-      },
-      {
-        id: "campana-presidencial-2021",
-        rol: "Candidato Presidencial",
-        periodo: "2021",
-        descripcion: "Obtiene el séptimo lugar con el 6.02% de los votos válidos. Su partido consigue 15 congresistas.",
-        fuente: "https://es.wikipedia.org/wiki/Elecciones_generales_de_Per%C3%BA_de_2021"
-      },
-      {
-        id: "investigacion-trafico-influencias",
-        rol: "Investigado por tráfico de influencias",
-        periodo: "2022 – Presente",
-        descripcion: "La Fiscalía le abre investigación tras la difusión de audios donde presiona a la presidenta del Congreso, Lady Camones, para aprobar una ley que lo favorecería electoralmente.",
-        fuente: "https://diarioelgobierno.pe/politica-peruana-castillo-peru-2022-congreso/fiscalia-de-la-nacion-investiga-a-cesar-acuna-por-trafico-de-influencias/"
-      },
-      {
-        id: "gobernador-libertad-2",
-        rol: "Gobernador Regional de La Libertad",
-        periodo: "2023 – Presente",
-        descripcion: "Gana nuevamente la gobernación. Su mandato es criticado por sus constantes ausencias y licencias, que superan el límite legal.",
-        fuente: "https://es.wikipedia.org/wiki/C%C3%A9sar_Acu%C3%B1a"
       }
     ],
     presenciaDigital: {
@@ -1941,48 +1542,6 @@ controversias: [
       fuente: "https://es.wikipedia.org/wiki/PBO_Radio"
     }
   ],
-
-  trayectoria: [
-    {
-      id: "biografia-medios",
-      rol: "Presentador/locutor y empresario de medios",
-      periodo: "2001 – presente",
-      descripcion:
-        "Carrera en TV y radio (Canal N, Panamericana, Latina, Exitosa); luego conductor de ‘Combutters’.",
-      detalles: [
-        {
-          subtitulo: "Combutters",
-          texto: "Programa nocturno (Willax 2017–2024; luego por PBO).",
-          fuente: "https://es.wikipedia.org/wiki/Combutters"
-        },
-        {
-          subtitulo: "Fundación de PBO",
-          texto:
-            "Crea y dirige PBO como plataforma multiplataforma; episodios regulatorios por el uso de la 91.9 FM.",
-          fuente: "https://es.wikipedia.org/wiki/PBO_Radio"
-        }
-      ],
-      fuente: "https://es.wikipedia.org/wiki/Phillip_Butters"
-    },
-    {
-      id: "avanza-pais",
-      rol: "Afiliado/precandidato presidencial (Avanza País)",
-      periodo: "2024 – presente",
-      descripcion:
-        "Se incorpora a Avanza País y se posiciona como precandidato para 2026; realiza mitines y giras (Tacna, etc.).",
-      detalles: [
-        {
-          subtitulo: "Mitines y giras",
-          texto:
-            "Presenta propuestas en eventos partidarios con cobertura orgánica en redes de Avanza País.",
-          fuente:
-            "https://www.avanzapais.org/blog/articulo/phillip-butters-realiza-mitin-multitudinario-y-presenta-propuestas-para-potenciar-el-desarrollo-regional/"
-        }
-      ],
-      fuente: "https://es.wikipedia.org/wiki/Phillip_Butters"
-    }
-  ],
-
   presenciaDigital: {
     plataformas: [
       {

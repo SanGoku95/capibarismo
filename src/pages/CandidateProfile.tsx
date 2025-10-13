@@ -1,10 +1,11 @@
-import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { candidates } from '@/data/candidates';
+import { trayectorias } from '@/data/trayectorias';
 import NotFound from './NotFound';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, Wand, Sparkles, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, Wand, Sparkles, AlertTriangle, GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
 import {
@@ -93,6 +94,7 @@ export function CandidateProfile() {
   const candidate = candidates.find((c) => c.id === id);
 
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
+  const structuredTrayectoria = candidate ? trayectorias[candidate.id] : undefined;
 
   useEffect(() => {
     if (!candidate) return;
@@ -105,11 +107,20 @@ export function CandidateProfile() {
       if (hash.startsWith('creencia-')) {
         valueToOpen = hash.split('creencia-')[1];
         elementToScrollToId = 'creencias-clave';
-      } else if (candidate.trayectoria.some(t => t.id === hash)) {
-        valueToOpen = hash;
-        elementToScrollToId = 'trayectoria';
-      } else if (hash === 'trayectoria' && candidate.trayectoria.length > 0) {
-        valueToOpen = candidate.trayectoria[0].id;
+      } else if (structuredTrayectoria) {
+        const trayectoriaSectionIds = [
+          `${structuredTrayectoria.id}-educacion`,
+          `${structuredTrayectoria.id}-sector-privado`,
+          `${structuredTrayectoria.id}-sector-publico`,
+          `${structuredTrayectoria.id}-politica`,
+        ];
+        if (trayectoriaSectionIds.includes(hash)) {
+          valueToOpen = hash;
+          elementToScrollToId = 'trayectoria';
+        } else if (hash === 'trayectoria' && trayectoriaSectionIds.length > 0) {
+          valueToOpen = trayectoriaSectionIds[0];
+          elementToScrollToId = 'trayectoria';
+        }
       } else if (hash.startsWith('controversia-')) {
         valueToOpen = hash.split('controversia-')[1];
         elementToScrollToId = 'controversias';
@@ -128,7 +139,7 @@ export function CandidateProfile() {
     } else {
       window.scrollTo(0, 0);
     }
-  }, [location, candidate]);
+  }, [location, candidate, structuredTrayectoria]);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -180,6 +191,56 @@ export function CandidateProfile() {
           </div>
 
           <div className="lg:col-span-2 space-y-6">
+            {/* Trayectoria FIRST */}
+            <Card className="fighting-game-card scroll-mt-24" id="trayectoria">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Briefcase size={20} /> Trayectoria</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {(() => {
+                  const t = trayectorias[candidate.id];
+                  if (!t) {
+                    return <p className="text-sm text-muted-foreground">No hay datos estructurados de trayectoria.</p>;
+                  }
+                  return (
+                    <div className="space-y-6">
+                      <section id="tray-educacion">
+                        <h4 className="font-semibold text-lg mb-1 flex items-center gap-2"><GraduationCap size={18} className="opacity-80" /> Educación</h4>
+                        <p className="text-muted-foreground"><span className="font-medium">Formación:</span> {t.educacion.formacion}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Instituciones:</span> {t.educacion.instituciones}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Credencial/Hito:</span> {t.educacion.credencial_hito}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Enfoque:</span> {t.educacion.enfoque}</p>
+                      </section>
+
+                      <section id="tray-privado">
+                        <h4 className="font-semibold text-lg mb-1 flex items-center gap-2"><Building2 size={18} className="opacity-80" /> Sector Privado</h4>
+                        <p className="text-muted-foreground"><span className="font-medium">Actividad:</span> {t.sector_privado.actividad}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Escala/Impacto:</span> {t.sector_privado.escala_impacto}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Estrategia/Ámbito:</span> {t.sector_privado.estrategia_ambito}</p>
+                      </section>
+
+                      <section id="tray-publico">
+                        <h4 className="font-semibold text-lg mb-1 flex items-center gap-2"><Landmark size={18} className="opacity-80" /> Sector Público</h4>
+                        <p className="text-muted-foreground"><span className="font-medium">Cargos/Roles:</span> {t.sector_publico.cargos_roles ?? '—'}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Periodo:</span> {t.sector_publico.periodo ?? '—'}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Logros/Controversias:</span> {t.sector_publico.logros_controversias ?? '—'}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Territorio/Ámbito:</span> {t.sector_publico.territorio_ambito ?? '—'}</p>
+                      </section>
+
+                      <section id="tray-politica">
+                        <h4 className="font-semibold text-lg mb-1 flex items-center gap-2"><Flag size={18} className="opacity-80" /> Política</h4>
+                        <p className="text-muted-foreground"><span className="font-medium">Rol/Acción:</span> {t.politica.rol_accion}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Competición:</span> {t.politica.competicion}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Resultados/Posicionamiento:</span> {t.politica.resultados_posicionamiento}</p>
+                        <p className="text-muted-foreground"><span className="font-medium">Línea:</span> {t.politica.linea}</p>
+                      </section>
+                    </div>
+                  );
+                })()}
+              </CardContent>
+            </Card>
+
+            {/* Proyecto Político después de Trayectoria */}
             <Card className="fighting-game-card scroll-mt-24" id="proyecto-politico">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Shield size={20} /> Proyecto Político</CardTitle>
@@ -212,7 +273,6 @@ export function CandidateProfile() {
                 )}
               </CardContent>
             </Card>
-
             <Card className="fighting-game-card scroll-mt-24" id="creencias-clave">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Star size={20} /> Creencias Clave</CardTitle>
@@ -232,46 +292,6 @@ export function CandidateProfile() {
                         {creencia.detalle && <p className="mt-2 text-sm text-muted-foreground">{creencia.detalle}</p>}
                         {creencia.fuente && (
                           <a href={creencia.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
-                            <LinkIcon size={12} />
-                            Fuente
-                          </a>
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </CardContent>
-            </Card>
-
-            <Card className="fighting-game-card scroll-mt-24" id="trayectoria">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Briefcase size={20} /> Trayectoria</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Accordion 
-                  type="multiple" 
-                  className="w-full"
-                  value={openAccordionItems}
-                  onValueChange={setOpenAccordionItems}
-                >
-                  {candidate.trayectoria.map((item) => (
-                    <AccordionItem value={item.id} key={item.id} id={item.id} className="border-b-muted-foreground/20">
-                      <AccordionTrigger className="text-left hover:no-underline">
-                        <div className="flex-1">
-                          <p className="font-semibold text-base">{item.rol}</p>
-                          <p className="text-sm text-muted-foreground font-normal">({item.periodo})</p>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="pt-2 pb-4 space-y-4">
-                        <p className="text-base text-muted-foreground">{item.descripcion}</p>
-                        {item.detalles && item.detalles.map((detalle, index) => (
-                          <div key={index} className="pl-4 border-l-2 border-primary/30">
-                            <h4 className="font-semibold text-foreground">{detalle.subtitulo}</h4>
-                            <p className="text-muted-foreground mt-1">{detalle.texto}</p>
-                          </div>
-                        ))}
-                        {item.fuente && (
-                          <a href={item.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-4">
                             <LinkIcon size={12} />
                             Fuente
                           </a>

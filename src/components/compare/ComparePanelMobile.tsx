@@ -1,13 +1,14 @@
 import { motion } from 'framer-motion';
-import { memo, type ReactNode, useEffect, useId, useRef, useState } from 'react';
+import { memo, useEffect, useId, useRef, useState } from 'react';
 import { Candidate } from '@/data/candidates';
+import { trayectorias } from '@/data/trayectorias';
+import { GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { CandidatePicker } from './CandidatePicker';
-import { PLAYER_INDICATORS, UI_CLASSES, type CandidateSide } from '@/lib/constants';
+import { PLAYER_INDICATORS, UI_CLASSES } from '@/lib/constants';
 
-// + imports para tooltip/popover
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+// + imports para popover
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 interface CandidateComparisonGridProps {
@@ -31,7 +32,7 @@ const ComparisonSection = memo(function ComparisonSection({ title, sectionId, le
   const rightConfig = PLAYER_INDICATORS.right;
   
   return (
-    <div className="fighting-game-section p-4 mb-4">
+    <div id={sectionId} className="fighting-game-section p-4 mb-4">
       <h3 className="section-title text-base font-bold mb-4 text-center">
         {title}
       </h3>
@@ -160,6 +161,68 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
             >
 
               <ComparisonSection
+                title="Trayectoria"
+                sectionId="trayectoria"
+                leftCandidate={leftCandidate}
+                rightCandidate={rightCandidate}
+                leftContent={
+                  leftCandidate ? (
+                    (() => {
+                      const t = trayectorias[leftCandidate.id];
+                      if (!t) return <span className="font-sans text-sm text-muted-foreground">Sin datos</span>;
+                      return (
+                        <div className="text-sm space-y-1">
+                          <Link to={`/candidate/${leftCandidate.id}#tray-educacion`} className="block p-2 -m-2 rounded hover:bg-white/5">
+                            <div className="flex items-center gap-2 font-medium"><GraduationCap size={14} /> Educación</div>
+                            <div className="text-muted-foreground mt-0.5">{t.educacion.formacion}</div>
+                          </Link>
+                          <Link to={`/candidate/${leftCandidate.id}#tray-privado`} className="block p-2 -m-2 rounded hover:bg-white/5">
+                            <div className="flex items-center gap-2 font-medium"><Building2 size={14} /> Sector Privado</div>
+                            <div className="text-muted-foreground mt-0.5">{t.sector_privado.actividad}</div>
+                          </Link>
+                          <Link to={`/candidate/${leftCandidate.id}#tray-publico`} className="block p-2 -m-2 rounded hover:bg-white/5">
+                            <div className="flex items-center gap-2 font-medium"><Landmark size={14} /> Sector Público</div>
+                            <div className="text-muted-foreground mt-0.5">{t.sector_publico.cargos_roles ?? '—'}</div>
+                          </Link>
+                          <Link to={`/candidate/${leftCandidate.id}#tray-politica`} className="block p-2 -m-2 rounded hover:bg-white/5">
+                            <div className="flex items-center gap-2 font-medium"><Flag size={14} /> Política</div>
+                            <div className="text-muted-foreground mt-0.5">{t.politica.rol_accion}</div>
+                          </Link>
+                        </div>
+                      );
+                    })()
+                  ) : <span className="font-sans">Sin análisis</span>
+                }
+                rightContent={
+                  rightCandidate ? (
+                    (() => {
+                      const t = trayectorias[rightCandidate.id];
+                      if (!t) return <span className="font-sans text-sm text-muted-foreground">Sin datos</span>;
+                      return (
+                        <div className="text-sm space-y-1">
+                          <Link to={`/candidate/${rightCandidate.id}#tray-educacion`} className="block p-2 -m-2 rounded hover:bg-white/5">
+                            <div className="flex items-center gap-2 font-medium"><GraduationCap size={14} /> Educación</div>
+                            <div className="text-muted-foreground mt-0.5">{t.educacion.formacion}</div>
+                          </Link>
+                          <Link to={`/candidate/${rightCandidate.id}#tray-privado`} className="block p-2 -m-2 rounded hover:bg-white/5">
+                            <div className="flex items-center gap-2 font-medium"><Building2 size={14} /> Sector Privado</div>
+                            <div className="text-muted-foreground mt-0.5">{t.sector_privado.actividad}</div>
+                          </Link>
+                          <Link to={`/candidate/${rightCandidate.id}#tray-publico`} className="block p-2 -m-2 rounded hover:bg-white/5">
+                            <div className="flex items-center gap-2 font-medium"><Landmark size={14} /> Sector Público</div>
+                            <div className="text-muted-foreground mt-0.5">{t.sector_publico.cargos_roles ?? '—'}</div>
+                          </Link>
+                          <Link to={`/candidate/${rightCandidate.id}#tray-politica`} className="block p-2 -m-2 rounded hover:bg-white/5">
+                            <div className="flex items-center gap-2 font-medium"><Flag size={14} /> Política</div>
+                            <div className="text-muted-foreground mt-0.5">{t.politica.rol_accion}</div>
+                          </Link>
+                        </div>
+                      );
+                    })()
+                  ) : <span className="font-sans">Sin análisis</span>
+                }
+              />
+                            <ComparisonSection
                 title="Creencias"
                 sectionId="creencias-clave"
                 leftCandidate={leftCandidate}
@@ -177,41 +240,6 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                       ? rightCandidate.creenciasClave.slice(0, 3).map(c => <Link key={c.id} to={`/candidate/${rightCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>)
                       : <span className="text-sm text-muted-foreground">No especificadas</span>}
                   </div>
-                }
-              />
-
-              <ComparisonSection
-                title="Trayectoria"
-                sectionId="trayectoria"
-                leftCandidate={leftCandidate}
-                rightCandidate={rightCandidate}
-                leftContent={
-                  leftCandidate ? (
-                    <div className="space-y-3">
-                      {leftCandidate.trayectoria.slice(0, 2).map((position) => (
-                        <Link to={`/candidate/${leftCandidate?.id}#${position.id}`} key={position.id} className="block border-l-2 border-team-left/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
-                          <div className="font-medium text-base text-foreground">{position.rol}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {position.periodo}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  ) : <span className="font-sans">Sin experiencia registrada</span>
-                }
-                rightContent={
-                  rightCandidate ? (
-                    <div className="space-y-3">
-                      {rightCandidate.trayectoria.slice(0, 2).map((position) => (
-                        <Link to={`/candidate/${rightCandidate?.id}#${position.id}`} key={position.id} className="block border-l-2 border-team-right/50 pl-3 font-sans hover:bg-white/5 rounded-r-md">
-                          <div className="font-medium text-base text-foreground">{position.rol}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {position.periodo}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  ) : <span className="font-sans">Sin experiencia registrada</span>
                 }
               />
 
