@@ -89,6 +89,60 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
             onValueChange={(value) => setOpenSection(value ?? null)}
           >
 
+             {/* Trayectoria FIRST */}
+            <AccordionItem value="trayectoria">
+              <AccordionTrigger className="text-base font-semibold">
+                <Briefcase size={16} className="mr-2" /> Trayectoria
+              </AccordionTrigger>
+              <AccordionContent>
+                {(() => {
+                  const t = trayectorias[candidate.id];
+                  if (!t) {
+                    return (
+                      <div className="text-sm text-muted-foreground">Sin datos estructurados. Ver perfil para más detalles.</div>
+                    );
+                  }
+                  return (
+                    <div className="pt-2 text-sm">
+                      <div className="flex flex-col divide-y divide-border/40 rounded-md overflow-hidden">
+                        <Link to={`/candidate/${candidate.id}#tray-educacion`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
+                          <div className="flex items-center gap-2 font-medium">
+                            <GraduationCap size={14} className="opacity-80" />
+                            Educación
+                          </div>
+                          <div className="text-muted-foreground mt-0.5">{t.educacion.formacion}</div>
+                        </Link>
+
+                        <Link to={`/candidate/${candidate.id}#tray-privado`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
+                          <div className="flex items-center gap-2 font-medium">
+                            <Building2 size={14} className="opacity-80" />
+                            Sector Privado
+                          </div>
+                          <div className="text-muted-foreground mt-0.5">{t.sector_privado.actividad}</div>
+                        </Link>
+
+                        <Link to={`/candidate/${candidate.id}#tray-publico`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
+                          <div className="flex items-center gap-2 font-medium">
+                            <Landmark size={14} className="opacity-80" />
+                            Sector Público
+                          </div>
+                          <div className="text-muted-foreground mt-0.5">{t.sector_publico.cargos_roles ?? '—'}</div>
+                        </Link>
+
+                        <Link to={`/candidate/${candidate.id}#tray-politica`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
+                          <div className="flex items-center gap-2 font-medium">
+                            <Flag size={14} className="opacity-80" />
+                            Política
+                          </div>
+                          <div className="text-muted-foreground mt-0.5">{t.politica.rol_accion}</div>
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </AccordionContent>
+            </AccordionItem>
+
             <AccordionItem value="creencias-clave">
               <AccordionTrigger className="text-base font-semibold">
                 <Sparkles size={16} className="mr-2" /> Creencias
@@ -107,7 +161,6 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
             </AccordionItem>
 
 
-            {/* Controversias antes de Mapa de Poder */}
             <AccordionItem value="controversias">
               <AccordionTrigger className="text-base font-semibold">
                 <AlertTriangle size={16} className="mr-2" /> Controversias

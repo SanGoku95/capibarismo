@@ -161,27 +161,6 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
             >
 
               <ComparisonSection
-                title="Creencias"
-                sectionId="creencias-clave"
-                leftCandidate={leftCandidate}
-                rightCandidate={rightCandidate}
-                leftContent={
-                  <div className="flex flex-wrap gap-2">
-                    {leftCandidate
-                      ? leftCandidate.creenciasClave.slice(0, 3).map(c => <Link key={c.id} to={`/candidate/${leftCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>)
-                      : <span className="text-sm text-muted-foreground">No especificadas</span>}
-                  </div>
-                }
-                rightContent={
-                  <div className="flex flex-wrap gap-2">
-                    {rightCandidate
-                      ? rightCandidate.creenciasClave.slice(0, 3).map(c => <Link key={c.id} to={`/candidate/${rightCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>)
-                      : <span className="text-sm text-muted-foreground">No especificadas</span>}
-                  </div>
-                }
-              />
-
-              <ComparisonSection
                 title="Trayectoria"
                 sectionId="trayectoria"
                 leftCandidate={leftCandidate}
@@ -241,6 +220,26 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                       );
                     })()
                   ) : <span className="font-sans">Sin análisis</span>
+                }
+              />
+                            <ComparisonSection
+                title="Creencias"
+                sectionId="creencias-clave"
+                leftCandidate={leftCandidate}
+                rightCandidate={rightCandidate}
+                leftContent={
+                  <div className="flex flex-wrap gap-2">
+                    {leftCandidate
+                      ? leftCandidate.creenciasClave.slice(0, 3).map(c => <Link key={c.id} to={`/candidate/${leftCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>)
+                      : <span className="text-sm text-muted-foreground">No especificadas</span>}
+                  </div>
+                }
+                rightContent={
+                  <div className="flex flex-wrap gap-2">
+                    {rightCandidate
+                      ? rightCandidate.creenciasClave.slice(0, 3).map(c => <Link key={c.id} to={`/candidate/${rightCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>)
+                      : <span className="text-sm text-muted-foreground">No especificadas</span>}
+                  </div>
                 }
               />
 

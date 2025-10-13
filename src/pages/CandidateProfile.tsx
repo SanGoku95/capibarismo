@@ -1,4 +1,4 @@
-import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { candidates } from '@/data/candidates';
 import { trayectorias } from '@/data/trayectorias';
@@ -94,6 +94,7 @@ export function CandidateProfile() {
   const candidate = candidates.find((c) => c.id === id);
 
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
+  const structuredTrayectoria = candidate ? trayectorias[candidate.id] : undefined;
 
   useEffect(() => {
     if (!candidate) return;
@@ -106,11 +107,20 @@ export function CandidateProfile() {
       if (hash.startsWith('creencia-')) {
         valueToOpen = hash.split('creencia-')[1];
         elementToScrollToId = 'creencias-clave';
-      } else if (candidate.trayectoria.some(t => t.id === hash)) {
-        valueToOpen = hash;
-        elementToScrollToId = 'trayectoria';
-      } else if (hash === 'trayectoria' && candidate.trayectoria.length > 0) {
-        valueToOpen = candidate.trayectoria[0].id;
+      } else if (structuredTrayectoria) {
+        const trayectoriaSectionIds = [
+          `${structuredTrayectoria.id}-educacion`,
+          `${structuredTrayectoria.id}-sector-privado`,
+          `${structuredTrayectoria.id}-sector-publico`,
+          `${structuredTrayectoria.id}-politica`,
+        ];
+        if (trayectoriaSectionIds.includes(hash)) {
+          valueToOpen = hash;
+          elementToScrollToId = 'trayectoria';
+        } else if (hash === 'trayectoria' && trayectoriaSectionIds.length > 0) {
+          valueToOpen = trayectoriaSectionIds[0];
+          elementToScrollToId = 'trayectoria';
+        }
       } else if (hash.startsWith('controversia-')) {
         valueToOpen = hash.split('controversia-')[1];
         elementToScrollToId = 'controversias';
@@ -129,7 +139,7 @@ export function CandidateProfile() {
     } else {
       window.scrollTo(0, 0);
     }
-  }, [location, candidate]);
+  }, [location, candidate, structuredTrayectoria]);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -282,46 +292,6 @@ export function CandidateProfile() {
                         {creencia.detalle && <p className="mt-2 text-sm text-muted-foreground">{creencia.detalle}</p>}
                         {creencia.fuente && (
                           <a href={creencia.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
-                            <LinkIcon size={12} />
-                            Fuente
-                          </a>
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </CardContent>
-            </Card>
-
-            <Card className="fighting-game-card scroll-mt-24" id="trayectoria">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Briefcase size={20} /> Trayectoria</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Accordion 
-                  type="multiple" 
-                  className="w-full"
-                  value={openAccordionItems}
-                  onValueChange={setOpenAccordionItems}
-                >
-                  {candidate.trayectoria.map((item) => (
-                    <AccordionItem value={item.id} key={item.id} id={item.id} className="border-b-muted-foreground/20">
-                      <AccordionTrigger className="text-left hover:no-underline">
-                        <div className="flex-1">
-                          <p className="font-semibold text-base">{item.rol}</p>
-                          <p className="text-sm text-muted-foreground font-normal">({item.periodo})</p>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="pt-2 pb-4 space-y-4">
-                        <p className="text-base text-muted-foreground">{item.descripcion}</p>
-                        {item.detalles && item.detalles.map((detalle, index) => (
-                          <div key={index} className="pl-4 border-l-2 border-primary/30">
-                            <h4 className="font-semibold text-foreground">{detalle.subtitulo}</h4>
-                            <p className="text-muted-foreground mt-1">{detalle.texto}</p>
-                          </div>
-                        ))}
-                        {item.fuente && (
-                          <a href={item.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-4">
                             <LinkIcon size={12} />
                             Fuente
                           </a>
