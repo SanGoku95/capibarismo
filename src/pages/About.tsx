@@ -7,12 +7,14 @@ export function About() {
   return (
     <div className="min-h-screen fighting-game-bg text-white">
       <div className="container mx-auto p-4 md:p-8">
-        <Button asChild variant="outline" className="mb-8 transition-all hover:scale-105">
-          <Link to="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Volver a Inicio
-          </Link>
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-4 mb-8">
+          <Button asChild variant="outline" className="transition-all hover:scale-105">
+            <Link to="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Volver a Inicio
+            </Link>
+          </Button>
+        </div>
 
         <Card className="fighting-game-card max-w-4xl mx-auto shadow-lg">
           <CardHeader className="pb-6">
@@ -71,6 +73,11 @@ export function About() {
              <p className="text-center text-foreground pt-6 border-t border-border/50 mt-8 text-sm">
               Este es un proyecto independiente y sin fines de lucro.
             </p>
+            <div className="flex justify-center pt-2">
+              <Button asChild className="rounded-full transition-all hover:scale-105">
+                <Link to="/fuentes">Consulta todas las fuentes</Link>
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -208,12 +208,6 @@ export function CandidateProfile() {
                     ))}
                   </Accordion>
                 )}
-                <Link to={`/chat?question=${encodeURIComponent(`¿Cómo se compara el proyecto político de ${candidate.nombre} con el de los otros candidatos?`)}`}>
-                  <Button variant="outline" className="mt-4 flex items-center gap-2">
-                    <Sparkles className="h-4 w-4" />
-                    Preguntar a la IA
-                  </Button>
-                </Link>
               </CardContent>
             </Card>
 
@@ -244,12 +238,6 @@ export function CandidateProfile() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-                <Link to={`/chat?question=${encodeURIComponent(`¿Qué opinas sobre las creencias clave de ${candidate.nombre} comparadas con las de los otros candidatos?`)}`}>
-                  <Button variant="outline" className="mt-4 flex items-center gap-2">
-                    <Wand className="h-4 w-4" />
-                    Preguntar a la IA
-                  </Button>
-                </Link>
               </CardContent>
             </Card>
 
@@ -290,12 +278,6 @@ export function CandidateProfile() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-                <Link to={`/chat?question=${encodeURIComponent(`¿Cómo se compara la trayectoria de ${candidate.nombre} con la de los otros candidatos?`)}`}>
-                  <Button variant="outline" className="mt-4 flex items-center gap-2">
-                    <Wand className="h-4 w-4" />
-                    Preguntar a la IA
-                  </Button>
-                </Link>
               </CardContent>
             </Card>
 

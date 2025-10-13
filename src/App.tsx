@@ -8,12 +8,14 @@ import { Header } from "./components/layout/Header";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react"
 
+
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import("./pages/HomePage").then(module => ({ default: module.HomePage })));
 const ComparePage = lazy(() => import("./pages/ComparePage"));
 const CandidateProfile = lazy(() => import("./pages/CandidateProfile").then(module => ({ default: module.CandidateProfile })));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const About = lazy(() => import("./pages/About").then(module => ({ default: module.About })));
+const Sources = lazy(() => import("./pages/Sources").then(module => ({ default: module.Sources })))
 const PoliticalCompassPage = lazy(() => import("./pages/PoliticalCompassPage"));
 
 const queryClient = new QueryClient({
@@ -88,6 +90,7 @@ const App = () => {
                 <Route path="/compass" element={<PoliticalCompassPage />} />
                 <Route path="/candidate/:id" element={<CandidateProfile />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/fuentes" element={<Sources />} />
               </Route>
               <Route
                 path="*"
