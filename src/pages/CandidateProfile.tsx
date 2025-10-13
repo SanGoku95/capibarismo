@@ -39,11 +39,12 @@ const severityProps = (sev?: string) => {
 };
 const legalProps = (legal?: string) => {
   switch (legal) {
-    case 'rumor':        return { label: 'Legal: Rumor',          className: 'bg-slate-500/90 text-white' };
-    case 'investigacion':return { label: 'Legal: Investigación',  className: 'bg-amber-500/90 text-black' };
-    case 'acusacion':    return { label: 'Legal: Acusación',      className: 'bg-orange-700/90 text-white' };
-    case 'sentencia':    return { label: 'Legal: Sentencia',      className: 'bg-red-700/90 text-white' };
-    default:             return { label: 'Legal: —',              className: 'bg-muted text-foreground' };
+    case 'denuncia_en_medios':  return { label: 'Legal: Denuncia en medios',  className: 'bg-sky-600/90 text-white' };
+    case 'en_curso':            return { label: 'Legal: En curso',            className: 'bg-amber-500/90 text-black' };
+    case 'sancion':             return { label: 'Legal: Sanción',             className: 'bg-rose-600/90 text-white' };
+    case 'cerrado_sin_sancion': return { label: 'Legal: Cerrado sin sanción', className: 'bg-emerald-600/90 text-white' };
+    case 'condena':             return { label: 'Legal: Condena',             className: 'bg-red-700/90 text-white' };
+    default:                    return { label: 'Legal: —',                   className: 'bg-muted text-foreground' };
   }
 };
 
@@ -58,11 +59,12 @@ const severityHelp = (sev?: string) => {
 };
 const legalHelp = (l?: string) => {
   switch (l) {
-    case 'rumor':         return 'Señalamientos públicos o mediáticos sin proceso formal.';
-    case 'investigacion': return 'Indagación fiscal/policial abierta; sin acusación formal.';
-    case 'acusacion':     return 'Acusación fiscal o denuncia admitida; proceso en curso.';
-    case 'sentencia':     return 'Decisión firme (judicial o administrativa) aplicable al hecho.';
-    default:              return 'Sin estatus legal especificado.';
+    case 'denuncia_en_medios':  return 'Se dijo en prensa/redes; sin trámite oficial.';
+    case 'en_curso':            return 'Trámite oficial abierto (investigación o juicio).';
+    case 'sancion':             return 'Hubo sanción institucional (no es condena penal).';
+    case 'cerrado_sin_sancion': return 'Archivado o absuelto; sin sanción.';
+    case 'condena':             return 'Sentencia penal firme de culpabilidad.';
+    default:                    return 'Sin datos suficientes para clasificar.';
   }
 };
 
@@ -259,12 +261,6 @@ export function CandidateProfile() {
                     ))}
                   </Accordion>
                 )}
-                <Link to={`/chat?question=${encodeURIComponent(`¿Cómo se compara el proyecto político de ${candidate.nombre} con el de los otros candidatos?`)}`}>
-                  <Button variant="outline" className="mt-4 flex items-center gap-2">
-                    <Sparkles className="h-4 w-4" />
-                    Preguntar a la IA
-                  </Button>
-                </Link>
               </CardContent>
             </Card>
             <Card className="fighting-game-card scroll-mt-24" id="creencias-clave">
@@ -294,15 +290,48 @@ export function CandidateProfile() {
                     </AccordionItem>
                   ))}
                 </Accordion>
-                <Link to={`/chat?question=${encodeURIComponent(`¿Qué opinas sobre las creencias clave de ${candidate.nombre} comparadas con las de los otros candidatos?`)}`}>
-                  <Button variant="outline" className="mt-4 flex items-center gap-2">
-                    <Wand className="h-4 w-4" />
-                    Preguntar a la IA
-                  </Button>
-                </Link>
               </CardContent>
             </Card>
 
+            <Card className="fighting-game-card scroll-mt-24" id="trayectoria">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Briefcase size={20} /> Trayectoria</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Accordion 
+                  type="multiple" 
+                  className="w-full"
+                  value={openAccordionItems}
+                  onValueChange={setOpenAccordionItems}
+                >
+                  {candidate.trayectoria.map((item) => (
+                    <AccordionItem value={item.id} key={item.id} id={item.id} className="border-b-muted-foreground/20">
+                      <AccordionTrigger className="text-left hover:no-underline">
+                        <div className="flex-1">
+                          <p className="font-semibold text-base">{item.rol}</p>
+                          <p className="text-sm text-muted-foreground font-normal">({item.periodo})</p>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="pt-2 pb-4 space-y-4">
+                        <p className="text-base text-muted-foreground">{item.descripcion}</p>
+                        {item.detalles && item.detalles.map((detalle, index) => (
+                          <div key={index} className="pl-4 border-l-2 border-primary/30">
+                            <h4 className="font-semibold text-foreground">{detalle.subtitulo}</h4>
+                            <p className="text-muted-foreground mt-1">{detalle.texto}</p>
+                          </div>
+                        ))}
+                        {item.fuente && (
+                          <a href={item.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-4">
+                            <LinkIcon size={12} />
+                            Fuente
+                          </a>
+                        )}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </CardContent>
+            </Card>
 
             <Card className="fighting-game-card scroll-mt-24" id="presencia-digital">
               <CardHeader>

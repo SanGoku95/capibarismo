@@ -159,24 +159,6 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <ComparisonSection
-                title="Proyecto Político"
-                sectionId="proyecto-politico"
-                leftCandidate={leftCandidate}
-                rightCandidate={rightCandidate}
-                leftContent={
-                  <Link to={`/candidate/${leftCandidate?.id}#proyecto-politico`} className="text-base font-sans leading-relaxed block hover:bg-white/5 p-2 -m-2 rounded-md">
-                    <div className="font-bold text-foreground">{leftCandidate?.proyectoPolitico.titulo}</div>
-                    <div className="text-sm text-muted-foreground line-clamp-3 mt-1">{leftCandidate?.proyectoPolitico.resumen || "Selecciona un candidato"}</div>
-                  </Link>
-                }
-                rightContent={
-                  <Link to={`/candidate/${rightCandidate?.id}#proyecto-politico`} className="text-base font-sans leading-relaxed block hover:bg-white/5 p-2 -m-2 rounded-md">
-                    <div className="font-bold text-foreground">{rightCandidate?.proyectoPolitico.titulo}</div>
-                    <div className="text-sm text-muted-foreground line-clamp-3 mt-1">{rightCandidate?.proyectoPolitico.resumen || "Selecciona un candidato"}</div>
-                  </Link>
-                }
-              />
 
               <ComparisonSection
                 title="Creencias"
@@ -341,6 +323,25 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               />
 
               <ComparisonSection
+                title="Agenda"
+                sectionId="proyecto-politico"
+                leftCandidate={leftCandidate}
+                rightCandidate={rightCandidate}
+                leftContent={
+                  <Link to={`/candidate/${leftCandidate?.id}#proyecto-politico`} className="text-base font-sans leading-relaxed block hover:bg-white/5 p-2 -m-2 rounded-md">
+                    <div className="font-bold text-foreground">{leftCandidate?.proyectoPolitico.titulo}</div>
+                    <div className="text-sm text-muted-foreground line-clamp-3 mt-1">{leftCandidate?.proyectoPolitico.resumen || "Selecciona un candidato"}</div>
+                  </Link>
+                }
+                rightContent={
+                  <Link to={`/candidate/${rightCandidate?.id}#proyecto-politico`} className="text-base font-sans leading-relaxed block hover:bg-white/5 p-2 -m-2 rounded-md">
+                    <div className="font-bold text-foreground">{rightCandidate?.proyectoPolitico.titulo}</div>
+                    <div className="text-sm text-muted-foreground line-clamp-3 mt-1">{rightCandidate?.proyectoPolitico.resumen || "Selecciona un candidato"}</div>
+                  </Link>
+                }
+              />
+
+              <ComparisonSection
                 title="Mapa de Poder"
                 sectionId="mapa-de-poder"
                 leftCandidate={leftCandidate}
@@ -429,7 +430,7 @@ const sevChip = (sev?: string) => {
 };
 const legChip = (l?: string) => {
   switch (l) {
-    case 'denuncia_en_medios':   return { label: 'Rumor',               className: 'bg-sky-600/90 text-white' };
+    case 'denuncia_en_medios':   return { label: 'Denuncia en Medios',               className: 'bg-sky-600/90 text-white' };
     case 'en_curso':             return { label: 'En curso',            className: 'bg-amber-500/90 text-black' };
     case 'sancion':              return { label: 'Sanción',             className: 'bg-rose-600/90 text-white' };
     case 'cerrado_sin_sancion':  return { label: 'Cerrado sin sanción', className: 'bg-emerald-600/90 text-white' };
