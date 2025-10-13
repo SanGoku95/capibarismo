@@ -8,12 +8,12 @@ export function About() {
     <div className="min-h-screen fighting-game-bg text-white">
       <div className="container mx-auto p-4 md:p-8">
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <Button asChild variant="outline" className="transition-all hover:scale-105">
-            <Link to="/">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Volver a Inicio
-            </Link>
-          </Button>
+          <Button asChild variant="ghost" className="mb-8 w-full sm:w-auto justify-center sm:justify-start gap-2 rounded-full border border-border/60 bg-black/20 px-5 py-2 transition-all hover:border-accent hover:bg-accent/10">
+          <Link to="/">
+            <ArrowLeft className="h-4 w-4" />
+            Volver a Inicio
+          </Link>
+        </Button>
         </div>
 
         <Card className="fighting-game-card max-w-4xl mx-auto shadow-lg">
