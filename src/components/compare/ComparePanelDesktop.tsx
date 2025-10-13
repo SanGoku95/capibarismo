@@ -259,7 +259,7 @@ const sevProps = (sev?: string) => {
 };
 const legProps = (l?: string) => {
   switch (l) {
-    case 'denuncia_en_medios':   return { label: 'Rumor',         className: 'bg-sky-600/90 text-white' };
+    case 'denuncia_en_medios':   return { label: 'Denuncia en Medios',         className: 'bg-sky-600/90 text-white' };
     case 'en_curso': return { label: 'En Curso', className: 'bg-amber-500/90 text-black' };
     case 'sancion':  return { label: 'Sanción',     className: 'bg-rose-600/90 text-white'};
     case 'cerrado_sin_sancion':  return { label: 'Cerrado sin sanción',     className: 'bg-emerald-600/90 text-white' };

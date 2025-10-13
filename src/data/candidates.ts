@@ -1098,7 +1098,7 @@ controversias: [
     controversias: [
   {
     id: "corrupcion-moquegua-lomas-ilo-hospital",
-    titulo: "Moquegua: presuntos sobornos (Lomas de Ilo / Hospital de Moquegua)",
+    titulo: "Moquegua: presuntos sobornos",
     descripcion: "Acusado por presuntos sobornos y direccionamiento de obras en Moquegua.",
     fuente: "https://www.pj.gob.pe/wps/wcm/connect/3b7c3280450a72f6a6a9eee5406a4592/TEMP_202000033500223704620250725165505%2B%281%29.pdf?CACHEID=3b7c3280450a72f6a6a9eee5406a4592&MOD=AJPERES",
     rank: 1,
@@ -1107,7 +1107,7 @@ controversias: [
   },
   {
     id: "intocables-provias",
-    titulo: "Caso 'Intocables de la Corrupción' (Provías)",
+    titulo: "Caso Intocables de la Corrupción",
     descripcion: "Se le imputa red para coimas en obras públicas vinculadas a Provías.",
     fuente: "https://www.gob.pe/institucion/mpfn/noticias/899517-eficcop-logra-detencion-de-exfuncionarios-de-provias-descentralizado-investigados-en-presunta-red-criminal-los-intocables-de-la-corrupcion",
     rank: 2,

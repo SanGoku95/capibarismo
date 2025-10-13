@@ -38,11 +38,12 @@ const severityProps = (sev?: string) => {
 };
 const legalProps = (legal?: string) => {
   switch (legal) {
-    case 'rumor':        return { label: 'Legal: Rumor',          className: 'bg-slate-500/90 text-white' };
-    case 'investigacion':return { label: 'Legal: Investigación',  className: 'bg-amber-500/90 text-black' };
-    case 'acusacion':    return { label: 'Legal: Acusación',      className: 'bg-orange-700/90 text-white' };
-    case 'sentencia':    return { label: 'Legal: Sentencia',      className: 'bg-red-700/90 text-white' };
-    default:             return { label: 'Legal: —',              className: 'bg-muted text-foreground' };
+    case 'denuncia_en_medios':  return { label: 'Legal: Denuncia en medios',  className: 'bg-sky-600/90 text-white' };
+    case 'en_curso':            return { label: 'Legal: En curso',            className: 'bg-amber-500/90 text-black' };
+    case 'sancion':             return { label: 'Legal: Sanción',             className: 'bg-rose-600/90 text-white' };
+    case 'cerrado_sin_sancion': return { label: 'Legal: Cerrado sin sanción', className: 'bg-emerald-600/90 text-white' };
+    case 'condena':             return { label: 'Legal: Condena',             className: 'bg-red-700/90 text-white' };
+    default:                    return { label: 'Legal: —',                   className: 'bg-muted text-foreground' };
   }
 };
 
@@ -57,11 +58,12 @@ const severityHelp = (sev?: string) => {
 };
 const legalHelp = (l?: string) => {
   switch (l) {
-    case 'rumor':         return 'Señalamientos públicos o mediáticos sin proceso formal.';
-    case 'investigacion': return 'Indagación fiscal/policial abierta; sin acusación formal.';
-    case 'acusacion':     return 'Acusación fiscal o denuncia admitida; proceso en curso.';
-    case 'sentencia':     return 'Decisión firme (judicial o administrativa) aplicable al hecho.';
-    default:              return 'Sin estatus legal especificado.';
+    case 'denuncia_en_medios':  return 'Se dijo en prensa/redes; sin trámite oficial.';
+    case 'en_curso':            return 'Trámite oficial abierto (investigación o juicio).';
+    case 'sancion':             return 'Hubo sanción institucional (no es condena penal).';
+    case 'cerrado_sin_sancion': return 'Archivado o absuelto; sin sanción.';
+    case 'condena':             return 'Sentencia penal firme de culpabilidad.';
+    default:                    return 'Sin datos suficientes para clasificar.';
   }
 };
 
