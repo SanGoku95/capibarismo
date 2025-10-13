@@ -1465,7 +1465,7 @@ controversias: [
   nombre: "Phillip Butters",
   ideologia: "Derecha Conservadora",
   headshot: "/fotos_candidatos/phillip/phillip_headshot.png",
-  fullBody: "/fotos_candidatos/phillip/phillip_full_body.png",
+  fullBody: "/fotos_candidatos/phillip/phillip_full_body.gif",
 
   proyectoPolitico: {
     titulo: "Orden, mano dura y shock mediático",
