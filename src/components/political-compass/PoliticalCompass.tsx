@@ -95,7 +95,7 @@ export function PoliticalCompass({
   
   const PAD = Math.max(30, Math.min(80, dims.w * 0.1));
   const AXIS_STROKE = Math.max(1.5, Math.min(3, dims.w * 0.004));
-  const FONT_XSM = Math.max(8, Math.min(12, dims.w * 0.018));
+  // const FONT_XSM = Math.max(8, Math.min(12, dims.w * 0.018));
   const FONT_SM = Math.max(10, Math.min(14, dims.w * 0.023));
   const POINT_R = Math.max(6, Math.min(12, dims.w * 0.02));
   const LABEL_H = Math.max(14, Math.min(20, dims.w * 0.03));
@@ -118,8 +118,8 @@ export function PoliticalCompass({
 
   const pointsForCollision = useMemo(() => displayCandidates.map(c => ({
     id: c.id,
-    x: toSvgX(c[xAxisKey]),
-    y: toSvgY(c[yAxisKey]),
+    x: toSvgX(c[xAxisKey] as number),
+    y: toSvgY(c[yAxisKey] as number),
     labelWidth: LABEL_W,
     labelHeight: LABEL_H,
   })), [displayCandidates, xAxisKey, yAxisKey, dims.w, LABEL_W, LABEL_H]);
@@ -305,6 +305,7 @@ export function PoliticalCompass({
                   <g
                     key={candidate.id}
                     tabIndex={0}
+                    data-tour={index === 0 ? 'candidate-point' : undefined}
                     onClick={(e) => handleCandidateClick(candidate.id, e)}
                     onMouseEnter={() => handleMouseEnter(candidate.id)}
                     onMouseMove={handleMouseMove}
@@ -348,16 +349,16 @@ export function PoliticalCompass({
           <div className="space-y-1 text-xs">
             <div>
               <span className="font-medium">{axisLabels[xAxisKey].name}:</span>{' '}
-              <span className="text-muted-foreground">{candidateData[xAxisKey].toFixed(1)}</span>
+              <span className="text-muted-foreground">{(candidateData[xAxisKey] as number).toFixed(1)}</span>
             </div>
             <div>
               <span className="font-medium">{axisLabels[yAxisKey].name}:</span>{' '}
-              <span className="text-muted-foreground">{candidateData[yAxisKey].toFixed(1)}</span>
+              <span className="text-muted-foreground">{(candidateData[yAxisKey] as number).toFixed(1)}</span>
             </div>
           </div>
           
           <Button 
-            variant="accent" 
+            variant="secondary" 
             size="sm" 
             className="w-full mt-2"
             onClick={() => handleProfileClick(candidateData.id)}

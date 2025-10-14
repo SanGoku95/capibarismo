@@ -4,6 +4,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Info, ChevronDown, Check } from 'lucide-react';
 import { candidates } from '@/data/candidates';
+import CompassTour from '@/components/political-compass/CompassTour';
+import { Button } from '@/components/ui/button';
 
 const availableAxes: { key: Axis; label: string }[] = [
   { key: 'econ', label: 'Eje Económico' },
@@ -202,6 +204,7 @@ export function PoliticalCompassPage() {
     'martin-vizcarra',
     'rafael',
   ]);
+  const [tourRestartKey, setTourRestartKey] = useState(0);
 
   return (
     <div className="min-h-screen fighting-game-bg">
@@ -212,14 +215,32 @@ export function PoliticalCompassPage() {
           <p className="text-sm md:text-base text-foreground/90 max-w-3xl mx-auto leading-relaxed">
             Crea tu propio cuadrilátero. Cambia los ejes para cruzar posturas y descubrir nuevas perspectivas.
           </p>
+          <div className="mt-3 flex justify-center">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setTourRestartKey((k) => k + 1)}
+              aria-label="Ayuda: iniciar tour del Mapa Político"
+            >
+              ¿Cómo usar este mapa?
+            </Button>
+          </div>
         </div>
 
         {/* Axis Selection Controls */}
         <AxisControls
           xAxis={xAxis}
           yAxis={yAxis}
-          onXChange={setXAxis}
-          onYChange={setYAxis}
+          onXChange={(v) => {
+            setXAxis(v);
+            // notify tour
+            window.dispatchEvent(new CustomEvent('ppp-tour-axis-changed', { detail: { axis: 'x' } }));
+          }}
+          onYChange={(v) => {
+            setYAxis(v);
+            // notify tour
+            window.dispatchEvent(new CustomEvent('ppp-tour-axis-changed', { detail: { axis: 'y' } }));
+          }}
           selectedCandidateIds={selectedCandidateIds}
           onCandidatesChange={setSelectedCandidateIds}
           candidateOptions={candidateFilterOptions}
@@ -235,6 +256,9 @@ export function PoliticalCompassPage() {
             selectedCandidateIds={selectedCandidateIds}
           />
         </div>
+
+        {/* Guided Tour */}
+        <CompassTour restartKey={tourRestartKey} />
       </div>
     </div>
   );
