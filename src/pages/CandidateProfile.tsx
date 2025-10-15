@@ -308,7 +308,7 @@ export function CandidateProfile() {
                             href={creencia.fuente}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={() => handleExternalSourceClick("creenciasClave", creencia.fuente)}
+                            onClick={() => handleExternalSourceClick("creenciasClave", creencia.fuente!)}
                             className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2"
                           >
                             <LinkIcon size={12} />
