@@ -2,12 +2,14 @@ import { motion } from 'framer-motion';
 import { candidates } from '@/data/candidates';
 import { useCompareStore } from '@/store/useCompareStore';
 import { cn } from '@/lib/utils';
+import { track } from "@vercel/analytics";
 
 export function CandidatePicker() {
   const {
     leftCandidate,
     rightCandidate,
-    selectCandidate
+    selectCandidate,
+    nextSlotToReplace
   } = useCompareStore();
 
   const isSelected = (candidateId: string) => {
@@ -20,13 +22,48 @@ export function CandidatePicker() {
     return null;
   };
 
+  const handleCandidateButtonClick = (candidate: (typeof candidates)[0]) => {
+    const side = getSelectedSide(candidate.id);
+
+    if (side) {
+      track("compare_candidate_deselected", {
+        candidateId: candidate.id,
+        slot: side,
+      });
+      selectCandidate(candidate);
+      return;
+    }
+
+    let slot: "left" | "right";
+    let replacedCandidateId: string | null = null;
+
+    if (!leftCandidate && !rightCandidate) {
+      slot = "left";
+    } else if (!leftCandidate) {
+      slot = "left";
+    } else if (!rightCandidate) {
+      slot = "right";
+    } else {
+      slot = nextSlotToReplace;
+      replacedCandidateId = slot === "left" ? leftCandidate.id : rightCandidate.id;
+    }
+
+    track("compare_candidate_selected", {
+      candidateId: candidate.id,
+      slot,
+      replacedCandidateId,
+    });
+
+    selectCandidate(candidate);
+  };
+
   const renderCandidateButton = (candidate: (typeof candidates)[0]) => {
     const selected = isSelected(candidate.id);
     const side = getSelectedSide(candidate.id);
     return (
       <motion.button
         key={candidate.id}
-        onClick={() => selectCandidate(candidate)}
+        onClick={() => handleCandidateButtonClick(candidate)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={cn(

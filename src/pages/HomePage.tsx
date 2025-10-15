@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, Compass, Scale } from 'lucide-react';
-import { candidates } from '@/data/candidates';
-import { useMemo } from 'react';
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Compass, Scale } from "lucide-react";
+import { track } from "@vercel/analytics";
+import { candidates } from "@/data/candidates";
 
 export function HomePage() {
   const quickPairs = useMemo(() => {
@@ -44,32 +45,28 @@ export function HomePage() {
         {/* Primary call-to-actions */}
         <section className="w-full max-w-xl mx-auto mb-6 sm:mb-7">
           <div className="rounded-2xl border border-border/60 bg-background/75 shadow-[0_8px_20px_rgba(0,0,0,0.32)] backdrop-blur-sm p-4 sm:p-5">
-            <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground/75">
-              Empieza aquí
-            </p>
-            <p className="mt-2 text-xs sm:text-sm text-foreground/85">
-              Elige entre comparar candidatos o ver el mapa político del Perú.
-            </p>
-            <div className="mt-3 sm:mt-4 flex flex-col gap-2 sm:gap-2.5">
+            <div className="flex flex-col gap-3">
               <Link
                 to="/compare"
+                onClick={() => track("home_cta_click", { target: "compare" })}
                 className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 active:translate-y-0"
               >
-                <span className="flex items-center gap-2">
-                  <Scale className="h-4 w-4 text-black" />
-                  <span>Comparar candidatos</span>
+                <span className="flex items-center gap-3">
+                  <Scale size={18} className="shrink-0" />
+                  Comparar candidatos
                 </span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/compass"
+                onClick={() => track("home_cta_click", { target: "compass" })}
                 className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] text-foreground transition-all duration-200 hover:border-primary/60 hover:bg-primary hover:text-black hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:translate-y-0"
               >
-                <span>
-                  <Compass className="mr-2 inline h-4 w-4" />
-                  Mapa Político
+                <span className="flex items-center gap-3">
+                  <Compass size={18} className="shrink-0" />
+                  Explorar mapa político
                 </span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
@@ -84,15 +81,22 @@ export function HomePage() {
             <p className="mt-1.5 text-[11px] sm:text-xs text-muted-foreground/80">
               Acceso directo a comparaciones populares.
             </p>
-            <div className="mt-3 grid gap-2 sm:gap-2.5 sm:grid-cols-3">
-              {quickPairs.map(pair => (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {quickPairs.map((pair, index) => (
                 <Link
                   key={pair.a + pair.b}
                   to={`/compare?a=${pair.a}&b=${pair.b}`}
+                  onClick={() =>
+                    track("home_quick_compare_click", {
+                      candidateA: pair.a,
+                      candidateB: pair.b,
+                      position: index + 1,
+                    })
+                  }
                   className="group flex items-center justify-between rounded-xl border border-border/70 bg-background/70 px-3.5 py-3 text-xs sm:text-sm font-medium text-foreground transition-all duration-200 hover:border-accent/60 hover:bg-accent/10 hover:-translate-y-[1px] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 active:translate-y-0"
                 >
-                  <span className="pr-2 group-hover:text-accent transition-colors">{pair.label}</span>
-                  <ArrowRight className="h-4 w-4 text-accent/80 transition-transform group-hover:translate-x-1" />
+                  <span>{pair.label}</span>
+                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                 </Link>
               ))}
             </div>
@@ -112,6 +116,7 @@ export function HomePage() {
                 href="https://ko-fi.com/D1D31GKBY9"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track("home_support_click", { provider: "ko-fi" })}
                 className="inline-flex items-center justify-center rounded-2xl border border-accent/50 bg-accent/15 px-4 py-3 transition-all duration-200 hover:bg-accent/25 hover:-translate-y-[2px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
                 aria-label="Apoya el proyecto en Ko-fi"
               >
