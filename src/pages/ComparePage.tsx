@@ -56,7 +56,7 @@ const Index = () => {
       rightCandidateId: rightCandidate?.id ?? null,
       source: paramsString ? 'query_params' : 'direct',
     });
-  }, [searchParams, leftCandidate?.id, rightCandidate?.id]);
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen fighting-game-bg-compare lg:grid lg:grid-rows-[1fr_auto] lg:h-screen">
