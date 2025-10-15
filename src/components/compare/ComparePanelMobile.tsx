@@ -278,6 +278,12 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                               <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="block text-xs text-white/80 underline mt-1">Fuente</a>
                             </div>
                           ))}
+                        <Link
+                          to={`/candidate/${leftCandidate.id}#controversias`}
+                          className="block text-xs font-semibold text-primary/80 hover:text-primary mt-2"
+                        >
+                          Ver más
+                        </Link>
                       </div>
                     ) : (
                       <span className="font-sans text-sm text-muted-foreground">Sin controversias registradas</span>
@@ -313,6 +319,12 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                               <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="block text-xs text-white/80 underline mt-1">Fuente</a>
                             </div>
                           ))}
+                        <Link
+                          to={`/candidate/${rightCandidate.id}#controversias`}
+                          className="block text-xs font-semibold text-primary/80 hover:text-primary mt-2"
+                        >
+                          Ver más
+                        </Link>
                       </div>
                     ) : (
                       <span className="font-sans text-sm text-muted-foreground">Sin controversias registradas</span>
