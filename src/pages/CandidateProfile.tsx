@@ -1,11 +1,11 @@
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 import { candidates } from '@/data/candidates';
 import { trayectorias } from '@/data/trayectorias';
 import NotFound from './NotFound';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, Wand, Sparkles, AlertTriangle, GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
+import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, AlertTriangle, GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
 import {
@@ -18,6 +18,7 @@ import { Badge } from '@/components/ui/badge';
 // + imports para tooltip/popover
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { track } from "@vercel/analytics";
 
 const socialIcons: { [key: string]: React.ReactElement } = {
   tiktok: <FaTiktok />,
@@ -144,6 +145,18 @@ export function CandidateProfile() {
   const handleGoBack = () => {
     navigate(-1);
   };
+
+  const handleExternalSourceClick = useCallback(
+    (section: string, url: string) => {
+      if (!candidate?.id) return;
+      track("external_source_click", {
+        candidateId: candidate.id,
+        section,
+        url,
+      });
+    },
+    [candidate?.id]
+  );
 
   if (!candidate) {
     return <NotFound />;
@@ -290,12 +303,18 @@ export function CandidateProfile() {
                       <AccordionContent>
                         <p>{creencia.resumen}</p>
                         {creencia.detalle && <p className="mt-2 text-sm text-muted-foreground">{creencia.detalle}</p>}
-                        {creencia.fuente && (
-                          <a href={creencia.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
+                        {creencia.fuente ? (
+                          <a
+                            href={creencia.fuente}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => handleExternalSourceClick("creenciasClave", creencia.fuente)}
+                            className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2"
+                          >
                             <LinkIcon size={12} />
                             Fuente
                           </a>
-                        )}
+                        ) : null}
                       </AccordionContent>
                     </AccordionItem>
                   ))}
@@ -314,7 +333,13 @@ export function CandidateProfile() {
                   {socialIcons[plataforma.nombre] || <Radio />}
                 </div>
                 <div>
-                  <a href={plataforma.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  <a
+                    href={plataforma.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => handleExternalSourceClick("presenciaDigital", plataforma.url)}
+                    className="hover:underline"
+                  >
                   <h4 className="font-semibold capitalize flex items-center gap-1.5">
                     {plataforma.nombre}
                     <LinkIcon size={14} className="inline-block text-primary/80" />

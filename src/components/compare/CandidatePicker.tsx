@@ -54,6 +54,14 @@ export function CandidatePicker() {
       replacedCandidateId,
     });
 
+    if (replacedCandidateId) {
+      track("compare_candidate_swap", {
+        incomingCandidateId: candidate.id,
+        outgoingCandidateId: replacedCandidateId,
+        slot,
+      });
+    }
+
     selectCandidate(candidate);
   };
 

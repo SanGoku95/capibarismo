@@ -2,11 +2,26 @@ import { useCompareStore } from '@/store/useCompareStore';
 import { CandidateFullBody } from '../candidate/CandidateFullBody';
 import { CandidateFactSheet } from './ComparePanelDesktop';
 import { CandidateComparisonGrid } from './ComparePanelMobile';
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from "react";
+import { track } from "@vercel/analytics";
 
 export function CompareView() {
   const { leftCandidate, rightCandidate } = useCompareStore();
-  const [openSection, setOpenSection] = useState<string | null>(null); // Shared state for accordion
+  const [openSection, setOpenSection] = useState<string | null>(null);
+
+  const handleSetOpenSection = useCallback((sectionId: string | null) => {
+    setOpenSection(sectionId);
+  }, []);
+
+  useEffect(() => {
+    if (!openSection) return;
+
+    track("compare_section_open", {
+      sectionId: openSection,
+      leftCandidateId: leftCandidate?.id ?? null,
+      rightCandidateId: rightCandidate?.id ?? null,
+    });
+  }, [openSection, leftCandidate?.id, rightCandidate?.id]);
 
   return (
     <div className="w-full h-full p-4">
@@ -30,7 +45,7 @@ export function CompareView() {
                 candidate={leftCandidate}
                 side="left"
                 openSection={openSection}
-                setOpenSection={setOpenSection}
+                setOpenSection={handleSetOpenSection}
               />
             </div>
             
@@ -40,7 +55,7 @@ export function CompareView() {
                 candidate={rightCandidate}
                 side="right"
                 openSection={openSection}
-                setOpenSection={setOpenSection}
+                setOpenSection={handleSetOpenSection}
               />
             </div>
             
