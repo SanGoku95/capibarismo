@@ -37,9 +37,7 @@ export function CandidatePicker() {
     let slot: "left" | "right";
     let replacedCandidateId: string | null = null;
 
-    if (!leftCandidate && !rightCandidate) {
-      slot = "left";
-    } else if (!leftCandidate) {
+    if (!leftCandidate) {
       slot = "left";
     } else if (!rightCandidate) {
       slot = "right";
