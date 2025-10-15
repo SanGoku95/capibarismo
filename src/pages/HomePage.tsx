@@ -48,7 +48,7 @@ export function HomePage() {
             <div className="flex flex-col gap-3">
               <Link
                 to="/compare"
-                onClick={() => track("home_cta_click", { target: "compare" })}
+                onClick={() => track("home_compare_click", { via: "cta" })}
                 className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 active:translate-y-0"
               >
                 <span className="flex items-center gap-3">
@@ -59,7 +59,7 @@ export function HomePage() {
               </Link>
               <Link
                 to="/compass"
-                onClick={() => track("home_cta_click", { target: "compass" })}
+                onClick={() => track("home_mapa_politico_click", { via: "cta" })}
                 className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] text-foreground transition-all duration-200 hover:border-primary/60 hover:bg-primary hover:text-black hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:translate-y-0"
               >
                 <span className="flex items-center gap-3">
@@ -87,7 +87,7 @@ export function HomePage() {
                   key={pair.a + pair.b}
                   to={`/compare?a=${pair.a}&b=${pair.b}`}
                   onClick={() =>
-                    track("home_quick_compare_click", {
+                    track("home_compare_pair_click", {
                       candidateA: pair.a,
                       candidateB: pair.b,
                       position: index + 1,
@@ -116,7 +116,7 @@ export function HomePage() {
                 href="https://ko-fi.com/D1D31GKBY9"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => track("home_support_click", { provider: "ko-fi" })}
+                onClick={() => track("home_kofi_click", { via: "support_section" })}
                 className="inline-flex items-center justify-center rounded-2xl border border-accent/50 bg-accent/15 px-4 py-3 transition-all duration-200 hover:bg-accent/25 hover:-translate-y-[2px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
                 aria-label="Apoya el proyecto en Ko-fi"
               >
