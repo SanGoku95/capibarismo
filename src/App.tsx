@@ -7,6 +7,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { Header } from "./components/layout/Header";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 
 // Lazy load pages for code splitting
@@ -104,6 +105,7 @@ const App = () => {
           </BrowserRouter>
         </TooltipProvider>
         <Analytics />
+        <SpeedInsights/>
       </QueryClientProvider>
     </ErrorBoundary>
   );
