@@ -5,7 +5,7 @@ import { trayectorias } from '@/data/trayectorias';
 import NotFound from './NotFound';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, Wand, Sparkles, AlertTriangle, GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
+import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, AlertTriangle, GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
 import {
