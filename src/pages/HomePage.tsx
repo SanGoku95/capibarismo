@@ -41,7 +41,17 @@ export function HomePage() {
       <main className="relative w-full mx-auto px-3 sm:px-4 pt-6 sm:pt-7 pb-20 sm:pb-16 max-w-6xl">
         <div className="text-center mb-6 sm:mb-8">
           <div className="mx-auto mb-3 flex h-28 w-28 items-center justify-center rounded-full bg-background/80 shadow-[0_6px_18px_rgba(0,0,0,0.28)]">
-            <img src="/capi_logo.png" alt="Capibara logo" className="h-24 w-24" />
+            <picture>
+              <source srcSet="/capi_logo.webp" type="image/webp" />
+              <img 
+                src="/capi_logo.png" 
+                alt="Capibara logo" 
+                className="h-24 w-24"
+                fetchPriority="high"
+                width="96"
+                height="96"
+              />
+            </picture>
           </div>
           <h1
             className="text-[1.3rem] leading-tight sm:text-[1.75rem] md:text-[2rem] font-bold uppercase tracking-wider"

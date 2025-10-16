@@ -1,3 +1,4 @@
+/* Google Fonts are now loaded via preconnect in index.html */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Press+Start+2P&display=swap');
 
 @tailwind base;
