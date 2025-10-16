@@ -2,8 +2,17 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
+import { useArticleSEO } from "@/lib/useSEO";
 
 export function About() {
+  // SEO for About page
+  useArticleSEO(
+    'Acerca de Capibarismo | Información Objetiva sobre Elecciones Perú 2026',
+    'Conoce nuestra misión de presentar información objetiva y verificada sobre los candidatos presidenciales de Perú 2026. Metodología transparente basada en fuentes confiables.',
+    '2025-01-01',
+    '2025-10-16'
+  );
+
   return (
     <div className="min-h-screen fighting-game-bg text-white">
       <div className="container mx-auto p-4 md:p-8">

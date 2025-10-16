@@ -5,9 +5,18 @@ import { ArrowLeft } from "lucide-react";
 import { candidateSourcesRaw } from "@/data/candidateSources";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useArticleSEO } from "@/lib/useSEO";
 
 export function Sources() {
   const totalSources = candidateSourcesRaw.reduce((count, candidate) => count + candidate.sources.length, 0);
+
+  // SEO for Sources page
+  useArticleSEO(
+    'Fuentes de Información | Capibarismo',
+    `Accede a las ${totalSources} fuentes verificadas que sustentan nuestra información sobre candidatos presidenciales de Perú 2026. Transparencia total con citas, reportajes y apariciones públicas.`,
+    '2025-01-01',
+    '2025-10-16'
+  );
 
   return (
     <div className="min-h-screen fighting-game-bg text-white">
