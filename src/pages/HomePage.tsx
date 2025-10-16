@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Compass, Scale } from 'lucide-react';
 import { candidates } from '@/data/candidates';
 import { useMemo } from 'react';
+import { useItemListSEO } from '@/lib/useSEO';
 
 export function HomePage() {
   const quickPairs = useMemo(() => {
@@ -18,6 +19,22 @@ export function HomePage() {
         label: `${lookup[p.a].nombre} vs ${lookup[p.b].nombre}`,
       }));
   }, []);
+
+  // SEO for homepage with ItemList structured data for candidates
+  const candidateItems = useMemo(() => 
+    candidates.map(c => ({
+      name: c.nombre,
+      url: `https://capibarismo.com/candidate/${c.id}`,
+      description: `${c.nombre} - ${c.ideologia}: ${c.proyectoPolitico.resumen}`,
+    })),
+    []
+  );
+
+  useItemListSEO(
+    'Compara Candidatos Presidenciales Perú 2026 | Información Objetiva',
+    'Compara candidatos presidenciales de Perú 2026 con información verificada y objetiva. Conoce propuestas, trayectorias y posiciones políticas basadas en hechos. Brújula política interactiva.',
+    candidateItems
+  );
 
   return (
     <div className="min-h-screen flex flex-col fighting-game-bg text-white">
