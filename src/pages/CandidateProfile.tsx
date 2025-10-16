@@ -146,6 +146,20 @@ export function CandidateProfile() {
     navigate(-1);
   };
 
+  // SEO: Add Person structured data for candidate
+  // Note: We need to call hooks before any conditional returns
+  const knowsAbout = candidate?.creenciasClave.map(c => c.nombre) || [];
+  const affiliation = candidate?.mapaDePoder?.alianzas?.[0]?.nombre;
+  
+  usePersonSEO(
+    candidate?.nombre || 'Candidato',
+    candidate ? `${candidate.nombre} - ${candidate.ideologia}. ${candidate.proyectoPolitico.resumen}` : 'Perfil de candidato',
+    'Candidato Presidencial de Perú 2026',
+    candidate?.headshot ? `https://capibarismo.com${candidate.headshot}` : undefined,
+    affiliation,
+    knowsAbout
+  );
+
   if (!candidate) {
     return <NotFound />;
   }
@@ -154,19 +168,6 @@ export function CandidateProfile() {
   const controversiesSorted = (candidate.controversias || [])
     .slice()
     .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99));
-
-  // SEO: Add Person structured data for candidate
-  const knowsAbout = candidate.creenciasClave.map(c => c.nombre);
-  const affiliation = candidate.mapaDePoder?.alianzas?.[0]?.nombre;
-  
-  usePersonSEO(
-    candidate.nombre,
-    `${candidate.nombre} - ${candidate.ideologia}. ${candidate.proyectoPolitico.resumen}`,
-    'Candidato Presidencial de Perú 2026',
-    candidate.headshot ? `https://capibarismo.com${candidate.headshot}` : undefined,
-    affiliation,
-    knowsAbout
-  );
 
   return (
     <div className="min-h-screen fighting-game-bg text-white">
