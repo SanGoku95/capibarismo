@@ -19,6 +19,8 @@ import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { track } from "@vercel/analytics";
+import { usePersonSEO } from '@/lib/useSEO';
+
 
 const socialIcons: { [key: string]: React.ReactElement } = {
   tiktok: <FaTiktok />,
@@ -156,6 +158,20 @@ export function CandidateProfile() {
       });
     },
     [candidate?.id]
+    
+  // SEO: Add Person structured data for candidate
+  // Note: We need to call hooks before any conditional returns
+  const knowsAbout = candidate?.creenciasClave.map(c => c.nombre) || [];
+  const affiliation = candidate?.mapaDePoder?.alianzas?.[0]?.nombre;
+  
+  usePersonSEO(
+    candidate?.nombre || 'Candidato',
+    candidate ? `${candidate.nombre} - ${candidate.ideologia}. ${candidate.proyectoPolitico.resumen}` : 'Perfil de candidato',
+    'Candidato Presidencial de Perú 2026',
+    candidate?.headshot ? `https://capibarismo.com${candidate.headshot}` : undefined,
+    affiliation,
+    knowsAbout
+
   );
 
   if (!candidate) {

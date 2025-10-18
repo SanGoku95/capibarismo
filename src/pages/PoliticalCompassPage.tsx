@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Info, ChevronDown, Check } from 'lucide-react';
 import { candidates } from '@/data/candidates';
+import { useSEO } from '@/lib/useSEO';
 
 const availableAxes: { key: Axis; label: string }[] = [
   { key: 'econ', label: 'Eje Económico' },
@@ -34,6 +35,13 @@ function AxisControls({
   candidateOptions: { id: string; nombre: string }[];
 }) {
   const [filterOpen, setFilterOpen] = useState(false);
+
+  // SEO for Political Compass page
+  useSEO({
+    title: 'Brújula Política | Mapa Político de Candidatos Perú 2026',
+    description: 'Visualiza las posiciones políticas de los candidatos presidenciales de Perú 2026 en un mapa político interactivo. Compara posturas económicas, sociales, territoriales y estilos de poder.',
+    type: 'website',
+  });
 
   const renderInfo = (axisKey: Axis) => {
     const meta = axisLabels[axisKey];

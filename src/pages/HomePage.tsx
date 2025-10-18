@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Compass, Scale } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { candidates } from "@/data/candidates";
+import { Link } from 'react-router-dom';
+import { ArrowRight, Compass, Scale } from 'lucide-react';
+import { candidates } from '@/data/candidates';
+import { useMemo } from 'react';
+import { useItemListSEO } from '@/lib/useSEO';
 
 export function HomePage() {
   const quickPairs = useMemo(() => {
@@ -20,12 +25,38 @@ export function HomePage() {
       }));
   }, []);
 
+  // SEO for homepage with ItemList structured data for candidates
+  const candidateItems = useMemo(() => 
+    candidates.map(c => ({
+      name: c.nombre,
+      url: `https://capibarismo.com/candidate/${c.id}`,
+      description: `${c.nombre} - ${c.ideologia}: ${c.proyectoPolitico.resumen}`,
+    })),
+    []
+  );
+
+  useItemListSEO(
+    'Compara Candidatos Presidenciales Perú 2026 | Información Objetiva',
+    'Compara candidatos presidenciales de Perú 2026 con información verificada y objetiva. Conoce propuestas, trayectorias y posiciones políticas basadas en hechos. Brújula política interactiva.',
+    candidateItems
+  );
+
   return (
     <div className="min-h-screen flex flex-col fighting-game-bg text-white">
       <main className="relative w-full mx-auto px-3 sm:px-4 pt-6 sm:pt-7 pb-20 sm:pb-16 max-w-6xl">
         <div className="text-center mb-6 sm:mb-8">
           <div className="mx-auto mb-3 flex h-28 w-28 items-center justify-center rounded-full bg-background/80 shadow-[0_6px_18px_rgba(0,0,0,0.28)]">
-            <img src="/capi_logo.png" alt="Capibara logo" className="h-24 w-24" />
+            <picture>
+              <source srcSet="/capi_logo.webp" type="image/webp" />
+              <img 
+                src="/capi_logo.png" 
+                alt="Capibara logo" 
+                className="h-24 w-24"
+                fetchPriority="high"
+                width="96"
+                height="96"
+              />
+            </picture>
           </div>
           <h1
             className="text-[1.3rem] leading-tight sm:text-[1.75rem] md:text-[2rem] font-bold uppercase tracking-wider"
