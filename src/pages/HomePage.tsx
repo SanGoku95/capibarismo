@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Compass, Scale } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { candidates } from "@/data/candidates";
-import { Link } from 'react-router-dom';
-import { ArrowRight, Compass, Scale } from 'lucide-react';
-import { candidates } from '@/data/candidates';
-import { useMemo } from 'react';
 import { useItemListSEO } from '@/lib/useSEO';
 
 export function HomePage() {
