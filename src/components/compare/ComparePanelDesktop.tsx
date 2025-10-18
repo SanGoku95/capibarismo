@@ -168,41 +168,49 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               <AccordionContent>
                 <div className="space-y-1 pt-2">
                   {candidate.controversias && candidate.controversias.length > 0 ? (
-                    candidate.controversias
-                      .slice()
-                      .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
-                      .slice(0, 3)
-                      .map((c) => {
-                        const s = sevProps(c.severidad);
-                        const l = legProps(c.legal);
-                        return (
-                          <div key={c.id} className="block p-2 rounded-md hover:bg-muted/50">
-                            <Link to={`/candidate/${candidate.id}#controversia-${c.id}`} className="text-base font-sans font-medium hover:underline">
-                              {c.titulo}
-                            </Link>
-                            <div className="flex flex-wrap gap-2 my-1">
-                              <InfoBadge
-                                className={s.className}
-                                label={s.label}
-                                description={
-                                  <div><span className="font-semibold">Severidad:</span> {sevHelp(c.severidad)}</div>
-                                }
-                              />
-                              <InfoBadge
-                                className={l.className}
-                                label={l.label}
-                                description={
-                                  <div><span className="font-semibold">Estado legal:</span> {legHelp(c.legal)}</div>
-                                }
-                              />
+                    <>
+                      {candidate.controversias
+                        .slice()
+                        .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
+                        .slice(0, 3)
+                        .map((c) => {
+                          const s = sevProps(c.severidad);
+                          const l = legProps(c.legal);
+                          return (
+                            <div key={c.id} className="block p-2 rounded-md hover:bg-muted/50">
+                              <Link to={`/candidate/${candidate.id}#controversia-${c.id}`} className="text-base font-sans font-medium hover:underline">
+                                {c.titulo}
+                              </Link>
+                              <div className="flex flex-wrap gap-2 my-1">
+                                <InfoBadge
+                                  className={s.className}
+                                  label={s.label}
+                                  description={
+                                    <div><span className="font-semibold">Severidad:</span> {sevHelp(c.severidad)}</div>
+                                  }
+                                />
+                                <InfoBadge
+                                  className={l.className}
+                                  label={l.label}
+                                  description={
+                                    <div><span className="font-semibold">Estado legal:</span> {legHelp(c.legal)}</div>
+                                  }
+                                />
+                              </div>
+                              <div className="text-sm text-muted-foreground">{c.descripcion}</div>
+                              <div className="text-xs text-muted-foreground mt-1">
+                                <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="underline">Fuente</a>
+                              </div>
                             </div>
-                            <div className="text-sm text-muted-foreground">{c.descripcion}</div>
-                            <div className="text-xs text-muted-foreground mt-1">
-                              <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="underline">Fuente</a>
-                            </div>
-                          </div>
-                        );
-                      })
+                          );
+                        })}
+                      <Link
+                        to={`/candidate/${candidate.id}#controversias`}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary mt-2"
+                      >
+                        Ver más
+                      </Link>
+                    </>
                   ) : (
                     <p className="text-sm text-muted-foreground italic">Sin controversias registradas.</p>
                   )}

@@ -7,7 +7,7 @@ export function CandidatePicker() {
   const {
     leftCandidate,
     rightCandidate,
-    selectCandidate
+    selectCandidate,
   } = useCompareStore();
 
   const isSelected = (candidateId: string) => {
@@ -20,13 +20,17 @@ export function CandidatePicker() {
     return null;
   };
 
+  const handleCandidateButtonClick = (candidate: (typeof candidates)[0]) => {
+    selectCandidate(candidate);
+  };
+
   const renderCandidateButton = (candidate: (typeof candidates)[0]) => {
     const selected = isSelected(candidate.id);
     const side = getSelectedSide(candidate.id);
     return (
       <motion.button
         key={candidate.id}
-        onClick={() => selectCandidate(candidate)}
+        onClick={() => handleCandidateButtonClick(candidate)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={cn(

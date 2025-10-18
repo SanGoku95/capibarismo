@@ -1,5 +1,5 @@
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { candidates } from '@/data/candidates';
 import { trayectorias } from '@/data/trayectorias';
 import NotFound from './NotFound';
@@ -19,6 +19,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { usePersonSEO } from '@/lib/useSEO';
+
 
 const socialIcons: { [key: string]: React.ReactElement } = {
   tiktok: <FaTiktok />,
@@ -158,6 +159,7 @@ export function CandidateProfile() {
     candidate?.headshot ? `https://capibarismo.com${candidate.headshot}` : undefined,
     affiliation,
     knowsAbout
+
   );
 
   if (!candidate) {
@@ -305,12 +307,17 @@ export function CandidateProfile() {
                       <AccordionContent>
                         <p>{creencia.resumen}</p>
                         {creencia.detalle && <p className="mt-2 text-sm text-muted-foreground">{creencia.detalle}</p>}
-                        {creencia.fuente && (
-                          <a href={creencia.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
+                        {creencia.fuente ? (
+                          <a
+                            href={creencia.fuente}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2"
+                          >
                             <LinkIcon size={12} />
                             Fuente
                           </a>
-                        )}
+                        ) : null}
                       </AccordionContent>
                     </AccordionItem>
                   ))}
@@ -329,7 +336,12 @@ export function CandidateProfile() {
                   {socialIcons[plataforma.nombre] || <Radio />}
                 </div>
                 <div>
-                  <a href={plataforma.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  <a
+                    href={plataforma.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
                   <h4 className="font-semibold capitalize flex items-center gap-1.5">
                     {plataforma.nombre}
                     <LinkIcon size={14} className="inline-block text-primary/80" />
@@ -425,7 +437,7 @@ export function CandidateProfile() {
                     })}
                   </Accordion>
                 ) : (
-                  <p className="text-sm text-muted-foreground">Sin controversias registradas.</p>
+                  <p className="text-sm text-muted-foreground">No hay controversias registradas para este candidato.</p>
                 )}
               </CardContent>
             </Card>
