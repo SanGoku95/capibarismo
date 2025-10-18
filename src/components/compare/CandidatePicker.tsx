@@ -21,13 +21,6 @@ export function CandidatePicker() {
   };
 
   const handleCandidateButtonClick = (candidate: (typeof candidates)[0]) => {
-    const side = getSelectedSide(candidate.id);
-
-    if (side) {
-      selectCandidate(candidate);
-      return;
-    }
-
     selectCandidate(candidate);
   };
 
