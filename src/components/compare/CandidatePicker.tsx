@@ -2,14 +2,12 @@ import { motion } from 'framer-motion';
 import { candidates } from '@/data/candidates';
 import { useCompareStore } from '@/store/useCompareStore';
 import { cn } from '@/lib/utils';
-import { track } from "@vercel/analytics";
 
 export function CandidatePicker() {
   const {
     leftCandidate,
     rightCandidate,
     selectCandidate,
-    nextSlotToReplace
   } = useCompareStore();
 
   const isSelected = (candidateId: string) => {
@@ -26,38 +24,8 @@ export function CandidatePicker() {
     const side = getSelectedSide(candidate.id);
 
     if (side) {
-      track("compare_candidate_deselected", {
-        candidateId: candidate.id,
-        slot: side,
-      });
       selectCandidate(candidate);
       return;
-    }
-
-    let slot: "left" | "right";
-    let replacedCandidateId: string | null = null;
-
-    if (!leftCandidate) {
-      slot = "left";
-    } else if (!rightCandidate) {
-      slot = "right";
-    } else {
-      slot = nextSlotToReplace;
-      replacedCandidateId = slot === "left" ? leftCandidate.id : rightCandidate.id;
-    }
-
-    track("compare_candidate_selected", {
-      candidateId: candidate.id,
-      slot,
-      replacedCandidateId,
-    });
-
-    if (replacedCandidateId) {
-      track("compare_candidate_swap", {
-        incomingCandidateId: candidate.id,
-        outgoingCandidateId: replacedCandidateId,
-        slot,
-      });
     }
 
     selectCandidate(candidate);

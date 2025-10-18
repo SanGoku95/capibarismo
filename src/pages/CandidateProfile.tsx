@@ -1,5 +1,5 @@
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { candidates } from '@/data/candidates';
 import { trayectorias } from '@/data/trayectorias';
 import NotFound from './NotFound';
@@ -18,7 +18,6 @@ import { Badge } from '@/components/ui/badge';
 // + imports para tooltip/popover
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { track } from "@vercel/analytics";
 import { usePersonSEO } from '@/lib/useSEO';
 
 
@@ -148,17 +147,6 @@ export function CandidateProfile() {
     navigate(-1);
   };
 
-  const handleExternalSourceClick = useCallback(
-    (section: string, url: string) => {
-      if (!candidate?.id) return;
-      track("external_source_click", {
-        candidateId: candidate.id,
-        section,
-        url,
-      });
-    },
-    [candidate?.id]
-    
   // SEO: Add Person structured data for candidate
   // Note: We need to call hooks before any conditional returns
   const knowsAbout = candidate?.creenciasClave.map(c => c.nombre) || [];
@@ -324,7 +312,6 @@ export function CandidateProfile() {
                             href={creencia.fuente}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={() => handleExternalSourceClick("creenciasClave", creencia.fuente!)}
                             className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2"
                           >
                             <LinkIcon size={12} />
@@ -353,7 +340,6 @@ export function CandidateProfile() {
                     href={plataforma.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => handleExternalSourceClick("presenciaDigital", plataforma.url)}
                     className="hover:underline"
                   >
                   <h4 className="font-semibold capitalize flex items-center gap-1.5">
@@ -451,7 +437,7 @@ export function CandidateProfile() {
                     })}
                   </Accordion>
                 ) : (
-                  <p className="text-sm text-muted-foreground">Sin controversias registradas.</p>
+                  <p className="text-sm text-muted-foreground">No hay controversias registradas para este candidato.</p>
                 )}
               </CardContent>
             </Card>

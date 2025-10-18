@@ -2,64 +2,40 @@ import { useCompareStore } from '@/store/useCompareStore';
 import { CandidateFullBody } from '../candidate/CandidateFullBody';
 import { CandidateFactSheet } from './ComparePanelDesktop';
 import { CandidateComparisonGrid } from './ComparePanelMobile';
-import { useState, useCallback, useEffect } from "react";
-import { track } from "@vercel/analytics";
+import { useState } from 'react';
 
 export function CompareView() {
   const { leftCandidate, rightCandidate } = useCompareStore();
   const [openSection, setOpenSection] = useState<string | null>(null);
 
-  const handleSetOpenSection = useCallback((sectionId: string | null) => {
-    setOpenSection(sectionId);
-  }, []);
-
-  useEffect(() => {
-    if (!openSection) return;
-
-    track("compare_section_open", {
-      sectionId: openSection,
-      leftCandidateId: leftCandidate?.id ?? null,
-      rightCandidateId: rightCandidate?.id ?? null,
-    });
-  }, [openSection, leftCandidate?.id, rightCandidate?.id]);
-
   return (
     <div className="w-full h-full p-4">
       <div className="h-full">
-        {/* Mobile: Side-by-side comparison with scrollable spec grid */}
         <div className="lg:hidden h-full">
           <CandidateComparisonGrid leftCandidate={leftCandidate} rightCandidate={rightCandidate} />
         </div>
 
-        {/* Desktop: Fighting arena layout */}
-        <div className="hidden lg:block lg:h-full">          
+        <div className="hidden lg:block lg:h-full">
           <div className="grid lg:grid-cols-4 lg:gap-4 lg:h-full">
-            {/* Left fighter */}
             <div className="flex items-center justify-center">
               <CandidateFullBody candidate={leftCandidate} side="left" />
             </div>
-            
-            {/* Left fighter stats */}
             <div className="flex items-start pt-8">
               <CandidateFactSheet
                 candidate={leftCandidate}
                 side="left"
                 openSection={openSection}
-                setOpenSection={handleSetOpenSection}
+                setOpenSection={setOpenSection}
               />
             </div>
-            
-            {/* Right fighter stats */}
             <div className="flex items-start pt-8">
               <CandidateFactSheet
                 candidate={rightCandidate}
                 side="right"
                 openSection={openSection}
-                setOpenSection={handleSetOpenSection}
+                setOpenSection={setOpenSection}
               />
             </div>
-            
-            {/* Right fighter */}
             <div className="flex items-center justify-center">
               <CandidateFullBody candidate={rightCandidate} side="right" />
             </div>
