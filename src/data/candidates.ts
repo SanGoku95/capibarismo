@@ -68,18 +68,18 @@ export const candidates: Candidate[] = [
       detalles: [
         {
           subtitulo: "Legislación de 'mano dura'",
-          texto: "Durante su tiempo como congresista, su labor se centró en la promoción de proyectos de ley punitivos, como la restricción de beneficios penitenciarios para delitos graves, en línea con la plataforma ideológica de su padre.",
-          fuente: "https://es.wikipedia.org/wiki/Keiko_Fujimori"
+          texto: "Promoción de proyectos de ley punitivos, como la restricción de beneficios penitenciarios para delitos graves.",
+          fuente: "https://www.youtube.com/watch?v=PMiEfL_thsE"
         },
         {
           subtitulo: "Obstrucción parlamentaria como estrategia",
           texto: "Tras ganar una mayoría absoluta en el Congreso en 2016, lideró una estrategia de obstrucción sistemática contra los gobiernos de PPK y Vizcarra, lo que agudizó la inestabilidad política del país.",
-          fuente: "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi"
+          fuente: "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi#:~:text=En%20el%20lustro,proceso%20de%20vacancia"
         },
         {
           subtitulo: "Desconocimiento de resultados electorales",
           texto: "Después de su derrota en 2021, se embarcó en una agresiva campaña para desconocer los resultados, alegando un 'fraude electoral' sistemático que no fue respaldado por pruebas y fue desestimado por observadores.",
-          fuente: "https://www.wola.org/es/analysis/peru-tiene-nuevo-presidente-fujimori-empeligra-democracia/"
+          fuente: "https://www.youtube.com/watch?v=5voapsD15Wk"
         }
       ]
     },
@@ -96,7 +96,7 @@ export const candidates: Candidate[] = [
         nombre: "Combatir Antifujimorismo",
         resumen: "Es la encarnación de la polarización; su figura activa una poderosa coalición opositora en su contra.",
         detalle: "El patrón de sus tres derrotas presidenciales es claro: su base leal la lleva a la segunda vuelta, pero el sentimiento 'antifujimorista' aglutina a una diversa mayoría de votantes con el único fin de impedir su victoria.",
-        fuente: "https://en.wikipedia.org/wiki/Keiko_Fujimori"
+        fuente: "https://www.bbc.com/mundo/noticias-america-latina-56754234"
       },
       {
         id: "lawfare",
