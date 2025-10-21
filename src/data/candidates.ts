@@ -67,43 +67,43 @@ export const candidates: Candidate[] = [
       resumen: "Reivindica fujimorismo con mano dura y economía de mercado; enfrenta antifujimorismo.",
       detalles: [
         {
-          subtitulo: "Legislación de 'mano dura'",
-          texto: "Promoción de proyectos de ley punitivos, como la restricción de beneficios penitenciarios para delitos graves.",
-          fuente: "https://www.youtube.com/watch?v=PMiEfL_thsE"
-        },
-        {
-          subtitulo: "Obstrucción parlamentaria como estrategia",
-          texto: "Tras ganar una mayoría absoluta en el Congreso en 2016, lideró una estrategia de obstrucción sistemática contra los gobiernos de PPK y Vizcarra, lo que agudizó la inestabilidad política del país.",
-          fuente: "https://www.cidob.org/lider-politico/keiko-fujimori-higuchi#:~:text=En%20el%20lustro,proceso%20de%20vacancia"
-        },
-        {
-          subtitulo: "Desconocimiento de resultados electorales",
-          texto: "Después de su derrota en 2021, se embarcó en una agresiva campaña para desconocer los resultados, alegando un 'fraude electoral' sistemático que no fue respaldado por pruebas y fue desestimado por observadores.",
-          fuente: "https://www.youtube.com/watch?v=5voapsD15Wk"
-        }
+            subtitulo: "Legislación de 'mano dura' y reforma de seguridad",
+            texto: "Promueve una política de 'mano dura' contra la delincuencia. Esto incluye proyectos de ley para restringir beneficios penitenciarios en delitos graves, fortalecer la investigación criminal de la Policía Nacional y construir nuevos penales de máxima seguridad para reducir el hacinamiento.",
+            fuente: "https://www.youtube.com/watch?v=PMiEfL_thsE"
+          },
+          {
+            subtitulo: "Defensa del modelo económico de la Constitución de 1993",
+            texto: "Busca dar continuidad al capítulo económico de la Constitución de 1993, al que atribuye el crecimiento económico del país. Considera a la inversión privada como el 'motor de la economía peruana' y el principal generador de empleo.",
+            fuente: "https://semanaeconomica.com/economia-finanzas/macroeconomia/elecciones-2021-las-claves-del-plan-economico-de-keiko-fujimori"
+          },
+          {
+            subtitulo: "Impulso a las micro y pequeñas empresas (MYPES)",
+            texto: "Se proponen medidas para facilitar la formalización, como una ventanilla única y electrónica para la creación de MYPES. También se plantea un programa de apoyo especial para las MYPES de los sectores de turismo y restaurantes, que incluiría la reducción de impuestos y el acceso a préstamos preferenciales.",
+            fuente: "https://apisije-e.jne.gob.pe/TRAMITE/ESCRITO/1095/ARCHIVO/FIRMADO/3017.PDF"
+          }
       ]
     },
     creenciasClave: [
       {
-        id: "legado-paterno",
-        nombre: "Legado Fujimori",
-        resumen: "Su capital político emana del legado de su padre, lo que es a la vez su mayor activo y su principal lastre.",
-        detalle: "Toda su carrera se define por su lealtad al proyecto político de su padre. Tomó el lugar de su madre como Primera Dama, asumió el liderazgo del movimiento y ha hecho de la defensa de su padre una bandera política.",
-        fuente: "https://es.wikipedia.org/wiki/Keiko_Fujimori"
+        id: "conservadurismo-social",
+        nombre: "Conservadurismo Social y Punitivo",
+        resumen: "Su plataforma promueve valores conservadores, con un fuerte énfasis en la seguridad a través de políticas de 'mano dura' y la defensa de un orden tradicional.",
+        detalle: "Esto se manifiesta en propuestas como la restricción de beneficios penitenciarios para delitos graves y la construcción de nuevos penales. Su discurso se centra en el restablecimiento del orden y la autoridad como solución a los problemas sociales.",
+        fuente: "https://apisije-e.jne.gob.pe/TRAMITE/ESCRITO/1095/ARCHIVO/FIRMADO/3017.PDF"
       },
       {
-        id: "antifujimorismo",
-        nombre: "Combatir Antifujimorismo",
-        resumen: "Es la encarnación de la polarización; su figura activa una poderosa coalición opositora en su contra.",
-        detalle: "El patrón de sus tres derrotas presidenciales es claro: su base leal la lleva a la segunda vuelta, pero el sentimiento 'antifujimorista' aglutina a una diversa mayoría de votantes con el único fin de impedir su victoria.",
-        fuente: "https://www.bbc.com/mundo/noticias-america-latina-56754234"
+        id: "liberalismo-economico",
+        nombre: "Liberalismo Económico Pro-Mercado",
+        resumen: "Defiende un modelo económico basado en el libre mercado, la promoción de la inversión privada y la integración a la economía global.",
+        detalle: "Su principal anclaje es la defensa del capítulo económico de la Constitución de 1993, al que considera la base del crecimiento. Las propuestas incluyen la simplificación tributaria, el fomento a la inversión privada como 'motor de la economía' y el apoyo a las MYPES mediante la reducción de trabas burocráticas.",
+        fuente: "https://semanaeconomica.com/economia-finanzas/macroeconomia/elecciones-2021-las-claves-del-plan-economico-de-keiko-fujimori"
       },
       {
-        id: "lawfare",
-        nombre: "Tribunales como escenario",
-        resumen: "Su estrategia de defensa se ha centrado en atacar la validez del proceso judicial en su contra.",
-        detalle: "El juicio en su contra fue anulado y retrocedido a una etapa anterior gracias a fallos del Tribunal Constitucional basados en tecnicismos procesales, lo que sugiere una estrategia deliberada para dilatar el proceso hasta su eventual prescripción.",
-        fuente: "https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori"
+        id: "politica-social-focalizada",
+        nombre: "Programas de Empleo Temporal y Apoyo Directo",
+        resumen: "Propone un conjunto de programas de asistencia y de creación de empleo para mitigar el impacto económico en poblaciones vulnerables y en las micro y pequeñas empresas.",
+        detalle: "Esto se concreta en un programa de empleo temporal liderado por el Estado a través de obras comunales y vecinales. También se plantea la creación de un fondo de garantías para facilitar el otorgamiento de créditos a mercados y talleres.",
+        fuente: "https://apisije-e.jne.gob.pe/TRAMITE/ESCRITO/1095/ARCHIVO/FIRMADO/3017.PDF"
       }
     ],
     presenciaDigital: {
@@ -223,46 +223,46 @@ export const candidates: Candidate[] = [
     nombre: "Rafael L. Aliaga",
     ideologia: "Derecha Conservadora",
     proyectoPolitico: {
-      titulo: "Mano dura gerencial",
-      resumen: "Liberalismo económico, conservadurismo social y gestión privada aplicada al Estado.",
-      detalles: [
-        {
-          subtitulo: "'Lima Potencia Mundial': Infraestructura y Seguridad",
-          texto: "Prometió la adquisición de 10,000 motocicletas para seguridad y la construcción de grandes obras de infraestructura como nuevas vías expresas y túneles, financiadas con bonos municipales.",
-          fuente: "https://www.actualidadambiental.pe/wp-content/uploads/2022/09/Plan-de-Gobierno-Renovacion-Popular-Elecciones-2022.pdf"
-        },
-        {
-          subtitulo: "'Hambre Cero': Apoyo a ollas comunes",
-          texto: "Programa insignia de su campaña municipal diseñado para combatir la inseguridad alimentaria, aunque su implementación ha sido criticada por la mala calidad y cantidad de los alimentos entregados.",
-          fuente: "https://www.youtube.com/watch?v=q5ih6R1xnSE"
-        },
-        {
-          subtitulo: "Reducción radical del aparato estatal",
-          texto: "Durante su campaña presidencial de 2021, propuso una drástica reducción del Estado mediante la fusión de ministerios para proyectar una imagen de austeridad y eficiencia.",
-          fuente: "https://declara.jne.gob.pe/ASSETS/PLANGOBIERNO/FILEPLANGOBIERNO/16482.pdf"
-        }
-      ]
-    },
-    creenciasClave: [
+    titulo: "Mano dura gerencial",
+    resumen: "Liberalismo económico, conservadurismo social y gestión privada aplicada al Estado.",
+    detalles: [
       {
-        id: "ultraconservadurismo-religioso",
-        nombre: "Valores tradicionales",
-        resumen: "Miembro numerario del Opus Dei, practica el celibato y basa su plataforma en un discurso explícitamente religioso.",
-        detalle: "Su fe no es un detalle biográfico, sino un componente central de su marca política, que informa directamente su plataforma social ultraconservadora (anti-liberal) y su discurso de 'restauración patriarcal'.",
-        fuente: "https://es.wikipedia.org/wiki/Rafael_L%C3%B3pez_Aliaga"
+        subtitulo: "'Lima Potencia Mundial': Infraestructura y Seguridad",
+        texto: "Su principal propuesta de campaña se centró en la adquisición de 10,000 motocicletas para patrullaje y la ejecución de grandes obras viales, como una nueva vía expresa y teleféricos, para posicionar a 'Lima como potencia mundial'.",
+        fuente: "https://www.actualidadambiental.pe/wp-content/uploads/2022/09/Plan-de-Gobierno-Renovacion-Popular-Elecciones-2022.pdf"
       },
       {
-        id: "gestion-empresarial",
-        nombre: "Empresario exitoso en política",
-        resumen: "Se presenta como un gestor competente capaz de replicar el éxito del sector privado en la administración pública.",
-        detalle: "Utiliza su historial como fundador de un conglomerado en finanzas y turismo (Grupo Acres, PeruRail) para construir una narrativa de eficiencia y prometer transformar Lima en una 'potencia mundial', aunque la solidez de su éxito empresarial ha sido cuestionada.",
-        fuente: "https://ojo-publico.com/2520/lopez-aliaga-los-negocios-un-candidato-ultraconservador"
+        subtitulo: "'Hambre Cero': Apoyo a ollas comunes",
+        texto: "Es el programa social central de su gestión, enfocado en combatir la inseguridad alimentaria mediante el apoyo directo y la entrega de alimentos a las ollas comunes y programas de Vaso de Leche.",
+        fuente: "https://www.actualidadambiental.pe/wp-content/uploads/2022/09/Plan-de-Gobierno-Renovacion-Popular-Elecciones-2022.pdf"
+      },
+      {
+        subtitulo: "Confrontación con Concesionarias de Peajes",
+        texto: "Aplica un modelo de gestión de confrontación directa contra concesiones que considera 'lesivas'. Su principal acción ha sido buscar la anulación unilateral del contrato de peajes con la empresa Rutas de Lima, en lugar de una renegociación.",
+        fuente: "https://www.youtube.com/watch?v=A_zk_1h4y5M"
+      }
+    ]
+       },
+    creenciasClave: [
+      {
+        id: "conservadurismo-religioso",
+        nombre: "Agenda Social Conservadora",
+        resumen: "Su plataforma se basa en un conservadurismo social explícito, fundamentado en sus convicciones religiosas como miembro del Opus Dei.",
+        detalle: "Se manifiesta en su oposición al 'enfoque de género' en la educación pública y a políticas sobre identidad sexual. Utiliza su fe como un pilar central de su identidad política para promover una agenda de valores tradicionales.",
+        fuente: "https://declara.jne.gob.pe/ASSETS/PLANGOBIERNO/FILEPLANGOBIERNO/16482.pdf"
+      },
+      {
+        id: "perfil-gerencial",
+        nombre: "Visión Gerencial en la Gestión Pública",
+        resumen: "Se presenta como un gestor del sector privado capaz de aplicar un modelo de eficiencia empresarial en la administración pública.",
+        detalle: "Utiliza su trayectoria como fundador de un conglomerado de empresas (Grupo Acres, PeruRail) para sustentar su promesa de transformar Lima en una 'potencia mundial' a través de una gestión basada en resultados.",
+        fuente: "https://www.youtube.com/watch?v=HV0qljMG2Wk&t=5s"
       },
       {
         id: "mano-dura",
-        nombre: "Mano dura",
-        resumen: "Abrazó el apodo de 'el Bolsonaro peruano', centrando su plataforma en un discurso de mano dura.",
-        detalle: "Una de las promesas centrales de su gestión como alcalde y de su campaña presidencial es una política de tolerancia cero contra el crimen, ejemplificada en su propuesta de adquirir 10,000 motocicletas para patrullaje.",
+        nombre: "Política de 'Mano Dura' contra la Delincuencia",
+        resumen: "Promueve un enfoque de 'tolerancia cero' contra el crimen, adoptando un discurso de orden y autoridad como eje de su política de seguridad.",
+        detalle: "Su propuesta central se materializa en la adquisición masiva de vehículos para patrullaje, como 10,000 motocicletas, para incrementar la presencia policial y disuadir el delito.",
         fuente: "https://www.actualidadambiental.pe/wp-content/uploads/2022/09/Plan-de-Gobierno-Renovacion-Popular-Elecciones-2022.pdf"
       }
     ],
