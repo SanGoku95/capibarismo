@@ -51,7 +51,7 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       estrategia_ambito: "Experiencia forjada en rol protocolar, cargos de elección y liderazgo partidario",
     },
     sector_publico: {
-      cargos_roles: "Primera Dama; presidenta de fundaciones sociales.",
+      cargos_roles: "Primera Dama.",
       periodo: "1994 – 2000",
       logros_controversias: "Primera Dama más joven; rol ligado a logros y controversias del gobierno de su padre",
       territorio_ambito: "Nacional e internacional",
@@ -85,7 +85,7 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       territorio_ambito: "Ámbito académico y mediación ministerial puntual",
     },
     politica: {
-      rol_accion: "Líder de Renovación Popular (ex Solidaridad Nacional)",
+      rol_accion: "Alcalde de Lima y Líder de Renovación Popular (ex Solidaridad Nacional)",
       competicion: "Regidor Lima (2007–2010); candidato presidencial (2021); Alcalde de Lima (2023– )",
       resultados_posicionamiento: "Consolida fuerza de derecha conservadora con agenda de mano dura",
       linea: "Derecha conservadora, énfasis religioso y orden",
