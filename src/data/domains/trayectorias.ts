@@ -113,7 +113,7 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       territorio_ambito: "En despacho parlamentario y representación nacional",
     },
     politica: {
-      rol_accion: "Referente de Acción Popular; candidato presidencial 2021",
+      rol_accion: "Congresista referente de Acción Popular; candidato presidencial 2021",
       competicion: "Congresista por varios periodos; candidatura presidencial 2021",
       resultados_posicionamiento: "Perfil de centro con agenda anticorrupción y consumidor",
       linea: "Centro institucional, regulador y fiscalizador",
