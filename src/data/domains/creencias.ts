@@ -4,7 +4,7 @@ export const creencias: Record<string, Creencia[]> = {
   keiko: [
     {
       id: "liberalismo-economico-defensivo",
-      nombre: "Liberalismo Pro-Mercado Defensivo",
+      nombre: "Liberalismo Pro-Mercado",
       resumen:
         "Defensa pragmática de la Constitución del 93, matizada con populismo fiscal para fines electorales.",
       detalle:
