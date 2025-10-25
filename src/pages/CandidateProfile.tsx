@@ -1,5 +1,5 @@
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { getCandidateProfile } from '@/data';
 import { trayectorias } from '@/data/domains/trayectorias';
 import NotFound from './NotFound';
@@ -111,11 +111,20 @@ export function CandidateProfile() {
 
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
   const structuredTrayectoria = candidate ? trayectorias[candidate.id] : undefined;
+  const lastProcessedHash = useRef<string>('');
 
   useEffect(() => {
     if (!candidate) return;
 
     const hash = location.hash.substring(1);
+    
+    // Prevent processing the same hash multiple times
+    if (hash === lastProcessedHash.current) {
+      return;
+    }
+    
+    lastProcessedHash.current = hash;
+    
     if (hash) {
       let valueToOpen = hash;
       let elementToScrollToId = hash;
