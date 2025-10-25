@@ -3,7 +3,7 @@ import type { Controversia } from '../types';
 // Controversias por id de candidato (resumen; ver fuentes).
 export const controversias: Record<string, Controversia[]> = {
   keiko: [
-    { id: 'cocteles', titulo: "Caso ‘Cócteles’: presunto lavado de aportes", descripcion: 'Acusada de liderar una organización criminal y lavar dinero (Odebrecht)', fuente: 'https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori', rank: 1, legal: 'en_curso', severidad: 'muy-alta' },
+    { id: 'cocteles', titulo: "Caso ‘Cócteles’: presunto lavado de aportes", descripcion: 'Acusada de liderar una organización criminal y lavar dinero (Odebrecht)', fuente: 'https://es.wikipedia.org/wiki/Juicio_a_Keiko_Fujimori', rank: 1, legal: 'cerrado_sin_sancion', severidad: 'muy-alta' },
     { id: 'compra-propiedades-ramirez', titulo: 'Caso Joaquín Ramírez: compras inmobiliarias', descripcion: 'Lavado de dinero vía inmuebles vinculados al exsecretario general.', fuente: 'https://rpp.pe/politica/judiciales/poder-judicial-ordeno-al-ministerio-publico-concluir-investigacion-contra-el-alcalde-de-cajamarca-joaquin-ramirez-noticia-1616395', rank: 2, legal: 'en_curso', severidad: 'media' },
     { id: 'captura-instituciones', titulo: 'Captura de la justicia', descripcion: 'Influencia para decidir magistrados y juicios.', fuente: 'https://www.ohchr.org/en/press-releases/2023/11/peru-un-expert-concerned-about-proceedings-peruvian-congress-seeking-removal', rank: 3, legal: 'denuncia_en_medios', severidad: 'alta' },
     { id: 'obstruccion-2016-2018', titulo: 'Confrontación con el Ejecutivo (2016–2018)', descripcion: 'Choque con ejecutivo usando mayoría en el Congreso.', fuente: 'https://www.cidob.org/lider-politico/keiko-fujimori-higuchi', rank: 4, legal: 'denuncia_en_medios', severidad: 'alta' },
