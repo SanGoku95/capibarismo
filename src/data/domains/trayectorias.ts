@@ -163,13 +163,13 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       estrategia_ambito: "Contratación y supervisión de obras de infraestructura",
     },
     sector_publico: {
-      cargos_roles: "Gobernador de Moquegua; ministro MTC; vicepresidente; presidente; embajador en Canadá",
+      cargos_roles: "Ministro MTC; embajador en Canadá",
       periodo: "2011–2014; 2016–2017; 2018–2020; otros",
       logros_controversias: "Reformas anticorrupción; cierre del Congreso; procesos e inhabilitaciones",
       territorio_ambito: "Nacional y bilateral (embajada)",
     },
     politica: {
-      rol_accion: "Fundador de Perú Primero; líder político en retorno",
+      rol_accion: "Presidente; Gobernador de Moquegua; Fundador de Perú Primero; líder político en retorno",
       competicion: "Congreso 2021 (inhabilitado); proyección 2026 condicionada",
       resultados_posicionamiento: "Imagen tecnócrata anticorrupción con controversias posteriores",
       linea: "Centro regionalista y reformista",
