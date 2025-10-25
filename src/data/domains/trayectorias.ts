@@ -281,11 +281,11 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       territorio_ambito: null,
     },
     politica: {
-      rol_accion: "Precandidato presidencial (Avanza País)",
+      rol_accion: "Candidato presidencial (Avanza País)",
       competicion: "Giras y mitines desde 2024",
       resultados_posicionamiento: "Rostro mediático de derecha conservadora",
       linea: "Conservadurismo social y libre mercado",
     },
-    resumen_corto: "Presentador y empresario de medios; precandidato por Avanza País",
+    resumen_corto: "Presentador y empresario de medios; candidato por Avanza País",
   },
 };
