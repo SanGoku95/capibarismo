@@ -34,7 +34,7 @@ export function MobileNav() {
   const isIOS = React.useMemo(() => {
     if (typeof navigator === 'undefined' || typeof window === 'undefined') return false;
     const ua = navigator.userAgent;
-    return /iPad|iPhone|iPod/.test(ua) || (ua.includes('Mac') && 'ontouchend' in (window as any));
+    return /iPad|iPhone|iPod/.test(ua) || (ua.includes('Mac') && ('ontouchend' in window));
   }, []);
 
   const openDrawer = () => {

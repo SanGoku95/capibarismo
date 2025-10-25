@@ -27,7 +27,7 @@ export function useLabelCollision(points: Point[], iterations = 100, pointRadius
   );
 
   useEffect(() => {
-    let positions = JSON.parse(JSON.stringify(initialPositions)) as LabelPosition[];
+    const positions = JSON.parse(JSON.stringify(initialPositions)) as LabelPosition[];
 
     for (let i = 0; i < iterations; i++) {
       let wasMoved = false;

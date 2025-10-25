@@ -35,30 +35,29 @@ export interface TrayectoriaEstructurada {
   resumen_corto: string;
 }
 
-// Mapa por id de candidato
 export const trayectorias: Record<string, TrayectoriaEstructurada> = {
   keiko: {
     id: "keiko",
     nombre: "Keiko Sofía Fujimori Higuchi",
     educacion: {
-      formacion: "Administración de Empresas (B.S.) y MBA",
-      instituciones: "Stony Brook, Boston University (B.S.), Columbia Business School (MBA)",
+      formacion: "Administración de Empresas y MBA.",
+      instituciones: "Stony Brook, Boston University (B.S.), Columbia Business School (MBA).",
       credencial_hito: "MBA en Columbia mientras ejercía como congresista",
       enfoque: "Gestión y liderazgo de organización política (Fuerza Popular)",
     },
     sector_privado: {
-      actividad: "Accionista en Summit Products y titular de ONG Oportunidades",
+      actividad: "Accionista en Summit Products y titular de ONG Oportunidades.",
       escala_impacto: "Trayectoria privada acotada; capital político no proviene del mundo corporativo",
       estrategia_ambito: "Experiencia forjada en rol protocolar, cargos de elección y liderazgo partidario",
     },
     sector_publico: {
-      cargos_roles: "Primera Dama; presidenta de fundaciones sociales",
+      cargos_roles: "Primera Dama.",
       periodo: "1994 – 2000",
       logros_controversias: "Primera Dama más joven; rol ligado a logros y controversias del gobierno de su padre",
       territorio_ambito: "Nacional e internacional",
     },
     politica: {
-      rol_accion: "Presidenta de Fuerza Popular; ex congresista",
+      rol_accion: "Presidenta de Fuerza Popular; ex congresista.",
       competicion: "Congresista (2006–2011); candidata presidencial 2011, 2016 y 2021",
       resultados_posicionamiento: "Máxima votación congresal 2006; tres segundas vueltas sin victoria",
       linea: "Fujimorismo: economía de mercado y mano dura",
@@ -86,7 +85,7 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       territorio_ambito: "Ámbito académico y mediación ministerial puntual",
     },
     politica: {
-      rol_accion: "Líder de Renovación Popular (ex Solidaridad Nacional)",
+      rol_accion: "Alcalde de Lima y Líder de Renovación Popular (ex Solidaridad Nacional)",
       competicion: "Regidor Lima (2007–2010); candidato presidencial (2021); Alcalde de Lima (2023– )",
       resultados_posicionamiento: "Consolida fuerza de derecha conservadora con agenda de mano dura",
       linea: "Derecha conservadora, énfasis religioso y orden",
@@ -108,13 +107,13 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       estrategia_ambito: "Docencia y abogacía; imagen de intelectual provinciano",
     },
     sector_publico: {
-      cargos_roles: "Asesoría parlamentaria (inicios) y congresista",
+      cargos_roles: "Asesoría parlamentaria (inicios)",
       periodo: "2001 – 2019 (congresista); etapa previa de asesoría",
       logros_controversias: "Defensa del consumidor; liderazgo en comisiones",
       territorio_ambito: "En despacho parlamentario y representación nacional",
     },
     politica: {
-      rol_accion: "Referente de Acción Popular; candidato presidencial 2021",
+      rol_accion: "Congresista referente de Acción Popular; candidato presidencial 2021",
       competicion: "Congresista por varios periodos; candidatura presidencial 2021",
       resultados_posicionamiento: "Perfil de centro con agenda anticorrupción y consumidor",
       linea: "Centro institucional, regulador y fiscalizador",
@@ -125,7 +124,7 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
     id: "antauro",
     nombre: "Antauro Igor Humala Tasso",
     educacion: {
-      formacion: "Formación militar",
+      formacion: "Escuela Militar de Chorrillos",
       instituciones: "Escuelas del Ejército del Perú",
       credencial_hito: "Carrera castrense con actuación en conflictos internos",
       enfoque: "Ideología y método de acción basados en jerarquía y doctrina castrense",
@@ -164,13 +163,13 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       estrategia_ambito: "Contratación y supervisión de obras de infraestructura",
     },
     sector_publico: {
-      cargos_roles: "Gobernador de Moquegua; ministro MTC; vicepresidente; presidente; embajador en Canadá",
+      cargos_roles: "Ministro MTC; embajador en Canadá",
       periodo: "2011–2014; 2016–2017; 2018–2020; otros",
       logros_controversias: "Reformas anticorrupción; cierre del Congreso; procesos e inhabilitaciones",
       territorio_ambito: "Nacional y bilateral (embajada)",
     },
     politica: {
-      rol_accion: "Fundador de Perú Primero; líder político en retorno",
+      rol_accion: "Presidente; Gobernador de Moquegua; Fundador de Perú Primero; líder político en retorno",
       competicion: "Congreso 2021 (inhabilitado); proyección 2026 condicionada",
       resultados_posicionamiento: "Imagen tecnócrata anticorrupción con controversias posteriores",
       linea: "Centro regionalista y reformista",
@@ -248,13 +247,13 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       estrategia_ambito: "Expansión universitaria y marketing de alto alcance",
     },
     sector_publico: {
-      cargos_roles: "Congresista; alcalde de Trujillo; gobernador de La Libertad (dos periodos)",
-      periodo: "2000–2006; 2007–2014; 2015 y 2023– ",
-      logros_controversias: "Obras visibles; sanciones administrativas y procesos mediáticos",
-      territorio_ambito: "Regional (norte) y nacional",
+      cargos_roles: null,
+      periodo: null,
+      logros_controversias: null,
+      territorio_ambito: null,
     },
     politica: {
-      rol_accion: "Líder de Alianza para el Progreso (APP)",
+      rol_accion: "Congresista; alcalde de Trujillo; gobernador de La Libertad (dos periodos) Líder de Alianza para el Progreso (APP)",
       competicion: "Candidato presidencial 2016 (excluido) y 2021",
       resultados_posicionamiento: "Estructura territorial fuerte; uso de recursos propios",
       linea: "Centro‑derecha pragmática/clientelar",
@@ -282,11 +281,11 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       territorio_ambito: null,
     },
     politica: {
-      rol_accion: "Precandidato presidencial (Avanza País)",
+      rol_accion: "Candidato presidencial (Avanza País)",
       competicion: "Giras y mitines desde 2024",
       resultados_posicionamiento: "Rostro mediático de derecha conservadora",
       linea: "Conservadurismo social y libre mercado",
     },
-    resumen_corto: "Presentador y empresario de medios; precandidato por Avanza País",
+    resumen_corto: "Presentador y empresario de medios; candidato por Avanza País",
   },
 };
