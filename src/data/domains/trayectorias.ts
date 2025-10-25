@@ -39,7 +39,7 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
   keiko: {
     id: "keiko",
     nombre: "Keiko Sofía Fujimori Higuchi",
-    educacion: {n
+    educacion: {
       formacion: "Administración de Empresas y MBA.",
       instituciones: "Stony Brook, Boston University (B.S.), Columbia Business School (MBA).",
       credencial_hito: "MBA en Columbia mientras ejercía como congresista",
