@@ -14,7 +14,7 @@ export function Header() {
               src="/capi_logo.png" 
               alt="Capibara logo" 
               className="h-11 w-11"
-              fetchPriority="high"
+              fetchpriority="high"
               width="44"
               height="44"
             />

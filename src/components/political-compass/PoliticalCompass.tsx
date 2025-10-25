@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { candidates } from '@/data/candidates';
+import { listCandidates } from '@/data';
+import { compass } from '@/data/domains/compass';
+import type { Axis } from './axisMeta';
+import { axisLabels } from './axisMeta';
 import { Button } from '@/components/ui/button';
 import { useLabelCollision, LabelPosition } from '@/hooks/useLabelCollision'; 
 
 // --- TIPOS Y DATOS ESTRUCTURALES ---
-export type Axis = 'econ' | 'social' | 'territorial' | 'power';
 
 interface CompassProps {
   width?: number;
@@ -15,23 +17,15 @@ interface CompassProps {
   yAxisKey?: Axis;
 }
 
-type Candidate = {
+type CandidateAxes = { [K in Axis]: number };
+type Candidate = CandidateAxes & {
   id: string;
   nombre: string;
-  econ: number;
-  social: number;
-  territorial?: number; 
-  power?: number;       
   color?: string;
   fullBody?: string;
 };
 
-export const axisLabels: Record<Axis, { name: string; low: string; high: string }> = {
-  econ: { name: 'EJE ECONÓMICO', low: 'IZQUIERDA', high: 'DERECHA' },
-  social: { name: 'EJE SOCIAL', low: 'LIBERTARIO', high: 'AUTORITARIO' },
-  territorial: { name: 'EJE TERRITORIAL', low: 'REGIONALISTA', high: 'CENTRALISTA' },
-  power: { name: 'ESTILO DE PODER', low: 'INSTITUCIONALISTA', high: 'POPULISTA' },
-};
+// axisLabels moved to axisMeta to keep this file exporting only components
 
 // End-captions legibles por eje (se muestran en los extremos de los ejes)
 const axisEndCaptions: Record<Axis, { low: string; high: string }> = {
@@ -56,6 +50,7 @@ export function PoliticalCompass({
   xAxisKey = 'econ',
   yAxisKey = 'social',
 }: CompassProps) {
+  const getVal = (cand: Candidate, key: Axis): number => cand[key];
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
@@ -81,21 +76,33 @@ export function PoliticalCompass({
   }, []);
 
   const displayCandidates = useMemo(() => {
-    const base = candidates as Candidate[];
+    const bases = listCandidates();
+    const joined: Candidate[] = bases.map((b) => {
+      const axes = compass[b.id] ?? {};
+      const axesValues: CandidateAxes = {
+        econ: axes.econ ?? 0,
+        social: axes.social ?? 0,
+        territorial: axes.territorial ?? 0,
+        power: axes.power ?? 0,
+      };
+      return {
+        ...axesValues,
+        id: b.id,
+        nombre: b.nombre,
+        fullBody: b.fullBody,
+        color: b.color,
+      };
+    });
     const filtered =
       selectedCandidateIds && selectedCandidateIds.length > 0
-        ? base.filter((c) => selectedCandidateIds.includes(c.id))
-        : base;
-    return filtered.map(c => ({
-      ...c,
-      [xAxisKey]: typeof c[xAxisKey] === 'number' ? c[xAxisKey] : 0,
-      [yAxisKey]: typeof c[yAxisKey] === 'number' ? c[yAxisKey] : 0,
-    })).filter(c => !Number.isNaN(c[xAxisKey]) && !Number.isNaN(c[yAxisKey]));
+        ? joined.filter((c) => selectedCandidateIds.includes(c.id))
+        : joined;
+    return filtered.filter((c) => Number.isFinite(getVal(c, xAxisKey)) && Number.isFinite(getVal(c, yAxisKey)));
   }, [selectedCandidateIds, xAxisKey, yAxisKey]);
   
   const PAD = Math.max(30, Math.min(80, dims.w * 0.1));
   const AXIS_STROKE = Math.max(1.5, Math.min(3, dims.w * 0.004));
-  const FONT_XSM = Math.max(8, Math.min(12, dims.w * 0.018));
+  // const FONT_XSM = Math.max(8, Math.min(12, dims.w * 0.018));
   const FONT_SM = Math.max(10, Math.min(14, dims.w * 0.023));
   const POINT_R = Math.max(6, Math.min(12, dims.w * 0.02));
   const LABEL_H = Math.max(14, Math.min(20, dims.w * 0.03));
@@ -105,8 +112,8 @@ export function PoliticalCompass({
   const CAPTION_INSET_X = Math.max(36, dims.w * 0.12);
   const CAPTION_INSET_Y = Math.max(70, dims.h * 0.12);
 
-  const toSvgX = (value: number) => ((value + 10) / 20) * (dims.w - 2 * PAD) + PAD;
-  const toSvgY = (value: number) => ((10 - value) / 20) * (dims.h - 2 * PAD) + PAD;
+  const toSvgX = React.useCallback((value: number) => ((value + 10) / 20) * (dims.w - 2 * PAD) + PAD, [dims.w, PAD]);
+  const toSvgY = React.useCallback((value: number) => ((10 - value) / 20) * (dims.h - 2 * PAD) + PAD, [dims.h, PAD]);
   const maxNameChars = Math.max(5, Math.floor((LABEL_W - 20) / (FONT_SM * 0.6)));
   const truncate = (s: string) => s.length <= maxNameChars ? s : `${s.slice(0, maxNameChars - 1)}…`;
 
@@ -118,11 +125,11 @@ export function PoliticalCompass({
 
   const pointsForCollision = useMemo(() => displayCandidates.map(c => ({
     id: c.id,
-    x: toSvgX(c[xAxisKey]),
-    y: toSvgY(c[yAxisKey]),
+    x: toSvgX(getVal(c, xAxisKey)),
+    y: toSvgY(getVal(c, yAxisKey)),
     labelWidth: LABEL_W,
     labelHeight: LABEL_H,
-  })), [displayCandidates, xAxisKey, yAxisKey, dims.w, LABEL_W, LABEL_H]);
+  })), [displayCandidates, xAxisKey, yAxisKey, LABEL_W, LABEL_H, toSvgX, toSvgY]);
 
   // useLabelCollision(points, iterations = 100, pointRadius = 10)
   const labelPositions = useLabelCollision(pointsForCollision, 200, POINT_R);
@@ -348,16 +355,16 @@ export function PoliticalCompass({
           <div className="space-y-1 text-xs">
             <div>
               <span className="font-medium">{axisLabels[xAxisKey].name}:</span>{' '}
-              <span className="text-muted-foreground">{candidateData[xAxisKey].toFixed(1)}</span>
+              <span className="text-muted-foreground">{(candidateData ? getVal(candidateData, xAxisKey) : 0).toFixed(1)}</span>
             </div>
             <div>
               <span className="font-medium">{axisLabels[yAxisKey].name}:</span>{' '}
-              <span className="text-muted-foreground">{candidateData[yAxisKey].toFixed(1)}</span>
+              <span className="text-muted-foreground">{(candidateData ? getVal(candidateData, yAxisKey) : 0).toFixed(1)}</span>
             </div>
           </div>
           
           <Button 
-            variant="accent" 
+            variant="secondary" 
             size="sm" 
             className="w-full mt-2"
             onClick={() => handleProfileClick(candidateData.id)}

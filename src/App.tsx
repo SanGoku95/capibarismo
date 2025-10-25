@@ -51,15 +51,24 @@ const AppLayout = () => (
   </>
 );
 
+// Minimal typings for requestIdleCallback without adding dom lib types
+interface IdleDeadline { didTimeout: boolean; timeRemaining: () => number }
+type IdleRequestCallback = (deadline: IdleDeadline) => void;
+type ExtendedWindow = Window & {
+  requestIdleCallback?: (cb: IdleRequestCallback) => number;
+  cancelIdleCallback?: (id: number) => void;
+};
+
 const App = () => {
   // Prefetch common routes after idle to avoid first-click suspend
   useEffect(() => {
-    const idle = 'requestIdleCallback' in window
-      ? (window as any).requestIdleCallback
-      : (cb: () => void) => setTimeout(cb, 500);
-    const cancel = 'cancelIdleCallback' in window
-      ? (window as any).cancelIdleCallback
-      : (id: number) => clearTimeout(id as any);
+    const w = window as ExtendedWindow;
+    const idle = w.requestIdleCallback
+      ? (cb: () => void) => w.requestIdleCallback!((() => cb()) as IdleRequestCallback)
+      : (cb: () => void) => window.setTimeout(cb, 500);
+    const cancel = w.cancelIdleCallback
+      ? (id: number) => w.cancelIdleCallback!(id)
+      : (id: number) => clearTimeout(id);
 
     const id = idle(async () => {
       try {

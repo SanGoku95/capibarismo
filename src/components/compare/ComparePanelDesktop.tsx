@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Candidate } from '@/data/candidates';
+import type { CandidateBase } from '@/data/types';
+import { getCandidateProfile } from '@/data';
 import { TagPill } from '../common/TagPill';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -17,14 +18,14 @@ import {
 } from "@/components/ui/accordion";
 import { Shield, Briefcase, Power, Radio, Sparkles, AlertTriangle, GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
 import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
-import { trayectorias } from '@/data/trayectorias';
+import { trayectorias } from '@/data/domains/trayectorias';
 
 // + imports para tooltip/popover
 import { type ReactNode, useId, useRef, useState, useEffect } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 interface CandidateFactSheetProps {
-  candidate: Candidate | null;
+  candidate: CandidateBase | null;
   side: CandidateSide;
   openSection: string | null; // Shared state for open accordion section
   setOpenSection: (section: string | null) => void; // Setter for shared state
@@ -32,6 +33,7 @@ interface CandidateFactSheetProps {
 
 export function CandidateFactSheet({ candidate, side, openSection, setOpenSection }: CandidateFactSheetProps) {
   const config = PLAYER_INDICATORS[side];
+  const profile = candidate ? getCandidateProfile(candidate.id) : null;
   
   if (!candidate) {
     return (
@@ -73,10 +75,12 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                 {candidate.ideologia}
               </Badge>
             </div>
-            <CandidateAvatar
-              src={candidate.headshot}
-              alt={`Retrato de ${candidate.nombre}`}
-            />
+            {candidate.headshot ? (
+              <CandidateAvatar
+                src={candidate.headshot}
+                alt={`Retrato de ${candidate.nombre}`}
+              />
+            ) : null}
           </div>
         </CardHeader>
         
@@ -106,7 +110,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                     <div className="pt-2 text-sm">
                       <div className="flex flex-col divide-y divide-border/40 rounded-md overflow-hidden">
                         <Link to={`/candidate/${candidate.id}#tray-educacion`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
-                          <div className="flex items-center gap-2 font-medium">
+                          <div className="flex items-center gap-2 font-semibold">
                             <GraduationCap size={14} className="opacity-80" />
                             Educación
                           </div>
@@ -114,7 +118,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                         </Link>
 
                         <Link to={`/candidate/${candidate.id}#tray-privado`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
-                          <div className="flex items-center gap-2 font-medium">
+                          <div className="flex items-center gap-2 font-semibold">
                             <Building2 size={14} className="opacity-80" />
                             Sector Privado
                           </div>
@@ -122,7 +126,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                         </Link>
 
                         <Link to={`/candidate/${candidate.id}#tray-publico`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
-                          <div className="flex items-center gap-2 font-medium">
+                          <div className="flex items-center gap-2 font-semibold">
                             <Landmark size={14} className="opacity-80" />
                             Sector Público
                           </div>
@@ -130,7 +134,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                         </Link>
 
                         <Link to={`/candidate/${candidate.id}#tray-politica`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
-                          <div className="flex items-center gap-2 font-medium">
+                          <div className="flex items-center gap-2 font-semibold">
                             <Flag size={14} className="opacity-80" />
                             Política
                           </div>
@@ -149,7 +153,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               </AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-wrap gap-2 pt-2">
-                  {candidate.creenciasClave.map((creencia) => (
+                  {(profile?.creenciasClave ?? []).map((creencia) => (
                     <Link key={creencia.id} to={`/candidate/${candidate.id}#creencia-${creencia.id}`}>
                       <TagPill variant="belief">
                         {creencia.nombre}
@@ -167,9 +171,9 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-1 pt-2">
-                  {candidate.controversias && candidate.controversias.length > 0 ? (
+                  {(() => { const profile = getCandidateProfile(candidate.id); const controversies = profile?.controversias ?? []; return controversies.length > 0; })() ? (
                     <>
-                      {candidate.controversias
+                      {(getCandidateProfile(candidate.id)?.controversias ?? [])
                         .slice()
                         .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
                         .slice(0, 3)
@@ -224,10 +228,16 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               </AccordionTrigger>
               <AccordionContent>
                 <div className="pt-2">
-                  <Link to={`/candidate/${candidate.id}#proyecto-politico`} className="font-bold text-foreground hover:underline">{candidate.proyectoPolitico.titulo}</Link>
-                  <p className="text-base font-sans text-muted-foreground leading-relaxed mt-1 line-clamp-4">
-                    {candidate.proyectoPolitico.resumen}
-                  </p>
+                  {profile?.proyectoPolitico ? (
+                    <>
+                      <Link to={`/candidate/${candidate.id}#proyecto-politico`} className="font-bold text-foreground hover:underline">{profile.proyectoPolitico.titulo}</Link>
+                      <p className="text-base font-sans text-muted-foreground leading-relaxed mt-1 line-clamp-4">
+                        {profile.proyectoPolitico.resumen}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-sm text-muted-foreground italic">Sin agenda registrada.</p>
+                  )}
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -238,8 +248,8 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-1 pt-2">
-                  {candidate.mapaDePoder?.alianzas?.length
-                    ? candidate.mapaDePoder.alianzas.slice(0, 3).map((alianza) => (
+                  {profile?.mapaDePoder?.alianzas?.length
+                    ? profile.mapaDePoder.alianzas.slice(0, 3).map((alianza) => (
                         <Link
                           to={`/candidate/${candidate.id}#mapa-de-poder`}
                           key={alianza.nombre}
@@ -263,7 +273,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               </AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-2 pt-2">
-                  {candidate.presenciaDigital.plataformas.map((platform) => (
+                  {(profile?.presenciaDigital?.plataformas ?? []).map((platform) => (
                     <a
                       key={platform.nombre}
                       href={platform.url}

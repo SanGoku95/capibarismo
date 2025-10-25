@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { Candidate } from '@/data/candidates';
+import type { CandidateBase } from '@/data/types';
 
 interface CandidateFullBodyProps {
-  candidate: Candidate | null;
+  candidate: CandidateBase | null;
   side: 'left' | 'right';
 }
 

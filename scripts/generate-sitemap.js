@@ -5,20 +5,19 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Read candidate data
-const candidatesPath = path.join(__dirname, '../src/data/candidates.ts');
+// Read candidate data from domains/base.ts (canonical source)
+const candidatesPath = path.join(__dirname, '../src/data/domains/base.ts');
 const content = fs.readFileSync(candidatesPath, 'utf-8');
 
-// Extract candidate IDs
-const candidatePattern = /\{\s+id:\s*["']([^"']+)["'],\s+nombre:\s*["']([^"']+)["'],\s+ideologia:/g;
+// Extract candidate entries: key: { id: '...', nombre: '...' }
+const entryPattern = /['"]?([\w-]+)['"]?\s*:\s*\{[^}]*?id:\s*['"]([^'\"]+)['"][^}]*?nombre:\s*['"]([^'\"]+)['"]/g;
 const candidates = [];
 let match;
-
-while ((match = candidatePattern.exec(content)) !== null) {
-  candidates.push({
-    id: match[1],
-    nombre: match[2]
-  });
+while ((match = entryPattern.exec(content)) !== null) {
+  const key = match[1];
+  const id = match[2] || key;
+  const nombre = match[3];
+  candidates.push({ id, nombre });
 }
 
 // Base URL

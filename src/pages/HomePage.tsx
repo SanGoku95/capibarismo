@@ -2,12 +2,13 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Compass, Scale } from "lucide-react";
 import { track } from "@vercel/analytics";
-import { candidates } from "@/data/candidates";
+import { listCandidates, getCandidateProfile } from "@/data";
 import { useItemListSEO } from '@/lib/useSEO';
 
 export function HomePage() {
   const quickPairs = useMemo(() => {
-    const lookup = Object.fromEntries(candidates.map(c => [c.id, c]));
+    const baseList = listCandidates();
+    const lookup = Object.fromEntries(baseList.map(c => [c.id, c]));
     const raw = [
       { a: 'keiko', b: 'rafael' },
       { a: 'antauro', b: 'martin-vizcarra' },
@@ -22,14 +23,18 @@ export function HomePage() {
   }, []);
 
   // SEO for homepage with ItemList structured data for candidates
-  const candidateItems = useMemo(() => 
-    candidates.map(c => ({
-      name: c.nombre,
-      url: `https://capibarismo.com/candidate/${c.id}`,
-      description: `${c.nombre} - ${c.ideologia}: ${c.proyectoPolitico.resumen}`,
-    })),
-    []
-  );
+  const candidateItems = useMemo(() => {
+    const baseList = listCandidates();
+    return baseList.map((c) => {
+      const profile = getCandidateProfile(c.id);
+      const resumen = profile?.proyectoPolitico?.resumen;
+      return {
+        name: c.nombre,
+        url: `https://capibarismo.com/candidate/${c.id}`,
+        description: `${c.nombre} - ${c.ideologia}: ${resumen ?? ''}`.trim(),
+      };
+    });
+  }, []);
 
   useItemListSEO(
     'Compara Candidatos Presidenciales Perú 2026 | Información Objetiva',
@@ -48,7 +53,7 @@ export function HomePage() {
                 src="/capi_logo.png" 
                 alt="Capibara logo" 
                 className="h-24 w-24"
-                fetchPriority="high"
+                fetchpriority="high"
                 width="96"
                 height="96"
               />

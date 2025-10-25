@@ -1,11 +1,11 @@
 import { create } from 'zustand';
-import { Candidate } from '../data/candidates';
+import type { CandidateBase } from '@/data/types';
 
 type Slot = 'left' | 'right';
 
 const computeNextSlot = (
-  leftCandidate: Candidate | null,
-  rightCandidate: Candidate | null,
+  leftCandidate: CandidateBase | null,
+  rightCandidate: CandidateBase | null,
 ): Slot => {
   if (!leftCandidate && !rightCandidate) return 'left';
   if (!leftCandidate) return 'left';
@@ -14,12 +14,12 @@ const computeNextSlot = (
 };
 
 interface CompareState {
-  leftCandidate: Candidate | null;
-  rightCandidate: Candidate | null;
+  leftCandidate: CandidateBase | null;
+  rightCandidate: CandidateBase | null;
   nextSlotToReplace: Slot;
-  setLeftCandidate: (candidate: Candidate | null) => void;
-  setRightCandidate: (candidate: Candidate | null) => void;
-  selectCandidate: (candidate: Candidate) => void;
+  setLeftCandidate: (candidate: CandidateBase | null) => void;
+  setRightCandidate: (candidate: CandidateBase | null) => void;
+  selectCandidate: (candidate: CandidateBase) => void;
 }
 
 export const useCompareStore = create<CompareState>((set) => ({

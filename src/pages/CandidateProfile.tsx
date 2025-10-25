@@ -1,7 +1,7 @@
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import { candidates } from '@/data/candidates';
-import { trayectorias } from '@/data/trayectorias';
+import { useEffect, useMemo, useState } from "react";
+import { getCandidateProfile } from '@/data';
+import { trayectorias } from '@/data/domains/trayectorias';
 import NotFound from './NotFound';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -19,6 +19,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { usePersonSEO } from '@/lib/useSEO';
+import type { CandidateProfile as CandidateProfileType } from '@/data/types';
 
 
 const socialIcons: { [key: string]: React.ReactElement } = {
@@ -93,7 +94,20 @@ export function CandidateProfile() {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
-  const candidate = candidates.find((c) => c.id === id);
+  const profile = id ? getCandidateProfile(id) : null;
+  type CandidateView = CandidateProfileType['base'] & Pick<CandidateProfileType, 'proyectoPolitico' | 'creenciasClave' | 'presenciaDigital' | 'mapaDePoder' | 'controversias'>;
+  const candidate = useMemo<CandidateView | null>(() => (
+    profile?.base
+      ? {
+          ...profile.base,
+          proyectoPolitico: profile.proyectoPolitico,
+          creenciasClave: profile.creenciasClave,
+          presenciaDigital: profile.presenciaDigital,
+          mapaDePoder: profile.mapaDePoder,
+          controversias: profile.controversias,
+        }
+      : null
+  ), [profile]);
 
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
   const structuredTrayectoria = candidate ? trayectorias[candidate.id] : undefined;
@@ -105,6 +119,17 @@ export function CandidateProfile() {
     if (hash) {
       let valueToOpen = hash;
       let elementToScrollToId = hash;
+
+      // Trayectoria subsections: scroll directly to the section id
+      if (hash.startsWith('tray-')) {
+        const sectionEl = document.getElementById(hash);
+        if (sectionEl) {
+          setTimeout(() => {
+            sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 80);
+        }
+        return; // don't alter accordion state for trayectoria
+      }
 
       if (hash.startsWith('creencia-')) {
         valueToOpen = hash.split('creencia-')[1];
@@ -149,12 +174,12 @@ export function CandidateProfile() {
 
   // SEO: Add Person structured data for candidate
   // Note: We need to call hooks before any conditional returns
-  const knowsAbout = candidate?.creenciasClave.map(c => c.nombre) || [];
-  const affiliation = candidate?.mapaDePoder?.alianzas?.[0]?.nombre;
+  const knowsAbout = profile?.creenciasClave.map(c => c.nombre) || [];
+  const affiliation = profile?.mapaDePoder?.alianzas?.[0]?.nombre;
   
   usePersonSEO(
     candidate?.nombre || 'Candidato',
-    candidate ? `${candidate.nombre} - ${candidate.ideologia}. ${candidate.proyectoPolitico.resumen}` : 'Perfil de candidato',
+    candidate ? `${candidate.nombre} - ${candidate.ideologia}. ${candidate.proyectoPolitico?.resumen ?? ''}`.trim() || 'Perfil de candidato' : 'Perfil de candidato',
     'Candidato Presidencial de Perú 2026',
     candidate?.headshot ? `https://capibarismo.com${candidate.headshot}` : undefined,
     affiliation,
@@ -221,7 +246,7 @@ export function CandidateProfile() {
                   }
                   return (
                     <div className="space-y-6">
-                      <section id="tray-educacion">
+                      <section id="tray-educacion" className="scroll-mt-28">
                         <h4 className="font-semibold text-lg mb-1 flex items-center gap-2"><GraduationCap size={18} className="opacity-80" /> Educación</h4>
                         <p className="text-muted-foreground"><span className="font-medium">Formación:</span> {t.educacion.formacion}</p>
                         <p className="text-muted-foreground"><span className="font-medium">Instituciones:</span> {t.educacion.instituciones}</p>
@@ -229,14 +254,14 @@ export function CandidateProfile() {
                         <p className="text-muted-foreground"><span className="font-medium">Enfoque:</span> {t.educacion.enfoque}</p>
                       </section>
 
-                      <section id="tray-privado">
+                      <section id="tray-privado" className="scroll-mt-28">
                         <h4 className="font-semibold text-lg mb-1 flex items-center gap-2"><Building2 size={18} className="opacity-80" /> Sector Privado</h4>
                         <p className="text-muted-foreground"><span className="font-medium">Actividad:</span> {t.sector_privado.actividad}</p>
                         <p className="text-muted-foreground"><span className="font-medium">Escala/Impacto:</span> {t.sector_privado.escala_impacto}</p>
                         <p className="text-muted-foreground"><span className="font-medium">Estrategia/Ámbito:</span> {t.sector_privado.estrategia_ambito}</p>
                       </section>
 
-                      <section id="tray-publico">
+                      <section id="tray-publico" className="scroll-mt-28">
                         <h4 className="font-semibold text-lg mb-1 flex items-center gap-2"><Landmark size={18} className="opacity-80" /> Sector Público</h4>
                         <p className="text-muted-foreground"><span className="font-medium">Cargos/Roles:</span> {t.sector_publico.cargos_roles ?? '—'}</p>
                         <p className="text-muted-foreground"><span className="font-medium">Periodo:</span> {t.sector_publico.periodo ?? '—'}</p>
@@ -244,7 +269,7 @@ export function CandidateProfile() {
                         <p className="text-muted-foreground"><span className="font-medium">Territorio/Ámbito:</span> {t.sector_publico.territorio_ambito ?? '—'}</p>
                       </section>
 
-                      <section id="tray-politica">
+                      <section id="tray-politica" className="scroll-mt-28">
                         <h4 className="font-semibold text-lg mb-1 flex items-center gap-2"><Flag size={18} className="opacity-80" /> Política</h4>
                         <p className="text-muted-foreground"><span className="font-medium">Rol/Acción:</span> {t.politica.rol_accion}</p>
                         <p className="text-muted-foreground"><span className="font-medium">Competición:</span> {t.politica.competicion}</p>
@@ -258,6 +283,7 @@ export function CandidateProfile() {
             </Card>
 
             {/* Proyecto Político después de Trayectoria */}
+            {candidate.proyectoPolitico && (
             <Card className="fighting-game-card scroll-mt-24" id="proyecto-politico">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Shield size={20} /> Agenda</CardTitle>
@@ -290,6 +316,7 @@ export function CandidateProfile() {
                 )}
               </CardContent>
             </Card>
+            )}
             <Card className="fighting-game-card scroll-mt-24" id="creencias-clave">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Star size={20} /> Creencias Clave</CardTitle>
@@ -325,6 +352,7 @@ export function CandidateProfile() {
               </CardContent>
             </Card>
 
+            {candidate.presenciaDigital && (
             <Card className="fighting-game-card scroll-mt-24" id="presencia-digital">
               <CardHeader>
               <CardTitle className="flex items-center gap-2"><Rss size={20} /> Presencia en Medios Digitales</CardTitle>
@@ -353,7 +381,9 @@ export function CandidateProfile() {
               ))}
               </CardContent>
             </Card>
+            )}
 
+            {candidate.mapaDePoder && (
             <Card className="fighting-game-card scroll-mt-24" id="mapa-de-poder">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Power size={20} /> Mapa de Poder</CardTitle>
@@ -386,6 +416,7 @@ export function CandidateProfile() {
                  <Separator />
               </CardContent>
             </Card>
+            )}
 
             {/* NEW: Controversias */}
             <Card className="fighting-game-card scroll-mt-24" id="controversias">

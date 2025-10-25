@@ -1,26 +1,27 @@
 import { motion } from 'framer-motion';
 import { memo, useEffect, useId, useRef, useState } from 'react';
-import { Candidate } from '@/data/candidates';
-import { trayectorias } from '@/data/trayectorias';
+import type { CandidateBase } from '@/data/types';
+import { trayectorias } from '@/data/domains/trayectorias';
 import { GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { CandidatePicker } from './CandidatePicker';
 import { PLAYER_INDICATORS, UI_CLASSES } from '@/lib/constants';
+import { getCandidateProfile } from '@/data';
 
 // + imports para popover
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 interface CandidateComparisonGridProps {
-  leftCandidate: Candidate | null;
-  rightCandidate: Candidate | null;
+  leftCandidate: CandidateBase | null;
+  rightCandidate: CandidateBase | null;
 }
 
 interface ComparisonSectionProps {
   title: string;
   sectionId: string;
-  leftCandidate: Candidate | null;
-  rightCandidate: Candidate | null;
+  leftCandidate: CandidateBase | null;
+  rightCandidate: CandidateBase | null;
   leftContent: React.ReactNode;
   rightContent: React.ReactNode;
 }
@@ -58,6 +59,8 @@ const ComparisonSection = memo(function ComparisonSection({ title, sectionId, le
 
 export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: CandidateComparisonGridProps) {
   const hasSelection = leftCandidate || rightCandidate;
+  const leftProfile = leftCandidate ? getCandidateProfile(leftCandidate.id) : null;
+  const rightProfile = rightCandidate ? getCandidateProfile(rightCandidate.id) : null;
 
   return (
     <div className="fighting-game-bg-compare flex flex-col h-screen overflow-hidden">
@@ -229,15 +232,19 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 rightCandidate={rightCandidate}
                 leftContent={
                   <div className="flex flex-wrap gap-2">
-                    {leftCandidate
-                      ? leftCandidate.creenciasClave.slice(0, 3).map(c => <Link key={c.id} to={`/candidate/${leftCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>)
+                    {(leftProfile?.creenciasClave?.length ?? 0) > 0
+                      ? leftProfile!.creenciasClave.slice(0, 3).map((c) => (
+                          <Link key={c.id} to={`/candidate/${leftCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>
+                        ))
                       : <span className="text-sm text-muted-foreground">No especificadas</span>}
                   </div>
                 }
                 rightContent={
                   <div className="flex flex-wrap gap-2">
-                    {rightCandidate
-                      ? rightCandidate.creenciasClave.slice(0, 3).map(c => <Link key={c.id} to={`/candidate/${rightCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>)
+                    {(rightProfile?.creenciasClave?.length ?? 0) > 0
+                      ? rightProfile!.creenciasClave.slice(0, 3).map((c) => (
+                          <Link key={c.id} to={`/candidate/${rightCandidate?.id}#creencia-${c.id}`} className="text-sm text-muted-foreground hover:underline">{c.nombre}</Link>
+                        ))
                       : <span className="text-sm text-muted-foreground">No especificadas</span>}
                   </div>
                 }
@@ -251,9 +258,9 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 rightCandidate={rightCandidate}
                 leftContent={
                   leftCandidate ? (
-                    leftCandidate.controversias && leftCandidate.controversias.length > 0 ? (
+                    (leftProfile?.controversias?.length ?? 0) > 0 ? (
                       <div className="space-y-2">
-                        {leftCandidate.controversias
+                        {leftProfile!.controversias!
                           .slice()
                           .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
                           .slice(0, 2)
@@ -292,9 +299,9 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 }
                 rightContent={
                   rightCandidate ? (
-                    rightCandidate.controversias && rightCandidate.controversias.length > 0 ? (
+                    (rightProfile?.controversias?.length ?? 0) > 0 ? (
                       <div className="space-y-2">
-                        {rightCandidate.controversias
+                        {rightProfile!.controversias!
                           .slice()
                           .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
                           .slice(0, 2)
@@ -340,14 +347,14 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 rightCandidate={rightCandidate}
                 leftContent={
                   <Link to={`/candidate/${leftCandidate?.id}#proyecto-politico`} className="text-base font-sans leading-relaxed block hover:bg-white/5 p-2 -m-2 rounded-md">
-                    <div className="font-bold text-foreground">{leftCandidate?.proyectoPolitico.titulo}</div>
-                    <div className="text-sm text-muted-foreground line-clamp-3 mt-1">{leftCandidate?.proyectoPolitico.resumen || "Selecciona un candidato"}</div>
+                    <div className="font-bold text-foreground">{leftProfile?.proyectoPolitico?.titulo ?? '—'}</div>
+                    <div className="text-sm text-muted-foreground line-clamp-3 mt-1">{leftProfile?.proyectoPolitico?.resumen || "Selecciona un candidato"}</div>
                   </Link>
                 }
                 rightContent={
                   <Link to={`/candidate/${rightCandidate?.id}#proyecto-politico`} className="text-base font-sans leading-relaxed block hover:bg-white/5 p-2 -m-2 rounded-md">
-                    <div className="font-bold text-foreground">{rightCandidate?.proyectoPolitico.titulo}</div>
-                    <div className="text-sm text-muted-foreground line-clamp-3 mt-1">{rightCandidate?.proyectoPolitico.resumen || "Selecciona un candidato"}</div>
+                    <div className="font-bold text-foreground">{rightProfile?.proyectoPolitico?.titulo ?? '—'}</div>
+                    <div className="text-sm text-muted-foreground line-clamp-3 mt-1">{rightProfile?.proyectoPolitico?.resumen || "Selecciona un candidato"}</div>
                   </Link>
                 }
               />
@@ -360,7 +367,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 leftContent={
                   leftCandidate ? (
                     <div className="space-y-3">
-                      {leftCandidate.mapaDePoder.alianzas.slice(0, 3).map((alianza) => (
+                      {(leftProfile?.mapaDePoder?.alianzas ?? []).slice(0, 3).map((alianza) => (
                         <Link
                           key={alianza.nombre}
                           to={`/candidate/${leftCandidate.id}#mapa-de-poder`}
@@ -377,7 +384,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 rightContent={
                   rightCandidate ? (
                     <div className="space-y-3">
-                      {rightCandidate.mapaDePoder.alianzas.slice(0, 3).map((alianza) => (
+                      {(rightProfile?.mapaDePoder?.alianzas ?? []).slice(0, 3).map((alianza) => (
                         <Link
                           key={alianza.nombre}
                           to={`/candidate/${rightCandidate.id}#mapa-de-poder`}
@@ -401,8 +408,8 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 leftContent={
                   leftCandidate ? (
                     <Link to={`/candidate/${leftCandidate.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground hover:underline">
-                      {leftCandidate.presenciaDigital.plataformas.length > 0
-                        ? `Activo en: ${leftCandidate.presenciaDigital.plataformas.map(p => p.nombre).join(', ')}`
+                      {(leftProfile?.presenciaDigital?.plataformas?.length ?? 0) > 0
+                        ? `Activo en: ${(leftProfile!.presenciaDigital!.plataformas).map(p => p.nombre).join(', ')}`
                         : "Sin presencia digital registrada"}
                     </Link>
                   ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>
@@ -410,8 +417,8 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 rightContent={
                   rightCandidate ? (
                     <Link to={`/candidate/${rightCandidate.id}#presencia-digital`} className="font-sans text-sm text-muted-foreground hover:underline">
-                      {rightCandidate.presenciaDigital.plataformas.length > 0
-                        ? `Activo en: ${rightCandidate.presenciaDigital.plataformas.map(p => p.nombre).join(', ')}`
+                      {(rightProfile?.presenciaDigital?.plataformas?.length ?? 0) > 0
+                        ? `Activo en: ${(rightProfile!.presenciaDigital!.plataformas).map(p => p.nombre).join(', ')}`
                         : "Sin presencia digital registrada"}
                     </Link>
                   ) : <span className="font-sans text-sm text-muted-foreground">Sin análisis</span>

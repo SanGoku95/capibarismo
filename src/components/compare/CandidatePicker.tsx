@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { candidates } from '@/data/candidates';
 import { useCompareStore } from '@/store/useCompareStore';
 import { cn } from '@/lib/utils';
+import { listCandidates } from '@/data';
+import type { CandidateBase } from '@/data/types';
 
 export function CandidatePicker() {
   const {
@@ -20,11 +21,12 @@ export function CandidatePicker() {
     return null;
   };
 
-  const handleCandidateButtonClick = (candidate: (typeof candidates)[0]) => {
+  const handleCandidateButtonClick = (candidate: CandidateBase) => {
+    // Store now accepts CandidateBase
     selectCandidate(candidate);
   };
 
-  const renderCandidateButton = (candidate: (typeof candidates)[0]) => {
+  const renderCandidateButton = (candidate: CandidateBase) => {
     const selected = isSelected(candidate.id);
     const side = getSelectedSide(candidate.id);
     return (
@@ -102,7 +104,7 @@ export function CandidatePicker() {
 
         {/* Unified Responsive Candidate List */}
         <div className="flex flex-row gap-2 overflow-x-auto pb-2 scrollbar-hide lg:flex-wrap lg:justify-center lg:gap-3 lg:overflow-visible">
-          {candidates.map(renderCandidateButton)}
+          {listCandidates().map(renderCandidateButton)}
         </div>
       </div>
     </div>

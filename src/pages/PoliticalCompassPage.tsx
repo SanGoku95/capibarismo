@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { PoliticalCompass, Axis, axisLabels } from '@/components/political-compass/PoliticalCompass';
+import { PoliticalCompass } from '@/components/political-compass/PoliticalCompass';
+import type { Axis } from '@/components/political-compass/axisMeta';
+import { axisLabels } from '@/components/political-compass/axisMeta';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Info, ChevronDown, Check } from 'lucide-react';
-import { candidates } from '@/data/candidates';
+import { listCandidates } from '@/data';
 import { useSEO } from '@/lib/useSEO';
 
 const availableAxes: { key: Axis; label: string }[] = [
@@ -13,7 +15,7 @@ const availableAxes: { key: Axis; label: string }[] = [
   { key: 'power', label: 'Estilo de Poder' },
 ];
 
-const candidateFilterOptions = candidates
+const candidateFilterOptions = listCandidates()
   .map(({ id, nombre }) => ({ id, nombre }))
   .sort((a, b) => a.nombre.localeCompare(b.nombre));
 

@@ -35,30 +35,29 @@ export interface TrayectoriaEstructurada {
   resumen_corto: string;
 }
 
-// Mapa por id de candidato
 export const trayectorias: Record<string, TrayectoriaEstructurada> = {
   keiko: {
     id: "keiko",
     nombre: "Keiko Sofía Fujimori Higuchi",
-    educacion: {
-      formacion: "Administración de Empresas (B.S.) y MBA",
-      instituciones: "Stony Brook, Boston University (B.S.), Columbia Business School (MBA)",
+    educacion: {n
+      formacion: "Administración de Empresas y MBA.",
+      instituciones: "Stony Brook, Boston University (B.S.), Columbia Business School (MBA).",
       credencial_hito: "MBA en Columbia mientras ejercía como congresista",
       enfoque: "Gestión y liderazgo de organización política (Fuerza Popular)",
     },
     sector_privado: {
-      actividad: "Accionista en Summit Products y titular de ONG Oportunidades",
+      actividad: "Accionista en Summit Products y titular de ONG Oportunidades.",
       escala_impacto: "Trayectoria privada acotada; capital político no proviene del mundo corporativo",
       estrategia_ambito: "Experiencia forjada en rol protocolar, cargos de elección y liderazgo partidario",
     },
     sector_publico: {
-      cargos_roles: "Primera Dama; presidenta de fundaciones sociales",
+      cargos_roles: "Primera Dama; presidenta de fundaciones sociales.",
       periodo: "1994 – 2000",
       logros_controversias: "Primera Dama más joven; rol ligado a logros y controversias del gobierno de su padre",
       territorio_ambito: "Nacional e internacional",
     },
     politica: {
-      rol_accion: "Presidenta de Fuerza Popular; ex congresista",
+      rol_accion: "Presidenta de Fuerza Popular; ex congresista.",
       competicion: "Congresista (2006–2011); candidata presidencial 2011, 2016 y 2021",
       resultados_posicionamiento: "Máxima votación congresal 2006; tres segundas vueltas sin victoria",
       linea: "Fujimorismo: economía de mercado y mano dura",

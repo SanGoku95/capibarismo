@@ -3,7 +3,7 @@ import { CandidatePicker } from '@/components/compare/CandidatePicker';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useCompareStore } from '@/store/useCompareStore';
-import { candidates } from '@/data/candidates';
+import { listCandidates } from '@/data';
 import { useSEO } from '@/lib/useSEO';
 
 const Index = () => {
@@ -29,14 +29,14 @@ const Index = () => {
     const bParam = searchParams.get('b');
 
     if (aParam) {
-      const match = candidates.find(candidate => candidate.id === aParam);
+      const match = listCandidates().find(candidate => candidate.id === aParam);
       if (match && (!leftCandidate || leftCandidate.id !== match.id)) {
         setLeftCandidate(match);
       }
     }
 
     if (bParam) {
-      const match = candidates.find(candidate => candidate.id === bParam);
+      const match = listCandidates().find(candidate => candidate.id === bParam);
       if (match && (!rightCandidate || rightCandidate.id !== match.id)) {
         setRightCandidate(match);
       }
