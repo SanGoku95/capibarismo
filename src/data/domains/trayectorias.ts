@@ -247,13 +247,13 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       estrategia_ambito: "Expansión universitaria y marketing de alto alcance",
     },
     sector_publico: {
-      cargos_roles: "Congresista; alcalde de Trujillo; gobernador de La Libertad (dos periodos)",
-      periodo: "2000–2006; 2007–2014; 2015 y 2023– ",
-      logros_controversias: "Obras visibles; sanciones administrativas y procesos mediáticos",
-      territorio_ambito: "Regional (norte) y nacional",
+      cargos_roles: null,
+      periodo: null,
+      logros_controversias: null,
+      territorio_ambito: null,
     },
     politica: {
-      rol_accion: "Líder de Alianza para el Progreso (APP)",
+      rol_accion: "Congresista; alcalde de Trujillo; gobernador de La Libertad (dos periodos) Líder de Alianza para el Progreso (APP)",
       competicion: "Candidato presidencial 2016 (excluido) y 2021",
       resultados_posicionamiento: "Estructura territorial fuerte; uso de recursos propios",
       linea: "Centro‑derecha pragmática/clientelar",
