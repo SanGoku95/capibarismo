@@ -102,7 +102,6 @@ export function PoliticalCompass({
   
   const PAD = Math.max(30, Math.min(80, dims.w * 0.1));
   const AXIS_STROKE = Math.max(1.5, Math.min(3, dims.w * 0.004));
-  // const FONT_XSM = Math.max(8, Math.min(12, dims.w * 0.018));
   const FONT_SM = Math.max(10, Math.min(14, dims.w * 0.023));
   const POINT_R = Math.max(6, Math.min(12, dims.w * 0.02));
   const LABEL_H = Math.max(14, Math.min(20, dims.w * 0.03));
