@@ -1,5 +1,5 @@
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { getCandidateProfile } from '@/data';
 import { trayectorias } from '@/data/domains/trayectorias';
 import NotFound from './NotFound';
@@ -111,14 +111,24 @@ export function CandidateProfile() {
 
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
   const structuredTrayectoria = candidate ? trayectorias[candidate.id] : undefined;
+  const lastProcessedHash = useRef<string>('');
 
   useEffect(() => {
     if (!candidate) return;
 
     const hash = location.hash.substring(1);
+    
+    // Prevent processing the same hash multiple times
+    if (hash === lastProcessedHash.current) {
+      return;
+    }
+    
+    lastProcessedHash.current = hash;
+    
     if (hash) {
       let valueToOpen = hash;
       let elementToScrollToId = hash;
+      let needsAccordionExpansion = false;
 
       // Trayectoria subsections: scroll directly to the section id
       if (hash.startsWith('tray-')) {
@@ -126,7 +136,7 @@ export function CandidateProfile() {
         if (sectionEl) {
           setTimeout(() => {
             sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 80);
+          }, 150);
         }
         return; // don't alter accordion state for trayectoria
       }
@@ -134,6 +144,7 @@ export function CandidateProfile() {
       if (hash.startsWith('creencia-')) {
         valueToOpen = hash.split('creencia-')[1];
         elementToScrollToId = 'creencias-clave';
+        needsAccordionExpansion = true;
       } else if (structuredTrayectoria) {
         const trayectoriaSectionIds = [
           `${structuredTrayectoria.id}-educacion`,
@@ -151,17 +162,24 @@ export function CandidateProfile() {
       } else if (hash.startsWith('controversia-')) {
         valueToOpen = hash.split('controversia-')[1];
         elementToScrollToId = 'controversias';
+        needsAccordionExpansion = true;
       } else if (hash === 'controversias' && candidate.controversias && candidate.controversias.length > 0) {
         valueToOpen = candidate.controversias[0].id;
+        needsAccordionExpansion = true;
+      } else if (hash === 'mapa-de-poder' || hash === 'presencia-digital' || hash === 'proyecto-politico') {
+        // These sections don't need accordion expansion, scroll directly
+        elementToScrollToId = hash;
       }
       
       setOpenAccordionItems(prev => [...new Set([...prev, valueToOpen])]);
 
       const element = document.getElementById(elementToScrollToId);
       if (element) {
+        // Use longer delay for sections that need accordion expansion
+        const scrollDelay = needsAccordionExpansion ? 400 : 150;
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+        }, scrollDelay);
       }
     } else {
       window.scrollTo(0, 0);
