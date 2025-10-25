@@ -124,7 +124,7 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
     id: "antauro",
     nombre: "Antauro Igor Humala Tasso",
     educacion: {
-      formacion: "Formación militar",
+      formacion: "Escuela Militar de Chorrillos",
       instituciones: "Escuelas del Ejército del Perú",
       credencial_hito: "Carrera castrense con actuación en conflictos internos",
       enfoque: "Ideología y método de acción basados en jerarquía y doctrina castrense",
