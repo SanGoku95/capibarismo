@@ -107,7 +107,7 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       estrategia_ambito: "Docencia y abogacía; imagen de intelectual provinciano",
     },
     sector_publico: {
-      cargos_roles: "Asesoría parlamentaria (inicios) y congresista",
+      cargos_roles: "Asesoría parlamentaria (inicios)",
       periodo: "2001 – 2019 (congresista); etapa previa de asesoría",
       logros_controversias: "Defensa del consumidor; liderazgo en comisiones",
       territorio_ambito: "En despacho parlamentario y representación nacional",
