@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { useCompareStore } from '@/store/useCompareStore';
 import { cn } from '@/lib/utils';
 import { listCandidates } from '@/data';
@@ -30,21 +29,21 @@ export function CandidatePicker() {
     const selected = isSelected(candidate.id);
     const side = getSelectedSide(candidate.id);
     return (
-      <motion.button
+      <button
+        type="button"
         key={candidate.id}
         onClick={() => handleCandidateButtonClick(candidate)}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
         className={cn(
-          "relative aspect-square transition-all duration-200",
+          "relative aspect-square transition-transform duration-150 ease-out",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
           "flex-shrink-0 w-20 lg:w-20 overflow-hidden rounded-lg",
-          "min-h-[80px]" // Ensure minimum 44px touch target (80px is even better)
+          "min-h-[80px]",
+          !selected && "hover:scale-[1.03] active:scale-[0.98]"
         )}
         aria-label={`Seleccionar a ${candidate.nombre} para comparar`}
         tabIndex={0}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center">
           <div className="text-xs font-bold text-white truncate">
             {candidate.nombre.split(' ')[0]}
@@ -64,7 +63,7 @@ export function CandidatePicker() {
           alt={`Retrato de ${candidate.nombre}`}
           className="w-full h-full object-cover"
         />
-      </motion.button>
+      </button>
     );
   };
 
