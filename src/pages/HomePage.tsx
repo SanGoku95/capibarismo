@@ -11,8 +11,8 @@ export function HomePage() {
     const lookup = Object.fromEntries(baseList.map(c => [c.id, c]));
     const raw = [
       { a: 'keiko', b: 'rafael' },
-      { a: 'antauro', b: 'martin-vizcarra' },
-      { a: 'martin-vizcarra', b: 'carlos-alvarez' },
+      { a: 'cesar-acuna', b: 'phillip' },
+      { a: 'yonhy', b: 'carlos-alvarez' },
     ];
     return raw
       .filter(p => lookup[p.a] && lookup[p.b])

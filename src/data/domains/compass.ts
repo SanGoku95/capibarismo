@@ -25,24 +25,6 @@ export const compass: Record<string, CompassStance> = {
     territorial: -6,
     power: -6,
   },
-  antauro: {
-    econ: -10,
-    social: 10,
-    territorial: -8,
-    power: 10,
-  },
-  'martin-vizcarra': {
-    econ: 1,
-    social: -3,
-    territorial: -3,
-    power: 1,
-  },
-  'guillermo-bermejo': {
-    econ: -8,
-    social: -6,
-    territorial: -6,
-    power: 8,
-  },
   'carlos-alvarez': {
     econ: 3,
     social: 6,
