@@ -12,7 +12,7 @@ export function HomePage() {
     const raw = [
       { a: 'keiko', b: 'rafael' },
       { a: 'cesar-acuna', b: 'phillip' },
-      { a: 'yonhy', b: 'carlos-alvarez' }
+      { a: 'yonhy', b: 'carlos-alvarez' },
     ];
     return raw
       .filter(p => lookup[p.a] && lookup[p.b])
