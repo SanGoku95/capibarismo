@@ -26,7 +26,7 @@ export const base: Record<string, CandidateBase> = {
     id: 'carlos-alvarez',
     nombre: 'Carlos Álvarez',
     ideologia: 'Derecha Punitiva',
-    headshot: 'https://portal.andina.pe/EDPfotografia3/Thumbnail/2018/05/03/000501027W.jpg',
+    headshot: 'h/fotos_candidatos/alvarez/carlos-alvarez.jpg',
     fullBody: '/fotos_candidatos/alvarez/full_body_alvarez.gif',
   },
   'cesar-acuna': {
