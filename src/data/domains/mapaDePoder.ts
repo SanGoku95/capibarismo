@@ -95,43 +95,6 @@ export const mapaDePoder: Record<string, MapaDePoder> = {
       },
     ],
   },
-  antauro: {
-    alianzas: [
-      { nombre: 'Ina Andrade de Humala, Máximo Grillo', descripcion: 'Columna vertebral del movimiento; redes de excombatientes.' },
-      { nombre: 'Veteranos FFAA', descripcion: 'Columna vertebral del movimiento; redes de excombatientes.' },
-      { nombre: 'Juntos por el Perú', descripcion: 'Alianza electoral para Asamblea Constituyente y programa anticorrupción.' },
-      { nombre: 'Sindicatos y Gremios de Base', descripcion: 'Trabajadores agrícolas, mineros informales y obreros que respaldan agenda soberanista.' },
-    ],
-    opositores: [
-      { nombre: 'Grandes Grupos de Medios', descripcion: 'Acusados de encubrir corrupción; amenazados con expropiación.' },
-      { nombre: 'Ollanta Humala y Partido Nacionalista', descripcion: 'Ruptura fraterna irreversible tras Andahuaylazo y caso Odebrecht.' },
-    ],
-  },
-  'martin-vizcarra': {
-    alianzas: [
-      { nombre: 'Perú Primero', descripcion: 'Estructura partidaria propia (inscrita) usada como vehículo de retorno político, aunque él esté inhabilitado.' },
-      { nombre: 'Gestores Moqueguanos', descripcion: 'Afinidades con perfiles tecnocráticos y cuadros subnacionales (herencia moqueguana/mesa de diálogo).' },
-      { nombre: 'Somos Perú (elecciones 2021)', descripcion: 'Alianza táctica para postular al Congreso; ganó curul pero no pudo asumir por inhabilitación 2021.' },
-    ],
-    opositores: [
-      { nombre: 'Bloque congresal opositor (varias bancadas, incluido fujimorismo)', descripcion: 'Confrontación desde 2018–2020; lideró la vacancia 2020 y posteriores inhabilitaciones 2021 y 2025.' },
-      { nombre: 'Sectores pro-Tía María', descripcion: 'Crítica empresarial y política por suspensión de licencia en 2019.' },
-    ],
-  },
-  'guillermo-bermejo': {
-    alianzas: [
-      { nombre: 'CCB-CP', descripcion: "Organización de la que 'Todas las Voces' fue parte, con la que Bermejo realizó viajes internacionales a Bolivia y Venezuela para eventos con círculos afines. " },
-      { nombre: 'Perú Libre', descripcion: "Partido por el que fue elegido congresista en 2021, siendo el más votado en Lima. 'Todas las Voces' se integró a Perú Libre antes de la campaña." },
-      { nombre: 'Perú Democrático', descripcion: 'Grupo formado por Bermejo junto a Héctor Valer tras su salida de Perú Libre en 2021, con el objetivo de promover una nueva constitución.' },
-      { nombre: 'Juntos por el Perú', descripcion: 'Bancada a la que actualmente pertenece en el Congreso.' },
-      { nombre: 'Pedro Castillo', descripcion: 'Mantuvo una buena relación con el expresidente Pedro Castillo, reuniéndose con él con frecuencia, a pesar de su ruptura con Perú Libre.' },
-    ],
-    opositores: [
-      { nombre: 'Guido Bellido', descripcion: "Calificado por Bermejo como 'pirañita' y 'chupamedias' de Cerrón. También ha sido acusado junto a Bermejo por la Fiscalía por presunta afiliación terrorista y obstrucción a la justicia." },
-      { nombre: "Sectores de derecha y el 'establishment'", descripcion: "Bermejo critica la 'rancia oligarquía' y la confrontación constante entre poderes, posicionándose como opositor a las élites económicas y políticas tradicionales." },
-      { nombre: 'Fiscalía y Procuraduría', descripcion: 'Han presentado acusaciones por afiliación terrorista y obstrucción a la justicia, solicitando penas de cárcel. Bermejo también ha denunciado a la fiscal Marita Barreto.' },
-    ],
-  },
   'carlos-alvarez': {
     alianzas: [
       {

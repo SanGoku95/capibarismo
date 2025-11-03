@@ -22,27 +22,6 @@ export const base: Record<string, CandidateBase> = {
     headshot: 'https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg',
     fullBody: '/fotos_candidatos/lescano/full_body_lescano.gif',
   },
-  antauro: {
-    id: 'antauro',
-    nombre: 'Antauro Humala',
-    ideologia: 'Izquierda Autoritaria',
-    headshot: 'https://pbs.twimg.com/profile_images/1561766942150737923/BJmWxtlq_400x400.jpg',
-    fullBody: '/fotos_candidatos/antauro/full_body_antauro.gif',
-  },
-  'martin-vizcarra': {
-    id: 'martin-vizcarra',
-    nombre: 'Martín Vizcarra',
-    ideologia: 'Centro Regionalista',
-    headshot: 'https://commons.wikimedia.org/wiki/Special:FilePath/Mart%C3%ADn%20Vizcarra%20Cornejo%20(square%20portrait).png?width=150&height=150',
-    fullBody: '/fotos_candidatos/vizcarra/full_body_vizcarra.gif',
-  },
-  'guillermo-bermejo': {
-    id: 'guillermo-bermejo',
-    nombre: 'Guillermo Bermejo',
-    ideologia: 'Izquierda Marxista',
-    headshot: 'https://pbs.twimg.com/profile_images/1711746019795382272/ROaxERZY_400x400.jpg',
-    fullBody: '/fotos_candidatos/bermejo/full_body_bermejo.gif',
-  },
   'carlos-alvarez': {
     id: 'carlos-alvarez',
     nombre: 'Carlos Álvarez',
