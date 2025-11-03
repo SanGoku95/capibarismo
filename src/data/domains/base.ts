@@ -26,7 +26,7 @@ export const base: Record<string, CandidateBase> = {
     id: 'carlos-alvarez',
     nombre: 'Carlos Álvarez',
     ideologia: 'Derecha Punitiva',
-    headshot: 'h/fotos_candidatos/alvarez/carlos-alvarez.jpg',
+    headshot: '/fotos_candidatos/alvarez/carlos-alvarez.jpg',
     fullBody: '/fotos_candidatos/alvarez/full_body_alvarez.gif',
   },
   'cesar-acuna': {
