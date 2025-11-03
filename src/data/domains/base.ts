@@ -23,8 +23,7 @@ export const base: Record<string, CandidateBase> = {
     fullBody: '/fotos_candidatos/lescano/full_body_lescano.gif',
   },
   'carlos-alvarez': {
-    id: 'carlos-alvarez',
-    nombre: 'Carlos Álvarez',
+    id: '',
     ideologia: 'Derecha Punitiva',
     headshot: '/fotos_candidatos/alvarez/carlos-alvarez.jpg',
     fullBody: '/fotos_candidatos/alvarez/full_body_alvarez.gif',
