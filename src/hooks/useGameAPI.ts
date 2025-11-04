@@ -4,57 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
 
 // Types
-interface Pair {
-  pairId: string;
-  a: {
-    id: string;
-    nombre: string;
-    ideologia?: string;
-    fullBody?: string;
-    headshot?: string;
-  };
-  b: {
-    id: string;
-    nombre: string;
-    ideologia?: string;
-    fullBody?: string;
-    headshot?: string;
-  };
-  hint?: {
-    rationale: 'uncertainty' | 'close_rating' | 'random';
-  };
-}
-
-interface GameState {
-  sessionId: string;
-  comparisons: number;
-  progressPercent: number;
-  topN?: Array<{ candidateId: string; name: string; rating: number }>;
-}
-
-interface VoteRequest {
-  sessionId: string;
-  pairId: string;
-  aId: string;
-  bId: string;
-  outcome: 'A' | 'B';
-}
-
-interface GlobalRankingEntry {
-  rank: number;
-  candidateId: string;
-  name: string;
-  ideologia?: string;
-  imageFullBodyUrl?: string;
-  score: number;
-  rating: number;
-  games: number;
-  wins: number;
-  losses: number;
-  winRate: number;
-  rd: number;
-}
-
+import type { Pair, GameState, VoteRequest, GlobalRankingEntry } from '../../api/types';
 // Session ID management
 const SESSION_KEY = 'ranking-game-session-id';
 
