@@ -7,7 +7,6 @@ import { useGameUIStore } from '@/store/useGameUIStore';
 import { useNextPair, useGameState, useSubmitVote, getSessionId, prefetchNextPair } from '@/hooks/useGameAPI';
 import { Button } from '@/components/ui/button';
 import { Keyboard, Volume2, VolumeX } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
 export function JugarPage() {
