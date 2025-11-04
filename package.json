@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:vercel": "vercel dev",
     "prebuild": "tsx scripts/validate-data.ts",
     "build": "node scripts/generate-sitemap.js && vite build",
     "build:dev": "node scripts/generate-sitemap.js && vite build --mode development",

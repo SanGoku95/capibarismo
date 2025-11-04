@@ -47,13 +47,20 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     
     const pair = selectNextPair(sessionId);
     
+    console.log('[nextpair] selectNextPair result:', pair ? `Pair ID: ${pair.pairId}` : 'NULL');
+    
     if (!pair) {
       console.error('[nextpair] selectNextPair returned null for session:', sessionId);
+      console.error('[nextpair] This suggests an issue in pair-selection logic');
       // This should never happen, but if it does, return an error instead of null
-      return res.status(500).json({ error: 'Failed to generate pair' });
+      return res.status(500).json({ 
+        error: 'Failed to generate pair',
+        sessionId,
+        candidateCount: candidates.length
+      });
     }
     
-    console.log('[nextpair] Generated pair:', pair.pairId);
+    console.log('[nextpair] Successfully generated pair:', pair.pairId, 'A:', pair.a.nombre, 'vs B:', pair.b.nombre);
     return res.status(200).json(pair);
   } catch (error) {
     console.error('[nextpair] Error:', error);

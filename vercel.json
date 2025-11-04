@@ -1,20 +1,11 @@
 {
   "version": 2,
-  "framework": "vite",
-  "devCommand": "vite --host ::",
-  "buildCommand": "vite build",
-  "outputDirectory": "dist",
   "functions": {
     "api/**/*.ts": {
+      "runtime": "@vercel/node@3.2.1",
       "maxDuration": 10
     }
   },
-  "rewrites": [
-    {
-      "source": "/((?!api/.*).*)",
-      "destination": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",

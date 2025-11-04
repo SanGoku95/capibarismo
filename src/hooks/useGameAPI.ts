@@ -61,10 +61,15 @@ export function useNextPair() {
     queryFn: async () => {
       console.log('[useNextPair] Fetching pair for session:', sessionId);
       const result = await fetcher<Pair>(`/api/game/nextpair?sessionId=${sessionId}`);
-      console.log('[useNextPair] Got result:', result ? 'pair found' : 'null');
+      console.log('[useNextPair] Got result:', result);
+      
+      // If result is null, throw error to trigger error state
+      if (!result) {
+        throw new Error('No pair data returned from API');
+      }
+      
       return result;
     },
-    keepPreviousData: true,
     staleTime: 30 * 1000,
     refetchOnWindowFocus: false,
     retry: 3,
@@ -78,7 +83,6 @@ export function useGameState() {
   return useQuery({
     queryKey: ['game', 'state', sessionId],
     queryFn: () => fetcher(`/api/game/state?sessionId=${sessionId}`),
-    keepPreviousData: true,
     staleTime: 15 * 1000,
     refetchOnWindowFocus: false,
     retry: 1,
