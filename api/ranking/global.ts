@@ -21,7 +21,6 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   }
   
   try {
-    const filter = (req.query.filter as string) || 'all';
     
     // For MVP, we only support 'all' window since we don't have timestamps
     // In production, you would filter by createdAt timestamp
