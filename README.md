@@ -35,7 +35,7 @@ This project is licensed under the [Apache License 2.0](LICENSE) - see the LICEN
 
 **Questions?** Don't hesitate to open an issue or start a discussion! We're here to help make democracy more accessible and transparent. 🇵🇪
 
-### ✨ Key Features
+### ✨ Key Features:
 
 - **🔄 Candidate Comparison**: Side-by-side analysis of political positions with evidence-backed sources
 - **🧭 Political Compass**: Interactive visualization positioning candidates on economic and social axes  
