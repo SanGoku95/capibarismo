@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useGameUIStore } from '@/store/useGameUIStore';
-import { Trophy, TrendingUp, Share2 } from 'lucide-react';
+import { Trophy, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface CompletionModalProps {
