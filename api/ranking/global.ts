@@ -3,7 +3,7 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getAllRatings } from '../storage';
-import { listCandidates } from '../../src/data';
+import { listCandidates } from '../candidates-data';
 import type { GlobalRankingEntry } from '../types';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {

@@ -1,6 +1,6 @@
 // Pair selection logic for the ranking game
 
-import { listCandidates } from '../src/data';
+import { listCandidates } from './candidates-data';
 import type { Pair } from './types';
 import { getRating, getSeenPairs } from './storage';
 import { nanoid } from 'nanoid';

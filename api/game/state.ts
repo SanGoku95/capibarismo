@@ -3,7 +3,7 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getSessionStats } from '../storage';
-import { listCandidates } from '../../src/data';
+import { listCandidates } from '../candidates-data';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers

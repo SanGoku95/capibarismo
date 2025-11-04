@@ -2,7 +2,7 @@
 // In production, this should be replaced with Redis or a database
 
 import type { PairwiseOutcome, Rating } from './types';
-import { listCandidates } from '../src/data';
+import { listCandidates } from './candidates-data';
 
 // In-memory stores
 const outcomes: PairwiseOutcome[] = [];

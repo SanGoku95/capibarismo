@@ -2,7 +2,7 @@
 // Returns compact candidate metadata
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getCandidateProfile } from '../../src/data';
+import { getCandidateById } from '../candidates-data';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers
@@ -25,23 +25,14 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'id required' });
     }
     
-    const profile = getCandidateProfile(id);
+    const candidate = getCandidateById(id);
     
-    if (!profile) {
+    if (!candidate) {
       return res.status(404).json({ error: 'Candidate not found' });
     }
     
-    // Return compact metadata for overlay
-    return res.status(200).json({
-      id: profile.base.id,
-      nombre: profile.base.nombre,
-      ideologia: profile.base.ideologia,
-      headshot: profile.base.headshot,
-      fullBody: profile.base.fullBody,
-      proyectoPolitico: profile.proyectoPolitico,
-      creenciasClave: profile.creenciasClave?.slice(0, 3), // Top 3 beliefs
-      presenciaDigital: profile.presenciaDigital,
-    });
+    // Return candidate data
+    return res.status(200).json(candidate);
   } catch (error) {
     console.error('Error in /api/candidate/[id]:', error);
     return res.status(500).json({ error: 'Internal server error' });

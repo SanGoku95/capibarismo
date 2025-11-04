@@ -9,6 +9,20 @@
     <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/"/>
   </url>
   <url>
+    <loc>https://capibarismo.com/jugar</loc>
+    <lastmod>2025-11-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/jugar"/>
+  </url>
+  <url>
+    <loc>https://capibarismo.com/ranking</loc>
+    <lastmod>2025-11-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/ranking"/>
+  </url>
+  <url>
     <loc>https://capibarismo.com/compare</loc>
     <lastmod>2025-11-04</lastmod>
     <changefreq>weekly</changefreq>

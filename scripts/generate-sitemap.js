@@ -30,6 +30,8 @@ const generateSitemap = () => {
   const urls = [
     // Static pages
     { loc: '/', priority: '1.0', changefreq: 'daily' },
+    { loc: '/jugar', priority: '0.9', changefreq: 'daily' },
+    { loc: '/ranking', priority: '0.9', changefreq: 'daily' },
     { loc: '/compare', priority: '0.9', changefreq: 'weekly' },
     { loc: '/compass', priority: '0.8', changefreq: 'weekly' },
     { loc: '/about', priority: '0.5', changefreq: 'monthly' },
@@ -64,5 +66,5 @@ const sitemap = generateSitemap();
 fs.writeFileSync(sitemapPath, sitemap);
 
 console.log(`✓ Sitemap generated with ${candidates.length} candidate pages`);
-console.log(`✓ Total URLs: ${5 + candidates.length}`);
+console.log(`✓ Total URLs: ${7 + candidates.length}`);
 console.log(`✓ Written to: ${sitemapPath}`);
