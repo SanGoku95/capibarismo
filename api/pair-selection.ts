@@ -3,7 +3,6 @@
 import { listCandidates } from './candidates-data';
 import type { Pair } from './types';
 import { getRating, getSeenPairs } from './storage';
-import { nanoid } from 'nanoid';
 
 // Pair selection strategy weights
 const STRATEGY_WEIGHTS = {
