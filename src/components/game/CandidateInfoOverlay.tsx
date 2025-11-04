@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { getCandidateProfile } from '@/data';
-import { ExternalLink, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function CandidateInfoOverlay() {
