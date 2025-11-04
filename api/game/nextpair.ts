@@ -29,19 +29,34 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const sessionId = req.query.sessionId as string;
     
+    console.log('[nextpair] Request received, sessionId:', sessionId);
+    
     if (!sessionId) {
+      console.error('[nextpair] Missing sessionId');
       return res.status(400).json({ error: 'sessionId is required' });
+    }
+    
+    // Verify we have candidates
+    const candidates = listCandidates();
+    console.log('[nextpair] Available candidates:', candidates.length);
+    
+    if (candidates.length < 2) {
+      console.error('[nextpair] Not enough candidates:', candidates.length);
+      return res.status(500).json({ error: 'Not enough candidates available' });
     }
     
     const pair = selectNextPair(sessionId);
     
     if (!pair) {
-      return res.status(200).json(null);
+      console.error('[nextpair] selectNextPair returned null for session:', sessionId);
+      // This should never happen, but if it does, return an error instead of null
+      return res.status(500).json({ error: 'Failed to generate pair' });
     }
     
+    console.log('[nextpair] Generated pair:', pair.pairId);
     return res.status(200).json(pair);
   } catch (error) {
-    console.error('nextpair error:', error);
+    console.error('[nextpair] Error:', error);
     return res.status(500).json({ 
       error: 'Internal server error',
       details: error instanceof Error ? error.message : String(error)

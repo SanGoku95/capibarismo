@@ -55,13 +55,20 @@ async function fetchGlobalRanking(params: {
 
 // Hook: useNextPair
 export function useNextPair() {
+  const sessionId = getSessionId();
   return useQuery({
-    queryKey: ['game', 'nextpair', getSessionId()],
-    queryFn: () => fetcher(`/api/game/nextpair?sessionId=${getSessionId()}`),
+    queryKey: ['game', 'nextpair', sessionId],
+    queryFn: async () => {
+      console.log('[useNextPair] Fetching pair for session:', sessionId);
+      const result = await fetcher<Pair>(`/api/game/nextpair?sessionId=${sessionId}`);
+      console.log('[useNextPair] Got result:', result ? 'pair found' : 'null');
+      return result;
+    },
     keepPreviousData: true,
     staleTime: 30 * 1000,
     refetchOnWindowFocus: false,
-    retry: 1,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 }
 

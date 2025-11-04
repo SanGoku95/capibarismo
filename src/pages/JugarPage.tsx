@@ -121,8 +121,15 @@ export function JugarPage() {
         <div className="text-center max-w-md">
           <h2 className="text-2xl font-bold text-white mb-4">Error</h2>
           <p className="text-white/80 mb-4">
-            {pairError ? 'Error al cargar el juego' : 'No hay más pares disponibles'}
+            {pairError 
+              ? `Error al cargar el juego: ${pairError instanceof Error ? pairError.message : 'Error desconocido'}` 
+              : 'No hay pares disponibles. Por favor intenta de nuevo.'}
           </p>
+          {pairError && (
+            <p className="text-white/60 text-sm mb-4">
+              Session ID: {sessionId}
+            </p>
+          )}
           <Button onClick={() => window.location.reload()}>
             Reintentar
           </Button>
