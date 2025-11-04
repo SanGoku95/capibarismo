@@ -1,67 +1,28 @@
 {
-  "devCommand": "vite",
+  "version": 2,
+  "framework": "vite",
+  "devCommand": "vite --host ::",
   "buildCommand": "vite build",
   "outputDirectory": "dist",
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 10
+    }
+  },
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    },
-    {
-      "source": "/@vite/(.*)",
-      "destination": "/@vite/$1"
-    },
-    {
-      "source": "/@id/(.*)",
-      "destination": "/@id/$1"
-    },
-    {
-      "source": "/@react-refresh",
-      "destination": "/@react-refresh"
-    },
-    {
-      "source": "/__vite_ping",
-      "destination": "/__vite_ping"
-    },
-    {
-      "source": "/(.*\\..*)",
-      "destination": "/$1"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!api/.*).*)",
       "destination": "/index.html"
     }
   ],
   "headers": [
     {
-      "source": "/sitemap.xml",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, s-maxage=3600"
-        }
-      ]
-    },
-    {
-      "source": "/robots.txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, s-maxage=3600"
-        }
-      ]
-    },
-    {
       "source": "/api/(.*)",
       "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
+        },
         {
           "key": "Access-Control-Allow-Origin",
           "value": "*"

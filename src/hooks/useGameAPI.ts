@@ -22,22 +22,90 @@ export function getSessionId(): string {
 // API base URL
 const API_BASE = '/api';
 
-// Fetch next pair
-async function fetchNextPair(sessionId: string): Promise<Pair> {
-  const response = await fetch(`${API_BASE}/game/nextpair?sessionId=${sessionId}`);
+// Prefetch next pair images
+export function prefetchNextPair(pair: Pair | undefined) {
+  if (!pair) return;
+  
+  // Prefetch images
+  if (pair.a.fullBody) {
+    const imgA = new Image();
+    imgA.src = pair.a.fullBody;
+  }
+  if (pair.b.fullBody) {
+    const imgB = new Image();
+    imgB.src = pair.b.fullBody;
+  }
+}
+
+// Fetch global ranking
+async function fetchGlobalRanking(params: {
+  window?: 'all' | '7d' | '1d';
+  filter?: string;
+}): Promise<GlobalRankingEntry[]> {
+  const queryParams = new URLSearchParams();
+  if (params.window) queryParams.set('window', params.window);
+  if (params.filter) queryParams.set('filter', params.filter);
+  
+  const response = await fetch(`${API_BASE}/ranking/global?${queryParams}`);
   if (!response.ok) {
-    throw new Error('Failed to fetch next pair');
+    throw new Error('Failed to fetch global ranking');
   }
   return response.json();
 }
 
-// Fetch game state
-async function fetchGameState(sessionId: string): Promise<GameState> {
-  const response = await fetch(`${API_BASE}/game/state?sessionId=${sessionId}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch game state');
-  }
-  return response.json();
+// Hook: useNextPair
+export function useNextPair() {
+  return useQuery({
+    queryKey: ['game', 'nextpair', getSessionId()],
+    queryFn: () => fetcher(`/api/game/nextpair?sessionId=${getSessionId()}`),
+    keepPreviousData: true,
+    staleTime: 30 * 1000,
+    refetchOnWindowFocus: false,
+    retry: 1,
+  });
+}
+
+// New: Hook: useGameState
+export function useGameState() {
+  const sessionId = getSessionId();
+  return useQuery({
+    queryKey: ['game', 'state', sessionId],
+    queryFn: () => fetcher(`/api/game/state?sessionId=${sessionId}`),
+    keepPreviousData: true,
+    staleTime: 15 * 1000,
+    refetchOnWindowFocus: false,
+    retry: 1,
+  });
+}
+
+// Hook: useSubmitVote
+export function useSubmitVote() {
+  const queryClient = useQueryClient();
+  const sessionId = getSessionId();
+  
+  return useMutation({
+    mutationFn: submitVote,
+    onSuccess: () => {
+      // Invalidate and refetch the correct query keys
+      queryClient.invalidateQueries({ queryKey: ['game', 'nextpair', sessionId] });
+      queryClient.invalidateQueries({ queryKey: ['game', 'state', sessionId] });
+    },
+    retry: 1,
+  });
+}
+
+// Hook: useGlobalRanking
+export function useGlobalRanking(params: {
+  window?: 'all' | '7d' | '1d';
+  filter?: string;
+} = {}) {
+  return useQuery({
+    queryKey: ['globalRanking', params],
+    queryFn: () => fetchGlobalRanking(params),
+    staleTime: 60000, // 1 minute
+    gcTime: 300000, // 5 minutes
+    refetchOnWindowFocus: false,
+  });
 }
 
 // Submit vote
@@ -60,90 +128,24 @@ async function submitVote(vote: VoteRequest): Promise<{ ok: boolean }> {
   return response.json();
 }
 
-// Fetch global ranking
-async function fetchGlobalRanking(params: {
-  window?: 'all' | '7d' | '1d';
-  filter?: string;
-}): Promise<GlobalRankingEntry[]> {
-  const queryParams = new URLSearchParams();
-  if (params.window) queryParams.set('window', params.window);
-  if (params.filter) queryParams.set('filter', params.filter);
-  
-  const response = await fetch(`${API_BASE}/ranking/global?${queryParams}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch global ranking');
+// --- replace the previous fetcher + unused fetchNextPair / fetchGameState definitions
+async function fetcher<T = any>(url: string, opts?: RequestInit): Promise<T | null> {
+  const res = await fetch(url, opts);
+
+  // 304 Not Modified -> no new data; return null so react-query sees a defined value
+  if (res.status === 304) return null;
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    throw new Error(text || `Request failed: ${res.status}`);
   }
-  return response.json();
-}
 
-// Hook: useNextPair
-export function useNextPair() {
-  const sessionId = getSessionId();
-  
-  return useQuery({
-    queryKey: ['nextPair', sessionId],
-    queryFn: () => fetchNextPair(sessionId),
-    staleTime: 0,
-    gcTime: 0,
-    retry: 1,
-    enabled: !!sessionId,
-  });
-}
-
-// Hook: useGameState
-export function useGameState() {
-  const sessionId = getSessionId();
-  
-  return useQuery({
-    queryKey: ['gameState', sessionId],
-    queryFn: () => fetchGameState(sessionId),
-    staleTime: 0,
-    refetchInterval: false,
-    enabled: !!sessionId,
-  });
-}
-
-// Hook: useSubmitVote
-export function useSubmitVote() {
-  const queryClient = useQueryClient();
-  const sessionId = getSessionId();
-  
-  return useMutation({
-    mutationFn: submitVote,
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['nextPair', sessionId] });
-      queryClient.invalidateQueries({ queryKey: ['gameState', sessionId] });
-    },
-    retry: 1,
-  });
-}
-
-// Hook: useGlobalRanking
-export function useGlobalRanking(params: {
-  window?: 'all' | '7d' | '1d';
-  filter?: string;
-} = {}) {
-  return useQuery({
-    queryKey: ['globalRanking', params],
-    queryFn: () => fetchGlobalRanking(params),
-    staleTime: 60000, // 1 minute
-    gcTime: 300000, // 5 minutes
-    refetchOnWindowFocus: false,
-  });
-}
-
-// Prefetch next pair images
-export function prefetchNextPair(pair: Pair | undefined) {
-  if (!pair) return;
-  
-  // Prefetch images
-  if (pair.a.fullBody) {
-    const imgA = new Image();
-    imgA.src = pair.a.fullBody;
-  }
-  if (pair.b.fullBody) {
-    const imgB = new Image();
-    imgB.src = pair.b.fullBody;
+  try {
+    // If response has no body or is not JSON, return null rather than undefined
+    const text = await res.text();
+    if (!text) return null;
+    return JSON.parse(text) as T;
+  } catch (e) {
+    return null;
   }
 }

@@ -6,6 +6,13 @@ import { getSessionStats } from '../storage';
 import { listCandidates } from '../candidates-data';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
+  // Strong no-cache to avoid platform returning 304
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0, s-maxage=0');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
+  res.removeHeader?.('ETag');
+
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');

@@ -9,7 +9,8 @@
     "build:dev": "node scripts/generate-sitemap.js && vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate:sitemap": "node scripts/generate-sitemap.js"
+    "generate:sitemap": "node scripts/generate-sitemap.js",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ai-sdk/react": "^2.0.13",
@@ -93,6 +94,9 @@
     "tsx": "^4.20.6",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^7.1.12"
+    "vite": "^5.4.8"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
