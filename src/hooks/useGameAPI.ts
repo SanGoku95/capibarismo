@@ -70,7 +70,7 @@ export function getSessionId(): string {
 }
 
 // API base URL
-const API_BASE = import.meta.env.PROD ? '/api' : '/api';
+const API_BASE = '/api';
 
 // Fetch next pair
 async function fetchNextPair(sessionId: string): Promise<Pair> {
