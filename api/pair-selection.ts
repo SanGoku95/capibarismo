@@ -1,8 +1,8 @@
 // Pair selection logic for the ranking game
 
-import { listCandidates } from './candidates-data';
-import type { Pair } from './types';
-import { getRating, getSeenPairs } from './storage';
+import { listCandidates } from './candidates-data.js';
+import type { Pair } from './types.js';
+import { getRating, getSeenPairs } from './storage.js';
 
 // Pair selection strategy weights
 const STRATEGY_WEIGHTS = {
@@ -33,22 +33,22 @@ export function selectNextPair(sessionId: string): Pair | null {
     rating: getRating(c.id),
   }));
   
-  // Strategy 1: Explore high-uncertainty candidates
-  if (Math.random() < STRATEGY_WEIGHTS.EXPLORE_UNCERTAINTY) {
-    const pair = selectByUncertainty(candidateRatings, seenPairs);
-    if (pair) return pair;
-  }
+  // // Strategy 1: Explore high-uncertainty candidates
+  // if (Math.random() < STRATEGY_WEIGHTS.EXPLORE_UNCERTAINTY) {
+  //   const pair = selectByUncertainty(candidateRatings, seenPairs);
+  //   if (pair) return pair;
+  // }
   
-  // Strategy 2: Exploit close ratings to refine ordering
-  // Probability of this strategy among remaining strategies:
-  // EXPLOIT_CLOSE_RATING / (EXPLOIT_CLOSE_RATING + RANDOM_FALLBACK) = 0.20 / 0.30 = 0.667
-  const remainingProbability = STRATEGY_WEIGHTS.EXPLOIT_CLOSE_RATING / 
-    (STRATEGY_WEIGHTS.EXPLOIT_CLOSE_RATING + STRATEGY_WEIGHTS.RANDOM_FALLBACK);
+  // // Strategy 2: Exploit close ratings to refine ordering
+  // // Probability of this strategy among remaining strategies:
+  // // EXPLOIT_CLOSE_RATING / (EXPLOIT_CLOSE_RATING + RANDOM_FALLBACK) = 0.20 / 0.30 = 0.667
+  // const remainingProbability = STRATEGY_WEIGHTS.EXPLOIT_CLOSE_RATING / 
+  //   (STRATEGY_WEIGHTS.EXPLOIT_CLOSE_RATING + STRATEGY_WEIGHTS.RANDOM_FALLBACK);
   
-  if (Math.random() < remainingProbability) {
-    const pair = selectByCloseRating(candidateRatings, seenPairs);
-    if (pair) return pair;
-  }
+  // if (Math.random() < remainingProbability) {
+  //   const pair = selectByCloseRating(candidateRatings, seenPairs);
+  //   if (pair) return pair;
+  // }
   
   // Strategy 3: Random fallback
   return selectRandom(candidateRatings, seenPairs);

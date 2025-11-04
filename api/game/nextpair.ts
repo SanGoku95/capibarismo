@@ -2,8 +2,8 @@
 // Returns the next pair of candidates to compare
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { selectNextPair } from '../pair-selection';
-import { listCandidates } from '../candidates-data';
+import { selectNextPair } from '../pair-selection.js';
+import { listCandidates } from '../candidates-data.js';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // Strong no-cache to avoid platform returning 304

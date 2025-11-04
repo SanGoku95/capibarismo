@@ -2,8 +2,8 @@
 // Returns session statistics
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getSessionStats } from '../storage';
-import { listCandidates } from '../candidates-data';
+import { getSessionStats } from '../storage.js';
+import { listCandidates } from '../candidates-data.js';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // Strong no-cache to avoid platform returning 304

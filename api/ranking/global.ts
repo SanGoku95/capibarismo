@@ -2,9 +2,9 @@
 // Returns global rankings
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getAllRatings } from '../storage';
-import { listCandidates } from '../candidates-data';
-import type { GlobalRankingEntry } from '../types';
+import { getAllRatings } from '../storage.js';
+import { listCandidates } from '../candidates-data.js';
+import type { GlobalRankingEntry } from '../types.js';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers

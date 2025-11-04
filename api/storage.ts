@@ -4,8 +4,8 @@
 // For production, replace with Redis (recommended: Upstash) or a database.
 // See GAME_README.md for migration guide.
 
-import type { PairwiseOutcome, Rating } from './types';
-import { listCandidates } from './candidates-data';
+import type { PairwiseOutcome, Rating } from './types.js';
+import { listCandidates } from './candidates-data.js';
 
 // In-memory stores
 const outcomes: PairwiseOutcome[] = [];

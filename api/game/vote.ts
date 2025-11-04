@@ -3,8 +3,8 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { nanoid } from 'nanoid';
-import { storeOutcome, addSessionPair, checkRateLimit, addVoteTimestamp } from '../storage';
-import type { VoteRequest, PairwiseOutcome } from '../types';
+import { storeOutcome, addSessionPair, checkRateLimit, addVoteTimestamp } from '../storage.js';
+import type { VoteRequest, PairwiseOutcome } from '../types.js';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers
