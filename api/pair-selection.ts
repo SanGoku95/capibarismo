@@ -5,6 +5,13 @@ import type { Pair } from './types';
 import { getRating, getSeenPairs } from './storage';
 import { nanoid } from 'nanoid';
 
+// Pair selection strategy weights
+const STRATEGY_WEIGHTS = {
+  EXPLORE_UNCERTAINTY: 0.70,  // 70% of the time: high uncertainty candidates
+  EXPLOIT_CLOSE_RATING: 0.20, // 20% of the time: close ratings to refine
+  RANDOM_FALLBACK: 0.10,      // 10% of the time: random pairs
+} as const;
+
 // Generate a pair ID from two candidate IDs
 function makePairId(aId: string, bId: string): string {
   // Normalize order to ensure same pair always has same ID
@@ -27,14 +34,19 @@ export function selectNextPair(sessionId: string): Pair | null {
     rating: getRating(c.id),
   }));
   
-  // Strategy 1: Explore high-uncertainty candidates (70% of the time)
-  if (Math.random() < 0.7) {
+  // Strategy 1: Explore high-uncertainty candidates
+  if (Math.random() < STRATEGY_WEIGHTS.EXPLORE_UNCERTAINTY) {
     const pair = selectByUncertainty(candidateRatings, seenPairs);
     if (pair) return pair;
   }
   
-  // Strategy 2: Exploit close ratings to refine ordering (20% of the time)
-  if (Math.random() < 0.66) { // 0.2 / 0.3 remaining
+  // Strategy 2: Exploit close ratings to refine ordering
+  // Probability of this strategy among remaining strategies:
+  // EXPLOIT_CLOSE_RATING / (EXPLOIT_CLOSE_RATING + RANDOM_FALLBACK) = 0.20 / 0.30 = 0.667
+  const remainingProbability = STRATEGY_WEIGHTS.EXPLOIT_CLOSE_RATING / 
+    (STRATEGY_WEIGHTS.EXPLOIT_CLOSE_RATING + STRATEGY_WEIGHTS.RANDOM_FALLBACK);
+  
+  if (Math.random() < remainingProbability) {
     const pair = selectByCloseRating(candidateRatings, seenPairs);
     if (pair) return pair;
   }

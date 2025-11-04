@@ -1,5 +1,8 @@
 // Simple in-memory storage for game data
-// In production, this should be replaced with Redis or a database
+// ⚠️ WARNING: This is MVP-only implementation!
+// Data will reset on every deployment and won't persist across serverless instances.
+// For production, replace with Redis (recommended: Upstash) or a database.
+// See GAME_README.md for migration guide.
 
 import type { PairwiseOutcome, Rating } from './types';
 import { listCandidates } from './candidates-data';
