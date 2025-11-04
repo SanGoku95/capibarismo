@@ -18,7 +18,6 @@ export function JugarPage() {
     closeCandidateInfo,
     retroEffects, 
     toggleRetroEffects,
-    reducedMotion,
     setReducedMotion,
     openCompletionModal,
   } = useGameUIStore();
