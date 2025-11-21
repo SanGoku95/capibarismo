@@ -1,8 +1,13 @@
 // Pair selection logic for the ranking game
 
-import { listCandidates } from './candidates-data.js';
-import type { Pair } from './types.js';
+import { listCandidates, type CandidateBase } from './candidates-data.js';
+import type { Pair, Rating } from './types.js';
 import { getRating, getSeenPairs } from './storage.js';
+
+// Helper type for candidates with ratings
+interface CandidateWithRating extends CandidateBase {
+  rating: Rating;
+}
 
 // Pair selection strategy weights
 const STRATEGY_WEIGHTS = {
@@ -41,7 +46,7 @@ export async function selectNextPair(sessionId: string): Promise<Pair | null> {
 
 // Select pair with highest combined uncertainty
 function selectByUncertainty(
-  candidates: Array<ReturnType<typeof listCandidates>[0] & { rating: Awaited<ReturnType<typeof getRating>> }>,
+  candidates: CandidateWithRating[],
   seenPairs: Set<string>
 ): Pair | null {
   let bestPair: Pair | null = null;
@@ -130,7 +135,7 @@ function selectByCloseRating(
 
 // Select random pair
 function selectRandom(
-  candidates: Array<ReturnType<typeof listCandidates>[0] & { rating: Awaited<ReturnType<typeof getRating>> }>,
+  candidates: CandidateWithRating[],
   seenPairs: Set<string>
 ): Pair | null {
   const unseenPairs: Array<[number, number]> = [];

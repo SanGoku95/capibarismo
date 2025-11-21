@@ -26,11 +26,12 @@ const CACHE_TTL = 30000; // 30 seconds
 // Helper: Read JSON from blob
 async function readBlob<T>(key: string, defaultValue: T): Promise<T> {
   try {
-    // Check if blob exists
+    // Try to get blob directly - 404 is faster than list + fetch
     const blobs = await list({ prefix: key, limit: 1 });
     if (blobs.blobs.length === 0) return defaultValue;
     
     const response = await fetch(blobs.blobs[0].url);
+    if (!response.ok) return defaultValue;
     return await response.json();
   } catch (error) {
     console.error(`[storage] Error reading blob ${key}:`, error);
@@ -124,8 +125,35 @@ function calculateK(rd: number): number {
 // Update ratings after a match
 export async function updateRatings(winnerId: string, loserId: string): Promise<{ winner: Rating; loser: Rating }> {
   const allRatings = await getAllRatings();
-  const winner = allRatings.find(r => r.candidateId === winnerId) || await getRating(winnerId);
-  const loser = allRatings.find(r => r.candidateId === loserId) || await getRating(loserId);
+  
+  // Find or create ratings without additional blob reads
+  let winner = allRatings.find(r => r.candidateId === winnerId);
+  if (!winner) {
+    winner = {
+      candidateId: winnerId,
+      rating: INITIAL_ELO,
+      rd: INITIAL_RD,
+      games: 0,
+      wins: 0,
+      losses: 0,
+      lastUpdated: new Date().toISOString(),
+    };
+    allRatings.push(winner);
+  }
+  
+  let loser = allRatings.find(r => r.candidateId === loserId);
+  if (!loser) {
+    loser = {
+      candidateId: loserId,
+      rating: INITIAL_ELO,
+      rd: INITIAL_RD,
+      games: 0,
+      wins: 0,
+      losses: 0,
+      lastUpdated: new Date().toISOString(),
+    };
+    allRatings.push(loser);
+  }
 
   const expectedWin = expectedScore(winner.rating, loser.rating);
   const expectedLoss = expectedScore(loser.rating, winner.rating);
@@ -210,13 +238,18 @@ export async function checkRateLimit(sessionId: string, maxVotesPerMinute: numbe
   const oneMinuteAgo = Date.now() - 60000;
   const recentVotes = timestamps.filter(ts => ts > oneMinuteAgo);
   
+  // Check limit before adding new vote
+  if (recentVotes.length >= maxVotesPerMinute) {
+    return false;
+  }
+  
   // Add current timestamp
   recentVotes.push(Date.now());
   
   // Keep only recent votes
-  await writeBlob(key, recentVotes.slice(-maxVotesPerMinute));
+  await writeBlob(key, recentVotes);
   
-  return recentVotes.length <= maxVotesPerMinute;
+  return true;
 }
 
 // Calculate session statistics
