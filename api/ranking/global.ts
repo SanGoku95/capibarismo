@@ -6,7 +6,7 @@ import { getAllRatings } from '../storage.js';
 import { listCandidates } from '../candidates-data.js';
 import type { GlobalRankingEntry } from '../types.js';
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -25,7 +25,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     // For MVP, we only support 'all' window since we don't have timestamps
     // In production, you would filter by createdAt timestamp
     
-    const ratings = getAllRatings();
+    const ratings = await getAllRatings();
     const candidates = listCandidates();
     const candidateMap = new Map(candidates.map(c => [c.id, c]));
     

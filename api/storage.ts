@@ -1,17 +1,10 @@
-// Simple in-memory storage for game data
-// ⚠️ WARNING: This is MVP-only implementation!
-// Data will reset on every deployment and won't persist across serverless instances.
-// For production, replace with Redis (recommended: Upstash) or a database.
-// See GAME_README.md for migration guide.
+// Vercel Blob storage for game data
+// Scalable, persistent storage across serverless instances
+// Data persists across deployments and serverless instances
 
+import { put, head, list } from '@vercel/blob';
 import type { PairwiseOutcome, Rating } from './types.js';
 import { listCandidates } from './candidates-data.js';
-
-// In-memory stores
-const outcomes: PairwiseOutcome[] = [];
-const ratings: Map<string, Rating> = new Map();
-const sessionPairs: Map<string, Set<string>> = new Map();
-const sessionVoteTimestamps: Map<string, number[]> = new Map();
 
 // Constants
 const INITIAL_ELO = 1500;
@@ -20,31 +13,53 @@ const BASE_K = 32;
 const MIN_RD = 50;
 const RD_DECAY_RATE = 0.95;
 
-// Initialize ratings for all candidates
-function initializeRatings() {
-  if (ratings.size === 0) {
-    const candidates = listCandidates();
-    candidates.forEach(candidate => {
-      ratings.set(candidate.id, {
-        candidateId: candidate.id,
-        rating: INITIAL_ELO,
-        rd: INITIAL_RD,
-        games: 0,
-        wins: 0,
-        losses: 0,
-        lastUpdated: new Date().toISOString(),
-      });
+// Blob storage keys
+const RATINGS_KEY = 'rankings/ratings.json';
+const OUTCOMES_KEY = 'rankings/outcomes.json';
+const SESSION_PAIRS_PREFIX = 'rankings/sessions/';
+
+// Cache for reducing blob reads (in-memory, per-instance)
+let ratingsCache: Map<string, Rating> | null = null;
+let ratingsCacheTime = 0;
+const CACHE_TTL = 30000; // 30 seconds
+
+// Helper: Read JSON from blob
+async function readBlob<T>(key: string, defaultValue: T): Promise<T> {
+  try {
+    // Check if blob exists
+    const blobs = await list({ prefix: key, limit: 1 });
+    if (blobs.blobs.length === 0) return defaultValue;
+    
+    const response = await fetch(blobs.blobs[0].url);
+    return await response.json();
+  } catch (error) {
+    console.error(`[storage] Error reading blob ${key}:`, error);
+    return defaultValue;
+  }
+}
+
+// Helper: Write JSON to blob
+async function writeBlob(key: string, data: any): Promise<void> {
+  try {
+    const blob = JSON.stringify(data);
+    await put(key, blob, { 
+      access: 'public',
+      contentType: 'application/json',
+      addRandomSuffix: false,
     });
+  } catch (error) {
+    console.error(`[storage] Error writing blob ${key}:`, error);
+    throw error;
   }
 }
 
 // Get or create rating
-export function getRating(candidateId: string): Rating {
-  initializeRatings();
-  const rating = ratings.get(candidateId);
+export async function getRating(candidateId: string): Promise<Rating> {
+  const ratings = await getAllRatings();
+  const rating = ratings.find(r => r.candidateId === candidateId);
+  
   if (!rating) {
-    // Create new rating for unknown candidate
-    const newRating: Rating = {
+    return {
       candidateId,
       rating: INITIAL_ELO,
       rd: INITIAL_RD,
@@ -53,16 +68,46 @@ export function getRating(candidateId: string): Rating {
       losses: 0,
       lastUpdated: new Date().toISOString(),
     };
-    ratings.set(candidateId, newRating);
-    return newRating;
   }
+  
   return rating;
 }
 
-// Get all ratings
-export function getAllRatings(): Rating[] {
-  initializeRatings();
-  return Array.from(ratings.values());
+// Get all ratings with caching
+export async function getAllRatings(): Promise<Rating[]> {
+  const now = Date.now();
+  
+  // Use cache if fresh
+  if (ratingsCache && (now - ratingsCacheTime) < CACHE_TTL) {
+    return Array.from(ratingsCache.values());
+  }
+  
+  // Read from blob
+  const ratingsArray = await readBlob<Rating[]>(RATINGS_KEY, []);
+  
+  // Initialize if empty
+  if (ratingsArray.length === 0) {
+    const candidates = listCandidates();
+    const initialized = candidates.map(c => ({
+      candidateId: c.id,
+      rating: INITIAL_ELO,
+      rd: INITIAL_RD,
+      games: 0,
+      wins: 0,
+      losses: 0,
+      lastUpdated: new Date().toISOString(),
+    }));
+    await writeBlob(RATINGS_KEY, initialized);
+    ratingsCache = new Map(initialized.map(r => [r.candidateId, r]));
+    ratingsCacheTime = now;
+    return initialized;
+  }
+  
+  // Update cache
+  ratingsCache = new Map(ratingsArray.map(r => [r.candidateId, r]));
+  ratingsCacheTime = now;
+  
+  return ratingsArray;
 }
 
 // Calculate expected score (Elo formula)
@@ -77,9 +122,10 @@ function calculateK(rd: number): number {
 }
 
 // Update ratings after a match
-export function updateRatings(winnerId: string, loserId: string): { winner: Rating; loser: Rating } {
-  const winner = getRating(winnerId);
-  const loser = getRating(loserId);
+export async function updateRatings(winnerId: string, loserId: string): Promise<{ winner: Rating; loser: Rating }> {
+  const allRatings = await getAllRatings();
+  const winner = allRatings.find(r => r.candidateId === winnerId) || await getRating(winnerId);
+  const loser = allRatings.find(r => r.candidateId === loserId) || await getRating(loserId);
 
   const expectedWin = expectedScore(winner.rating, loser.rating);
   const expectedLoss = expectedScore(loser.rating, winner.rating);
@@ -87,18 +133,11 @@ export function updateRatings(winnerId: string, loserId: string): { winner: Rati
   const kWinner = calculateK(winner.rd);
   const kLoser = calculateK(loser.rd);
 
-  // Update ratings
-  const newWinnerRating = winner.rating + kWinner * (1 - expectedWin);
-  const newLoserRating = loser.rating + kLoser * (0 - expectedLoss);
-
-  // Update RD (decrease with more games, but have a minimum)
-  const newWinnerRd = Math.max(MIN_RD, winner.rd * RD_DECAY_RATE);
-  const newLoserRd = Math.max(MIN_RD, loser.rd * RD_DECAY_RATE);
-
+  // Calculate new ratings
   const updatedWinner: Rating = {
     ...winner,
-    rating: newWinnerRating,
-    rd: newWinnerRd,
+    rating: winner.rating + kWinner * (1 - expectedWin),
+    rd: Math.max(MIN_RD, winner.rd * RD_DECAY_RATE),
     games: winner.games + 1,
     wins: winner.wins + 1,
     lastUpdated: new Date().toISOString(),
@@ -106,84 +145,87 @@ export function updateRatings(winnerId: string, loserId: string): { winner: Rati
 
   const updatedLoser: Rating = {
     ...loser,
-    rating: newLoserRating,
-    rd: newLoserRd,
+    rating: loser.rating + kLoser * (0 - expectedLoss),
+    rd: Math.max(MIN_RD, loser.rd * RD_DECAY_RATE),
     games: loser.games + 1,
     losses: loser.losses + 1,
     lastUpdated: new Date().toISOString(),
   };
 
-  ratings.set(winnerId, updatedWinner);
-  ratings.set(loserId, updatedLoser);
+  // Update all ratings in blob
+  const updatedRatings = allRatings.map(r => {
+    if (r.candidateId === winnerId) return updatedWinner;
+    if (r.candidateId === loserId) return updatedLoser;
+    return r;
+  });
+  
+  await writeBlob(RATINGS_KEY, updatedRatings);
+  
+  // Invalidate cache
+  ratingsCache = null;
 
   return { winner: updatedWinner, loser: updatedLoser };
 }
 
 // Store outcome
-export function storeOutcome(outcome: PairwiseOutcome): void {
+export async function storeOutcome(outcome: PairwiseOutcome): Promise<void> {
+  const outcomes = await readBlob<PairwiseOutcome[]>(OUTCOMES_KEY, []);
   outcomes.push(outcome);
+  await writeBlob(OUTCOMES_KEY, outcomes);
   
   // Update ratings
   const winnerId = outcome.winner === "A" ? outcome.aId : outcome.bId;
   const loserId = outcome.winner === "A" ? outcome.bId : outcome.aId;
-  updateRatings(winnerId, loserId);
+  await updateRatings(winnerId, loserId);
 }
 
 // Get outcomes for a session
-export function getSessionOutcomes(sessionId: string): PairwiseOutcome[] {
+export async function getSessionOutcomes(sessionId: string): Promise<PairwiseOutcome[]> {
+  const outcomes = await readBlob<PairwiseOutcome[]>(OUTCOMES_KEY, []);
   return outcomes.filter(o => o.sessionId === sessionId);
 }
 
 // Track pairs shown to a session
-export function addSessionPair(sessionId: string, pairId: string): void {
-  if (!sessionPairs.has(sessionId)) {
-    sessionPairs.set(sessionId, new Set());
+export async function addSessionPair(sessionId: string, pairId: string): Promise<void> {
+  const key = `${SESSION_PAIRS_PREFIX}${sessionId}.json`;
+  const pairs = await readBlob<string[]>(key, []);
+  if (!pairs.includes(pairId)) {
+    pairs.push(pairId);
+    await writeBlob(key, pairs);
   }
-  sessionPairs.get(sessionId)!.add(pairId);
-}
-
-// Check if pair was already shown
-export function hasSeenPair(sessionId: string, pairId: string): boolean {
-  return sessionPairs.get(sessionId)?.has(pairId) || false;
 }
 
 // Get seen pairs for a session
-export function getSeenPairs(sessionId: string): Set<string> {
-  return sessionPairs.get(sessionId) || new Set();
+export async function getSeenPairs(sessionId: string): Promise<Set<string>> {
+  const key = `${SESSION_PAIRS_PREFIX}${sessionId}.json`;
+  const pairs = await readBlob<string[]>(key, []);
+  return new Set(pairs);
 }
 
-// Rate limiting: track vote timestamps
-export function addVoteTimestamp(sessionId: string): void {
-  if (!sessionVoteTimestamps.has(sessionId)) {
-    sessionVoteTimestamps.set(sessionId, []);
-  }
-  sessionVoteTimestamps.get(sessionId)!.push(Date.now());
-}
-
-// Check rate limit (max votes per minute)
-export function checkRateLimit(sessionId: string, maxVotesPerMinute: number = 30): boolean {
-  const timestamps = sessionVoteTimestamps.get(sessionId) || [];
+// Check rate limit (simplified - stores last N votes)
+export async function checkRateLimit(sessionId: string, maxVotesPerMinute: number = 30): Promise<boolean> {
+  const key = `${SESSION_PAIRS_PREFIX}${sessionId}-votes.json`;
+  const timestamps = await readBlob<number[]>(key, []);
+  
   const oneMinuteAgo = Date.now() - 60000;
   const recentVotes = timestamps.filter(ts => ts > oneMinuteAgo);
   
-  // Clean up old timestamps
-  sessionVoteTimestamps.set(sessionId, recentVotes);
+  // Add current timestamp
+  recentVotes.push(Date.now());
   
-  return recentVotes.length < maxVotesPerMinute;
-}
-
-// Get all outcomes (for analytics)
-export function getAllOutcomes(): PairwiseOutcome[] {
-  return outcomes;
+  // Keep only recent votes
+  await writeBlob(key, recentVotes.slice(-maxVotesPerMinute));
+  
+  return recentVotes.length <= maxVotesPerMinute;
 }
 
 // Calculate session statistics
-export function getSessionStats(sessionId: string): {
+export async function getSessionStats(sessionId: string): Promise<{
   comparisons: number;
   progressPercent: number;
   sessionRatings: Rating[];
-} {
-  const sessionOutcomes = getSessionOutcomes(sessionId);
+}> {
+  const sessionOutcomes = await getSessionOutcomes(sessionId);
   const comparisons = sessionOutcomes.length;
   
   // Build session-specific ratings

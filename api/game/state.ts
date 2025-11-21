@@ -5,7 +5,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getSessionStats } from '../storage.js';
 import { listCandidates } from '../candidates-data.js';
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Strong no-cache to avoid platform returning 304
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0, s-maxage=0');
   res.setHeader('Pragma', 'no-cache');
@@ -33,7 +33,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'sessionId required' });
     }
     
-    const stats = getSessionStats(sessionId);
+    const stats = await getSessionStats(sessionId);
     const candidates = listCandidates();
     const candidateMap = new Map(candidates.map(c => [c.id, c]));
     

@@ -19,44 +19,29 @@ function makePairId(aId: string, bId: string): string {
 }
 
 // Select next pair for a session
-export function selectNextPair(sessionId: string): Pair | null {
+export async function selectNextPair(sessionId: string): Promise<Pair | null> {
   const candidates = listCandidates();
-  const seenPairs = getSeenPairs(sessionId);
+  const seenPairs = await getSeenPairs(sessionId);
   
   if (candidates.length < 2) {
     return null;
   }
   
   // Get all candidate ratings
-  const candidateRatings = candidates.map(c => ({
-    ...c,
-    rating: getRating(c.id),
-  }));
+  const candidateRatings = await Promise.all(
+    candidates.map(async c => ({
+      ...c,
+      rating: await getRating(c.id),
+    }))
+  );
   
-  // // Strategy 1: Explore high-uncertainty candidates
-  // if (Math.random() < STRATEGY_WEIGHTS.EXPLORE_UNCERTAINTY) {
-  //   const pair = selectByUncertainty(candidateRatings, seenPairs);
-  //   if (pair) return pair;
-  // }
-  
-  // // Strategy 2: Exploit close ratings to refine ordering
-  // // Probability of this strategy among remaining strategies:
-  // // EXPLOIT_CLOSE_RATING / (EXPLOIT_CLOSE_RATING + RANDOM_FALLBACK) = 0.20 / 0.30 = 0.667
-  // const remainingProbability = STRATEGY_WEIGHTS.EXPLOIT_CLOSE_RATING / 
-  //   (STRATEGY_WEIGHTS.EXPLOIT_CLOSE_RATING + STRATEGY_WEIGHTS.RANDOM_FALLBACK);
-  
-  // if (Math.random() < remainingProbability) {
-  //   const pair = selectByCloseRating(candidateRatings, seenPairs);
-  //   if (pair) return pair;
-  // }
-  
-  // Strategy 3: Random fallback
+  // Simplified: Just use random selection for now
   return selectRandom(candidateRatings, seenPairs);
 }
 
 // Select pair with highest combined uncertainty
 function selectByUncertainty(
-  candidates: Array<ReturnType<typeof listCandidates>[0] & { rating: ReturnType<typeof getRating> }>,
+  candidates: Array<ReturnType<typeof listCandidates>[0] & { rating: Awaited<ReturnType<typeof getRating>> }>,
   seenPairs: Set<string>
 ): Pair | null {
   let bestPair: Pair | null = null;
@@ -145,7 +130,7 @@ function selectByCloseRating(
 
 // Select random pair
 function selectRandom(
-  candidates: Array<ReturnType<typeof listCandidates>[0] & { rating: ReturnType<typeof getRating> }>,
+  candidates: Array<ReturnType<typeof listCandidates>[0] & { rating: Awaited<ReturnType<typeof getRating>> }>,
   seenPairs: Set<string>
 ): Pair | null {
   const unseenPairs: Array<[number, number]> = [];

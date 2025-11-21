@@ -3,10 +3,10 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { nanoid } from 'nanoid';
-import { storeOutcome, addSessionPair, checkRateLimit, addVoteTimestamp } from '../storage.js';
+import { storeOutcome, addSessionPair, checkRateLimit } from '../storage.js';
 import type { VoteRequest, PairwiseOutcome } from '../types.js';
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -34,7 +34,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     }
     
     // Check rate limit
-    if (!checkRateLimit(sessionId, 30)) {
+    if (!(await checkRateLimit(sessionId, 30))) {
       return res.status(429).json({ error: 'Rate limit exceeded' });
     }
     
@@ -54,9 +54,8 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     };
     
     // Store outcome and update ratings
-    storeOutcome(outcomeRecord);
-    addSessionPair(sessionId, pairId);
-    addVoteTimestamp(sessionId);
+    await storeOutcome(outcomeRecord);
+    await addSessionPair(sessionId, pairId);
     
     return res.status(200).json({ ok: true });
   } catch (error) {

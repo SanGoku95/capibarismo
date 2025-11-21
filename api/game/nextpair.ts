@@ -5,7 +5,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { selectNextPair } from '../pair-selection.js';
 import { listCandidates } from '../candidates-data.js';
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Strong no-cache to avoid platform returning 304
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0, s-maxage=0');
   res.setHeader('Pragma', 'no-cache');
@@ -45,7 +45,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: 'Not enough candidates available' });
     }
     
-    const pair = selectNextPair(sessionId);
+    const pair = await selectNextPair(sessionId);
     
     console.log('[nextpair] selectNextPair result:', pair ? `Pair ID: ${pair.pairId}` : 'NULL');
     
