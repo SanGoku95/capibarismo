@@ -1,32 +1,25 @@
-import { useState } from 'react';
-import { useGlobalRanking } from '@/hooks/useGameAPI';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { usePersonalRanking, getSessionId } from '@/hooks/useGameAPI';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Trophy, TrendingUp, Info, Medal } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
-type TimeWindow = 'all' | '7d' | '1d';
-
 export function RankingPage() {
-  const [timeWindow, setTimeWindow] = useState<TimeWindow>('all');
+  const [searchParams] = useSearchParams();
+  // Support viewing specific session rankings via URL (from CompletionModal), 
+  // or default to current user's session from storage
+  const sessionId = searchParams.get('sessionId') || getSessionId();
   
-  const { data: rankings, isLoading, error } = useGlobalRanking({ window: timeWindow });
+  const { data: rankings, isLoading, error } = usePersonalRanking(sessionId);
   
   const getRankBadge = (rank: number) => {
     if (rank === 1) return <Medal className="w-5 h-5 text-yellow-500" />;
     if (rank === 2) return <Medal className="w-5 h-5 text-gray-400" />;
     if (rank === 3) return <Medal className="w-5 h-5 text-amber-700" />;
     return <span className="text-muted-foreground">#{rank}</span>;
-  };
-  
-  const getUncertaintyColor = (rd: number) => {
-    if (rd < 80) return 'text-green-600';
-    if (rd < 150) return 'text-yellow-600';
-    return 'text-red-600';
   };
   
   return (
@@ -44,12 +37,12 @@ export function RankingPage() {
                 textShadow: '3px 3px 0px hsl(var(--background)), 5px 5px 0px hsl(var(--border))',
               }}
             >
-              Ranking Global
+              Ranking Personal
             </h1>
           </div>
           <p className="text-white/80 text-sm sm:text-base max-w-2xl mx-auto">
-            Rankings basados en comparaciones directas de todos los jugadores.
-            Los puntajes se calculan usando el sistema Elo.
+            Ranking basado en tus decisiones durante esta sesión.
+            Los puntajes se calculan usando el sistema Elo para reflejar tus preferencias.
           </p>
           
           {/* CTA to play */}
@@ -57,20 +50,11 @@ export function RankingPage() {
             <Button asChild size="lg" className="gap-2">
               <Link to="/jugar">
                 <TrendingUp className="w-5 h-5" />
-                Jugar ahora
+                {rankings && rankings.length > 0 ? 'Seguir jugando' : 'Jugar ahora'}
               </Link>
             </Button>
           </div>
         </div>
-        
-        {/* Time window tabs */}
-        <Tabs value={timeWindow} onValueChange={(v) => setTimeWindow(v as TimeWindow)} className="mb-6">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
-            <TabsTrigger value="all">General</TabsTrigger>
-            <TabsTrigger value="7d">Últimos 7 días</TabsTrigger>
-            <TabsTrigger value="1d">Hoy</TabsTrigger>
-          </TabsList>
-        </Tabs>
         
         {/* Rankings table */}
         <div className="bg-background/90 rounded-lg border shadow-lg overflow-hidden">
@@ -108,7 +92,6 @@ export function RankingPage() {
                     <TableHead className="text-right hidden sm:table-cell">Rating Elo</TableHead>
                     <TableHead className="text-right hidden md:table-cell">Partidas</TableHead>
                     <TableHead className="text-right hidden lg:table-cell">Win Rate</TableHead>
-                    <TableHead className="text-right hidden xl:table-cell">Incertidumbre</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -154,11 +137,6 @@ export function RankingPage() {
                           {entry.winRate}%
                         </span>
                       </TableCell>
-                      <TableCell className="text-right hidden xl:table-cell">
-                        <span className={getUncertaintyColor(entry.rd)}>
-                          ±{entry.rd}
-                        </span>
-                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -180,22 +158,20 @@ export function RankingPage() {
               <AccordionContent className="text-white/80 space-y-3">
                 <p>
                   El ranking se calcula usando el <strong>sistema Elo</strong>, 
-                  originalmente diseñado para ajedrez y ampliamente usado en juegos competitivos.
+                  adaptado para ordenar a los candidatos según tus preferencias personales.
                 </p>
                 <p>
                   Cada vez que eliges un candidato sobre otro, sus ratings se actualizan:
-                  el ganador sube y el perdedor baja. La cantidad depende de la diferencia 
-                  inicial entre ellos y su nivel de incertidumbre.
+                  el ganador sube y el perdedor baja. Esto nos permite construir una lista
+                  ordenada que refleja tus decisiones, incluso entre candidatos que no has comparado directamente.
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li><strong>Puntaje (0-100):</strong> Normalizado para facilitar la comparación.</li>
-                  <li><strong>Rating Elo:</strong> El valor interno usado para ordenar (inicia en 1500).</li>
-                  <li><strong>Incertidumbre (RD):</strong> Qué tan confiable es el rating. Baja con más partidas.</li>
-                  <li><strong>Anti-spam:</strong> Se aplican límites de velocidad y se detectan patrones sospechosos.</li>
+                  <li> Normalizado para facilitar la comparación.</li>
+                  <li> El valor interno usado para ordenar (inicia en 1200).</li>
+                  <li> Qué tan confiable es el rating. Mejora con más comparaciones.</li>
                 </ul>
                 <p className="text-xs text-white/60">
-                  Nota: Este es un ranking de preferencia basado en comparaciones directas, 
-                  no una medida objetiva de competencia política.
+                  Nota: Este es un ranking de preferencia personal basado en tus decisiones de esta sesión.
                 </p>
               </AccordionContent>
             </AccordionItem>

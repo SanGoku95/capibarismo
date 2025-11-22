@@ -60,6 +60,17 @@ async function fetchGlobalRanking(params: {
   return response.json();
 }
 
+// Fetch personal ranking
+async function fetchPersonalRanking(sessionId: string): Promise<GlobalRankingEntry[]> {
+  if (!sessionId) return [];
+  
+  const response = await fetch(`${API_BASE}/ranking/personal?sessionId=${sessionId}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch personal ranking');
+  }
+  return response.json();
+}
+
 // Hook: useNextPair
 export function useNextPair() {
   const sessionId = getSessionId();
@@ -80,6 +91,17 @@ export function useNextPair() {
     staleTime: 30 * 1000,
     refetchOnWindowFocus: false,
     retry: false,
+  });
+}
+
+// Hook: usePersonalRanking
+export function usePersonalRanking(sessionId: string) {
+  return useQuery({
+    queryKey: ['personalRanking', sessionId],
+    queryFn: () => fetchPersonalRanking(sessionId),
+    enabled: Boolean(sessionId),
+    staleTime: 0, // Always fetch fresh data for personal results
+    refetchOnWindowFocus: true,
   });
 }
 
