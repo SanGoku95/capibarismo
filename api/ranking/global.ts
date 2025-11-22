@@ -18,14 +18,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     
     const ranking = candidates.map(c => {
       const stats = snapshot.ratings[c.id] || { elo: 1200, wins: 0, losses: 0, matches: 0 };
+      const winRate = stats.matches > 0 ? Math.round((stats.wins / stats.matches) * 100) : 0;
+      
       return {
-        id: c.id,
+        candidateId: c.id, // Changed from id to candidateId
         name: c.nombre,
         ideologia: c.ideologia,
+        imageFullBodyUrl: (c as any).foto_cuerpo || (c as any).imagen, // Map image if available
         rating: Math.round(stats.elo),
+        score: Math.round(stats.elo), // Using Elo as score for display
         wins: stats.wins,
         losses: stats.losses,
-        matches: stats.matches
+        games: stats.matches, // Changed from matches to games
+        winRate: winRate,
+        rd: 0 // Default uncertainty if not in snapshot
       };
     }).sort((a, b) => b.rating - a.rating)
       .map((item, index) => ({ ...item, rank: index + 1 }));

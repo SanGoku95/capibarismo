@@ -15,9 +15,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const history = await getUserHistory(sessionId);
     const candidates = listCandidates();
     
-    // Local Elo Calculation
+    // Local Elo Calculation & Stats Tracking
     const localRatings: Record<string, number> = {};
-    candidates.forEach(c => localRatings[c.id] = 1200);
+    const stats: Record<string, { wins: number, losses: number, matches: number }> = {};
+    
+    candidates.forEach(c => {
+      localRatings[c.id] = 1200;
+      stats[c.id] = { wins: 0, losses: 0, matches: 0 };
+    });
 
     const K = 32;
     
@@ -30,15 +35,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       
       localRatings[vote.winnerId] = rA + K * (1 - expectedA);
       localRatings[vote.loserId] = rB + K * (0 - expectedB);
+
+      // Track stats
+      if (stats[vote.winnerId]) {
+        stats[vote.winnerId].wins++;
+        stats[vote.winnerId].matches++;
+      }
+      if (stats[vote.loserId]) {
+        stats[vote.loserId].losses++;
+        stats[vote.loserId].matches++;
+      }
     }
 
     const ranking = candidates
-      .map(c => ({
-        id: c.id,
-        name: c.nombre,
-        ideologia: c.ideologia,
-        rating: Math.round(localRatings[c.id] || 1200)
-      }))
+      .map(c => {
+        const s = stats[c.id];
+        const rating = Math.round(localRatings[c.id] || 1200);
+        const winRate = s.matches > 0 ? Math.round((s.wins / s.matches) * 100) : 0;
+
+        return {
+          candidateId: c.id,
+          name: c.nombre,
+          ideologia: c.ideologia,
+          imageFullBodyUrl: (c as any).foto_cuerpo || (c as any).imagen,
+          rating: rating,
+          score: rating,
+          games: s.matches,
+          winRate: winRate,
+          rd: 0 // Personal ranking uncertainty placeholder
+        };
+      })
       .sort((a, b) => b.rating - a.rating)
       .map((item, index) => ({ ...item, rank: index + 1 }));
 
