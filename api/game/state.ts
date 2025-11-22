@@ -1,12 +1,12 @@
 // API endpoint: GET /api/game/state
-// Returns session statistics
+// Returns lightweight session statistics for game HUD
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getUserHistory } from '../storage.js';
 import { listCandidates } from '../candidates-data.js';
+import { INITIAL_ELO, updateElo } from '../elo.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // No caching for game state
   res.setHeader('Cache-Control', 'no-store, max-age=0');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -20,29 +20,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const history = await getUserHistory(sessionId);
     const candidates = listCandidates();
     
-    // 1. Calculate Personal Progress
+    // Calculate ratings and track seen pairs
     const localRatings: Record<string, number> = {};
-    candidates.forEach(c => localRatings[c.id] = 1200);
+    candidates.forEach(c => localRatings[c.id] = INITIAL_ELO);
     
-    const K = 32;
-    // Create a set of seen pairs for the client
     const seenPairs = new Set<string>();
 
     for (const vote of history) {
-      // Track seen pairs (sorted so A-B is same as B-A)
-      const pairId = [vote.winnerId, vote.loserId].sort().join('-');
-      seenPairs.add(pairId);
-
-      // Replay Elo
-      const rA = localRatings[vote.winnerId] || 1200;
-      const rB = localRatings[vote.loserId] || 1200;
-      const expectedA = 1 / (1 + Math.pow(10, (rB - rA) / 400));
-      const expectedB = 1 / (1 + Math.pow(10, (rA - rB) / 400));
-      localRatings[vote.winnerId] = rA + K * (1 - expectedA);
-      localRatings[vote.loserId] = rB + K * (0 - expectedB);
+      seenPairs.add([vote.winnerId, vote.loserId].sort().join('-'));
+      
+      const rA = localRatings[vote.winnerId] || INITIAL_ELO;
+      const rB = localRatings[vote.loserId] || INITIAL_ELO;
+      const [newA, newB] = updateElo(rA, rB, true);
+      
+      localRatings[vote.winnerId] = newA;
+      localRatings[vote.loserId] = newB;
     }
 
-    // 2. Top 3 for HUD
+    // Top 3 for HUD (minimal data)
     const topN = candidates
       .map(c => ({
         candidateId: c.id,

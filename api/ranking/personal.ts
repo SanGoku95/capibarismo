@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getUserHistory } from '../storage.js';
 import { listCandidates } from '../candidates-data.js';
+import { INITIAL_ELO, updateElo } from '../elo.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -15,26 +16,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const history = await getUserHistory(sessionId);
     const candidates = listCandidates();
     
-    // Local Elo Calculation & Stats Tracking
+    // Initialize ratings and stats
     const localRatings: Record<string, number> = {};
     const stats: Record<string, { wins: number, losses: number, matches: number }> = {};
     
     candidates.forEach(c => {
-      localRatings[c.id] = 1200;
+      localRatings[c.id] = INITIAL_ELO;
       stats[c.id] = { wins: 0, losses: 0, matches: 0 };
     });
 
-    const K = 32;
-    
+    // Replay vote history
     for (const vote of history) {
-      const rA = localRatings[vote.winnerId] || 1200;
-      const rB = localRatings[vote.loserId] || 1200;
+      const rA = localRatings[vote.winnerId] || INITIAL_ELO;
+      const rB = localRatings[vote.loserId] || INITIAL_ELO;
+      const [newA, newB] = updateElo(rA, rB, true);
       
-      const expectedA = 1 / (1 + Math.pow(10, (rB - rA) / 400));
-      const expectedB = 1 / (1 + Math.pow(10, (rA - rB) / 400));
-      
-      localRatings[vote.winnerId] = rA + K * (1 - expectedA);
-      localRatings[vote.loserId] = rB + K * (0 - expectedB);
+      localRatings[vote.winnerId] = newA;
+      localRatings[vote.loserId] = newB;
 
       // Track stats
       if (stats[vote.winnerId]) {
@@ -47,22 +45,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
+    // Build ranking with only necessary fields
     const ranking = candidates
       .map(c => {
         const s = stats[c.id];
-        const rating = Math.round(localRatings[c.id] || 1200);
+        const rating = Math.round(localRatings[c.id]);
         const winRate = s.matches > 0 ? Math.round((s.wins / s.matches) * 100) : 0;
 
         return {
+          rank: 0, // Set after sorting
           candidateId: c.id,
           name: c.nombre,
           ideologia: c.ideologia,
           imageFullBodyUrl: (c as any).foto_cuerpo || (c as any).imagen,
-          rating: rating,
+          rating,
           score: rating,
+          wins: s.wins,
+          losses: s.losses,
           games: s.matches,
-          winRate: winRate,
-          rd: 0 // Personal ranking uncertainty placeholder
+          winRate,
+          rd: 0
         };
       })
       .sort((a, b) => b.rating - a.rating)
@@ -70,6 +72,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(200).json(ranking);
   } catch (error) {
+    console.error('[personal] Error:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
