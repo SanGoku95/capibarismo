@@ -4,7 +4,7 @@ import { GameHUD } from '@/components/game/GameHUD';
 import { CandidateInfoOverlay } from '@/components/game/CandidateInfoOverlay';
 import { CompletionModal } from '@/components/game/CompletionModal';
 import { useGameUIStore } from '@/store/useGameUIStore';
-import { useNextPair, useGameState, useSubmitVote, getSessionId, prefetchNextPair } from '@/hooks/useGameAPI';
+import { useNextPair, useGameState, useSubmitVote, getSessionId } from '@/hooks/useGameAPI';
 import { Button } from '@/components/ui/button';
 import { Keyboard, Volume2, VolumeX } from 'lucide-react';
 import { toast } from 'sonner';
@@ -22,7 +22,7 @@ export function JugarPage() {
   } = useGameUIStore();
   
   const { data: pair, isLoading: pairLoading, error: pairError } = useNextPair();
-  const { data: gameState, refetch: refetchGameState } = useGameState();
+  const { data: gameState } = useGameState();
   const submitVoteMutation = useSubmitVote();
   
   // Check for prefers-reduced-motion
@@ -47,13 +47,6 @@ export function JugarPage() {
     }
   }, [gameState, sessionId, openCompletionModal]);
   
-  // Prefetch next pair
-  useEffect(() => {
-    if (pair) {
-      prefetchNextPair(pair);
-    }
-  }, [pair]);
-  
   // Handle vote
   const handleVote = useCallback(async (winner: 'A' | 'B') => {
     if (!pair || isVoting) return;
@@ -68,16 +61,13 @@ export function JugarPage() {
         bId: pair.b.id,
         outcome: winner,
       });
-      
-      // Refetch game state after vote
-      await refetchGameState();
     } catch (error) {
       console.error('Failed to submit vote:', error);
       toast.error(error instanceof Error ? error.message : 'Error al enviar voto');
     } finally {
       setIsVoting(false);
     }
-  }, [pair, isVoting, submitVoteMutation, sessionId, refetchGameState]);
+  }, [pair, isVoting, submitVoteMutation, sessionId]);
   
   // Keyboard controls
   useEffect(() => {
@@ -144,7 +134,6 @@ export function JugarPage() {
       <GameHUD
         comparisons={gameState?.comparisons || 0}
         progressPercent={gameState?.progressPercent || 0}
-        topN={gameState?.topN}
       />
       
       {/* Main game area */}

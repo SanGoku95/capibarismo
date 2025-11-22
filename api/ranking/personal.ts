@@ -1,13 +1,8 @@
-// API endpoint: GET /api/game/state
-// Returns session statistics
-
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getUserHistory } from '../storage.js';
 import { listCandidates } from '../candidates-data.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // No caching for game state
-  res.setHeader('Cache-Control', 'no-store, max-age=0');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   
@@ -20,48 +15,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const history = await getUserHistory(sessionId);
     const candidates = listCandidates();
     
-    // 1. Calculate Personal Progress
+    // Local Elo Calculation
     const localRatings: Record<string, number> = {};
     candidates.forEach(c => localRatings[c.id] = 1200);
-    
+
     const K = 32;
-    // Create a set of seen pairs for the client
-    const seenPairs = new Set<string>();
-
+    
     for (const vote of history) {
-      // Track seen pairs (sorted so A-B is same as B-A)
-      const pairId = [vote.winnerId, vote.loserId].sort().join('-');
-      seenPairs.add(pairId);
-
-      // Replay Elo
       const rA = localRatings[vote.winnerId] || 1200;
       const rB = localRatings[vote.loserId] || 1200;
+      
       const expectedA = 1 / (1 + Math.pow(10, (rB - rA) / 400));
       const expectedB = 1 / (1 + Math.pow(10, (rA - rB) / 400));
+      
       localRatings[vote.winnerId] = rA + K * (1 - expectedA);
       localRatings[vote.loserId] = rB + K * (0 - expectedB);
     }
 
-    // 2. Top 3 for HUD
-    const topN = candidates
+    const ranking = candidates
       .map(c => ({
-        candidateId: c.id,
+        id: c.id,
         name: c.nombre,
-        rating: Math.round(localRatings[c.id])
+        ideologia: c.ideologia,
+        rating: Math.round(localRatings[c.id] || 1200)
       }))
       .sort((a, b) => b.rating - a.rating)
-      .slice(0, 3);
+      .map((item, index) => ({ ...item, rank: index + 1 }));
 
-    const GOAL = 20;
-    const progressPercent = Math.min(100, Math.round((history.length / GOAL) * 100));
-
-    return res.status(200).json({
-      sessionId,
-      comparisons: history.length,
-      progressPercent,
-      topN,
-      seenPairs: Array.from(seenPairs)
-    });
+    return res.status(200).json(ranking);
   } catch (error) {
     return res.status(500).json({ error: 'Internal server error' });
   }

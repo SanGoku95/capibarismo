@@ -39,7 +39,7 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
             delay: reducedMotion ? 0 : 0.2,
           }}
           className={cn(
-            'text-6xl sm:text-8xl md:text-9xl font-bold',
+            'text-4xl sm:text-6xl md:text-7xl font-bold',
             'text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-red-500',
             retroEffects && 'drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]'
           )}

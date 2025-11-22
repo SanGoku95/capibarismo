@@ -9,7 +9,6 @@ export interface PairwiseOutcome {
   createdAt: string;
   clientMeta?: {
     uaHash?: string;
-    ipHash?: string;
     screen?: string;
     tz?: string;
   };
@@ -29,7 +28,11 @@ export interface GameState {
   sessionId: string;
   comparisons: number;
   progressPercent: number;
-  topN?: Array<{ candidateId: string; name: string; rating: number }>;
+  topN?: Array<{
+    candidateId: string;
+    name: string;
+    rating: number;
+  }>;
 }
 
 export interface Pair {
@@ -74,4 +77,35 @@ export interface GlobalRankingEntry {
   losses: number;
   winRate: number;
   rd: number; // uncertainty
+}
+
+// Shared types for the application
+
+export interface VoteRecord {
+  winnerId: string;
+  loserId: string;
+  timestamp: number;
+}
+
+export interface GlobalRatingSnapshot {
+  updatedAt: number;
+  ratings: Record<string, { elo: number; wins: number; losses: number; matches: number }>;
+}
+
+export interface Candidate {
+  id: string;
+  nombre: string;
+  ideologia?: string;
+  fullBody?: string;
+  headshot?: string;
+}
+
+export interface RankingEntry {
+  rank: number;
+  id: string;
+  name: string;
+  rating: number;
+  wins?: number;
+  losses?: number;
+  matches?: number;
 }

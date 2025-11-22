@@ -2,11 +2,18 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
+import { base } from '../data/domains/base';
+import type { CandidateBase } from '../data/types';
+
+// Helper to match previous API function signature
+const listCandidates = (): CandidateBase[] => Object.values(base);
 
 // Types
 import type { Pair, GameState, VoteRequest, GlobalRankingEntry } from '../../api/types';
 // Session ID management
 const SESSION_KEY = 'ranking-game-session-id';
+const SEEN_PAIRS_KEY_PREFIX = 'ranking-game-seen-pairs';
+const MAX_PAIR_SELECTION_ATTEMPTS = 50;
 
 export function getSessionId(): string {
   if (typeof window === 'undefined') return '';
@@ -56,24 +63,23 @@ async function fetchGlobalRanking(params: {
 // Hook: useNextPair
 export function useNextPair() {
   const sessionId = getSessionId();
+  const isClient = typeof window !== 'undefined';
+
   return useQuery({
     queryKey: ['game', 'nextpair', sessionId],
+    enabled: isClient && Boolean(sessionId),
     queryFn: async () => {
-      console.log('[useNextPair] Fetching pair for session:', sessionId);
-      const result = await fetcher<Pair>(`/api/game/nextpair?sessionId=${sessionId}`);
-      console.log('[useNextPair] Got result:', result);
-      
-      // If result is null, throw error to trigger error state
-      if (!result) {
-        throw new Error('No pair data returned from API');
+      if (!sessionId) {
+        throw new Error('Session ID unavailable');
       }
-      
-      return result;
+
+      const pair = generateLocalPair(sessionId);
+      prefetchNextPair(pair);
+      return pair;
     },
     staleTime: 30 * 1000,
     refetchOnWindowFocus: false,
-    retry: 3,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    retry: false,
   });
 }
 
@@ -96,12 +102,51 @@ export function useSubmitVote() {
   
   return useMutation({
     mutationFn: submitVote,
-    onSuccess: () => {
-      // Invalidate and refetch the correct query keys
-      queryClient.invalidateQueries({ queryKey: ['game', 'nextpair', sessionId] });
-      queryClient.invalidateQueries({ queryKey: ['game', 'state', sessionId] });
+    // OPTIMISTIC UPDATE: We handle all logic locally.
+    onMutate: async (newVote) => {
+      // 1. Cancel any outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ['game', 'state', sessionId] });
+
+      // 2. Snapshot previous state
+      const previousState = queryClient.getQueryData(['game', 'state', sessionId]);
+
+      // 3. Update State Locally
+      queryClient.setQueryData(['game', 'state', sessionId], (old: any) => {
+        if (!old) return old;
+        
+        const winnerId = newVote.outcome === 'A' ? newVote.aId : newVote.bId;
+        const loserId = newVote.outcome === 'A' ? newVote.bId : newVote.aId;
+        const pairId = [winnerId, loserId].sort().join('-');
+
+        // Simple local ranking update (Win Count) just for the HUD
+        const newTopN = old.topN ? [...old.topN] : [];
+        const winnerIdx = newTopN.findIndex((c: any) => c.candidateId === winnerId);
+        
+        if (winnerIdx >= 0) {
+          newTopN[winnerIdx].rating += 10; 
+          newTopN.sort((a: any, b: any) => b.rating - a.rating);
+        }
+
+        return {
+          ...old,
+          comparisons: (old.comparisons || 0) + 1,
+          progressPercent: Math.min(100, Math.round(((old.comparisons + 1) / 20) * 100)),
+          seenPairs: [...(old.seenPairs || []), pairId],
+          topN: newTopN
+        };
+      });
+
+      return { previousState };
     },
-    retry: 1,
+    onError: (err, newVote, context) => {
+      if (context?.previousState) {
+        queryClient.setQueryData(['game', 'state', sessionId], context.previousState);
+      }
+    },
+    onSettled: () => {
+      // Invalidate 'nextpair' so the user gets a new pair immediately
+      queryClient.invalidateQueries({ queryKey: ['game', 'nextpair', sessionId] });
+    },
   });
 }
 
@@ -140,7 +185,7 @@ async function submitVote(vote: VoteRequest): Promise<{ ok: boolean }> {
 }
 
 // --- replace the previous fetcher + unused fetchNextPair / fetchGameState definitions
-async function fetcher<T = any>(url: string, opts?: RequestInit): Promise<T | null> {
+async function fetcher<T = unknown>(url: string, opts?: RequestInit): Promise<T | null> {
   const res = await fetch(url, opts);
 
   // 304 Not Modified -> no new data; return null so react-query sees a defined value
@@ -159,4 +204,100 @@ async function fetcher<T = any>(url: string, opts?: RequestInit): Promise<T | nu
   } catch (e) {
     return null;
   }
+}
+
+function generateLocalPair(sessionId: string): Pair {
+  if (typeof window === 'undefined') {
+    throw new Error('Pair generation requires a browser environment');
+  }
+
+  const candidates = listCandidates();
+  if (candidates.length < 2) {
+    throw new Error('Not enough candidates to generate a pair');
+  }
+
+  const seenPairs = loadSeenPairs(sessionId);
+  const totalPossiblePairs = (candidates.length * (candidates.length - 1)) / 2;
+
+  if (seenPairs.size >= totalPossiblePairs) {
+    seenPairs.clear();
+    persistSeenPairs(sessionId, seenPairs);
+  }
+
+  let pair: Pair | null = null;
+
+  for (let attempt = 0; attempt < MAX_PAIR_SELECTION_ATTEMPTS; attempt++) {
+    const [candidateA, candidateB] = pickDistinctCandidates(candidates);
+    const pairId = createPairId(candidateA.id, candidateB.id);
+
+    if (!seenPairs.has(pairId)) {
+      pair = createPair(candidateA, candidateB, pairId);
+      break;
+    }
+  }
+
+  if (!pair) {
+    const [candidateA, candidateB] = pickDistinctCandidates(candidates);
+    pair = createPair(candidateA, candidateB);
+  }
+
+  seenPairs.add(pair.pairId);
+  persistSeenPairs(sessionId, seenPairs);
+
+  return pair;
+}
+
+function pickDistinctCandidates(candidates: CandidateBase[]): [CandidateBase, CandidateBase] {
+  const firstIndex = Math.floor(Math.random() * candidates.length);
+  let secondIndex = Math.floor(Math.random() * (candidates.length - 1));
+  if (secondIndex >= firstIndex) {
+    secondIndex += 1;
+  }
+  return [candidates[firstIndex], candidates[secondIndex]];
+}
+
+function createPair(candidateA: CandidateBase, candidateB: CandidateBase, pairId?: string): Pair {
+  return {
+    pairId: pairId ?? createPairId(candidateA.id, candidateB.id),
+    a: {
+      id: candidateA.id,
+      nombre: candidateA.nombre,
+      ideologia: candidateA.ideologia,
+      fullBody: candidateA.fullBody,
+      headshot: candidateA.headshot,
+    },
+    b: {
+      id: candidateB.id,
+      nombre: candidateB.nombre,
+      ideologia: candidateB.ideologia,
+      fullBody: candidateB.fullBody,
+      headshot: candidateB.headshot,
+    },
+    hint: { rationale: 'random' },
+  };
+}
+
+function createPairId(aId: string, bId: string): string {
+  return [aId, bId].sort().join('-');
+}
+
+function loadSeenPairs(sessionId: string): Set<string> {
+  if (typeof window === 'undefined') return new Set();
+  try {
+    const raw = localStorage.getItem(getSeenPairsKey(sessionId));
+    if (!raw) return new Set();
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? new Set(parsed.filter((value): value is string => typeof value === 'string')) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+function persistSeenPairs(sessionId: string, seenPairs: Set<string>): void {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(getSeenPairsKey(sessionId), JSON.stringify(Array.from(seenPairs)));
+}
+
+function getSeenPairsKey(sessionId: string): string {
+  return `${SEEN_PAIRS_KEY_PREFIX}:${sessionId}`;
 }

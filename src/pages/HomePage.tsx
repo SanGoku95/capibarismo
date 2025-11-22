@@ -85,7 +85,7 @@ export function HomePage() {
               >
                 <span className="flex items-center gap-3">
                   <Gamepad2 size={18} className="shrink-0" />
-                  Jugar: elige tu ranking
+                  Jugar: Versus Presidenciales 
                 </span>
                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
               </Link>
