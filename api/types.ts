@@ -23,11 +23,6 @@ export interface GameState {
   sessionId: string;
   comparisons: number;
   progressPercent: number;
-  topN: Array<{
-    candidateId: string;
-    name: string;
-    rating: number;
-  }>;
   seenPairs: string[];
 }
 

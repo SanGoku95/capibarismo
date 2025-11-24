@@ -37,24 +37,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       localRatings[vote.loserId] = newB;
     }
 
-    // Top 3 for HUD (minimal data)
-    const topN = candidates
-      .map(c => ({
-        candidateId: c.id,
-        name: c.nombre,
-        rating: Math.round(localRatings[c.id])
-      }))
-      .sort((a, b) => b.rating - a.rating)
-      .slice(0, 3);
-
-    const GOAL = 20;
-    const progressPercent = Math.min(100, Math.round((history.length / GOAL) * 100));
-
     return res.status(200).json({
       sessionId,
       comparisons: history.length,
-      progressPercent,
-      topN,
       seenPairs: Array.from(seenPairs)
     });
   } catch (error) {

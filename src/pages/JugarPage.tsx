@@ -4,14 +4,23 @@ import { GameHUD } from '@/components/game/GameHUD';
 import { CandidateInfoOverlay } from '@/components/game/CandidateInfoOverlay';
 import { CompletionModal } from '@/components/game/CompletionModal';
 import { useGameUIStore } from '@/store/useGameUIStore';
-import { useNextPair, useGameState, useSubmitVote, getSessionId } from '@/hooks/useGameAPI';
+import { useNextPair, useSubmitVote, getSessionId } from '@/hooks/useGameAPI';
 import { Button } from '@/components/ui/button';
 import { Keyboard, Volume2, VolumeX } from 'lucide-react';
 import { toast } from 'sonner';
 
+const COMPLETION_GOAL = 20;
+
 export function JugarPage() {
   const [isVoting, setIsVoting] = useState(false);
   const sessionId = getSessionId();
+  const localVotesStorageKey = `local-vote-count-${sessionId}`;
+  const [localVoteCount, setLocalVoteCount] = useState(() => {
+    if (typeof window === 'undefined') return 0;
+    const stored = Number(localStorage.getItem(localVotesStorageKey));
+    return Number.isFinite(stored) ? stored : 0;
+  });
+  const completionShownKey = `completion-shown-${sessionId}`;
   
   const { 
     closeCandidateInfo,
@@ -22,7 +31,6 @@ export function JugarPage() {
   } = useGameUIStore();
   
   const { data: pair, isLoading: pairLoading, error: pairError } = useNextPair();
-  const { data: gameState } = useGameState();
   const submitVoteMutation = useSubmitVote();
   
   // Check for prefers-reduced-motion
@@ -37,22 +45,19 @@ export function JugarPage() {
   
   // Check if ready for completion
   useEffect(() => {
-    if (gameState && gameState.progressPercent >= 100) {
-      // Only show once per session
-      const shownKey = `completion-shown-${sessionId}`;
-      if (!sessionStorage.getItem(shownKey)) {
-        openCompletionModal();
-        sessionStorage.setItem(shownKey, 'true');
-      }
+    if (localVoteCount < COMPLETION_GOAL) return;
+    if (!sessionStorage.getItem(completionShownKey)) {
+      openCompletionModal();
+      sessionStorage.setItem(completionShownKey, 'true');
     }
-  }, [gameState, sessionId, openCompletionModal]);
+  }, [localVoteCount, completionShownKey, openCompletionModal]);
   
   // Handle vote
   const handleVote = useCallback(async (winner: 'A' | 'B') => {
     if (!pair || isVoting) return;
-    
+
     setIsVoting(true);
-    
+
     try {
       await submitVoteMutation.mutateAsync({
         sessionId,
@@ -61,13 +66,20 @@ export function JugarPage() {
         bId: pair.b.id,
         outcome: winner,
       });
+      setLocalVoteCount((prev) => {
+        const next = prev + 1;
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(localVotesStorageKey, String(next));
+        }
+        return next;
+      });
     } catch (error) {
       console.error('Failed to submit vote:', error);
       toast.error(error instanceof Error ? error.message : 'Error al enviar voto');
     } finally {
       setIsVoting(false);
     }
-  }, [pair, isVoting, submitVoteMutation, sessionId]);
+  }, [pair, isVoting, submitVoteMutation, sessionId, localVotesStorageKey]);
   
   // Keyboard controls
   useEffect(() => {
@@ -128,12 +140,17 @@ export function JugarPage() {
     );
   }
   
+  const localProgressPercent = Math.min(
+    100,
+    Math.round((localVoteCount / COMPLETION_GOAL) * 100)
+  );
+
   return (
     <div className="min-h-screen fighting-game-bg flex flex-col">
       {/* HUD */}
       <GameHUD
-        comparisons={gameState?.comparisons || 0}
-        progressPercent={gameState?.progressPercent || 0}
+        comparisons={localVoteCount}
+        progressPercent={localProgressPercent}
       />
       
       {/* Main game area */}

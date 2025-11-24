@@ -89,18 +89,6 @@ export function usePersonalRanking(sessionId: string) {
   });
 }
 
-// New: Hook: useGameState
-export function useGameState() {
-  const sessionId = getSessionId();
-  return useQuery({
-    queryKey: ['game', 'state', sessionId],
-    queryFn: () => fetcher(`/api/game/state?sessionId=${sessionId}`),
-    staleTime: 15 * 1000,
-    refetchOnWindowFocus: false,
-    retry: 1,
-  });
-}
-
 // Hook: useSubmitVote
 export function useSubmitVote() {
   const queryClient = useQueryClient();
