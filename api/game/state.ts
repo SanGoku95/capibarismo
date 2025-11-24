@@ -1,11 +1,12 @@
 // API endpoint: GET /api/game/state
-// Returns session statistics
+// Returns lightweight session statistics for game HUD
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getUserHistory } from '../storage.js';
+import { listCandidates } from '../candidates-data.js';
+import { INITIAL_ELO, updateElo } from '../elo.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // No caching for game state
   res.setHeader('Cache-Control', 'no-store, max-age=0');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -17,15 +18,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const history = await getUserHistory(sessionId);
+    const candidates = listCandidates();
     
-    // Create a set of seen pairs for the client to avoid duplicates
+    // Calculate ratings and track seen pairs
+    const localRatings: Record<string, number> = {};
+    candidates.forEach(c => localRatings[c.id] = INITIAL_ELO);
+    
     const seenPairs = new Set<string>();
 
     for (const vote of history) {
-      // Track seen pairs (sorted so A-B is same as B-A)
-      const pairId = [vote.winnerId, vote.loserId].sort().join('-');
-      seenPairs.add(pairId);
+      seenPairs.add([vote.winnerId, vote.loserId].sort().join('-'));
+      
+      const rA = localRatings[vote.winnerId] || INITIAL_ELO;
+      const rB = localRatings[vote.loserId] || INITIAL_ELO;
+      const [newA, newB] = updateElo(rA, rB, true);
+      
+      localRatings[vote.winnerId] = newA;
+      localRatings[vote.loserId] = newB;
     }
+
+    // Top 3 for HUD (minimal data)
+    const topN = candidates
+      .map(c => ({
+        candidateId: c.id,
+        name: c.nombre,
+        rating: Math.round(localRatings[c.id])
+      }))
+      .sort((a, b) => b.rating - a.rating)
+      .slice(0, 3);
 
     const GOAL = 20;
     const progressPercent = Math.min(100, Math.round((history.length / GOAL) * 100));
@@ -34,6 +54,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       sessionId,
       comparisons: history.length,
       progressPercent,
+      topN,
       seenPairs: Array.from(seenPairs)
     });
   } catch (error) {
