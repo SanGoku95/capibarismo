@@ -57,7 +57,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           candidateId: c.id,
           name: c.nombre,
           ideologia: c.ideologia,
-          imageFullBodyUrl: (c as any).foto_cuerpo || (c as any).imagen,
           rating,
           score: rating,
           wins: s.wins,

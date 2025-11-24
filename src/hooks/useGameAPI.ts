@@ -9,7 +9,7 @@ import type { CandidateBase } from '../data/types';
 const listCandidates = (): CandidateBase[] => Object.values(base);
 
 // Types
-import type { Pair, GameState, VoteRequest, GlobalRankingEntry } from '../../api/types';
+import type { Pair, GameState, VoteRequest, RankingEntry } from '../../api/types';
 // Session ID management
 const SESSION_KEY = 'ranking-game-session-id';
 const SEEN_PAIRS_KEY_PREFIX = 'ranking-game-seen-pairs';
@@ -44,24 +44,8 @@ export function prefetchNextPair(pair: Pair | undefined) {
   }
 }
 
-// Fetch global ranking
-async function fetchGlobalRanking(params: {
-  window?: 'all' | '7d' | '1d';
-  filter?: string;
-}): Promise<GlobalRankingEntry[]> {
-  const queryParams = new URLSearchParams();
-  if (params.window) queryParams.set('window', params.window);
-  if (params.filter) queryParams.set('filter', params.filter);
-  
-  const response = await fetch(`${API_BASE}/ranking/global?${queryParams}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch global ranking');
-  }
-  return response.json();
-}
-
 // Fetch personal ranking
-async function fetchPersonalRanking(sessionId: string): Promise<GlobalRankingEntry[]> {
+async function fetchPersonalRanking(sessionId: string): Promise<RankingEntry[]> {
   if (!sessionId) return [];
   
   const response = await fetch(`${API_BASE}/ranking/personal?sessionId=${sessionId}`);
@@ -169,20 +153,6 @@ export function useSubmitVote() {
       // Invalidate 'nextpair' so the user gets a new pair immediately
       queryClient.invalidateQueries({ queryKey: ['game', 'nextpair', sessionId] });
     },
-  });
-}
-
-// Hook: useGlobalRanking
-export function useGlobalRanking(params: {
-  window?: 'all' | '7d' | '1d';
-  filter?: string;
-} = {}) {
-  return useQuery({
-    queryKey: ['globalRanking', params],
-    queryFn: () => fetchGlobalRanking(params),
-    staleTime: 60000, // 1 minute
-    gcTime: 300000, // 5 minutes
-    refetchOnWindowFocus: false,
   });
 }
 
