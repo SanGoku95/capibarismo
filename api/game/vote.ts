@@ -25,7 +25,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const loserId = outcome === 'A' ? bId : aId;
 
     // Process vote in background for instant response
-    waitUntil(saveVote(sessionId, winnerId, loserId));
+    await saveVote(sessionId, winnerId, loserId);
 
     return res.status(200).json({ ok: true });
   } catch (error) {

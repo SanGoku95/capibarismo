@@ -10,23 +10,29 @@ export async function saveVote(sessionId: string, winnerId: string, loserId: str
   // 1. Update Personal History
   const sessionKey = `sessions/${sessionId}.json`;
   let history: VoteRecord[] = [];
-  
+
+  const baseUrl = process.env.BLOB_READ_URL;
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!baseUrl || !token) {
+    throw new Error('Blob environment variables are missing');
+  }
+
   try {
-    const res = await fetch(`${process.env.BLOB_READ_URL}/${sessionKey}`, { cache: 'no-store' });
+    const res = await fetch(`${baseUrl}/${sessionKey}`, { cache: 'no-store' });
     if (res.ok) {
       history = await res.json();
     }
   } catch (e) {
     // File doesn't exist yet, start new history
   }
-
   history.push(vote);
 
-  // Update personal file (overwrite with new array)
-  await put(sessionKey, JSON.stringify(history), { 
-    access: 'public', 
+  await put(sessionKey, JSON.stringify(history), {
+    access: 'public',
     addRandomSuffix: false,
-    allowOverwrite: true
+    allowOverwrite: true,
+    contentType: 'application/json',
+    token
   });
 }
 
@@ -35,7 +41,10 @@ export async function saveVote(sessionId: string, winnerId: string, loserId: str
  */
 export async function getUserHistory(sessionId: string): Promise<VoteRecord[]> {
   try {
-    const res = await fetch(`${process.env.BLOB_READ_URL}/sessions/${sessionId}.json`, {
+    const baseUrl = process.env.BLOB_READ_URL;
+    if (!baseUrl) return [];
+
+    const res = await fetch(`${baseUrl}/sessions/${sessionId}.json`, {
       cache: 'no-store'
     });
     if (!res.ok) return [];
