@@ -2,7 +2,6 @@
 // Submits a vote (minimal, fast response)
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { waitUntil } from '@vercel/functions';
 import { saveVote } from '../storage.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

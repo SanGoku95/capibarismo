@@ -96,51 +96,15 @@ export function useSubmitVote() {
   
   return useMutation({
     mutationFn: submitVote,
-    // OPTIMISTIC UPDATE: We handle all logic locally.
-    onMutate: async (newVote) => {
-      // 1. Cancel any outgoing refetches
-      await queryClient.cancelQueries({ queryKey: ['game', 'state', sessionId] });
-
-      // 2. Snapshot previous state
-      const previousState = queryClient.getQueryData(['game', 'state', sessionId]);
-
-      // 3. Update State Locally
-      queryClient.setQueryData(['game', 'state', sessionId], (old: any) => {
-        if (!old) return old;
-        
-        const winnerId = newVote.outcome === 'A' ? newVote.aId : newVote.bId;
-        const loserId = newVote.outcome === 'A' ? newVote.bId : newVote.aId;
-        const pairId = [winnerId, loserId].sort().join('-');
-
-        // Simple local ranking update (Win Count) just for the HUD
-        const newTopN = old.topN ? [...old.topN] : [];
-        const winnerIdx = newTopN.findIndex((c: any) => c.candidateId === winnerId);
-        
-        if (winnerIdx >= 0) {
-          newTopN[winnerIdx].rating += 10; 
-          newTopN.sort((a: any, b: any) => b.rating - a.rating);
-        }
-
-        return {
-          ...old,
-          comparisons: (old.comparisons || 0) + 1,
-          progressPercent: Math.min(100, Math.round(((old.comparisons + 1) / 20) * 100)),
-          seenPairs: [...(old.seenPairs || []), pairId],
-          topN: newTopN
-        };
-      });
-
-      return { previousState };
-    },
-    onError: (err, newVote, context) => {
-      if (context?.previousState) {
-        queryClient.setQueryData(['game', 'state', sessionId], context.previousState);
-      }
-    },
-    onSettled: () => {
-      // Invalidate 'nextpair' so the user gets a new pair immediately
+    onSuccess: () => {
+      // Just invalidate the next pair and personal ranking
       queryClient.invalidateQueries({ queryKey: ['game', 'nextpair', sessionId] });
+      queryClient.invalidateQueries({ queryKey: ['personalRanking', sessionId] });
     },
+    onError: (error) => {
+      console.error('Vote submission failed:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to submit vote');
+    }
   });
 }
 

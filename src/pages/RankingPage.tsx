@@ -6,6 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Trophy, TrendingUp, Info, Medal, AlertCircle } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { base } from '@/data/domains/base';
 
 export function RankingPage() {
   const [searchParams] = useSearchParams();
@@ -105,63 +106,68 @@ export function RankingPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {rankings.map((entry) => (
-                    <TableRow key={entry.candidateId} className="hover:bg-white/5 border-white/5 transition-colors">
-                      <TableCell className="font-medium text-center">
-                        <div className="flex justify-center">
-                          {getRankBadge(entry.rank)}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-3">
-                          {entry.imageFullBodyUrl && (
-                            <div className="relative w-12 h-12 rounded overflow-hidden bg-white/10 border border-white/10">
-                              <img
-                                src={entry.imageFullBodyUrl}
-                                alt={entry.name}
-                                className="w-full h-full object-cover object-top"
-                              />
-                            </div>
-                          )}
-                          <div>
-                            <div className="font-bold text-white">{entry.name}</div>
-                            {entry.ideologia && (
-                              <div className="text-xs text-white/60">{entry.ideologia}</div>
-                            )}
+                  {rankings.map((entry) => {
+                    const candidateData = base[entry.candidateId];
+                    const imageUrl = candidateData?.fullBody;
+                    
+                    return (
+                      <TableRow key={entry.candidateId} className="hover:bg-white/5 border-white/5 transition-colors">
+                        <TableCell className="font-medium text-center">
+                          <div className="flex justify-center">
+                            {getRankBadge(entry.rank)}
                           </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Badge 
-                          variant={entry.rank <= 3 ? 'default' : 'secondary'}
-                          className={cn(
-                            "font-mono text-sm",
-                            entry.rank === 1 && "bg-yellow-500 hover:bg-yellow-600 text-black",
-                            entry.rank === 2 && "bg-gray-300 hover:bg-gray-400 text-black",
-                            entry.rank === 3 && "bg-amber-600 hover:bg-amber-700"
-                          )}
-                        >
-                          {entry.score}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right hidden sm:table-cell font-mono text-white/70">
-                        {entry.rating}
-                      </TableCell>
-                      <TableCell className="text-right hidden md:table-cell text-white/70">
-                        {entry.games}
-                      </TableCell>
-                      <TableCell className="text-right hidden lg:table-cell">
-                        <span className={cn(
-                          "font-bold",
-                          entry.winRate >= 60 ? 'text-green-400' : 
-                          entry.winRate >= 40 ? 'text-yellow-400' : 
-                          'text-red-400'
-                        )}>
-                          {entry.winRate}%
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            {imageUrl && (
+                              <div className="relative w-12 h-12 rounded overflow-hidden bg-white/10 border border-white/10">
+                                <img
+                                  src={imageUrl}
+                                  alt={entry.name}
+                                  className="w-full h-full object-cover object-top"
+                                />
+                              </div>
+                            )}
+                            <div>
+                              <div className="font-bold text-white">{entry.name}</div>
+                              {entry.ideologia && (
+                                <div className="text-xs text-white/60">{entry.ideologia}</div>
+                              )}
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Badge 
+                            variant={entry.rank <= 3 ? 'default' : 'secondary'}
+                            className={cn(
+                              "font-mono text-sm",
+                              entry.rank === 1 && "bg-yellow-500 hover:bg-yellow-600 text-black",
+                              entry.rank === 2 && "bg-gray-300 hover:bg-gray-400 text-black",
+                              entry.rank === 3 && "bg-amber-600 hover:bg-amber-700"
+                            )}
+                          >
+                            {entry.score}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-right hidden sm:table-cell font-mono text-white/70">
+                          {entry.rating}
+                        </TableCell>
+                        <TableCell className="text-right hidden md:table-cell text-white/70">
+                          {entry.games}
+                        </TableCell>
+                        <TableCell className="text-right hidden lg:table-cell">
+                          <span className={cn(
+                            "font-bold",
+                            entry.winRate >= 60 ? 'text-green-400' : 
+                            entry.winRate >= 40 ? 'text-yellow-400' : 
+                            'text-red-400'
+                          )}>
+                            {entry.winRate}%
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </div>

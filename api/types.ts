@@ -41,7 +41,6 @@ export interface RankingEntry {
   candidateId: string;
   name: string;
   ideologia?: string;
-  imageFullBodyUrl?: string;
   rating: number;
   score: number;
   wins?: number;
