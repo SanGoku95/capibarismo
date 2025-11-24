@@ -3,7 +3,7 @@ import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Trophy, TrendingUp, Info, Medal } from 'lucide-react';
+import { Trophy, TrendingUp, Info, Medal, AlertCircle } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
@@ -15,11 +15,15 @@ export function RankingPage() {
   
   const { data: rankings, isLoading, error } = usePersonalRanking(sessionId);
   
+  // Check if the user has actually played any games
+  // The API returns all candidates with 0 games if no history exists, so length check isn't enough
+  const hasPlayed = rankings && rankings.some(r => r.games > 0);
+  
   const getRankBadge = (rank: number) => {
-    if (rank === 1) return <Medal className="w-5 h-5 text-yellow-500" />;
-    if (rank === 2) return <Medal className="w-5 h-5 text-gray-400" />;
-    if (rank === 3) return <Medal className="w-5 h-5 text-amber-700" />;
-    return <span className="text-muted-foreground">#{rank}</span>;
+    if (rank === 1) return <Medal className="w-6 h-6 text-yellow-400 drop-shadow-md" />;
+    if (rank === 2) return <Medal className="w-6 h-6 text-gray-300 drop-shadow-md" />;
+    if (rank === 3) return <Medal className="w-6 h-6 text-amber-600 drop-shadow-md" />;
+    return <span className="text-muted-foreground font-mono">#{rank}</span>;
   };
   
   return (
@@ -47,46 +51,52 @@ export function RankingPage() {
           
           {/* CTA to play */}
           <div className="mt-6">
-            <Button asChild size="lg" className="gap-2">
+            <Button asChild size="lg" className="gap-2 shadow-lg hover:scale-105 transition-transform">
               <Link to="/jugar">
                 <TrendingUp className="w-5 h-5" />
-                {rankings && rankings.length > 0 ? 'Seguir jugando' : 'Jugar ahora'}
+                {hasPlayed ? 'Seguir jugando' : 'Jugar ahora'}
               </Link>
             </Button>
           </div>
         </div>
         
         {/* Rankings table */}
-        <div className="bg-background/90 rounded-lg border shadow-lg overflow-hidden">
+        <div className="bg-background/90 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl overflow-hidden">
           {isLoading && (
             <div className="p-12 text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary/30 border-t-primary mx-auto mb-4"></div>
-              <p className="text-muted-foreground">Cargando rankings...</p>
+              <p className="text-muted-foreground">Calculando ranking...</p>
             </div>
           )}
           
           {error && (
             <div className="p-12 text-center">
+              <AlertCircle className="w-12 h-12 text-destructive mx-auto mb-4" />
               <p className="text-destructive mb-4">Error al cargar rankings</p>
               <Button onClick={() => window.location.reload()}>Reintentar</Button>
             </div>
           )}
           
-          {rankings && rankings.length === 0 && (
-            <div className="p-12 text-center">
-              <p className="text-muted-foreground mb-4">No hay datos de ranking aún</p>
-              <Button asChild>
-                <Link to="/jugar">Sé el primero en jugar</Link>
+          {rankings && !hasPlayed && !isLoading && (
+            <div className="p-16 text-center">
+              <Trophy className="w-16 h-16 text-muted-foreground/20 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">Aún no hay datos</h3>
+              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                Necesitas comparar candidatos para generar tu ranking personal.
+                ¡Juega unas cuantas rondas para ver quién es tu favorito!
+              </p>
+              <Button asChild variant="secondary">
+                <Link to="/jugar">Comenzar a votar</Link>
               </Button>
             </div>
           )}
           
-          {rankings && rankings.length > 0 && (
+          {rankings && hasPlayed && (
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-20">Rank</TableHead>
+                  <TableRow className="hover:bg-transparent border-white/10">
+                    <TableHead className="w-20 text-center">Rank</TableHead>
                     <TableHead>Candidato</TableHead>
                     <TableHead className="text-right">Puntaje</TableHead>
                     <TableHead className="text-right hidden sm:table-cell">Rating Elo</TableHead>
@@ -96,43 +106,56 @@ export function RankingPage() {
                 </TableHeader>
                 <TableBody>
                   {rankings.map((entry) => (
-                    <TableRow key={entry.candidateId}>
-                      <TableCell className="font-medium">
-                        {getRankBadge(entry.rank)}
+                    <TableRow key={entry.candidateId} className="hover:bg-white/5 border-white/5 transition-colors">
+                      <TableCell className="font-medium text-center">
+                        <div className="flex justify-center">
+                          {getRankBadge(entry.rank)}
+                        </div>
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-3">
                           {entry.imageFullBodyUrl && (
-                            <img
-                              src={entry.imageFullBodyUrl}
-                              alt={entry.name}
-                              className="w-12 h-12 object-cover rounded"
-                            />
+                            <div className="relative w-12 h-12 rounded overflow-hidden bg-white/10 border border-white/10">
+                              <img
+                                src={entry.imageFullBodyUrl}
+                                alt={entry.name}
+                                className="w-full h-full object-cover object-top"
+                              />
+                            </div>
                           )}
                           <div>
-                            <div className="font-semibold">{entry.name}</div>
+                            <div className="font-bold text-white">{entry.name}</div>
                             {entry.ideologia && (
-                              <div className="text-xs text-muted-foreground">{entry.ideologia}</div>
+                              <div className="text-xs text-white/60">{entry.ideologia}</div>
                             )}
                           </div>
                         </div>
                       </TableCell>
                       <TableCell className="text-right">
-                        <Badge variant={entry.rank <= 3 ? 'default' : 'secondary'}>
+                        <Badge 
+                          variant={entry.rank <= 3 ? 'default' : 'secondary'}
+                          className={cn(
+                            "font-mono text-sm",
+                            entry.rank === 1 && "bg-yellow-500 hover:bg-yellow-600 text-black",
+                            entry.rank === 2 && "bg-gray-300 hover:bg-gray-400 text-black",
+                            entry.rank === 3 && "bg-amber-600 hover:bg-amber-700"
+                          )}
+                        >
                           {entry.score}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-right hidden sm:table-cell">
+                      <TableCell className="text-right hidden sm:table-cell font-mono text-white/70">
                         {entry.rating}
                       </TableCell>
-                      <TableCell className="text-right hidden md:table-cell">
+                      <TableCell className="text-right hidden md:table-cell text-white/70">
                         {entry.games}
                       </TableCell>
                       <TableCell className="text-right hidden lg:table-cell">
                         <span className={cn(
-                          entry.winRate >= 60 ? 'text-green-600' : 
-                          entry.winRate >= 40 ? 'text-yellow-600' : 
-                          'text-red-600'
+                          "font-bold",
+                          entry.winRate >= 60 ? 'text-green-400' : 
+                          entry.winRate >= 40 ? 'text-yellow-400' : 
+                          'text-red-400'
                         )}>
                           {entry.winRate}%
                         </span>
@@ -147,9 +170,9 @@ export function RankingPage() {
         
         {/* Explainer */}
         <div className="mt-8 max-w-3xl mx-auto">
-          <Accordion type="single" collapsible>
-            <AccordionItem value="explainer">
-              <AccordionTrigger className="text-white">
+          <Accordion type="single" collapsible className="border-white/10">
+            <AccordionItem value="explainer" className="border-white/10">
+              <AccordionTrigger className="text-white hover:text-primary hover:no-underline">
                 <div className="flex items-center gap-2">
                   <Info className="w-5 h-5" />
                   ¿Cómo se calcula el ranking?
@@ -165,13 +188,13 @@ export function RankingPage() {
                   el ganador sube y el perdedor baja. Esto nos permite construir una lista
                   ordenada que refleja tus decisiones, incluso entre candidatos que no has comparado directamente.
                 </p>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li> Normalizado para facilitar la comparación.</li>
-                  <li> El valor interno usado para ordenar (inicia en 1200).</li>
-                  <li> Qué tan confiable es el rating. Mejora con más comparaciones.</li>
+                <ul className="list-disc list-inside space-y-1 text-sm text-white/70">
+                  <li><strong>Puntaje:</strong> Valor normalizado para facilitar la comparación.</li>
+                  <li><strong>Rating Elo:</strong> El valor matemático interno (inicia en 1200).</li>
+                  <li><strong>Win Rate:</strong> Porcentaje de victorias en enfrentamientos directos.</li>
                 </ul>
-                <p className="text-xs text-white/60">
-                  Nota: Este es un ranking de preferencia personal basado en tus decisiones de esta sesión.
+                <p className="text-xs text-white/50 pt-2 border-t border-white/10 mt-2">
+                  Nota: Este es un ranking de preferencia personal basado únicamente en tus decisiones de esta sesión.
                 </p>
               </AccordionContent>
             </AccordionItem>
