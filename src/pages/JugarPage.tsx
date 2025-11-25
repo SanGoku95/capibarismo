@@ -12,7 +12,6 @@ import { toast } from 'sonner';
 const COMPLETION_GOAL = 20;
 
 export function JugarPage() {
-  const [isVoting, setIsVoting] = useState(false);
   const sessionId = getSessionId();
   const localVotesStorageKey = `local-vote-count-${sessionId}`;
   const [localVoteCount, setLocalVoteCount] = useState(() => {
@@ -30,8 +29,13 @@ export function JugarPage() {
     openCompletionModal,
   } = useGameUIStore();
   
-  const { data: pair, isLoading: pairLoading, error: pairError } = useNextPair();
-  const submitVoteMutation = useSubmitVote();
+  const { 
+    data: pair, 
+    isLoading: pairLoading, 
+    isFetching: pairFetching,
+    error: pairError 
+  } = useNextPair();
+  const submitVoteMutation = useSubmitVote(sessionId);
   
   // Check for prefers-reduced-motion
   useEffect(() => {
@@ -52,20 +56,15 @@ export function JugarPage() {
     }
   }, [localVoteCount, completionShownKey, openCompletionModal]);
   
-  // Handle vote
-  const handleVote = useCallback(async (winner: 'A' | 'B') => {
-    if (!pair || isVoting) return;
+  // Handle vote with optimistic updates
+  const handleVote = useCallback(
+    (winner: 'A' | 'B') => {
+      if (!pair) return;
+      if (submitVoteMutation.isPending) return; // prevent double votes for same pair
 
-    setIsVoting(true);
+      const wasAtGoal = localVoteCount >= COMPLETION_GOAL;
 
-    try {
-      await submitVoteMutation.mutateAsync({
-        sessionId,
-        pairId: pair.pairId,
-        aId: pair.a.id,
-        bId: pair.b.id,
-        outcome: winner,
-      });
+      // Optimistic update - increment immediately
       setLocalVoteCount((prev) => {
         const next = prev + 1;
         if (typeof window !== 'undefined') {
@@ -73,13 +72,42 @@ export function JugarPage() {
         }
         return next;
       });
-    } catch (error) {
-      console.error('Failed to submit vote:', error);
-      toast.error(error instanceof Error ? error.message : 'Error al enviar voto');
-    } finally {
-      setIsVoting(false);
-    }
-  }, [pair, isVoting, submitVoteMutation, sessionId, localVotesStorageKey]);
+
+      // Fire mutation without awaiting
+      submitVoteMutation.mutate(
+        {
+          sessionId,
+          pairId: pair.pairId,
+          aId: pair.a.id,
+          bId: pair.b.id,
+          outcome: winner,
+        },
+        {
+          onError: (error) => {
+            // Roll back optimistic update
+            setLocalVoteCount((prev) => {
+              const next = Math.max(0, prev - 1);
+              if (typeof window !== 'undefined') {
+                localStorage.setItem(localVotesStorageKey, String(next));
+              }
+              return next;
+            });
+
+            // Roll back completion flag if we had just crossed the threshold
+            if (!wasAtGoal && typeof window !== 'undefined') {
+              sessionStorage.removeItem(completionShownKey);
+            }
+
+            console.error('Failed to submit vote:', error);
+            toast.error(
+              error instanceof Error ? error.message : 'Error al enviar voto'
+            );
+          },
+        }
+      );
+    },
+    [pair, submitVoteMutation, sessionId, localVotesStorageKey, localVoteCount, completionShownKey]
+  );
   
   // Keyboard controls
   useEffect(() => {
@@ -106,6 +134,7 @@ export function JugarPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [pair, handleVote, closeCandidateInfo]);
   
+  // Initial load spinner
   if (pairLoading) {
     return (
       <div className="min-h-screen fighting-game-bg flex items-center justify-center">
@@ -145,6 +174,9 @@ export function JugarPage() {
     Math.round((localVoteCount / COMPLETION_GOAL) * 100)
   );
 
+  // Show loading while submitting vote OR fetching next pair (refetch)
+  const isLoadingNext = submitVoteMutation.isPending || pairFetching;
+
   return (
     <div className="min-h-screen fighting-game-bg flex flex-col">
       {/* HUD */}
@@ -158,7 +190,7 @@ export function JugarPage() {
         <VSScreen
           pair={pair}
           onVote={handleVote}
-          isSubmitting={isVoting}
+          isSubmitting={isLoadingNext}
         />
       </div>
       

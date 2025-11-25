@@ -64,11 +64,15 @@ export function useNextPair() {
     queryKey: ['game', 'nextpair', sessionId],
     enabled: isClient && Boolean(sessionId),
     queryFn: async () => {
-      if (!sessionId) {
-        throw new Error('Session ID unavailable');
+      const response = await fetch(`${API_BASE}/game/nextpair?sessionId=${sessionId}`, {
+        cache: 'no-store',
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch next pair: ${response.statusText}`);
       }
-
-      const pair = generateLocalPair(sessionId);
+      
+      const pair = await response.json() as Pair;
       prefetchNextPair(pair);
       return pair;
     },
@@ -90,21 +94,17 @@ export function usePersonalRanking(sessionId: string) {
 }
 
 // Hook: useSubmitVote
-export function useSubmitVote() {
+export function useSubmitVote(sessionId: string) {
   const queryClient = useQueryClient();
-  const sessionId = getSessionId();
   
   return useMutation({
     mutationFn: submitVote,
     onSuccess: () => {
-      // Just invalidate the next pair and personal ranking
-      queryClient.invalidateQueries({ queryKey: ['game', 'nextpair', sessionId] });
-      queryClient.invalidateQueries({ queryKey: ['personalRanking', sessionId] });
+      // Invalidate in background (non-blocking)
+      void queryClient.invalidateQueries({ queryKey: ['game', 'nextpair', sessionId] });
+      void queryClient.invalidateQueries({ queryKey: ['personalRanking', sessionId] });
     },
-    onError: (error) => {
-      console.error('Vote submission failed:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to submit vote');
-    }
+    // Let caller handle errors
   });
 }
 
