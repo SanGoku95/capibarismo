@@ -63,22 +63,15 @@ export function useNextPair() {
   return useQuery({
     queryKey: ['game', 'nextpair', sessionId],
     enabled: isClient && Boolean(sessionId),
-    queryFn: async () => {
-      const response = await fetch(`${API_BASE}/game/nextpair?sessionId=${sessionId}`, {
-        cache: 'no-store',
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch next pair: ${response.statusText}`);
-      }
-      
-      const pair = await response.json() as Pair;
+    queryFn: () => {
+      // Generate pair locally - no network call needed
+      const pair = generateLocalPair(sessionId);
       prefetchNextPair(pair);
       return pair;
     },
-    staleTime: 30 * 1000,
+    staleTime: 0, // Always generate fresh pair
+    gcTime: 0, // Don't cache
     refetchOnWindowFocus: false,
-    retry: false,
   });
 }
 
