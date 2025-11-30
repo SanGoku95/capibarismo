@@ -207,9 +207,9 @@ export function PoliticalCompassPage() {
   const [xAxis, setXAxis] = useState<Axis>('econ');
   const [yAxis, setYAxis] = useState<Axis>('social');
   const [selectedCandidateIds, setSelectedCandidateIds] = useState<string[]>([
-    'antauro',
-    'guillermo-bermejo',
-    'martin-vizcarra',
+    'carlos-alvarez',
+    'cesar-acuna',
+    'keiko',
     'rafael',
   ]);
 
