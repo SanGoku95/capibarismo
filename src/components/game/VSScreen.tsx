@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CandidateCard } from './CandidateCard';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { cn } from '@/lib/utils';
+import { Heart } from 'lucide-react';
+import { track } from '@vercel/analytics';
 
 interface VSScreenProps {
   pair: {
@@ -24,11 +26,11 @@ interface VSScreenProps {
 }
 
 export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
-  const { retroEffects, reducedMotion } = useGameUIStore();
+  const { reducedMotion } = useGameUIStore();
   
   return (
-    <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-8">
-      {/* VS Logo in center */}
+    <div className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-4 md:p-8">
+      {/* VS Logo in center - adjusted for mobile */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
         <motion.div
           initial={reducedMotion ? {} : { scale: 0, rotate: -180 }}
@@ -39,21 +41,21 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
             delay: reducedMotion ? 0 : 0.2,
           }}
           className={cn(
-            'text-4xl sm:text-6xl md:text-7xl font-bold',
+            'text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold',
             'text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-red-500',
-            retroEffects && 'drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]'
+            'drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]'
           )}
           style={{
             fontFamily: "'Press Start 2P', cursive",
-            WebkitTextStroke: '2px white',
+            WebkitTextStroke: '1px white',
           }}
         >
           VS
         </motion.div>
       </div>
       
-      {/* Candidates */}
-      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+      {/* Candidates - side by side on all screens */}
+      <div className="w-full max-w-7xl grid grid-cols-2 gap-2 sm:gap-4 md:gap-8 lg:gap-16 items-center">
         <AnimatePresence mode="wait">
           <CandidateCard
             key={pair.a.id}
@@ -74,9 +76,29 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
           />
         </AnimatePresence>
       </div>
+
+      {/* Ko-fi support button - mobile only */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="mt-4 sm:hidden w-full max-w-sm px-4"
+      >
+        <a
+          href="https://ko-fi.com/D1D31GKBY9"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => track("game_kofi_click", { via: "vs_screen_mobile" })}
+          className="flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-black/40 backdrop-blur-sm px-3 py-2 text-xs text-white/70 transition-all duration-200 hover:bg-black/60 hover:text-white hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+          aria-label="Apoya el proyecto en Ko-fi"
+        >
+          <Heart className="w-3 h-3 text-red-400" fill="currentColor" />
+          <span>Apoya el proyecto</span>
+        </a>
+      </motion.div>
       
       {/* Scanline effect (optional) */}
-      {retroEffects && (
+      {
         <div 
           className="absolute inset-0 pointer-events-none z-20"
           style={{
@@ -84,7 +106,7 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
             opacity: 0.3,
           }}
         />
-      )}
+      }
     </div>
   );
 }

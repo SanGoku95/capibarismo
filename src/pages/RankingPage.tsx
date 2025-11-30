@@ -1,15 +1,19 @@
-import { usePersonalRanking, getSessionId } from '@/hooks/useGameAPI';
+import { usePersonalRanking, getSessionId, resetSession } from '@/hooks/useGameAPI';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Trophy, TrendingUp, Info, Medal, AlertCircle } from 'lucide-react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Trophy, Info, Medal, AlertCircle, RotateCcw } from 'lucide-react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { base } from '@/data/domains/base';
+import { useQueryClient } from '@tanstack/react-query';
 
 export function RankingPage() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  
   // Support viewing specific session rankings via URL (from CompletionModal), 
   // or default to current user's session from storage
   const sessionId = searchParams.get('sessionId') || getSessionId();
@@ -19,6 +23,17 @@ export function RankingPage() {
   // Check if the user has actually played any games
   // The API returns all candidates with 0 games if no history exists, so length check isn't enough
   const hasPlayed = rankings && rankings.some(r => r.games > 0);
+  
+  const handleNewGame = () => {
+    // Reset session and clear all cached data
+    const newSessionId = resetSession();
+    
+    // Clear all queries related to the old session
+    queryClient.clear();
+    
+    // Navigate to game page with new session
+    navigate('/jugar');
+  };
   
   const getRankBadge = (rank: number) => {
     if (rank === 1) return <Medal className="w-6 h-6 text-yellow-400 drop-shadow-md" />;
@@ -51,12 +66,14 @@ export function RankingPage() {
           </p>
           
           {/* CTA to play */}
-          <div className="mt-6">
-            <Button asChild size="lg" className="gap-2 shadow-lg hover:scale-105 transition-transform">
-              <Link to="/jugar">
-                <TrendingUp className="w-5 h-5" />
-                {hasPlayed ? 'Seguir jugando' : 'Jugar ahora'}
-              </Link>
+          <div className="mt-6 flex gap-3 justify-center flex-wrap">
+            <Button 
+              onClick={handleNewGame} 
+              size="lg" 
+              className="gap-2 shadow-lg hover:scale-105 transition-transform"
+            >
+              <RotateCcw className="w-5 h-5" />
+              Nueva Partida
             </Button>
           </div>
         </div>
@@ -86,8 +103,8 @@ export function RankingPage() {
                 Necesitas comparar candidatos para generar tu ranking personal.
                 ¡Juega unas cuantas rondas para ver quién es tu favorito!
               </p>
-              <Button asChild variant="secondary">
-                <Link to="/jugar">Comenzar a votar</Link>
+              <Button onClick={handleNewGame} variant="secondary">
+                Nueva Partida
               </Button>
             </div>
           )}

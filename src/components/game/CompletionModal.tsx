@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getSessionId } from '@/hooks/useGameAPI';
 
 interface CompletionModalProps {
-  onContinue: () => void;
+  onContinue?: () => void;
 }
 
 export function CompletionModal({ onContinue }: CompletionModalProps) {
@@ -22,9 +22,6 @@ export function CompletionModal({ onContinue }: CompletionModalProps) {
         <p>Has completado suficientes comparaciones.</p>
         
         <DialogFooter>
-          <Button onClick={onContinue} variant="outline">
-            Seguir jugando
-          </Button>
           <Button onClick={closeCompletionModal} asChild>
             <Link to={`/ranking?mode=personal&sessionId=${sessionId}`}>Ver mi ranking</Link>
           </Button>

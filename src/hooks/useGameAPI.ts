@@ -26,6 +26,23 @@ export function getSessionId(): string {
   return sessionId;
 }
 
+export function resetSession(): string {
+  if (typeof window === 'undefined') return '';
+  
+  // Get old session ID to clean up
+  const oldSessionId = localStorage.getItem(SESSION_KEY);
+  if (oldSessionId) {
+    // Clear seen pairs for old session
+    localStorage.removeItem(getSeenPairsKey(oldSessionId));
+  }
+  
+  // Generate new session ID
+  const newSessionId = nanoid();
+  localStorage.setItem(SESSION_KEY, newSessionId);
+  
+  return newSessionId;
+}
+
 // API base URL
 const API_BASE = '/api';
 

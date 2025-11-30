@@ -33,45 +33,46 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
 
   return (
     <div
-      className="flex flex-col items-center gap-4 p-4 rounded-lg border-2 border-white/20 bg-black/40 transition-opacity"
+      className="flex flex-col items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-lg border border-white/20 sm:border-2 bg-black/40 transition-opacity"
       style={{ opacity: isDisabled ? 0.6 : 1 }}
     >
+      {/* Info button - smaller on mobile */}
       <div className="w-full flex justify-end">
         <Button
           variant="ghost"
           size="icon"
-          className="text-white/70 hover:text-white"
+          className="text-white/70 hover:text-white h-6 w-6 sm:h-8 sm:w-8"
           onClick={handleInfoClick}
           title="Ver información"
         >
-          <Info className="w-4 h-4" />
+          <Info className="w-3 h-3 sm:w-4 sm:h-4" />
         </Button>
       </div>
 
-      {/* Simple image */}
-      <div className="cursor-pointer" onClick={handleSelect}>
+      {/* Image - responsive sizing */}
+      <div className="cursor-pointer w-full flex justify-center" onClick={handleSelect}>
         {imageSrc ? (
           <img
             src={imageSrc}
             alt={candidate.nombre}
-            className="w-48 h-64 object-contain"
+            className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-52 lg:w-48 lg:h-64 object-contain"
             loading="lazy"
             decoding="async"
           />
         ) : (
-          <div className="w-48 h-64 flex items-center justify-center bg-white/5 text-white/60 text-sm border border-white/10">
+          <div className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-52 lg:w-48 lg:h-64 flex items-center justify-center bg-white/5 text-white/60 text-xs sm:text-sm border border-white/10">
             Sin foto
           </div>
         )}
       </div>
       
-      {/* Name */}
-      <div className="text-center">
-        <h3 className="text-xl font-bold text-white mb-2">
+      {/* Name and button - compact on mobile */}
+      <div className="text-center w-full">
+        <h3 className="text-xs sm:text-base md:text-lg lg:text-xl font-bold text-white mb-1 sm:mb-2 px-1 line-clamp-2">
           {candidate.nombre}
         </h3>
         {candidate.ideologia && (
-          <p className="text-white/80 text-sm mb-4">
+          <p className="text-white/80 text-[10px] sm:text-xs md:text-sm mb-2 sm:mb-4 px-1 line-clamp-2">
             {candidate.ideologia}
           </p>
         )}
@@ -79,7 +80,8 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
         <Button
           onClick={handleSelect}
           disabled={isDisabled}
-          className="w-full"
+          className="w-full text-xs sm:text-sm h-8 sm:h-10"
+          size="sm"
         >
           Elegir
         </Button>
