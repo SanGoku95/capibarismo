@@ -1,7 +1,6 @@
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { RotateCcw } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { resetSession } from '@/hooks/useGameAPI';
 
@@ -11,7 +10,6 @@ interface GameHUDProps {
 }
 
 export function GameHUD({ comparisons, progressPercent }: GameHUDProps) {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   
   const handleNewGame = () => {
@@ -21,9 +19,8 @@ export function GameHUD({ comparisons, progressPercent }: GameHUDProps) {
     // Clear all queries related to the old session
     queryClient.clear();
     
-    // Force a hard reload to completely reset state
-    // Use navigate(0) which is the React Router way to reload the current route
-    navigate(0);
+    // Force full page reload to reset all state
+    window.location.reload();
   };
   
   return (
