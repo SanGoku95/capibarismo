@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Keyboard } from 'lucide-react';
 import { toast } from 'sonner';
 
-const COMPLETION_GOAL = 20;
+const COMPLETION_GOAL = 10; // Changed from 20
 
 export function JugarPage() {
   const sessionId = getSessionId();
