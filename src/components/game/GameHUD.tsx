@@ -53,7 +53,7 @@ export function GameHUD({ comparisons, progressPercent }: GameHUDProps) {
         >
           <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4" />
           <span className="hidden sm:inline">Nueva Partida</span>
-          <span className="sm:hidden">Nueva</span>
+          <span className="sm:hidden">Nueva Partida</span>
         </Button>
       </div>
     </div>
