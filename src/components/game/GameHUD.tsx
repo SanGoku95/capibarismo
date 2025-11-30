@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { RotateCcw } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { resetSession } from '@/hooks/useGameAPI';
+import { useNavigate } from 'react-router-dom';
 
 interface GameHUDProps {
   comparisons: number;
@@ -10,6 +11,7 @@ interface GameHUDProps {
 }
 
 export function GameHUD({ comparisons, progressPercent }: GameHUDProps) {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   
   const handleNewGame = () => {
@@ -20,7 +22,11 @@ export function GameHUD({ comparisons, progressPercent }: GameHUDProps) {
     queryClient.clear();
     
     // Force full page reload to reset all state
-    window.location.reload();
+     navigate('/jugar', { replace: true });
+     setTimeout(() => {
+      window.location.reload();
+    }, 100);
+    
   };
   
   return (
