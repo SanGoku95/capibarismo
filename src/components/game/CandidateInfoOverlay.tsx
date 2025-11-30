@@ -359,6 +359,30 @@ function CreenciaChip({
   onNavigate: () => void;
 }) {
   const [showTooltip, setShowTooltip] = useState(false);
+  const closeTimer = useRef<number | null>(null);
+
+  const clearTimer = () => {
+    if (closeTimer.current !== null) {
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const handlePointerEnter = (event: React.PointerEvent) => {
+    if (event.pointerType !== 'touch') {
+      clearTimer();
+      setShowTooltip(true);
+    }
+  };
+
+  const handlePointerLeave = (event: React.PointerEvent) => {
+    if (event.pointerType !== 'touch') {
+      clearTimer();
+      closeTimer.current = window.setTimeout(() => setShowTooltip(false), 150);
+    }
+  };
+
+  useEffect(() => () => clearTimer(), []);
   
   return (
     <Popover open={showTooltip} onOpenChange={setShowTooltip}>
@@ -366,8 +390,8 @@ function CreenciaChip({
         <Link
           to={`/candidate/${candidateId}#creencia-${creencia.id}`}
           onClick={onNavigate}
-          onPointerEnter={(e) => e.pointerType !== 'touch' && setShowTooltip(true)}
-          onPointerLeave={(e) => e.pointerType !== 'touch' && setShowTooltip(false)}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
           className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
         >
           {creencia.nombre}
@@ -378,9 +402,9 @@ function CreenciaChip({
         side="top"
         align="center"
         sideOffset={6}
-        className="max-w-[220px] rounded-lg border border-white/12 bg-popover/95 p-2.5 text-[10px] leading-relaxed backdrop-blur-xl"
-        onPointerEnter={() => setShowTooltip(true)}
-        onPointerLeave={() => setShowTooltip(false)}
+        className="max-w-[220px] rounded-lg border border-white/12 bg-popover/95 p-2.5 text-[10px] leading-relaxed backdrop-blur-xl pointer-events-auto"
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
       >
         <p className="font-semibold mb-1">{creencia.nombre}</p>
         <p className="text-muted-foreground">{creencia.resumen}</p>
