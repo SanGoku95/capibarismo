@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Compass, Scale } from "lucide-react";
+import { ArrowRight, Compass, Scale, Gamepad2 } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { listCandidates, getCandidateProfile } from "@/data";
 import { useItemListSEO } from '@/lib/useSEO';
@@ -78,6 +78,17 @@ export function HomePage() {
         <section className="w-full max-w-xl mx-auto mb-6 sm:mb-7">
           <div className="rounded-2xl border border-border/60 bg-background/75 shadow-[0_8px_20px_rgba(0,0,0,0.32)] backdrop-blur-sm p-4 sm:p-5">
             <div className="flex flex-col gap-3">
+              <Link
+                to="/jugar"
+                onClick={() => track("home_jugar_click", { via: "cta" })}
+                className="group inline-flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60 active:translate-y-0"
+              >
+                <span className="flex items-center gap-3">
+                  <Gamepad2 size={18} className="shrink-0" />
+                  Jugar: Versus Presidenciales 
+                </span>
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              </Link>
               <Link
                 to="/compare"
                 onClick={() => track("home_compare_click", { via: "cta" })}

@@ -68,3 +68,5 @@ Thumbs.db
 
 # Local development
 .cache/
+.vercel
+.env*.local
