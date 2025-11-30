@@ -22,11 +22,11 @@ export function GameHUD({ comparisons, progressPercent }: GameHUDProps) {
     queryClient.clear();
     
     // Force full page reload to reset all state
-     navigate('/jugar', { replace: true });
+     navigate('/jugar');
      setTimeout(() => {
       window.location.reload();
     }, 100);
-    
+
   };
   
   return (
