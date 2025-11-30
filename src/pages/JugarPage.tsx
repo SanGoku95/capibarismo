@@ -6,7 +6,7 @@ import { CompletionModal } from '@/components/game/CompletionModal';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { useNextPair, useSubmitVote, getSessionId } from '@/hooks/useGameAPI';
 import { Button } from '@/components/ui/button';
-import { Keyboard, Volume2, VolumeX } from 'lucide-react';
+import { Keyboard } from 'lucide-react';
 import { toast } from 'sonner';
 
 const COMPLETION_GOAL = 20;

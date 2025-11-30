@@ -9,7 +9,7 @@ import type { CandidateBase } from '../data/types';
 const listCandidates = (): CandidateBase[] => Object.values(base);
 
 // Types
-import type { Pair, GameState, VoteRequest, RankingEntry } from '../../api/types';
+import type { Pair, VoteRequest, RankingEntry } from '../../api/types';
 // Session ID management
 const SESSION_KEY = 'ranking-game-session-id';
 const SEEN_PAIRS_KEY_PREFIX = 'ranking-game-seen-pairs';
