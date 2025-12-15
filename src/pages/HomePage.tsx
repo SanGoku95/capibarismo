@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Compass, Scale, Gamepad2, ChevronDown, ChevronUp, Target, X } from "lucide-react";
+import { ArrowRight, Compass, Scale, Gamepad2, ChevronDown, ChevronUp, Target } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { listCandidates, getCandidateProfile } from "@/data";
 import { useItemListSEO } from '@/lib/useSEO';
+import { DonationModal } from '@/components/common/DonationModal';
 
 export function HomePage() {
   const [showAllGoals, setShowAllGoals] = useState(false);
@@ -107,8 +108,8 @@ export function HomePage() {
           <div className="rounded-3xl border border-border/45 bg-background/80 backdrop-blur-sm shadow-[0_10px_26px_rgba(0,0,0,0.18)] px-5 py-6">
             {/* Header */}
             <div className="text-center">
-              <h2 className="text-xs sm:text-sm tracking-wide font-semibold uppercase text-accent/90 font-sans">
-                Apoya el proyecto
+              <h2 className="text-sm sm:text-base tracking-wide font-semibold uppercase text-accent/90 font-sans">
+              Apoya el proyecto
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-foreground/70 font-sans">
                 Tu contribución hace crecer este proyecto
@@ -232,59 +233,10 @@ export function HomePage() {
         </div>
 
         {/* Donation Modal */}
-      {showDonationModal && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-          onClick={() => setShowDonationModal(false)}
-        >
-          <div 
-            className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-             <button
-              onClick={() => setShowDonationModal(false)}
-              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors"
-              aria-label="Cerrar"
-            >
-              <X className="w-5 h-5 text-gray-700" />
-            </button>
-
-            {/* Yape Header */}
-            <div className="bg-[#742283] px-6 py-5 text-center">
-              <svg viewBox="0 0 120 40" className="h-8 mx-auto" fill="white">
-                <text x="10" y="30" fontSize="32" fontWeight="bold" fontFamily="Arial, sans-serif">Yape</text>
-              </svg>
-              <p className="text-white text-sm mt-2 font-sans">Escanea para yapear</p>
-            </div>
-
-            {/* QR Code */}
-            <div className="p-8 bg-white">
-              <div className="bg-white p-4 rounded-2xl shadow-inner">
-                <img 
-                  src="/qr_capi.png"
-                  alt="QR Code de Yape"
-                  className="w-full h-auto"
-                />
-              </div>
-              
-              <div className="mt-6 text-center">
-                <p className="text-gray-700 font-semibold text-lg font-sans">@capibarismo</p>
-                <p className="text-gray-500 text-sm mt-2 font-sans">
-                  Escanea el código desde tu app Yape
-                </p>
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="bg-gray-50 px-6 py-4 text-center border-t border-gray-200">
-              <p className="text-xs text-gray-600 font-sans">
-                Gracias por apoyar este proyecto 💜
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+        <DonationModal 
+          isOpen={showDonationModal}
+          onClose={() => setShowDonationModal(false)}
+        />
 
       </main>
     </div>

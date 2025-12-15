@@ -2,8 +2,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CandidateCard } from './CandidateCard';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { cn } from '@/lib/utils';
-import { Heart } from 'lucide-react';
+import { Heart, ArrowRight, X } from 'lucide-react';
 import { track } from '@vercel/analytics';
+import { useState } from 'react';
+import { DonationModal } from '../common/DonationModal';
 
 interface VSScreenProps {
   pair: {
@@ -27,6 +29,7 @@ interface VSScreenProps {
 
 export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
   const { reducedMotion } = useGameUIStore();
+  const [showDonationModal, setShowDonationModal] = useState(false);
   
   return (
     <div className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-4 md:p-8">
@@ -76,37 +79,31 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
           />
         </AnimatePresence>
       </div>
-
-      {/* Ko-fi support button - mobile only */}
+      {/* Yape support button - mobile only */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
         className="mt-4 sm:hidden w-full max-w-sm px-4"
       >
-        <a
-          href="https://ko-fi.com/D1D31GKBY9"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => track("game_kofi_click", { via: "vs_screen_mobile" })}
-          className="flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-black/40 backdrop-blur-sm px-3 py-2 text-xs text-white/70 transition-all duration-200 hover:bg-black/60 hover:text-white hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
-          aria-label="Apoya el proyecto en Ko-fi"
+        <button
+          onClick={() => {
+            setShowDonationModal(true);
+            track("game_yape_click", { via: "vs_screen_mobile" });
+          }}
+          className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-black/40 backdrop-blur-sm px-3 py-2 text-xs text-white/70 transition-all duration-200 hover:bg-black/60 hover:text-white hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+          aria-label="Apoya el proyecto con Yape"
         >
           <Heart className="w-3 h-3 text-red-400" fill="currentColor" />
-          <span>Apoya el proyecto</span>
-        </a>
+          <span>Apoya con Yape</span>
+        </button>
       </motion.div>
-      
-      {/* Scanline effect (optional) */}
-      {
-        <div 
-          className="absolute inset-0 pointer-events-none z-20"
-          style={{
-            background: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, transparent 2px, transparent 4px)',
-            opacity: 0.3,
-          }}
-        />
-      }
+
+      {/* Donation Modal */}
+      <DonationModal 
+        isOpen={showDonationModal}
+        onClose={() => setShowDonationModal(false)}
+      />
     </div>
   );
 }
