@@ -117,9 +117,8 @@ export function RankingPage() {
                     <TableHead className="w-20 text-center">Rank</TableHead>
                     <TableHead>Candidato</TableHead>
                     <TableHead className="text-right">Puntaje</TableHead>
-                    <TableHead className="text-right hidden sm:table-cell">Rating Elo</TableHead>
-                    <TableHead className="text-right hidden md:table-cell">Partidas</TableHead>
-                    <TableHead className="text-right hidden lg:table-cell">Win Rate</TableHead>
+                    <TableHead className="text-right hidden sm:table-cell">Partidas</TableHead>
+                    <TableHead className="text-right hidden md:table-cell">% Victorias</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -166,13 +165,10 @@ export function RankingPage() {
                             {entry.score}
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-right hidden sm:table-cell font-mono text-white/70">
-                          {entry.rating}
-                        </TableCell>
-                        <TableCell className="text-right hidden md:table-cell text-white/70">
+                        <TableCell className="text-right hidden sm:table-cell text-white/70">
                           {entry.games}
                         </TableCell>
-                        <TableCell className="text-right hidden lg:table-cell">
+                        <TableCell className="text-right hidden md:table-cell">
                           <span className={cn(
                             "font-bold",
                             entry.winRate >= 60 ? 'text-green-400' : 
@@ -213,8 +209,7 @@ export function RankingPage() {
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-sm text-white/70">
                   <li><strong>Puntaje:</strong> Valor normalizado para facilitar la comparación.</li>
-                  <li><strong>Rating Elo:</strong> El valor matemático interno (inicia en 1200).</li>
-                  <li><strong>Win Rate:</strong> Porcentaje de victorias en enfrentamientos directos.</li>
+                  <li><strong>% Victorias:</strong> Porcentaje de victorias en enfrentamientos directos.</li>
                 </ul>
                 <p className="text-xs text-white/50 pt-2 border-t border-white/10 mt-2">
                   Nota: Este es un ranking de preferencia personal basado únicamente en tus decisiones de esta sesión.
