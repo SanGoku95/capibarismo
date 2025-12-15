@@ -1,6 +1,5 @@
 import { usePersonalRanking, getSessionId, resetSession } from '@/hooks/useGameAPI';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Trophy, Info, Medal, AlertCircle, RotateCcw } from 'lucide-react';
@@ -114,11 +113,10 @@ export function RankingPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="hover:bg-transparent border-white/10">
-                    <TableHead className="w-20 text-center">Rank</TableHead>
                     <TableHead>Candidato</TableHead>
-                    <TableHead className="text-right">Puntaje</TableHead>
-                    <TableHead className="text-right hidden sm:table-cell">Partidas</TableHead>
-                    <TableHead className="text-right hidden md:table-cell">% Victorias</TableHead>
+                    <TableHead className="w-20 text-center">Ranking</TableHead>
+                    <TableHead className="text-right">Partidas</TableHead>
+                    <TableHead className="text-right">% Victorias</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -128,11 +126,6 @@ export function RankingPage() {
                     
                     return (
                       <TableRow key={entry.candidateId} className="hover:bg-white/5 border-white/5 transition-colors">
-                        <TableCell className="font-medium text-center">
-                          <div className="flex justify-center">
-                            {getRankBadge(entry.rank)}
-                          </div>
-                        </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-3">
                             {imageUrl && (
@@ -152,23 +145,15 @@ export function RankingPage() {
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell className="text-right">
-                          <Badge 
-                            variant={entry.rank <= 3 ? 'default' : 'secondary'}
-                            className={cn(
-                              "font-mono text-sm",
-                              entry.rank === 1 && "bg-yellow-500 hover:bg-yellow-600 text-black",
-                              entry.rank === 2 && "bg-gray-300 hover:bg-gray-400 text-black",
-                              entry.rank === 3 && "bg-amber-600 hover:bg-amber-700"
-                            )}
-                          >
-                            {entry.score}
-                          </Badge>
+                        <TableCell className="font-medium text-center">
+                          <div className="flex justify-center">
+                            {getRankBadge(entry.rank)}
+                          </div>
                         </TableCell>
-                        <TableCell className="text-right hidden sm:table-cell text-white/70">
+                        <TableCell className="text-right text-white/70 font-medium">
                           {entry.games}
                         </TableCell>
-                        <TableCell className="text-right hidden md:table-cell">
+                        <TableCell className="text-right">
                           <span className={cn(
                             "font-bold",
                             entry.winRate >= 60 ? 'text-green-400' : 
@@ -208,7 +193,7 @@ export function RankingPage() {
                   ordenada que refleja tus decisiones, incluso entre candidatos que no has comparado directamente.
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-sm text-white/70">
-                  <li><strong>Puntaje:</strong> Valor normalizado para facilitar la comparación.</li>
+                  <li><strong>Partidas:</strong> Número de enfrentamientos directos en los que participó el candidato.</li>
                   <li><strong>% Victorias:</strong> Porcentaje de victorias en enfrentamientos directos.</li>
                 </ul>
                 <p className="text-xs text-white/50 pt-2 border-t border-white/10 mt-2">
