@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { nanoid } from 'nanoid';
 import { base } from '../data/domains/base';
 import type { CandidateBase } from '../data/types';
+import { MAX_PAIR_SELECTION_ATTEMPTS } from '@/lib/gameConstants';
 
 // Helper to match previous API function signature
 const listCandidates = (): CandidateBase[] => Object.values(base);
@@ -13,7 +14,6 @@ import type { Pair, VoteRequest, RankingEntry } from '../../api/types';
 // Session ID management
 const SESSION_KEY = 'ranking-game-session-id';
 const SEEN_PAIRS_KEY_PREFIX = 'ranking-game-seen-pairs';
-const MAX_PAIR_SELECTION_ATTEMPTS = 50;
 
 export function getSessionId(): string {
   if (typeof window === 'undefined') return '';

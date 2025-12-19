@@ -8,8 +8,7 @@ import { useNextPair, useSubmitVote, getSessionId } from '@/hooks/useGameAPI';
 import { Button } from '@/components/ui/button';
 import { Keyboard } from 'lucide-react';
 import { toast } from 'sonner';
-
-const COMPLETION_GOAL = 10; // Changed from 20
+import { COMPLETION_GOAL } from '@/lib/gameConstants';
 
 export function JugarPage() {
   const sessionId = getSessionId();
