@@ -20,9 +20,8 @@ import { Shield, Briefcase, Power, Radio, Sparkles, AlertTriangle, GraduationCap
 import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
 import { trayectorias } from '@/data/domains/trayectorias';
 
-// + imports para tooltip/popover
-import { type ReactNode, useId, useRef, useState, useEffect } from 'react';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { InfoBadge } from './InfoBadge';
+import { severityProps, legalProps, severityHelp, legalHelp } from './controversy-utils';
 
 interface CandidateFactSheetProps {
   candidate: CandidateBase | null;
@@ -178,8 +177,8 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                         .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
                         .slice(0, 3)
                         .map((c) => {
-                          const s = sevProps(c.severidad);
-                          const l = legProps(c.legal);
+                          const s = severityProps(c.severidad);
+                          const l = legalProps(c.legal);
                           return (
                             <div key={c.id} className="block p-2 rounded-md hover:bg-muted/50">
                               <Link to={`/candidate/${candidate.id}#controversia-${c.id}`} className="text-base font-sans font-medium hover:underline">
@@ -190,14 +189,14 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                                   className={s.className}
                                   label={s.label}
                                   description={
-                                    <div><span className="font-semibold">Severidad:</span> {sevHelp(c.severidad)}</div>
+                                    <div><span className="font-semibold">Severidad:</span> {severityHelp(c.severidad)}</div>
                                   }
                                 />
                                 <InfoBadge
                                   className={l.className}
                                   label={l.label}
                                   description={
-                                    <div><span className="font-semibold">Estado legal:</span> {legHelp(c.legal)}</div>
+                                    <div><span className="font-semibold">Estado legal:</span> {legalHelp(c.legal)}</div>
                                   }
                                 />
                               </div>
@@ -298,124 +297,5 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
         </CardContent>
       </Card>
     </motion.div>
-  );
-}
-
-// NEW: local helpers
-const sevProps = (sev?: string) => {
-  switch (sev) {
-    case 'muy-alta': return { label: 'Muy alta', className: 'bg-red-600/90 text-white' };
-    case 'alta':     return { label: 'Alta',     className: 'bg-orange-600/90 text-white' };
-    case 'media':    return { label: 'Media',    className: 'bg-amber-300/90 text-foreground' };
-    default:         return { label: '—',        className: 'bg-muted text-foreground' };
-  }
-};
-const legProps = (l?: string) => {
-  switch (l) {
-    case 'denuncia_en_medios':   return { label: 'Denuncia en Medios',         className: 'bg-sky-600/90 text-white' };
-    case 'en_curso': return { label: 'En Curso', className: 'bg-amber-500/90 text-black' };
-    case 'sancion':  return { label: 'Sanción',     className: 'bg-rose-600/90 text-white'};
-    case 'cerrado_sin_sancion':  return { label: 'Cerrado sin sanción',     className: 'bg-emerald-600/90 text-white' };
-    case 'condena':              return { label: 'Condena',             className:'bg-red-700/90 text-white' };
-    default:                     return { label: '—', className:'bg-muted text-foreground'};
-  }
-};
-
-// NEW: ayudas de texto
-const sevHelp = (sev?: string) => {
-  switch (sev) {
-    case 'muy-alta': return 'Controversia de muy alto impacto público o institucional.';
-    case 'alta':     return 'Controversia de impacto significativo o con medidas relevantes.';
-    case 'media':    return 'Controversia relevante en seguimiento.';
-    default:         return 'Sin clasificación específica.';
-  }
-};
-const legHelp = (l?: string) => {
-  switch (l) {
-    case 'denuncia_en_medios':  return 'Se dijo en prensa/redes; sin trámite oficial.';
-    case 'en_curso':            return 'Trámite oficial abierto (investigación o juicio).';
-    case 'sancion':             return 'Hubo sanción institucional (no es condena penal).';
-    case 'cerrado_sin_sancion': return 'Archivado o absuelto; sin sanción.';
-    case 'condena':             return 'Sentencia penal firme de culpabilidad.';
-    default:                    return 'Sin datos suficientes para clasificar.';
-  }
-};
-
-// NEW: Badge con explicación (hover y click) — Popover controlado con timer
-function InfoBadge({
-  label,
-  className,
-  description,
-}: { label: string; className?: string; description: ReactNode }) {
-  const [open, setOpen] = useState(false);
-  const closeTimer = useRef<number | null>(null);
-  const contentId = useId();
-
-  const clearTimer = () => {
-    if (closeTimer.current !== null) {
-      window.clearTimeout(closeTimer.current);
-      closeTimer.current = null;
-    }
-  };
-
-  const handlePointerEnter = (event: React.PointerEvent) => {
-    if (event.pointerType !== 'touch') {
-      clearTimer();
-      setOpen(true);
-    }
-  };
-
-  const handlePointerLeave = (event: React.PointerEvent) => {
-    if (event.pointerType !== 'touch') {
-      clearTimer();
-      closeTimer.current = window.setTimeout(() => setOpen(false), 120);
-    }
-  };
-
-  const handleClick = (event: React.MouseEvent | React.TouchEvent) => {
-    event.preventDefault();
-    clearTimer();
-    setOpen(prev => !prev);
-  };
-
-  useEffect(() => () => clearTimer(), []);
-
-  const triggerClasses = cn(
-    "inline-flex items-center gap-1 rounded-full border border-white/12 bg-card/80 px-2.5 py-1 text-[11px] font-medium lowercase tracking-wide text-foreground/80 shadow-[0_10px_24px_-12px_rgba(0,0,0,0.55)] transition-all duration-200 ease-out backdrop-blur-md",
-    "hover:border-primary/70 hover:text-primary-foreground hover:bg-primary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-primary/70 focus-visible:ring-offset-background",
-    open && "border-primary/80 bg-primary/85 text-primary-foreground shadow-[0_0_28px_rgba(244,63,94,0.45)]",
-    className,
-  );
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <button
-          type="button"
-          className={triggerClasses}
-          aria-describedby={contentId}
-          onClick={handleClick}
-          onPointerEnter={handlePointerEnter}
-          onPointerLeave={handlePointerLeave}
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-white/30 transition-colors group-hover:bg-white/80" />
-          <span className="leading-none">{label}</span>
-        </button>
-      </PopoverTrigger>
-      <PopoverContent
-        id={contentId}
-        side="top"
-        align="start"
-        sideOffset={12}
-        className="max-w-xs rounded-2xl border border-white/12 bg-card/95 p-4 text-sm leading-relaxed text-foreground/85 shadow-[0_22px_42px_-24px_rgba(0,0,0,0.65)] backdrop-blur-xl"
-        onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
-      >
-        <div className="flex items-start gap-2">
-          <span className="mt-1 h-1.5 w-10 rounded-full bg-gradient-to-r from-primary/70 via-accent/60 to-secondary/65" />
-          <div>{description}</div>
-        </div>
-      </PopoverContent>
-    </Popover>
   );
 }

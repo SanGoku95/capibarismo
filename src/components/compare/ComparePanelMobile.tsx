@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { memo, useEffect, useId, useRef, useState } from 'react';
+import { memo } from 'react';
 import type { CandidateBase } from '@/data/types';
 import { trayectorias } from '@/data/domains/trayectorias';
 import { GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
@@ -8,9 +8,8 @@ import { Link } from 'react-router-dom';
 import { CandidatePicker } from './CandidatePicker';
 import { PLAYER_INDICATORS, UI_CLASSES } from '@/lib/constants';
 import { getCandidateProfile } from '@/data';
-
-// + imports para popover
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { InfoBadge } from './InfoBadge';
+import { severityProps, legalProps, severityHelp, legalHelp } from './controversy-utils';
 
 interface CandidateComparisonGridProps {
   leftCandidate: CandidateBase | null;
@@ -270,16 +269,15 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                                 {c.titulo}
                               </Link>
                               <div className="flex flex-wrap gap-1 mt-1">
-                                {/* removed rank chip */}
-                                <ExplainChip
-                                  className={cn(sevChip(c.severidad).className, 'min-h-[22px]')}
-                                  label={sevChip(c.severidad).label}
-                                  description={<div><span className="font-semibold lowercase">severidad:</span> {sevHelp(c.severidad)}</div>}
+                                <InfoBadge
+                                  className={cn(severityProps(c.severidad).className, 'min-h-[22px]')}
+                                  label={severityProps(c.severidad).label}
+                                  description={<div><span className="font-semibold lowercase">severidad:</span> {severityHelp(c.severidad)}</div>}
                                 />
-                                <ExplainChip
-                                  className={cn(legChip(c.legal).className, 'min-h-[22px]')}
-                                  label={legChip(c.legal).label}
-                                  description={<div><span className="font-semibold lowercase">estado legal:</span> {legHelp(c.legal)}</div>}
+                                <InfoBadge
+                                  className={cn(legalProps(c.legal).className, 'min-h-[22px]')}
+                                  label={legalProps(c.legal).label}
+                                  description={<div><span className="font-semibold lowercase">estado legal:</span> {legalHelp(c.legal)}</div>}
                                 />
                               </div>
                               <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="block text-xs text-white/80 underline mt-1">Fuente</a>
@@ -311,16 +309,15 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                                 {c.titulo}
                               </Link>
                               <div className="flex flex-wrap gap-1 mt-1">
-                                {/* removed rank chip */}
-                                <ExplainChip
-                                  className={cn(sevChip(c.severidad).className, 'min-h-[22px]')}
-                                  label={sevChip(c.severidad).label}
-                                  description={<div><span className="font-semibold lowercase">severidad:</span> {sevHelp(c.severidad)}</div>}
+                                <InfoBadge
+                                  className={cn(severityProps(c.severidad).className, 'min-h-[22px]')}
+                                  label={severityProps(c.severidad).label}
+                                  description={<div><span className="font-semibold lowercase">severidad:</span> {severityHelp(c.severidad)}</div>}
                                 />
-                                <ExplainChip
-                                  className={cn(legChip(c.legal).className, 'min-h-[22px]')}
-                                  label={legChip(c.legal).label}
-                                  description={<div><span className="font-semibold lowercase">estado legal:</span> {legHelp(c.legal)}</div>}
+                                <InfoBadge
+                                  className={cn(legalProps(c.legal).className, 'min-h-[22px]')}
+                                  label={legalProps(c.legal).label}
+                                  description={<div><span className="font-semibold lowercase">estado legal:</span> {legalHelp(c.legal)}</div>}
                                 />
                               </div>
                               <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="block text-xs text-white/80 underline mt-1">Fuente</a>
@@ -436,119 +433,3 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
     </div>
   );
 }
-
-// UI chips for Controversias (mobile-friendly)
-const sevChip = (sev?: string) => {
-  switch (sev) {
-    case 'muy-alta': return { label: 'muy alta', className: 'bg-red-600/90 text-white' };
-    case 'alta':     return { label: 'alta',     className: 'bg-orange-600/90 text-white' };
-    case 'media':    return { label: 'media',    className: 'bg-amber-300/90 text-foreground' };
-    default:         return { label: '—',        className: 'bg-muted text-foreground' };
-  }
-};
-const legChip = (l?: string) => {
-  switch (l) {
-    case 'denuncia_en_medios':   return { label: 'Denuncia en Medios',               className: 'bg-sky-600/90 text-white' };
-    case 'en_curso':             return { label: 'En curso',            className: 'bg-amber-500/90 text-black' };
-    case 'sancion':              return { label: 'Sanción',             className: 'bg-rose-600/90 text-white' };
-    case 'cerrado_sin_sancion':  return { label: 'Cerrado sin sanción', className: 'bg-emerald-600/90 text-white' };
-    case 'condena':              return { label: 'Condena',             className: 'bg-red-700/90 text-white' };
-    default:                     return { label: '—',                   className: 'bg-muted text-foreground' };
-  }
-};
-
-// NEW: ayudas de texto
-const sevHelp = (sev?: string) => {
-  switch (sev) {
-    case 'muy-alta': return 'Controversia de muy alto impacto público o institucional.';
-    case 'alta':     return 'Controversia de impacto significativo o con medidas relevantes.';
-    case 'media':    return 'Controversia relevante en seguimiento.';
-    default:         return 'Sin clasificación específica.';
-  }
-};
-const legHelp = (l?: string) => {
-  switch (l) {
-    case 'denuncia_en_medios':  return 'Se dijo en prensa/redes; sin trámite oficial.';
-    case 'en_curso':            return 'Trámite oficial abierto (investigación o juicio).';
-    case 'sancion':             return 'Hubo sanción institucional (no es condena penal).';
-    case 'cerrado_sin_sancion': return 'Archivado o absuelto; sin sanción.';
-    case 'condena':             return 'Sentencia penal firme de culpabilidad.';
-    default:                    return 'Sin datos suficientes para clasificar.';
-  }
-};
-
-
-// NEW: Chip con explicación (hover/click)
-const ExplainChip = ({ className = '', label, description }: { className?: string; label: string; description: React.ReactNode }) => {
-  const [open, setOpen] = useState(false);
-  const closeTimer = useRef<number | null>(null);
-  const contentId = useId();
-
-  const clearTimer = () => {
-    if (closeTimer.current !== null) {
-      window.clearTimeout(closeTimer.current);
-      closeTimer.current = null;
-    }
-  };
-
-  const handlePointerEnter = (event: React.PointerEvent) => {
-    if (event.pointerType !== 'touch') {
-      clearTimer();
-      setOpen(true);
-    }
-  };
-
-  const handlePointerLeave = (event: React.PointerEvent) => {
-    if (event.pointerType !== 'touch') {
-      clearTimer();
-      closeTimer.current = window.setTimeout(() => setOpen(false), 120);
-    }
-  };
-
-  const handleClick = (event: React.MouseEvent | React.TouchEvent) => {
-    event.preventDefault();
-    clearTimer();
-    setOpen(prev => !prev);
-  };
-
-  useEffect(() => () => clearTimer(), []);
-
-  const triggerClasses = cn(
-    "inline-flex items-center gap-1 rounded-full border border-white/12 bg-white/5 px-2 py-0.5 text-[10px] font-medium lowercase tracking-wide text-white/80 shadow-[0_10px_24px_-14px_rgba(0,0,0,0.6)] transition-all duration-200 ease-out backdrop-blur-md",
-    "hover:border-primary/70 hover:text-primary-foreground hover:bg-primary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-primary/70 focus-visible:ring-offset-background",
-    open && "border-primary/80 bg-primary/85 text-primary-foreground shadow-[0_0_24px_rgba(244,63,94,0.35)]",
-    className,
-  );
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <button
-          type="button"
-          className={triggerClasses}
-          aria-describedby={contentId}
-          onClick={handleClick}
-          onPointerEnter={handlePointerEnter}
-          onPointerLeave={handlePointerLeave}
-        >
-          <span className="h-1 w-1 rounded-full bg-white/40 transition-colors" />
-          <span className="leading-none">{label}</span>
-        </button>
-      </PopoverTrigger>
-      <PopoverContent
-        id={contentId}
-        side="top"
-        align="center"
-        sideOffset={10}
-        className="max-w-xs rounded-2xl border border-white/12 bg-card/95 p-3 text-xs leading-relaxed text-foreground/85 shadow-[0_18px_36px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl"
-        onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
-      >
-        <div className="flex items-start gap-2">
-          <span className="mt-1 h-1 w-8 rounded-full bg-gradient-to-r from-primary/70 via-accent/60 to-secondary/65" />
-          <div>{description}</div>
-        </div>
-      </PopoverContent>
-    </Popover>
-  );
-};
