@@ -1,4 +1,7 @@
 // Shared Elo calculation logic
+// NOTE: These constants are also defined in src/lib/gameConstants.ts
+// We duplicate them here to avoid introducing a dependency from API to src
+// Keep these values in sync manually
 export const ELO_K = 32;
 export const INITIAL_ELO = 1200;
 

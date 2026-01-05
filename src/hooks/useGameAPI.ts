@@ -1,46 +1,25 @@
 // TanStack Query hooks for the ranking game
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { nanoid } from 'nanoid';
 import { base } from '../data/domains/base';
 import type { CandidateBase } from '../data/types';
+import { MAX_PAIR_SELECTION_ATTEMPTS } from '@/lib/gameConstants';
+import { sessionService } from '@/services/sessionService';
 
 // Helper to match previous API function signature
 const listCandidates = (): CandidateBase[] => Object.values(base);
 
 // Types
 import type { Pair, VoteRequest, RankingEntry } from '../../api/types';
-// Session ID management
-const SESSION_KEY = 'ranking-game-session-id';
-const SEEN_PAIRS_KEY_PREFIX = 'ranking-game-seen-pairs';
-const MAX_PAIR_SELECTION_ATTEMPTS = 50;
 
+// Re-export session functions for backward compatibility
+// Components can use these or directly use sessionService
 export function getSessionId(): string {
-  if (typeof window === 'undefined') return '';
-  
-  let sessionId = localStorage.getItem(SESSION_KEY);
-  if (!sessionId) {
-    sessionId = nanoid();
-    localStorage.setItem(SESSION_KEY, sessionId);
-  }
-  return sessionId;
+  return sessionService.getSessionId();
 }
 
 export function resetSession(): string {
-  if (typeof window === 'undefined') return '';
-  
-  // Get old session ID to clean up
-  const oldSessionId = localStorage.getItem(SESSION_KEY);
-  if (oldSessionId) {
-    // Clear seen pairs for old session
-    localStorage.removeItem(getSeenPairsKey(oldSessionId));
-  }
-  
-  // Generate new session ID
-  const newSessionId = nanoid();
-  localStorage.setItem(SESSION_KEY, newSessionId);
-  
-  return newSessionId;
+  return sessionService.resetSession();
 }
 
 // API base URL
@@ -49,7 +28,7 @@ const API_BASE = '/api';
 // Prefetch next pair images
 export function prefetchNextPair(pair: Pair | undefined) {
   if (!pair) return;
-  
+
   // Prefetch images
   if (pair.a.fullBody) {
     const imgA = new Image();
@@ -64,7 +43,7 @@ export function prefetchNextPair(pair: Pair | undefined) {
 // Fetch personal ranking
 async function fetchPersonalRanking(sessionId: string): Promise<RankingEntry[]> {
   if (!sessionId) return [];
-  
+
   const response = await fetch(`${API_BASE}/ranking/personal?sessionId=${sessionId}`);
   if (!response.ok) {
     throw new Error('Failed to fetch personal ranking');
@@ -82,7 +61,7 @@ export function useNextPair() {
     enabled: isClient && Boolean(sessionId),
     queryFn: () => {
       // Generate pair locally - no network call needed
-      const pair = generateLocalPair(sessionId);
+      const pair = generateLocalPair();
       prefetchNextPair(pair);
       return pair;
     },
@@ -106,7 +85,7 @@ export function usePersonalRanking(sessionId: string) {
 // Hook: useSubmitVote
 export function useSubmitVote(sessionId: string) {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: submitVote,
     onSuccess: () => {
@@ -118,7 +97,7 @@ export function useSubmitVote(sessionId: string) {
   });
 }
 
-// Submit vote
+// Submit vote with improved error handling
 async function submitVote(vote: VoteRequest): Promise<{ ok: boolean }> {
   const response = await fetch(`${API_BASE}/game/vote`, {
     method: 'POST',
@@ -127,40 +106,25 @@ async function submitVote(vote: VoteRequest): Promise<{ ok: boolean }> {
     },
     body: JSON.stringify(vote),
   });
-  
+
   if (!response.ok) {
     if (response.status === 429) {
       throw new Error('Rate limit exceeded. Please slow down.');
     }
+    if (response.status === 400) {
+      throw new Error('Invalid vote data');
+    }
+    if (response.status >= 500) {
+      throw new Error('Server error. Please try again.');
+    }
     throw new Error('Failed to submit vote');
   }
-  
+
   return response.json();
 }
 
-// --- replace the previous fetcher + unused fetchNextPair / fetchGameState definitions
-async function fetcher<T = unknown>(url: string, opts?: RequestInit): Promise<T | null> {
-  const res = await fetch(url, opts);
-
-  // 304 Not Modified -> no new data; return null so react-query sees a defined value
-  if (res.status === 304) return null;
-
-  if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    throw new Error(text || `Request failed: ${res.status}`);
-  }
-
-  try {
-    // If response has no body or is not JSON, return null rather than undefined
-    const text = await res.text();
-    if (!text) return null;
-    return JSON.parse(text) as T;
-  } catch (e) {
-    return null;
-  }
-}
-
-function generateLocalPair(sessionId: string): Pair {
+// Generate a pair of candidates locally
+function generateLocalPair(): Pair {
   if (typeof window === 'undefined') {
     throw new Error('Pair generation requires a browser environment');
   }
@@ -170,16 +134,17 @@ function generateLocalPair(sessionId: string): Pair {
     throw new Error('Not enough candidates to generate a pair');
   }
 
-  const seenPairs = loadSeenPairs(sessionId);
+  const seenPairs = sessionService.getSeenPairs();
   const totalPossiblePairs = (candidates.length * (candidates.length - 1)) / 2;
 
+  // Reset seen pairs if all possible pairs have been shown
   if (seenPairs.size >= totalPossiblePairs) {
-    seenPairs.clear();
-    persistSeenPairs(sessionId, seenPairs);
+    sessionService.clearSeenPairs();
   }
 
   let pair: Pair | null = null;
 
+  // Try to find an unseen pair
   for (let attempt = 0; attempt < MAX_PAIR_SELECTION_ATTEMPTS; attempt++) {
     const [candidateA, candidateB] = pickDistinctCandidates(candidates);
     const pairId = createPairId(candidateA.id, candidateB.id);
@@ -190,13 +155,14 @@ function generateLocalPair(sessionId: string): Pair {
     }
   }
 
+  // Fallback: if we couldn't find an unseen pair, just generate a random one
   if (!pair) {
     const [candidateA, candidateB] = pickDistinctCandidates(candidates);
     pair = createPair(candidateA, candidateB);
   }
 
-  seenPairs.add(pair.pairId);
-  persistSeenPairs(sessionId, seenPairs);
+  // Mark pair as seen
+  sessionService.addSeenPair(pair.pairId);
 
   return pair;
 }
@@ -233,25 +199,4 @@ function createPair(candidateA: CandidateBase, candidateB: CandidateBase, pairId
 
 function createPairId(aId: string, bId: string): string {
   return [aId, bId].sort().join('-');
-}
-
-function loadSeenPairs(sessionId: string): Set<string> {
-  if (typeof window === 'undefined') return new Set();
-  try {
-    const raw = localStorage.getItem(getSeenPairsKey(sessionId));
-    if (!raw) return new Set();
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? new Set(parsed.filter((value): value is string => typeof value === 'string')) : new Set();
-  } catch {
-    return new Set();
-  }
-}
-
-function persistSeenPairs(sessionId: string, seenPairs: Set<string>): void {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem(getSeenPairsKey(sessionId), JSON.stringify(Array.from(seenPairs)));
-}
-
-function getSeenPairsKey(sessionId: string): string {
-  return `${SEEN_PAIRS_KEY_PREFIX}:${sessionId}`;
 }

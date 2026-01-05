@@ -6,6 +6,15 @@ export default defineConfig(({ mode }) => ({
   base: "/",
   server: {
     host: true,
+    ...(process.env.USE_PROD_API === 'true' && {
+      proxy: {
+        '/api': {
+          target: 'https://capibarismo.com',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    }),
   },
   plugins: [react()],
   resolve: {
