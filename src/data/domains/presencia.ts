@@ -104,5 +104,5 @@ export const presencia: Record<string, PresenciaDigital> = {
           'Es uno de los políticos peruanos con mayor inversión en publicidad pagada en Facebook e Instagram, lo que le permite mantener una presencia constante y dirigir mensajes segmentados.',
       },
     ],
-  }
+  },
 };

@@ -134,5 +134,5 @@ export const proyectos: Record<string, ProyectoPolitico> = {
           "https://www.gob.pe/institucion/regionlalibertad/noticias/1158501-en-3-anos-de-gestion-108-obras-financiara-el-gore-a-municipios",
       },
     ],
-  }
+  },
 };

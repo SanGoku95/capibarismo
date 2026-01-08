@@ -146,5 +146,5 @@ export const mapaDePoder: Record<string, MapaDePoder> = {
           'Su irrupción en Trujillo rompió una hegemonía de 44 años del APRA, consolidándolo como un rival directo del aprismo en el norte del país.',
       },
     ],
-  }
+  },
 };

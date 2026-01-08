@@ -136,5 +136,5 @@ export const creencias: Record<string, Creencia[]> = {
         "No es un antisistema ideológico; es un actor pragmático que busca operar dentro del sistema para maximizar su poder. Su partido es considerado un vehículo político personalista. Su objetivo es la 'gobernabilidad', que se traduce en aliarse con el gobierno de turno para asegurar beneficios para su red. Su praxis, que incluye el uso instrumental del poder para fines personales, es la definición del pragmatismo clientelar.",
       fuente: "https://www.youtube.com/watch?v=KlEIO-G6ORQ",
     },
-  ]
+  ],
 };

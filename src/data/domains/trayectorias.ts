@@ -175,5 +175,5 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
       linea: "Centro‑derecha pragmática/clientelar",
     },
     resumen_corto: "Empresario educativo; ex alcalde y gobernador; líder de APP",
-  }
+  },
 };
