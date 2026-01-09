@@ -150,13 +150,13 @@ export function HomePage() {
                 </div>
               </div>
 
-              {/* CTA Button */}
+               {/* CTA Button */}
                <button
                 onClick={() => {
                   setShowDonationModal(true);
                   track("home_donation_click", { goal: "100_soles", position: "main" });
                 }}
-                className="w-full rounded-2xl bg-accent hover:bg-accent/90 text-background font-semibold py-4 px-6 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 flex items-center justify-center gap-2 font-sans"
+                className="w-full rounded-2xl bg-[#74239C] hover:bg-[#74239C]/90 text-white font-semibold py-4 px-6 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#74239C]/70 flex items-center justify-center gap-2 font-sans"
               >
                 <span>Contribuir con Yape</span>
                 <ArrowRight className="w-4 h-4" />
