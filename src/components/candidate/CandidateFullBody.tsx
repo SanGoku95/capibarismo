@@ -32,6 +32,10 @@ export function CandidateFullBodyMedia({
 
   // Fallback: if naming convention doesn't match, render the provided fullBody as-is.
   if (!assets) {
+    if (!candidate.fullBody) {
+      // Render nothing or a placeholder if there's no image URL
+      return null; 
+    }
     return (
       <div className={`relative ${className ?? ''}`}>
         <img
