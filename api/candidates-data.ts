@@ -1,11 +1,4 @@
 // Candidate base data for API use
-// NOTE: This is intentionally duplicated from src/data/domains/base.ts
-// to make API functions self-contained for Vercel serverless functions.
-// In a production setup, consider:
-// 1. Using a shared npm package for both frontend and API
-// 2. Code generation from a single source
-// 3. Fetching from a database
-// For MVP, manual sync is acceptable given the small dataset.
 
 export interface CandidateBase {
   id: string;
