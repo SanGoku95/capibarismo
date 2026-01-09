@@ -3,6 +3,7 @@ import { VSScreen } from '@/components/game/VSScreen';
 import { GameHUD } from '@/components/game/GameHUD';
 import { CandidateInfoOverlay } from '@/components/game/CandidateInfoOverlay';
 import { CompletionModal } from '@/components/game/CompletionModal';
+import { OnboardingModal } from '@/components/game/OnboardingModal';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { useNextPair, getSessionId } from '@/hooks/useGameAPI';
 import { useOptimisticVote } from '@/hooks/useOptimisticVote';
@@ -124,6 +125,7 @@ export function JugarPage() {
       {/* Overlays */}
       <CandidateInfoOverlay />
       <CompletionModal />
+      <OnboardingModal />
     </div>
   );
 }
