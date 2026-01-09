@@ -71,7 +71,6 @@ export function CandidateFullBodyMedia({
           preload="auto"
           className={`absolute inset-0 ${mediaClass}`}
           aria-hidden="true"
-          onLoadedData={handleMotionReady}
           onCanPlay={handleMotionReady}
           onError={handleVideoError}
         >
