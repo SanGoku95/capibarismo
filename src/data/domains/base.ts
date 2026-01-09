@@ -34,7 +34,7 @@ export const base: Record<string, CandidateBase> = {
     nombre: 'César Acuña',
     ideologia: 'Populismo Clientelar',
     headshot: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg',
-    fullBody: '/fotos_candidatos/acu%C3%B1a/full_body_acu%C3%B1a_move_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/acuna/full_body_acuna_move_poster_h480_q80.webp',
   },
   phillip: {
     id: 'phillip',
@@ -44,3 +44,4 @@ export const base: Record<string, CandidateBase> = {
     fullBody: '/fotos_candidatos/phillip/full_body_phillip_poster_h432_q80.webp',
   },
 };
+
