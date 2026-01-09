@@ -58,7 +58,7 @@ export function HomePage() {
             CAPIBARISMO
           </h1>
           <p className="mt-3 text-[0.85rem] sm:text-base md:text-lg max-w-2xl mx-auto text-foreground/90 font-sans px-2 leading-relaxed">
-            Tu Dibujito Observador: Elecciones 2026
+            Tu Dibujito Observador: Elecciones Perú 🇵🇪 2026
           </p>
         </div>
         
