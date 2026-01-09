@@ -105,37 +105,4 @@ export const presencia: Record<string, PresenciaDigital> = {
       },
     ],
   },
-  phillip: {
-    plataformas: [
-      {
-        nombre: 'web',
-        url: 'https://pbo.pe/',
-        estrategia:
-          'Centro de operaciones: streaming en vivo, agenda y posicionamiento.',
-      },
-      {
-        nombre: 'youtube',
-        url: 'https://www.youtube.com/channel/UCgR0st4ZLABi-LQcWNu3wnQ',
-        estrategia:
-          "Programas diarios y lives como vehículo de campaña (‘Combutters’/PBO).",
-      },
-      {
-        nombre: 'instagram',
-        handle: '@phillipbuttersperu',
-        url: 'https://www.instagram.com/phillipbuttersperu/',
-        estrategia: 'Narrativa de precandidatura y microclips de propuestas.',
-      },
-      {
-        nombre: 'facebook',
-        url: 'https://www.facebook.com/PBOPeru/',
-        estrategia:
-          'Amplificación de contenidos de PBO y posicionamiento político.',
-      },
-      {
-        nombre: 'twitter',
-        url: 'https://x.com/pboperu',
-        estrategia: 'Mensajería rápida y enlaces a transmisiones.',
-      },
-    ],
-  },
 };

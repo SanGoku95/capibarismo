@@ -176,32 +176,4 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
     },
     resumen_corto: "Empresario educativo; ex alcalde y gobernador; líder de APP",
   },
-  phillip: {
-    id: "phillip",
-    nombre: "Phillip Butters",
-    educacion: {
-      formacion: "Formación empírica en medios y periodismo de opinión",
-      instituciones: "—",
-      credencial_hito: "Fundación y dirección de PBO",
-      enfoque: "Estilo confrontacional y conservador",
-    },
-    sector_privado: {
-      actividad: "Periodista/empresario de medios; fundador de PBO",
-      escala_impacto: "Alcance nacional por TV, radio y plataformas digitales",
-      estrategia_ambito: "Programas diarios, opinión y activismo",
-    },
-    sector_publico: {
-      cargos_roles: null,
-      periodo: null,
-      logros_controversias: null,
-      territorio_ambito: null,
-    },
-    politica: {
-      rol_accion: "Candidato presidencial (Avanza País)",
-      competicion: "Giras y mitines desde 2024",
-      resultados_posicionamiento: "Rostro mediático de derecha conservadora",
-      linea: "Conservadurismo social y libre mercado",
-    },
-    resumen_corto: "Presentador y empresario de medios; candidato por Avanza País",
-  },
 };

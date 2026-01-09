@@ -135,30 +135,4 @@ export const proyectos: Record<string, ProyectoPolitico> = {
       },
     ],
   },
-  phillip: {
-    titulo: "Orden, Mano Dura y Shock de Mercado",
-    resumen:
-      "Desde su plataforma mediática, promueve un proyecto de derecha radical que combina un liberalismo económico doctrinario, un conservadurismo social de 'mano dura' y un discurso populista y confrontacional contra la clase política y las instituciones.",
-    detalles: [
-      {
-        subtitulo: "Seguridad ciudadana con 'Mano Dura'",
-        texto:
-          "Promueve un enfoque de 'mano dura' contra la delincuencia, que incluye el uso de tecnología de inteligencia y operativos focalizados, alineándose con el 'modelo Bukele' de priorizar la seguridad sobre las garantías procesales.",
-        fuente: "https://www.youtube.com/watch?v=4xfF9Dymrg0",
-      },
-      {
-        subtitulo: "Liberalismo económico y desregulación",
-        texto:
-          "Se presenta como un férreo defensor del libre mercado, abogando por la reducción del Estado a su mínima expresión y la flexibilización de regulaciones, incluidas las ambientales, para favorecer la inversión privada, especialmente en el sector minero.",
-        fuente: "https://www.youtube.com/watch?v=vAgG9mSdQnA",
-      },
-      {
-        subtitulo: "Educación: ‘4,000 colegios en un año’",
-        texto:
-          "Una de sus promesas más recurrentes es la construcción masiva de infraestructura educativa a través de módulos prefabricados, con la meta de entregar 4,000 colegios en un solo año.",
-        fuente:
-          "https://www.facebook.com/jhonomarrr/videos/phillip-butters-4000-colegios-al-año/4182106268776524/",
-      },
-    ],
-  },
 };

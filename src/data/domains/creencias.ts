@@ -137,33 +137,4 @@ export const creencias: Record<string, Creencia[]> = {
       fuente: "https://www.youtube.com/watch?v=KlEIO-G6ORQ",
     },
   ],
-  phillip: [
-    {
-      id: "liberalismo-pro-mercado",
-      nombre: "Liberalismo Pro-Mercado",
-      resumen:
-        "Defensa doctrinaria del libre mercado, la desregulación y la reducción del Estado a su mínima expresión.",
-      detalle:
-        "Se ha posicionado como uno de los defensores más vehementes del liberalismo económico en el Perú. Su discurso es consistentemente pro-mercado, anti-regulación y crítico de cualquier intervencionismo estatal. Aboga por la reducción del Estado, la flexibilización de regulaciones ambientales y laborales, y la primacía del sector privado. Su creencia es que la burocracia y los impuestos son los principales obstáculos para el desarrollo.",
-      fuente: "https://www.youtube.com/watch?v=6wa00utIGmE",
-    },
-    {
-      id: "conservadurismo-punitivo-mediatico",
-      nombre: "Conservadurismo Punitivo",
-      resumen:
-        "Promueve la 'mano dura' y la defensa de valores tradicionales desde su plataforma mediática.",
-      detalle:
-        "Su plataforma social se construye sobre la promesa de restaurar el orden a través de métodos autoritarios. Su principal propuesta se centra en un plan de 'mano dura' contra la delincuencia. Su discurso mediático es consistentemente conservador, nacionalista y confrontacional, defendiendo los valores tradicionales frente al 'progresismo'. Su retórica se alinea con el 'modelo Bukele' de priorizar la seguridad sobre las garantías procesales.",
-      fuente: "https://m.youtube.com/shorts/9vOLPu43Svs",
-    },
-    {
-      id: "populismo-outsider-mediatico",
-      nombre: "Populismo Outsider Disruptivo",
-      resumen:
-        "Utiliza su rol en los medios para atacar al 'establishment', la clase política y la 'prensa mermelera'.",
-      detalle:
-        "Su poder no reside en una estructura partidaria, sino en su capacidad para construir una narrativa de confrontación desde su plataforma de medios. Se posiciona como un outsider que canaliza el descontento contra la 'clase política' y el 'establishment'. Un elemento central de su discurso es el ataque a los medios de comunicación tradicionales, a los que acusa de recibir 'mermelada' (dinero del Estado).",
-      fuente: "https://www.youtube.com/watch?v=ILpoO1NJ4BQ",
-    },
-  ],
 };

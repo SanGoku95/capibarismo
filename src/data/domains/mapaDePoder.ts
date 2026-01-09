@@ -147,30 +147,4 @@ export const mapaDePoder: Record<string, MapaDePoder> = {
       },
     ],
   },
-  phillip: {
-    alianzas: [
-      {
-        nombre: 'Avanza País',
-        descripcion:
-          'Partido vehículo de su precandidatura y giras; estructura organizativa y logística.',
-      },
-      {
-        nombre: 'PBO (propio medio)',
-        descripcion:
-          'Activos mediáticos propios como fuente central de influencia y movilización.',
-      },
-      {
-        nombre: 'Ecosistema derecha dura (Willax y afines)',
-        descripcion:
-          'Historial de colaboración/afinidad con medios y figuras conservadoras.',
-      },
-    ],
-    opositores: [
-      {
-        nombre: 'Colectivos pro derechos / Minedu (2017)',
-        descripcion:
-          'Antagonismo por su postura anti ‘enfoque de género’ y declaraciones de 2017.',
-      },
-    ],
-  },
 };
