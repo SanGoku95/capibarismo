@@ -34,15 +34,15 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
       style={{ opacity: isDisabled ? 0.6 : 1 }}
     >
       {/* Info button - smaller on mobile */}
-      <div className="w-full flex justify-end">
+      <div className="w-full flex justify-end mb-2">
         <Button
           variant="ghost"
-          size="icon"
-          className="text-white/70 hover:text-white h-6 w-6 sm:h-8 sm:w-8"
+          size="sm"
+          className="h-auto py-1.5 px-3 bg-black/40 hover:bg-accent hover:text-black border border-white/20 hover:border-accent rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 group backdrop-blur-sm"
           onClick={handleInfoClick}
-          title="Ver información"
         >
-          <Info className="w-3 h-3 sm:w-4 sm:h-4" />
+          <Info className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1.5 sm:mr-2 text-accent group-hover:text-black transition-colors" />
+          <span className="text-white/90 group-hover:text-black">MÁS INFO</span>
         </Button>
       </div>
 
