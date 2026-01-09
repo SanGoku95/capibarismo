@@ -5,13 +5,7 @@ import { CandidateFullBodyMedia } from '@/components/candidate/CandidateFullBody
 import type { CandidateBase } from '@/data/types';
 
 interface CandidateCardProps {
-  candidate: {
-    id: string;
-    nombre: string;
-    ideologia?: string;
-    fullBody?: string;
-    headshot?: string;
-  };
+  candidate: CandidateBase;
   side: 'left' | 'right';
   onSelect: () => void;
   disabled?: boolean;
@@ -22,16 +16,6 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
   const isDisabled = Boolean(disabled);
 
   const safeSrc = (url: string) => encodeURI(url);
-
-  const fullBodyCandidate: CandidateBase | null = candidate.fullBody
-    ? ({
-        id: candidate.id,
-        nombre: candidate.nombre,
-        ideologia: candidate.ideologia ?? '',
-        headshot: candidate.headshot ?? '',
-        fullBody: candidate.fullBody,
-      } as CandidateBase)
-    : null;
 
   const handleInfoClick = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -64,9 +48,9 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
 
       {/* Image - use same media component as compare */}
       <div className="cursor-pointer w-full flex justify-center" onClick={handleSelect}>
-        {fullBodyCandidate ? (
+        {candidate.fullBody ? (
           <CandidateFullBodyMedia
-            candidate={fullBodyCandidate}
+            candidate={candidate}
             side={side}
             className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-52 lg:w-48 lg:h-64 rounded overflow-hidden shadow-lg"
           />

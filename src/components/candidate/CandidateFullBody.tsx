@@ -1,46 +1,10 @@
 import { motion } from 'framer-motion';
 import type { CandidateBase } from '@/data/types';
-import { useEffect, useMemo, useState } from 'react';
+import { useOptimizedMedia, MediaType } from '@/hooks/useOptimizedMedia';
 
 interface CandidateFullBodyProps {
   candidate: CandidateBase | null;
   side: 'left' | 'right';
-}
-
-function useCanPlayWebmVp9() {
-  const [canPlay, setCanPlay] = useState(false);
-
-  useEffect(() => {
-    // Run only in the browser; avoid touching DOM during render.
-    try {
-      const v = document.createElement('video');
-      setCanPlay(v.canPlayType('video/webm; codecs="vp9"') !== '');
-    } catch {
-      setCanPlay(false);
-    }
-  }, []);
-
-  return canPlay;
-}
-
-type OptimizedAssets = {
-  poster: string;
-  webm: string;
-  animWebp: string;
-};
-
-function deriveOptimizedAssets(poster: string): OptimizedAssets | null {
-  // expects: /.../NAME_poster_h432_q80.webp
-  const m = poster.match(/^(.*\/)([^/]+?)_poster_(h\d+)_q\d+\.webp$/);
-  if (!m) return null;
-
-  const [, dir, base, h] = m;
-
-  return {
-    poster,
-    webm: `${dir}${base}_vp9_alpha_${h}_fps15_crf35.webm`,
-    animWebp: `${dir}${base}_anim_${h}_fps15_q60.webp`,
-  };
 }
 
 const safeSrc = (url: string) => encodeURI(url);
@@ -54,21 +18,17 @@ export function CandidateFullBodyMedia({
   side: 'left' | 'right';
   className?: string; // container sizing/rounding/shadow/margins
 }) {
-  const canWebmVp9 = useCanPlayWebmVp9();
+  const {
+    assets,
+    mediaType,
+    isMotionReady,
+    handleVideoError,
+    handleAnimError,
+    handleMotionReady,
+  } = useOptimizedMedia(candidate.fullBody, candidate.id);
 
-  const assets = useMemo(() => deriveOptimizedAssets(candidate.fullBody), [candidate.fullBody]);
   const mirror = side === 'right';
   const mediaClass = `w-full h-full object-cover${mirror ? ' scale-x-[-1]' : ''}`;
-
-  const [videoFailed, setVideoFailed] = useState(false);
-  const [animFailed, setAnimFailed] = useState(false);
-  const [motionReady, setMotionReady] = useState(false);
-
-  useEffect(() => {
-    setVideoFailed(false);
-    setAnimFailed(false);
-    setMotionReady(false);
-  }, [candidate.id]);
 
   // Fallback: if naming convention doesn't match, render the provided fullBody as-is.
   if (!assets) {
@@ -83,9 +43,6 @@ export function CandidateFullBodyMedia({
     );
   }
 
-  const showVideo = canWebmVp9 && !videoFailed;
-  const showAnim = !showVideo && !animFailed;
-
   return (
     <div className={`relative ${className ?? ''}`} aria-label={`${candidate.nombre} en posición de combate`}>
       {/* Poster: only a placeholder; fade out once motion is ready */}
@@ -95,12 +52,12 @@ export function CandidateFullBodyMedia({
         className={mediaClass}
         style={{
           display: 'block',
-          opacity: motionReady ? 0 : 1,
+          opacity: isMotionReady ? 0 : 1,
           transition: 'opacity 150ms ease',
         }}
       />
 
-      {showVideo ? (
+      {mediaType === MediaType.Video && (
         <video
           key={`${candidate.id}-webm`}
           autoPlay
@@ -110,29 +67,25 @@ export function CandidateFullBodyMedia({
           preload="auto"
           className={`absolute inset-0 ${mediaClass}`}
           aria-hidden="true"
-          onLoadedData={() => setMotionReady(true)}
-          onCanPlay={() => setMotionReady(true)}
-          onError={() => {
-            setVideoFailed(true);
-            setMotionReady(false); // keep poster until fallback loads
-          }}
+          onLoadedData={handleMotionReady}
+          onCanPlay={handleMotionReady}
+          onError={handleVideoError}
         >
           <source src={safeSrc(assets.webm)} type='video/webm; codecs="vp9"' />
         </video>
-      ) : showAnim ? (
+      )}
+      
+      {mediaType === MediaType.Anim && (
         <img
           key={`${candidate.id}-anim`}
           src={safeSrc(assets.animWebp)}
           alt=""
           aria-hidden="true"
           className={`absolute inset-0 ${mediaClass}`}
-          onLoad={() => setMotionReady(true)}
-          onError={() => {
-            setAnimFailed(true);
-            setMotionReady(false);
-          }}
+          onLoad={handleMotionReady}
+          onError={handleAnimError}
         />
-      ) : null}
+      )}
     </div>
   );
 }
