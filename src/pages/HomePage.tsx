@@ -108,7 +108,7 @@ export function HomePage() {
           <div className="rounded-3xl border border-border/45 bg-background/80 backdrop-blur-sm shadow-[0_10px_26px_rgba(0,0,0,0.18)] px-5 py-6">
             {/* Header */}
             <div className="text-center">
-              <h2 className="text-sm sm:text-base tracking-wide font-bold uppercase text-[#74239C] font-sans">
+              <h2 className="text-sm sm:text-base tracking-wide font-bold uppercase text-accent font-sans">
               Apoya el proyecto
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-foreground/70 font-sans">
@@ -126,7 +126,7 @@ export function HomePage() {
                     <span className="text-sm sm:text-base font-semibold text-foreground font-sans">
                       Meta actual: Completar datos de 10 candidatos
                     </span>
-                    <span className="text-lg sm:text-xl font-bold text-[#74239C] font-sans shrink-0">
+                    <span className="text-lg sm:text-xl font-bold text-accent font-sans shrink-0">
                       S/ 100
                     </span>
                   </div>
