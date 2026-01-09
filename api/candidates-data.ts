@@ -2,26 +2,29 @@
 
 export interface CandidateBase {
   id: string;
+  nombre: string;
 }
 
 export const candidates: Record<string, CandidateBase> = {
   keiko: {
-    id: 'keiko'
+    id: 'keiko',
+    nombre: 'Keiko Fujimori',
   },
   rafael: {
-    id: 'rafael'
+    id: 'rafael',
+    nombre: 'Rafael L. Aliaga',
   },
   yonhy: {
-    id: 'yonhy'
+    id: 'yonhy',
+    nombre: 'Yonhy Lescano',
   },
   'carlos-alvarez': {
-    id: 'carlos-alvarez'
+    id: 'carlos-alvarez',
+    nombre: 'Carlos Álvarez',
   },
   'cesar-acuna': {
-    id: 'cesar-acuna'
-  },
-  phillip: {
-    id: 'phillip'
+    id: 'cesar-acuna',
+    nombre: 'César Acuña',
   },
 };
 
