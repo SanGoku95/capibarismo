@@ -51,14 +51,7 @@ export const candidates: Record<string, CandidateBase> = {
     ideologia: 'Populismo Clientelar',
     headshot: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg',
     fullBody: '/fotos_candidatos/acuña/full_body_acuña_move.gif',
-  },
-  phillip: {
-    id: 'phillip',
-    nombre: 'Phillip Butters',
-    ideologia: 'Derecha Conservadora',
-    headshot: '/fotos_candidatos/phillip/phillip_headshot.png',
-    fullBody: '/fotos_candidatos/phillip/phillip_full_body.gif',
-  },
+  }
 };
 
 export function listCandidates(): CandidateBase[] {

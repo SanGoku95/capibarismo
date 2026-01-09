@@ -100,36 +100,5 @@ export const candidateSourcesRaw = [
 			"https://www.infobae.com/america/peru/2022/09/03/los-escandalos-politicos-y-legales-que-rodean-a-cesar-acuna-el-millonario-lider-de-app/",
 			"https://www.youtube.com/watch?v=CKiYQbGNMxA"
 		]
-	},
-	{
-		id: "phillip",
-		name: "Phillip Butters",
-		sources: [
-			"https://es.wikipedia.org/wiki/Phillip_Butters",
-			"https://limagris.com/phillip-butters-el-terror-de-los-progres/",
-			"https://lpderecho.pe/phillip-butters-reconoce-porto-armas-sin-licencia-gobierno-castillo/",
-			"https://www.youtube.com/watch?v=4xfF9Dymrg0",
-			"https://www.facebook.com/jhonomarrr/videos/phillip-butters-4000-colegios-al-a%C3%B1o/4182106268776524/",
-			"https://www.youtube.com/watch?v=vAgG9mSdQnA",
-			"https://www.facebook.com/photo.php?fbid=1372115741585853&set=a.510355094428593&type=3",
-			"https://www.facebook.com/larepublicape/videos/%EF%B8%8F-en-entrevista-con-curwen-phillip-butters-asegur%C3%B3-que-de-llegar-a-la-presidenci/1180307983937972/",
-			"https://www.instagram.com/reel/DLDRDM-NcZX/",
-			"https://diariocorreo.pe/peru/con-mis-hijos-no-te-metas-phillip-butters-y-su-encendido-discurso-contra-la-ministra-martens-735131/",
-			"https://es.wikipedia.org/wiki/PBO_Radio",
-			"https://es.wikipedia.org/wiki/Combutters",
-			"https://www.avanzapais.org/blog/articulo/phillip-butters-realiza-mitin-multitudinario-y-presenta-propuestas-para-potenciar-el-desarrollo-regional/",
-			"https://pbo.pe/",
-			"https://www.youtube.com/channel/UCgR0st4ZLABi-LQcWNu3wnQ",
-			"https://www.instagram.com/phillipbuttersperu/",
-			"https://www.facebook.com/PBOPeru/",
-			"https://x.com/pboperu",
-			"https://lpderecho.pe/video-por-que-a-estos-senores-no-les-han-metido-un-balazo-defensoria-rechaza-expresiones-de-conductor-phillip-butters/",
-			"https://rpp.pe/peru/actualidad/avanza-pais-pago-por-capacitaciones-s-465-000-con-fondos-publicos-a-empresa-que-funciona-en-un-puesto-de-fotocopias-noticia-1469171",
-			"https://www.concortv.gob.pe/sancionan-a-radio-capital-por-frases-homofobicas-de-phillip-butters/",
-			"https://elcomercio.pe/politica/congreso/avanza-pais-votara-en-contra-de-reconsideracion-para-adelanto-de-elecciones-al-2023-noticia/",
-			"https://www.atv.pe/noticia/desmienten-a-phillip-butters-y-muestran-pruebas-de-prestamo-que-le-hizo-rafael-lopez-aliaga/",
-			"https://www.infobae.com/peru/2025/09/05/phillip-butters-denuncia-que-rafael-lopez-aliaga-paga-trolls-para-atacar-y-lo-amenaza-si-hablo-se-acaba-su-candidatura/",
-			"https://www.atv.pe/noticia/cual-es-la-historia-del-vinculo-entre-phillip-butters-y-antonio-camayo/"
-		]
 	}
 ];
