@@ -10,6 +10,7 @@ import { PLAYER_INDICATORS, UI_CLASSES } from '@/lib/constants';
 import { getCandidateProfile } from '@/data';
 import { InfoBadge } from './InfoBadge';
 import { severityProps, legalProps, severityHelp, legalHelp } from './controversy-utils';
+import { CandidateFullBodyMedia } from '@/components/candidate/CandidateFullBody';
 
 interface CandidateComparisonGridProps {
   leftCandidate: CandidateBase | null;
@@ -64,12 +65,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
   return (
     <div className="fighting-game-bg-compare flex flex-col h-screen overflow-hidden">
       {/* Scrollable content */}
-      <main
-        className="flex-grow overflow-y-auto px-4 md:px-6 pb-24" // Add padding to prevent footer overlap
-        style={{
-          scrollBehavior: 'smooth', // Enable smooth scrolling
-        }}
-      >
+      <main className="flex-grow overflow-y-auto px-4 md:px-6 pb-24" style={{ scrollBehavior: 'smooth' }}>
         <div className="max-w-6xl mx-auto">
           {/* Character Images at Top */}
           <div className="py-6">
@@ -78,13 +74,10 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               <div className="flex flex-col items-center avatar-container">
                 {leftCandidate ? (
                   <>
-                    <img
-                      src={leftCandidate.fullBody}
-                      alt={`${leftCandidate.nombre} full body`}
-                      className="w-32 h-48 md:w-40 md:h-56 object-cover rounded shadow-lg mb-4"
-                      style={{
-                        filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))',
-                      }}
+                    <CandidateFullBodyMedia
+                      candidate={leftCandidate}
+                      side="left"
+                      className="w-32 h-48 md:w-40 md:h-56 rounded shadow-lg mb-4 overflow-hidden"
                     />
                     <Link
                       to={`/candidate/${leftCandidate.id}`}
@@ -117,13 +110,10 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
               <div className="flex flex-col items-center avatar-container">
                 {rightCandidate ? (
                   <>
-                    <img
-                      src={rightCandidate.fullBody}
-                      alt={`${rightCandidate.nombre} full body`}
-                      className="w-32 h-48 md:w-40 md:h-56 object-cover rounded shadow-lg mb-4 scale-x-[-1]"
-                      style={{
-                        filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3))',
-                      }}
+                    <CandidateFullBodyMedia
+                      candidate={rightCandidate}
+                      side="right"
+                      className="w-32 h-48 md:w-40 md:h-56 rounded shadow-lg mb-4 overflow-hidden"
                     />
                     <Link
                       to={`/candidate/${rightCandidate.id}`}
