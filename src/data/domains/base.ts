@@ -18,7 +18,7 @@ export const base: Record<string, CandidateBase> = {
   yonhy: {
     id: 'yonhy',
     nombre: 'Yonhy Lescano',
-    ideologia: 'Centro Institucional',
+    ideologia: 'Centro Populista',
     headshot: 'https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg',
     fullBody: '/fotos_candidatos/lescano/full_body_lescano_poster_h432_q80.webp',
   },

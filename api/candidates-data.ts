@@ -20,7 +20,7 @@ export const candidates: Record<string, CandidateBase> = {
   yonhy: {
     id: 'yonhy',
     nombre: 'Yonhy Lescano',
-    ideologia: 'Centro Institucional',
+    ideologia: 'Centro Populista',
   },
   'carlos-alvarez': {
     id: 'carlos-alvarez',
