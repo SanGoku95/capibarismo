@@ -47,16 +47,28 @@ export function HomePage() {
               />
             </picture>
           </div>
-          <h1
-            className="text-[1.3rem] leading-tight sm:text-[1.75rem] md:text-[2rem] font-bold uppercase tracking-wider"
-            style={{
-              fontFamily: "'Press Start 2P', cursive",
-              color: 'hsl(var(--accent))',
-              textShadow: '3px 3px 0px hsl(var(--background)), 5px 5px 0px hsl(var(--border))',
-            }}
-          >
-            CAPIBARISMO
-          </h1>
+          <div className="flex items-center justify-center gap-3 sm:gap-4">
+            <img 
+              src="/bandera-peru-pixel.png" 
+              alt="Bandera Perú" 
+              className="h-8 sm:h-10 w-auto object-contain"
+            />
+            <h1
+              className="text-[1.3rem] leading-tight sm:text-[1.75rem] md:text-[2rem] font-bold uppercase tracking-wider"
+              style={{
+                fontFamily: "'Press Start 2P', cursive",
+                color: 'hsl(var(--accent))',
+                textShadow: '3px 3px 0px hsl(var(--background)), 5px 5px 0px hsl(var(--border))',
+              }}
+            >
+              CAPIBARISMO
+            </h1>
+            <img 
+              src="/bandera-peru-pixel.png" 
+              alt="Bandera Perú" 
+              className="h-8 sm:h-10 w-auto object-contain transform -scale-x-100"
+            />
+          </div>
           <p className="mt-3 text-[0.85rem] sm:text-base md:text-lg max-w-2xl mx-auto text-foreground/90 font-sans px-2 leading-relaxed">
             Tu Dibujito Observador: Elecciones Perú 🇵🇪 2026
           </p>
