@@ -44,6 +44,12 @@ export function prefetchNextPair(pair: Pair | undefined) {
 async function fetchPersonalRanking(sessionId: string): Promise<RankingEntry[]> {
   if (!sessionId) return [];
 
+  // In development without API, return empty ranking
+  if (import.meta.env.DEV && !import.meta.env.VITE_USE_API) {
+    console.log('[DEV] Mock ranking returned (empty)');
+    return Promise.resolve([]);
+  }
+
   const response = await fetch(`${API_BASE}/ranking/personal?sessionId=${sessionId}`);
   if (!response.ok) {
     throw new Error('Failed to fetch personal ranking');
@@ -99,6 +105,12 @@ export function useSubmitVote(sessionId: string) {
 
 // Submit vote with improved error handling
 async function submitVote(vote: VoteRequest): Promise<{ ok: boolean }> {
+  // In development without API, just mock success
+  if (import.meta.env.DEV && !import.meta.env.VITE_USE_API) {
+    console.log('[DEV] Mock vote submitted:', vote);
+    return Promise.resolve({ ok: true });
+  }
+
   const response = await fetch(`${API_BASE}/game/vote`, {
     method: 'POST',
     headers: {
