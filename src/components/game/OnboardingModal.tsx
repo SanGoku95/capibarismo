@@ -13,10 +13,10 @@ export function OnboardingModal() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // const hasVisited = localStorage.getItem("visited_intro");
-    // if (!hasVisited) {
+    const hasVisited = localStorage.getItem("visited_intro");
+     if (!hasVisited) {
       setOpen(true);
-    // }
+     }
   }, []);
 
   const handleStart = () => {
