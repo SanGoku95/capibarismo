@@ -40,8 +40,8 @@ export const base: Record<string, CandidateBase> = {
     id: 'lopez-chau',
     nombre: 'Alfonso Lopez Chau',
     ideologia: 'Centro Izquierda',
-    headshot: '"/fotos_candidatos/alfonsolc/alfonsolopezchau_headshot.jpg"',
-    fullBody: '/fotos_candidatos/lopez-chau/alfonsolopezchau.gif',
+    headshot: '/fotos_candidatos/alfonsolc/alfonsolopezchau_headshot.jpg',
+    fullBody: '/fotos_candidatos/alfonsolc/alfonsolopezchau.gif',
   }
 };
 
