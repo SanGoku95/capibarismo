@@ -55,8 +55,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return {
           rank: 0, // Set after sorting
           candidateId: c.id,
-          name: c.nombre,
-          ideologia: c.ideologia,
           rating,
           score: rating,
           wins: s.wins,
