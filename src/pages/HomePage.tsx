@@ -108,7 +108,7 @@ export function HomePage() {
           <div className="rounded-3xl border border-border/45 bg-background/80 backdrop-blur-sm shadow-[0_10px_26px_rgba(0,0,0,0.18)] px-5 py-6">
             {/* Header */}
             <div className="text-center">
-              <h2 className="text-sm sm:text-base tracking-wide font-semibold uppercase text-accent/90 font-sans">
+              <h2 className="text-sm sm:text-base tracking-wide font-bold uppercase text-[#74239C] font-sans">
               Apoya el proyecto
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-foreground/70 font-sans">
@@ -120,13 +120,13 @@ export function HomePage() {
             <div className="mt-5 space-y-4">
               {/* Goal Header with Target */}
               <div className="flex items-start gap-2">
-                <Target className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                <Target className="w-5 h-5 text-[#74239C] shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <div className="flex items-baseline justify-between gap-2 flex-wrap">
                     <span className="text-sm sm:text-base font-semibold text-foreground font-sans">
                       Meta actual: Completar datos de 10 candidatos
                     </span>
-                    <span className="text-lg sm:text-xl font-bold text-accent font-sans shrink-0">
+                    <span className="text-lg sm:text-xl font-bold text-[#74239C] font-sans shrink-0">
                       S/ 100
                     </span>
                   </div>
@@ -140,7 +140,7 @@ export function HomePage() {
               <div className="space-y-2">
                 <div className="h-3 bg-muted/50 rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-gradient-to-r from-accent/80 to-accent rounded-full transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-[#74239C]/80 to-[#74239C] rounded-full transition-all duration-500"
                     style={{ width: '35%' }}
                   />
                 </div>
