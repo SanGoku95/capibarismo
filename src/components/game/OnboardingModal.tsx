@@ -60,7 +60,7 @@ export function OnboardingModal() {
 
           <div className="text-center bg-blue-950/30 border border-blue-500/20 rounded-lg p-3">
              <p className="text-xs sm:text-sm text-blue-100/80 font-sans">
-               Tus decisiones construirán tu <span className="text-blue-300 font-bold">Ranking Personal</span> definitivo.
+               Tus decisiones construirán tu <span className="text-blue-300 font-bold">Ranking Personal</span>.
              </p>
           </div>
         </div>
