@@ -40,5 +40,9 @@ export const controversias: Record<string, Controversia[]> = {
     { id: 'plagio-academico', titulo: 'Sanción de Indecopi por plagio (tesis y libro)', descripcion: 'Indecopi sancionó en 2016 por infracción al derecho de autor (tesis doctoral y libro atribuido). Sanción administrativa; no es condena penal.', fuente: 'https://rpp.pe/economia/economia/indecopi-multo-a-cesar-acuna-por-plagio-de-libro-y-tesis-doctoral-noticia-993039', rank: 8, legal: 'sancion', severidad: 'media' },
     { id: 'violencia-familiar', titulo: 'Denuncias de violencia familiar (sin fallo)', descripcion: 'Exesposa y expareja lo denunciaron por maltrato. No hay sentencia conocida.', fuente: 'https://www.infobae.com/america/peru/2022/09/03/los-escandalos-politicos-y-legales-que-rodean-a-cesar-acuna-el-millonario-lider-de-app/', rank: 9, legal: 'denuncia_en_medios', severidad: 'media' },
     { id: 'vinculos-sin', titulo: 'Señalamientos sobre visitas al SIN en los 90', descripcion: 'Apariciones en medios y testimonios lo mencionan; no hay decisión judicial. Trátese como señalamiento no corroborado.', fuente: 'https://www.youtube.com/watch?v=CKiYQbGNMxA', rank: 10, legal: 'denuncia_en_medios', severidad: 'media' },
+  ],
+  'lopez-chau': [
+    { id: 'politizacion-uni', titulo: 'Acusaciones de politización de la UNI', descripcion: 'Críticos señalan el uso de la universidad como plataforma política personal.', fuente: 'https://peru21.pe/politica/la-uni-se-convierte-en-un-bunker-politico-noticia/', rank: 1, legal: 'denuncia_en_medios', severidad: 'media' },
+    { id: 'alojamiento-manifestantes', titulo: 'Alojamiento de manifestantes en la UNI', descripcion: 'Decisión controvertida de permitir el ingreso de manifestantes de regiones durante las protestas de 2023.', fuente: 'https://elcomercio.pe/lima/sucesos/rector-de-la-uni-justifica-alojamiento-a-manifestantes-es-un-acto-de-humanidad-noticia/', rank: 2, legal: 'clausurado', severidad: 'media' },
   ]
 };

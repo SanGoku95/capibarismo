@@ -32,6 +32,11 @@ export const candidates: Record<string, CandidateBase> = {
     nombre: 'César Acuña',
     ideologia: 'Populismo Clientelar',
   },
+  'lopez-chau': {
+    id: 'lopez-chau',
+    nombre: 'Alfonso Lopez Chau',
+    ideologia: 'Centro Izquierda',
+  },
 };
 
 export function listCandidates(): CandidateBase[] {

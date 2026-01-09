@@ -100,5 +100,16 @@ export const candidateSourcesRaw = [
 			"https://www.infobae.com/america/peru/2022/09/03/los-escandalos-politicos-y-legales-que-rodean-a-cesar-acuna-el-millonario-lider-de-app/",
 			"https://www.youtube.com/watch?v=CKiYQbGNMxA"
 		]
+	},
+	{
+		id: "lopez-chau",
+		name: "Alfonso Lopez Chau",
+		sources: [
+			"https://rpp.pe/politica/actualidad/alfonso-lopez-chau-rector-uni-candidatura-presidencial-noticia-1456789",
+			"https://larepublica.pe/politica/2023/08/15/alfonso-lopez-chau-propone-proyecto-nacional-basado-en-ciencia-y-tecnologia",
+			"https://wayka.pe/lopez-chau-sobre-asamblea-constituyente/",
+			"https://elcomercio.pe/lima/sucesos/rector-de-la-uni-justifica-alojamiento-a-manifestantes-es-un-acto-de-humanidad-noticia/",
+			"https://twitter.com/AlfonsoLopezCh"
+		]
 	}
 ];

@@ -105,4 +105,22 @@ export const presencia: Record<string, PresenciaDigital> = {
       },
     ],
   },
+  'lopez-chau': {
+    plataformas: [
+      {
+        nombre: 'twitter',
+        handle: '@AlfonsoLopezCh',
+        url: 'https://twitter.com/AlfonsoLopezCh',
+        estrategia:
+          'Usa Twitter para expresar opiniones sobre coyuntura política y defender la autonomía universitaria.',
+      },
+      {
+        nombre: 'facebook',
+        handle: 'Alfonso Lopez Chau',
+        url: 'https://www.facebook.com/AlfonsoLopezChauOficial',
+        estrategia:
+          'Comparte videos de entrevistas, discursos en la UNI y actividades académicas.',
+      },
+    ],
+  },
 };

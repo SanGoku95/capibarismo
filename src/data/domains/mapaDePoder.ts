@@ -147,4 +147,35 @@ export const mapaDePoder: Record<string, MapaDePoder> = {
       },
     ],
   },
+  'lopez-chau': {
+    alianzas: [
+      {
+        nombre: 'Comunidad Universitaria',
+        descripcion:
+          'Fuerte respaldo de estudiantes, docentes y trabajadores de universidades públicas, consolidado durante la defensa de la autonomía universitaria.',
+      },
+      {
+        nombre: 'Movimientos Regionales',
+        descripcion:
+          'Ha realizado giras buscando alianzas con líderes y movimientos fuertemente arraigados en el sur y centro del país.',
+      },
+       {
+        nombre: 'Partido "Ahora Nación"',
+        descripcion:
+          'Plataforma política en proceso de inscripción con la cual busca canalizar su candidatura presidencial.',
+      },
+    ],
+    opositores: [
+      {
+        nombre: 'Sectores Conservadores del Congreso',
+        descripcion:
+          'Frecuentemente atacado por congresistas que buscan intervenir la SUNEDU y restringir la autonomía universitaria.',
+      },
+      {
+        nombre: 'Prensa Concentrada',
+        descripcion:
+          'Algunos medios lo tildan de "izquierdista radical" por su rol durante las protestas sociales, buscando limitar su crecimiento en sectores medios.',
+      },
+    ],
+  },
 };

@@ -36,5 +36,11 @@ export const compass: Record<string, CompassStance> = {
     social: 3,
     territorial: -1,
     power: 3,
+  },
+  'lopez-chau': {
+    econ: -3,
+    social: -3,
+    territorial: -5,
+    power: 1,
   }
 };

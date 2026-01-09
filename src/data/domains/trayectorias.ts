@@ -176,4 +176,32 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
     },
     resumen_corto: "Empresario educativo; ex alcalde y gobernador; líder de APP",
   },
+  "lopez-chau": {
+    id: "lopez-chau",
+    nombre: "Alfonso Lopez Chau",
+    educacion: {
+      formacion: "Economista; Doctor en Economía",
+      instituciones: "Universidad Nacional de Ingeniería (UNI); UNAM (México)",
+      credencial_hito: "Rector de la UNI",
+      enfoque: "Gestión académica y liderazgo estudiantil",
+    },
+    sector_privado: {
+      actividad: "Consultor y Docente",
+      escala_impacto: "Ámbito académico y profesional",
+      estrategia_ambito: "Promoción de la ciencia y tecnología desde la academia",
+    },
+    sector_publico: {
+      cargos_roles: "Rector de la Universidad Nacional de Ingeniería",
+      periodo: "2021 - Presente",
+      logros_controversias: "Defensa de la autonomía universitaria durante crisis política",
+      territorio_ambito: "Nacional (Educación)",
+    },
+    politica: {
+      rol_accion: "Potencial candidato presidencial; Líder de opinión desde la academia",
+      competicion: "Buscando consolidar una coalición de centro-izquierda",
+      resultados_posicionamiento: "Figura emergente tras las protestas de 2022-2023",
+      linea: "Socialdemocracia, defensa de la educación pública",
+    },
+    resumen_corto: "Rector de la UNI, figura académica y política emergente.",
+  },
 };

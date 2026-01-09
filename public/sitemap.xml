@@ -85,4 +85,12 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/candidate/cesar-acuna"/>
   </url>
+  <url>
+    <loc>https://capibarismo.com/candidate/lopez-chau</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/candidate/lopez-chau"/>
+  </url>
+</urlset>
 </urlset>
