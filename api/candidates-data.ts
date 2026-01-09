@@ -3,28 +3,34 @@
 export interface CandidateBase {
   id: string;
   nombre: string;
+  ideologia?: string;
 }
 
 export const candidates: Record<string, CandidateBase> = {
   keiko: {
     id: 'keiko',
     nombre: 'Keiko Fujimori',
+    ideologia: 'Derecha Populista',
   },
   rafael: {
     id: 'rafael',
     nombre: 'Rafael L. Aliaga',
+    ideologia: 'Derecha Conservadora',
   },
   yonhy: {
     id: 'yonhy',
     nombre: 'Yonhy Lescano',
+    ideologia: 'Centro Institucional',
   },
   'carlos-alvarez': {
     id: 'carlos-alvarez',
     nombre: 'Carlos Álvarez',
+    ideologia: 'Derecha Punitiva',
   },
   'cesar-acuna': {
     id: 'cesar-acuna',
     nombre: 'César Acuña',
+    ideologia: 'Populismo Clientelar',
   },
 };
 
