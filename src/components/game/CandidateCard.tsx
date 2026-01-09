@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Info } from 'lucide-react';
 import { useGameUIStore } from '@/store/useGameUIStore';
+import { CandidateFullBodyMedia } from '@/components/candidate/CandidateFullBody';
+import type { CandidateBase } from '@/data/types';
 
 interface CandidateCardProps {
   candidate: {
@@ -17,8 +19,19 @@ interface CandidateCardProps {
 
 export function CandidateCard({ candidate, side, onSelect, disabled }: CandidateCardProps) {
   const { openCandidateInfo } = useGameUIStore();
-  const imageSrc = candidate.fullBody || candidate.headshot;
   const isDisabled = Boolean(disabled);
+
+  const safeSrc = (url: string) => encodeURI(url);
+
+  const fullBodyCandidate: CandidateBase | null = candidate.fullBody
+    ? ({
+        id: candidate.id,
+        nombre: candidate.nombre,
+        ideologia: candidate.ideologia ?? '',
+        headshot: candidate.headshot ?? '',
+        fullBody: candidate.fullBody,
+      } as CandidateBase)
+    : null;
 
   const handleInfoClick = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -49,13 +62,19 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
         </Button>
       </div>
 
-      {/* Image - responsive sizing */}
+      {/* Image - use same media component as compare */}
       <div className="cursor-pointer w-full flex justify-center" onClick={handleSelect}>
-        {imageSrc ? (
+        {fullBodyCandidate ? (
+          <CandidateFullBodyMedia
+            candidate={fullBodyCandidate}
+            side={side}
+            className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-52 lg:w-48 lg:h-64 rounded overflow-hidden shadow-lg"
+          />
+        ) : candidate.headshot ? (
           <img
-            src={imageSrc}
+            src={safeSrc(candidate.headshot)}
             alt={candidate.nombre}
-            className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-52 lg:w-48 lg:h-64 object-contain"
+            className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-52 lg:w-48 lg:h-64 object-cover rounded overflow-hidden shadow-lg"
             loading="lazy"
             decoding="async"
           />

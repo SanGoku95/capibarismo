@@ -1,9 +1,140 @@
 import { motion } from 'framer-motion';
 import type { CandidateBase } from '@/data/types';
+import { useEffect, useMemo, useState } from 'react';
 
 interface CandidateFullBodyProps {
   candidate: CandidateBase | null;
   side: 'left' | 'right';
+}
+
+function useCanPlayWebmVp9() {
+  const [canPlay, setCanPlay] = useState(false);
+
+  useEffect(() => {
+    // Run only in the browser; avoid touching DOM during render.
+    try {
+      const v = document.createElement('video');
+      setCanPlay(v.canPlayType('video/webm; codecs="vp9"') !== '');
+    } catch {
+      setCanPlay(false);
+    }
+  }, []);
+
+  return canPlay;
+}
+
+type OptimizedAssets = {
+  poster: string;
+  webm: string;
+  animWebp: string;
+};
+
+function deriveOptimizedAssets(poster: string): OptimizedAssets | null {
+  // expects: /.../NAME_poster_h432_q80.webp
+  const m = poster.match(/^(.*\/)([^/]+?)_poster_(h\d+)_q\d+\.webp$/);
+  if (!m) return null;
+
+  const [, dir, base, h] = m;
+
+  return {
+    poster,
+    webm: `${dir}${base}_vp9_alpha_${h}_fps15_crf35.webm`,
+    animWebp: `${dir}${base}_anim_${h}_fps15_q60.webp`,
+  };
+}
+
+const safeSrc = (url: string) => encodeURI(url);
+
+export function CandidateFullBodyMedia({
+  candidate,
+  side,
+  className,
+}: {
+  candidate: CandidateBase;
+  side: 'left' | 'right';
+  className?: string; // container sizing/rounding/shadow/margins
+}) {
+  const canWebmVp9 = useCanPlayWebmVp9();
+
+  const assets = useMemo(() => deriveOptimizedAssets(candidate.fullBody), [candidate.fullBody]);
+  const mirror = side === 'right';
+  const mediaClass = `w-full h-full object-cover${mirror ? ' scale-x-[-1]' : ''}`;
+
+  const [videoFailed, setVideoFailed] = useState(false);
+  const [animFailed, setAnimFailed] = useState(false);
+  const [motionReady, setMotionReady] = useState(false);
+
+  useEffect(() => {
+    setVideoFailed(false);
+    setAnimFailed(false);
+    setMotionReady(false);
+  }, [candidate.id]);
+
+  // Fallback: if naming convention doesn't match, render the provided fullBody as-is.
+  if (!assets) {
+    return (
+      <div className={`relative ${className ?? ''}`}>
+        <img
+          src={safeSrc(candidate.fullBody)}
+          alt={`${candidate.nombre} full body`}
+          className={mediaClass}
+        />
+      </div>
+    );
+  }
+
+  const showVideo = canWebmVp9 && !videoFailed;
+  const showAnim = !showVideo && !animFailed;
+
+  return (
+    <div className={`relative ${className ?? ''}`} aria-label={`${candidate.nombre} en posición de combate`}>
+      {/* Poster: only a placeholder; fade out once motion is ready */}
+      <img
+        src={safeSrc(assets.poster)}
+        alt={`${candidate.nombre} full body`}
+        className={mediaClass}
+        style={{
+          display: 'block',
+          opacity: motionReady ? 0 : 1,
+          transition: 'opacity 150ms ease',
+        }}
+      />
+
+      {showVideo ? (
+        <video
+          key={`${candidate.id}-webm`}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className={`absolute inset-0 ${mediaClass}`}
+          aria-hidden="true"
+          onLoadedData={() => setMotionReady(true)}
+          onCanPlay={() => setMotionReady(true)}
+          onError={() => {
+            setVideoFailed(true);
+            setMotionReady(false); // keep poster until fallback loads
+          }}
+        >
+          <source src={safeSrc(assets.webm)} type='video/webm; codecs="vp9"' />
+        </video>
+      ) : showAnim ? (
+        <img
+          key={`${candidate.id}-anim`}
+          src={safeSrc(assets.animWebp)}
+          alt=""
+          aria-hidden="true"
+          className={`absolute inset-0 ${mediaClass}`}
+          onLoad={() => setMotionReady(true)}
+          onError={() => {
+            setAnimFailed(true);
+            setMotionReady(false);
+          }}
+        />
+      ) : null}
+    </div>
+  );
 }
 
 export function CandidateFullBody({ candidate, side }: CandidateFullBodyProps) {
@@ -43,19 +174,14 @@ export function CandidateFullBody({ candidate, side }: CandidateFullBodyProps) {
       transition={{ duration: 0.5, type: "spring", stiffness: 120 }}
       className="flex flex-col items-center justify-center h-full"
     >
-      <img
-        src={candidate.fullBody}
-        alt={`${candidate.nombre} ready to fight`}
-        className={`mx-auto w-72 h-96 object-cover ${
-          side === 'left' 
-            ? 'shadow-team-left/50' 
-            : 'shadow-team-right/50 scale-x-[-1]'
+      <CandidateFullBodyMedia
+        candidate={candidate}
+        side={side}
+        className={`w-72 h-96 mx-auto ${
+          side === 'left' ? 'shadow-team-left/50' : 'shadow-team-right/50'
         }`}
-        style={{
-          filter: 'drop-shadow(0 8px 32px rgba(0, 0, 0, 0.3))'
-        }}
-        aria-label={`${candidate.nombre} en posición de combate`}
       />
+
       <motion.h3 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
