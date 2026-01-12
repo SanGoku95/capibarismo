@@ -28,7 +28,7 @@ export function CandidateFullBodyMedia({
   } = useOptimizedMedia(candidate.fullBody, candidate.id);
 
   const mirror = side === 'right';
-  const mediaClass = `w-full h-full object-cover${mirror ? ' scale-x-[-1]' : ''}`;
+  const mediaClass = `w-full h-full object-contain${mirror ? ' scale-x-[-1]' : ''}`;
 
   // Fallback: if naming convention doesn't match, render the provided fullBody as-is.
   if (!assets) {
