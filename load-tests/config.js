@@ -62,10 +62,16 @@ export function getRandomCandidate() {
 
 /**
  * Get a random pair of different candidates
+ * Uses Fisher-Yates shuffle for proper randomization
  */
 export function getRandomPair() {
-  const shuffled = [...CANDIDATE_IDS].sort(() => Math.random() - 0.5);
-  return [shuffled[0], shuffled[1]];
+  const arr = [...CANDIDATE_IDS];
+  // Fisher-Yates shuffle for first two positions
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return [arr[0], arr[1]];
 }
 
 /**

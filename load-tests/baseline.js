@@ -66,7 +66,11 @@ export function setup() {
   console.log(`📍 Target: ${BASE_URL}`);
   console.log('👥 Virtual Users: 10 → 30 → 50 → 0');
   console.log('⏱️  Duration: 5 minutes');
-  return { startTime: Date.now() };
+  return { 
+    startTime: Date.now(),
+    // Use Set for O(1) checkpoint tracking
+    checkpoints: new Set()
+  };
 }
 
 /**

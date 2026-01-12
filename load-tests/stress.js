@@ -104,7 +104,7 @@ export default function () {
       {
         ...getRequestOptions(sessionId),
         tags: { name: 'vote' },
-        timeout: '30s' // Longer timeout for stress test
+        timeout: '10s' // Detect stress more accurately
       }
     );
     

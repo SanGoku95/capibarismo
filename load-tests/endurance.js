@@ -70,7 +70,8 @@ export function setup() {
   console.log('💰 COST WARNING: Long-running test will incur charges!');
   return { 
     startTime: Date.now(),
-    checkpoints: []
+    // Use Set for O(1) checkpoint tracking
+    checkpoints: new Set()
   };
 }
 
@@ -82,10 +83,10 @@ export default function (data) {
   const currentTime = Date.now();
   const elapsedMinutes = Math.floor((currentTime - data.startTime) / 60000);
   
-  // Log checkpoint every 15 minutes
+  // Log checkpoint every 15 minutes using Set for O(1) lookup
   if (elapsedMinutes > 0 && elapsedMinutes % 15 === 0) {
-    if (!data.checkpoints.includes(elapsedMinutes)) {
-      data.checkpoints.push(elapsedMinutes);
+    if (!data.checkpoints.has(elapsedMinutes)) {
+      data.checkpoints.add(elapsedMinutes);
       console.log(`⏰ Checkpoint: ${elapsedMinutes} minutes elapsed`);
     }
   }
