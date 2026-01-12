@@ -137,33 +137,4 @@ export const creencias: Record<string, Creencia[]> = {
       fuente: "https://www.youtube.com/watch?v=KlEIO-G6ORQ",
     },
   ],
-  "lopez-chau": [
-    {
-      id: "socialdemocracia-moderna",
-      nombre: "Socialdemocracia",
-      resumen:
-        "Promueve un Estado de bienestar fuerte, con énfasis en educación y salud públicas de calidad.",
-      detalle:
-        "Defiende la intervención del Estado para reducir desigualdades, pero respetando la propiedad privada y la democracia. Su modelo se acerca a una socialdemocracia europea, donde el Estado garantiza derechos fundamentales y regula el mercado para evitar abusos.",
-      fuente: "https://rpp.pe/politica/actualidad/alfonso-lopez-chau-rector-uni-candidatura-presidencial-noticia-1456789",
-    },
-    {
-      id: "defensa-institucionalidad",
-      nombre: "Institucionalidad Democrática",
-      resumen:
-        "Férrea defensa de la autonomía de las instituciones frente al copamiento político.",
-      detalle:
-        "Su trayectoria reciente está marcada por la defensa de la autonomía universitaria ante intentos legislativos de control. Extrapola esta visión a la defensa de otras instituciones democráticas (JNE, ONPE, Fiscalía) frente al asedio de sectores políticos que buscan capturarlas.",
-      fuente: "https://larepublica.pe/politica/2023/08/15/alfonso-lopez-chau-propone-proyecto-nacional-basado-en-ciencia-y-tecnologia",
-    },
-    {
-      id: "nacionalismo-tecnologico",
-      nombre: "Nacionalismo Tecnológico",
-      resumen:
-        "La soberanía nacional se defiende y construye a través del desarrollo científico y tecnológico.",
-      detalle:
-        "Cree que el Perú solo podrá ser verdaderamente soberano si desarrolla su propia capacidad tecnológica e industrial. Propone una alianza estratégica entre el Estado, la academia y la empresa privada para impulsar la innovación y dejar de ser un país primario-exportador.",
-      fuente: "https://wayka.pe/lopez-chau-sobre-asamblea-constituyente/",
-    },
-  ],
 };
