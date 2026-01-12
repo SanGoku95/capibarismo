@@ -58,7 +58,7 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
           <img
             src={safeSrc(candidate.headshot)}
             alt={candidate.nombre}
-            className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-52 lg:w-48 lg:h-64 object-cover rounded overflow-hidden shadow-lg"
+            className="w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-52 lg:w-48 lg:h-64 object-contain rounded overflow-hidden shadow-lg"
             loading="lazy"
             decoding="async"
           />
