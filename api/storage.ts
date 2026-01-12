@@ -49,10 +49,16 @@ export async function getUserHistory(sessionId: string): Promise<VoteRecord[]> {
     return votes;
   }
 
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token) {
+    throw new Error('Blob read/write token is missing');
+  }
+
   try {
     const { blobs } = await list({
       prefix: `sessions/${sessionId}/votes/`,
-      limit: 1000
+      limit: 1000,
+      token, // This is the required fix
     });
 
     if (blobs.length === 0) return [];
