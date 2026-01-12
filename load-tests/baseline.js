@@ -21,7 +21,7 @@
 
 import http from 'k6/http';
 import { check, sleep } from 'k6';
-import { Counter, Trend } from 'k6/metrics';
+import { Counter, Trend, Rate } from 'k6/metrics';
 import {
   BASE_URL,
   config as baseConfig,
@@ -32,13 +32,21 @@ import {
   randomSleep,
   debug,
   isValidVoteResponse,
-  isValidRankingResponse
+  isValidRankingResponse,
+  calculateQoE,
+  meetsQoEStandards
 } from './config.js';
 
 // Custom metrics
 const voteSuccessRate = new Counter('votes_successful');
 const votesSubmitted = new Counter('votes_submitted');
 const rankingFetches = new Counter('ranking_fetches');
+
+// Quality of Experience metrics
+const qoeScore = new Trend('qoe_score');
+const excellentExperience = new Rate('experience_excellent');
+const goodExperience = new Rate('experience_good');
+const poorExperience = new Rate('experience_poor');
 
 // Test configuration
 export const options = {
@@ -106,16 +114,27 @@ export default function () {
     
     votesSubmitted.add(1);
     
+    // Calculate Quality of Experience
+    const qoe = calculateQoE(voteResponse.timings.duration, 'vote');
+    qoeScore.add(qoe.score);
+    
+    // Track experience quality distribution
+    excellentExperience.add(qoe.rating === 'Excellent');
+    goodExperience.add(qoe.rating === 'Good');
+    poorExperience.add(qoe.rating === 'Poor');
+    
     // Check vote response
     const voteSuccess = check(voteResponse, {
       'vote status is 200': (r) => r.status === 200,
       'vote response is valid': (r) => isValidVoteResponse(r),
       'vote response time < 300ms': (r) => r.timings.duration < 300,
+      'vote meets QoE standards': (r) => meetsQoEStandards(r, 'vote'),
+      'vote TTFB < 200ms': (r) => r.timings.waiting < 200,
     });
     
     if (voteSuccess) {
       voteSuccessRate.add(1);
-      debug(`Vote ${i + 1}/${numVotes} successful: ${outcome === 'A' ? candidateA : candidateB} won`);
+      debug(`Vote ${i + 1}/${numVotes} successful: ${outcome === 'A' ? candidateA : candidateB} won (QoE: ${qoe.score})`);
     } else {
       debug(`Vote ${i + 1}/${numVotes} failed:`, voteResponse.status, voteResponse.body);
     }

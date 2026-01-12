@@ -4,6 +4,15 @@
 
 This document outlines the comprehensive load testing strategy for the Presidential Punch Peru game application. The application is a React-based SPA with Vercel Functions API backend, deployed on Vercel Pro.
 
+**⚠️ Important**: This plan follows [Vercel's official load testing guidelines](https://vercel.com/kb/guide/how-to-effectively-load-test-your-vercel-application). See [VERCEL_BEST_PRACTICES.md](./VERCEL_BEST_PRACTICES.md) and [VERCEL_COST_ANALYSIS.md](./VERCEL_COST_ANALYSIS.md) for detailed Vercel-specific guidance.
+
+## Quick Links
+
+- **[Vercel Best Practices](./VERCEL_BEST_PRACTICES.md)** - Official Vercel recommendations
+- **[Cost Analysis](./VERCEL_COST_ANALYSIS.md)** - Billing implications and cost calculator
+- **[Quick Start Guide](./LOAD_TESTING_QUICKSTART.md)** - Get started in 5 minutes
+- **[Test Scripts](../load-tests/README.md)** - All test scenarios
+
 ## Application Architecture
 
 ### Frontend
@@ -117,6 +126,86 @@ This document outlines the comprehensive load testing strategy for the President
 - Consistent performance over time
 - No degradation in response times
 - Storage system remains performant
+
+### Scenario 6: Extreme Scale Test (100,000 users)
+**Objective**: Test maximum expected capacity for election day
+
+⚠️ **REQUIRES VERCEL COORDINATION** - See [Vercel Best Practices](./VERCEL_BEST_PRACTICES.md)
+
+- **Virtual Users**: Ramp to 100,000 concurrent users
+- **Duration**: ~55 minutes (phased ramp-up)
+- **Actions**: Reduced votes per session (3-7 votes)
+- **Estimated Cost**: ~$10-15 per test run
+
+**Phases**:
+1. Warm-up: 0 → 10,000 users (15 minutes)
+2. Scale-up: 10,000 → 50,000 users (10 minutes)
+3. Peak: 50,000 → 100,000 users (10 minutes)
+4. Sustained: Hold at 100,000 (10 minutes)
+5. Ramp-down: 100,000 → 10,000 (10 minutes)
+
+**Prerequisites**:
+- ✅ Contact Vercel support for approval
+- ✅ Whitelist test IPs in WAF
+- ✅ Run against Preview deployment only
+- ✅ Team monitoring dashboards ready
+- ✅ Schedule during off-peak hours
+
+**Expected Outcomes**:
+- Document maximum sustainable capacity
+- Validate auto-scaling at extreme load
+- Test DDoS protection interaction
+- Identify breaking points
+- Measure quality degradation patterns
+
+## Quality of Experience (QoE) Metrics
+
+### Beyond Performance: Measuring User Experience
+
+Our load tests track not just performance metrics, but **Quality of Experience** - how users actually perceive the system.
+
+### QoE Scoring System (0-100)
+
+- **90-100 (Excellent)**: Users perceive as instant
+  - Vote: <100ms
+  - Ranking: <300ms
+  - TTFB: <100ms
+
+- **70-89 (Good)**: Acceptable user experience
+  - Vote: 100-300ms
+  - Ranking: 300-800ms
+  - TTFB: 100-200ms
+
+- **30-69 (Acceptable)**: Users notice delay
+  - Vote: 300-500ms
+  - Ranking: 800-1500ms
+  - TTFB: 200-500ms
+
+- **0-29 (Poor)**: Users may abandon
+  - Vote: >500ms
+  - Ranking: >1500ms
+  - TTFB: >500ms
+
+### Core Web Vitals Alignment
+
+Our QoE metrics align with [Google's Core Web Vitals](https://web.dev/vitals/):
+
+| Our Metric | Core Web Vital | Target |
+|------------|----------------|--------|
+| TTFB | Time to First Byte | <200ms |
+| Vote Duration | LCP Proxy | <500ms |
+| Connection Time | FID Proxy | <100ms |
+
+### Tracking in Tests
+
+All test scenarios automatically calculate and report QoE scores:
+
+```
+qoe_score................: avg=85.3 min=42.1 med=88.7 max=98.2
+experience_excellent.....: 45.2% (users with instant experience)
+experience_good..........: 42.8% (users with good experience)
+experience_poor..........: 12.0% (users with poor experience)
+```
 
 ## Testing Tools
 
