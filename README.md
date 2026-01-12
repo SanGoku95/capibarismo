@@ -44,6 +44,14 @@ This project is licensed under the [Apache License 2.0](LICENSE) - see the LICEN
 - **📱 Responsive Design**: Optimized for mobile and desktop with 90s gaming theme
 - **♿ Accessibility**: Built with accessibility-first design principles
 
+### 🎮 UX Philosophy
+
+We treat this civic tool like a fighting game. To maintain "Game Feel", we adhere to strict performance contracts:
+
+- **🥊 "The Punch" (Immediate Feedback)**: <100ms response. Voting feels visceral and instant.
+- **🌊 "The Flow" (Sustained Rhythm)**: <1.0s transitions. Users stay in a "voting trance" without interruption.
+- **📡 "The Reach" (Digital Inclusion)**: Optimized for Rural Peru (3G/High Latency). Democracy is for everyone.
+
 ### 🛠️ Tech Stack
 
 - **Framework**: React 18 + Vite + TypeScript
@@ -123,6 +131,14 @@ Web moderna para informar sobre los distintos candidatos, sus posiciones políti
 *   **🔍 Filtros Dinámicos**: Filtra y personaliza las comparaciones por candidatos de interés
 *   **📱 Diseño Responsivo**: Interfaz optimizada para móviles y escritorio con tema de videojuegos de los 90s
 *   **♿ Accesibilidad**: Construido con principios de diseño centrados en accesibilidad
+
+### 🎮 Filosofía UX
+
+Tratamos esta herramienta cívica como un videojuego de pelea. Para mantener el "Game Feel", nos adherimos a contratos estrictos de rendimiento:
+
+*   **🥊 "The Punch" (Feedback Inmediato)**: Respuesta <100ms. Votar se siente visceral e instantáneo.
+*   **🌊 "The Flow" (Ritmo Sostenido)**: Transiciones <1.0s. Los usuarios permanecen en la zona sin interrupciones.
+*   **📡 "The Reach" (Inclusión Digital)**: Optimizado para el Perú Rural (3G/Alta Latencia). La democracia es para todos.
 
 ### 🛠️ Stack Tecnológico
 

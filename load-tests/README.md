@@ -32,6 +32,28 @@ choco install k6
 npm install -g k6
 ```
 
+## UI/UX Performance Standards
+
+As an interactive voting game ("Presidential Punch"), the application must adhere to strict UX contracts to maintain "Game Feel" and "Flow State". These standards define the pass/fail criteria for our load tests.
+
+### 1. "The Punch" (Immediate Feedback)
+The voting action must feel visceral and instantaneous.
+- **Expectation**: < 100ms (Perceived)
+- **Technical Target**: API latency < 300ms (Optimistic UI masks the network, but confirmation must arrive before the next interaction).
+- **UX Theory**: 0.1s is the limit for having the user feel that the system is reacting instantaneously.
+
+### 2. "The Flow" (Sustained Rhythm)
+Users enter a rhythmic state of "Vote -> Next -> Vote". Interruptions break this trance.
+- **Expectation**: < 1.0s (Transition)
+- **Technical Target**: Ranking/Next Pair load < 1000ms.
+- **UX Theory**: 1.0s is the limit for the user's flow of thought to stay uninterrupted. Delays > 1s require a loading indicator and cause a mental context switch.
+
+### 3. "The Reach" (Digital Inclusion)
+Democracy is for everyone. The experience must degrade gracefully, not fail.
+- **Scope**: Rural Peru (10 Mbps / 60ms latency).
+- **Expectation**: Functional interaction within 3s on 3G networks.
+- **Constraint**: Strict timeouts (5s) prevent "zombie" states where the user doesn't know if the app crashed.
+
 ## Test Scenarios
 
 ### 1. Smoke Test (`smoke.js`)

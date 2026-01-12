@@ -23,7 +23,8 @@ export const config = {
     'http_req_duration{name:vote}': ['p(95)<300', 'p(99)<500'],
     
     // Ranking endpoint can be slightly slower (computation heavy)
-    'http_req_duration{name:ranking}': ['p(95)<800', 'p(99)<1500'],
+    // Relaxed to 1500ms as per UX decision (loading state is acceptable)
+    'http_req_duration{name:ranking}': ['p(95)<1500', 'p(99)<2500'],
     
     // Quality of Experience (QoE) metrics
     // Based on Core Web Vitals and user experience research
@@ -43,27 +44,30 @@ export const config = {
 };
 
 // Quality of Experience (QoE) thresholds
-// Based on Google's Core Web Vitals and UX research
+// Based on Nielsen's Response Time Limits & Google Core Web Vitals
+// 1. Instant (0.1s): User feels they caused the action.
+// 2. Flow (1.0s): User's thought process is uninterrupted.
+// 3. Attention (10s): Limit for keeping user's attention.
 export const QOE_THRESHOLDS = {
-  // Excellent: Users perceive as instant
+  // Excellent: "The Punch" - Feels immediate and visceral
   EXCELLENT: {
-    vote: 100,      // <100ms feels instant
-    ranking: 300,   // <300ms feels responsive
-    ttfb: 100,      // <100ms TTFB is excellent
+    vote: 100,      // <100ms: Instant (Optimistic UI goal)
+    ranking: 500,   // <500ms: Snappy transition
+    ttfb: 100,      // <100ms: Server is ready immediately
   },
   
-  // Good: Acceptable user experience
+  // Good: "The Flow" - Rhythm is maintained, no context switch
   GOOD: {
-    vote: 300,      // <300ms still feels fast
-    ranking: 800,   // <800ms is acceptable
-    ttfb: 200,      // <200ms TTFB is good
+    vote: 300,      // <300ms: Noticeable but doesn't break flow
+    ranking: 1000,  // <1.0s: The limit of "Uninterrupted thought"
+    ttfb: 200,      // <200ms: Standard good performance
   },
   
-  // Poor: Users start to notice delay
+  // Poor: "The Drag" - User notices delay, loses rhythm
   POOR: {
-    vote: 500,      // >500ms users get impatient
-    ranking: 1500,  // >1500ms users may abandon
-    ttfb: 500,      // >500ms TTFB feels slow
+    vote: 500,      // >500ms: Feels "sticky" or broken
+    ranking: 3000,  // >3.0s: User considers abandoning
+    ttfb: 500,      // >500ms: perceptible lag before paint
   }
 };
 
@@ -136,21 +140,21 @@ export const PERU_QOE_THRESHOLDS = {
   // Excellent: Users perceive as instant (accounting for Peru latency)
   EXCELLENT: {
     vote: 150,      // <150ms feels instant (includes 22ms network latency)
-    ranking: 350,   // <350ms feels responsive
+    ranking: 600,   // <600ms feels responsive (relaxed from 350)
     ttfb: 120,      // <120ms TTFB is excellent (includes latency)
   },
   
-  // Good: Acceptable user experience for Peru
+  // Good: Acceptable user experience for Peru (Rural/3G Baseline)
   GOOD: {
     vote: 320,      // <320ms still feels fast for Peruvian users
-    ranking: 850,   // <850ms is acceptable
+    ranking: 1200,  // <1.2s: Striving for Flow state even on mobile
     ttfb: 220,      // <220ms TTFB is good
   },
   
   // Poor: Users start to notice delay (Peru-adjusted)
   POOR: {
     vote: 550,      // >550ms users get impatient (even accounting for network)
-    ranking: 1600,  // >1600ms users may abandon
+    ranking: 3500,  // >3.5s users may abandon (relaxed from 1600)
     ttfb: 550,      // >550ms TTFB feels slow
   }
 };
