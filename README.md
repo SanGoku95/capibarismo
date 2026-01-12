@@ -44,6 +44,14 @@ This project is licensed under the [Apache License 2.0](LICENSE) - see the LICEN
 - **📱 Responsive Design**: Optimized for mobile and desktop with 90s gaming theme
 - **♿ Accessibility**: Built with accessibility-first design principles
 
+### 🎮 UX Philosophy
+
+We treat this civic tool like a fighting game. To maintain "Game Feel", we adhere to strict performance contracts:
+
+- **🥊 "The Punch" (Immediate Feedback)**: <100ms response. Voting feels visceral and instant.
+- **🌊 "The Flow" (Sustained Rhythm)**: <1.0s transitions. Users stay in a "voting trance" without interruption.
+- **📡 "The Reach" (Digital Inclusion)**: Optimized for Rural Peru (3G/High Latency). Democracy is for everyone.
+
 ### 🛠️ Tech Stack
 
 - **Framework**: React 18 + Vite + TypeScript
@@ -72,12 +80,15 @@ npm run dev
 - `npm run build` - Production build
 - `npm run preview` - Preview production build
 - `npm run lint` - Code linting
+- `npm run loadtest:smoke` - Quick smoke test (5 users, 1 min)
+- `npm run loadtest:baseline` - Baseline performance test (10-50 users, 5 min)
 
 ### 📖 Documentation
 
 - **[Developer Guide](./dev.md)** - Comprehensive technical documentation
 - **[Component Architecture](./dev.md#component-architecture)** - UI component organization
 - **[Design System](./dev.md#design-system--theme)** - 90s gaming theme details
+- **[Load Testing Plan](./docs/load-testing.md)** - Load testing strategy and procedures
 
 ### 🤝 Contributing
 
@@ -121,6 +132,14 @@ Web moderna para informar sobre los distintos candidatos, sus posiciones políti
 *   **📱 Diseño Responsivo**: Interfaz optimizada para móviles y escritorio con tema de videojuegos de los 90s
 *   **♿ Accesibilidad**: Construido con principios de diseño centrados en accesibilidad
 
+### 🎮 Filosofía UX
+
+Tratamos esta herramienta cívica como un videojuego de pelea. Para mantener el "Game Feel", nos adherimos a contratos estrictos de rendimiento:
+
+*   **🥊 "The Punch" (Feedback Inmediato)**: Respuesta <100ms. Votar se siente visceral e instantáneo.
+*   **🌊 "The Flow" (Ritmo Sostenido)**: Transiciones <1.0s. Los usuarios permanecen en la zona sin interrupciones.
+*   **📡 "The Reach" (Inclusión Digital)**: Optimizado para el Perú Rural (3G/Alta Latencia). La democracia es para todos.
+
 ### 🛠️ Stack Tecnológico
 
 *   **Framework:** React 18 con Vite + TypeScript
@@ -149,12 +168,15 @@ npm run dev
 *   `npm run build` - Compilación para producción
 *   `npm run preview` - Previsualizar build de producción
 *   `npm run lint` - Análisis de código con ESLint
+*   `npm run loadtest:smoke` - Prueba rápida de humo (5 usuarios, 1 min)
+*   `npm run loadtest:baseline` - Prueba de rendimiento base (10-50 usuarios, 5 min)
 
 ### 📖 Documentación
 
 - **[Guía de Desarrollo](./dev.md)** - Documentación técnica completa
 - **[Arquitectura de Componentes](./dev.md#component-architecture)** - Organización de componentes UI
 - **[Sistema de Diseño](./dev.md#design-system--theme)** - Detalles del tema gaming de los 90s
+- **[Plan de Pruebas de Carga](./docs/load-testing.md)** - Estrategia y procedimientos de pruebas de carga
 
 ### 🤝 Contribución
 

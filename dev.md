@@ -87,16 +87,20 @@ The design system uses CSS custom properties for consistent theming:
 
 ## Component Architecture
 
-### Component Organization
+### Project Structure
 
-```
-src/components/
-├── ui/                 # Base design system components (shadcn/ui)
-├── candidate/          # Candidate-specific components
-├── compare/            # Comparison functionality
-├── political-compass/  # Political positioning visualization
-├── layout/             # Layout and navigation components
-├── common/             # Shared utilities and components
+```bash
+/
+├── api/                # Vercel Serverless Functions (Backend)
+├── src/
+│   ├── components/     # React components
+│   │   ├── ui/         # Generic UI (shadcn)
+│   │   ├── game/       # Game-specific components
+│   │   └── ...
+│   ├── hooks/          # Custom logic & API integration
+│   ├── store/          # Zustand global state
+│   ├── data/           # Static candidate data
+│   └── pages/          # Route components
 ```
 
 ### Component Design Patterns
@@ -157,20 +161,43 @@ The comparison functionality is split across multiple components:
 - Interactive candidate positioning
 - Responsive scaling and touch support
 
+### Key Custom Hooks
+
+We encapsulate business logic and "Game Feel" mechanics in specialized hooks found in `src/hooks/`:
+
+#### Game Logic
+- **`useGameAPI`**: The primary "Service Layer". It manages:
+  - `sessionId` generation and persistence.
+  - `useNextPair`: Fetches the next two candidates to compare.
+- **`useOptimisticVote`**: **Core UX Hook**. Implements "The Punch" philosophy.
+  - Updates the vote count and UI state *immediately* (optimistically).
+  - Sends the API request in the background.
+  - Handles rollback if the server request fails.
+- **`useGameKeyboard`**: Manages keyboard event listeners (Arrow keys) for desktop play, ensuring accessibility and triggering sound effects.
+- **`useGameCompletion`**: Monitors session progress and triggers the "Game Over" / Results modal when the target vote count is reached.
+
+#### Utilities
+- **`useItemListSEO`**: Dynamically injects JSON-LD structured data for Search Engine Optimization.
+
 ## State Management
 
 ### Zustand Store Design
 
-We use Zustand for its simplicity and minimal boilerplate:
+We use Zustand for global UI state that needs to be accessed across components but doesn't require complex reducer logic:
+
+- **`useGameUIStore`**: Manages ephemeral UI state for the active game session:
+  - `isInfoOpen`: Controls the candidate details overlay.
+  - `reducedMotion`: Syncs with system accessibility settings.
+- **`useCompareStore`**: Manages the pairing state in the "Compare" mode (who is Player 1 vs Player 2).
 
 ```tsx
-interface CompareState {
-  leftCandidate: Candidate | null;
-  rightCandidate: Candidate | null;
-  setLeftCandidate: (candidate: Candidate | null) => void;
-  setRightCandidate: (candidate: Candidate | null) => void;
-  selectCandidate: (candidate: Candidate) => void; // Smart selection logic
-}
+// Example: Game UI Store
+export const useGameUIStore = create<GameUIState>((set) => ({
+  isInfoOpen: false,
+  setInfoOpen: (isOpen) => set({ isInfoOpen: isOpen }),
+  reducedMotion: false,
+  // ...
+}));
 ```
 
 ### State Management Principles
@@ -194,6 +221,33 @@ const queryClient = new QueryClient({
   },
 });
 ```
+
+## Server & API Architecture
+
+The application uses Vercel Serverless Functions located in the `/api` directory. This acts as our backend layer, handling business logic and storage interactions.
+
+### Endpoints (`/api`)
+
+- **`POST /api/game/vote`**: 
+  - Optimized for high-throughput write speed ("Fire-and-forget").
+  - Validates session and candidate IDs.
+  - Writes vote data to storage.
+- **`GET /api/ranking/personal`**:
+  - Replays the user's specific vote history.
+  - Calculates dynamic ELO ratings on-the-fly.
+  - Returns a personalized leaderboard.
+
+### Storage Abstraction (`api/storage.ts`)
+
+We implement a dual-mode storage strategy to facilitate easy development:
+
+1.  **Development**: In-Memory `Map<>`.
+    - Fast, zero setup required.
+    - Data resets on server restart.
+    - Prevents polluting production data with test votes.
+2.  **Production**: Vercel Blob Storage.
+    - Stores individual JSON files per vote for high concurrency.
+    - Durable and auditable.
 
 ## Data Management
 
@@ -377,113 +431,53 @@ npm run build
 npx vite-bundle-analyzer dist/
 ```
 
-## Deployment
+## Load Testing & Performance
 
-### Build Process
+We treat performance as a core product feature. The application must adhere to strict "Game Feel" contracts to ensure the voting experience remains visceral and rhythmic.
+
+### UX Performance Standards
+
+| Experience | Definition | Metric (p95) | Rationale |
+|------------|------------|--------------|-----------|
+| **The Punch** | Instant feedback | < 100ms | Voting must feel visceral. Optimistic UI is required. |
+| **The Flow** | Sustained rhythm | < 1000ms | Transitions must not break the user's "voting trance". |
+| **The Reach** | Digital inclusion | < 3000ms | Functional on 3G Rural Peru networks (10Mbps/60ms). |
+
+### Running Load Tests
+
+The project uses [k6](https://k6.io/) for load testing.
+
+#### Prerequisites
+```bash
+brew install k6  # macOS
+# or
+npm install -g k6
+```
+
+#### Available Scenarios
+
+We have defined npm scripts for common testing scenarios:
+
+| Script | Scenario | Users | Duration | Purpose |
+|--------|----------|-------|----------|---------|
+| `npm run loadtest:smoke` | Smoke Test | 5 | 1m | Quick sanity check |
+| `npm run loadtest:baseline` | Baseline | 50 | 5m | Normal operating metrics |
+| `npm run loadtest:peak` | Peak Load | 1k | 15m | Simulate election events |
+| `npm run loadtest:stress` | Stress Test | 3k+ | 30m | Find breaking points |
+| `npm run loadtest:peru` | **Peru Specific** | 50 | 5m | Test with Peru network profiles |
+
+### Peru-Specific Network Profiling
+
+To ensure "The Reach", use the Peru-specific test which simulates local network conditions (latency, bandwidth, packet loss).
 
 ```bash
-# Production build
-npm run build
-
-# Development build with source maps
-npm run build:dev
+# Test specific network profiles
+NETWORK_PROFILE=urban npm run loadtest:peru      # Lima (4G Good)
+NETWORK_PROFILE=rural npm run loadtest:peru      # Remote (3G Limited)
+NETWORK_PROFILE=congested npm run loadtest:peru  # Peak Hours (7-10 PM)
 ```
 
-### Environment Configuration
-
-Create `.env` files for different environments:
-
-```bash
-# .env.local
-VITE_API_URL=http://localhost:3000
-VITE_ENABLE_ANALYTICS=false
-
-# .env.production
-VITE_API_URL=https://api.presidentialpunch.pe
-VITE_ENABLE_ANALYTICS=true
-```
-
-### Static Hosting
-
-The app is built as a static SPA and can be deployed to:
-- Vercel
-- Netlify
-- GitHub Pages
-- AWS S3 + CloudFront
-- Any static hosting service
-
-### Build Output
-
-```
-dist/
-├── index.html
-├── assets/
-│   ├── index-[hash].css
-│   ├── index-[hash].js
-│   └── [component]-[hash].js
-└── images/
-```
-
-## Troubleshooting
-
-### Common Issues
-
-#### 1. Build Failures
-
-**Issue**: TypeScript errors during build
-```bash
-error TS2307: Cannot find module '@/components/ui/button'
-```
-
-**Solution**: Check absolute import configuration in `vite.config.ts` and `tsconfig.json`
-
-#### 2. Hot Reload Not Working
-
-**Issue**: Changes not reflecting in browser
-
-**Solutions**:
-- Check if files are saved
-- Restart dev server
-- Clear browser cache
-- Check for syntax errors
-
-#### 3. Style Issues
-
-**Issue**: Tailwind classes not applying
-
-**Solutions**:
-- Verify Tailwind CSS is imported in `src/index.css`
-- Check if custom CSS variables are defined
-- Inspect element to see if classes are being purged
-
-### Development Tools
-
-#### Browser Extensions
-- React Developer Tools
-- TanStack Query DevTools
-- Tailwind CSS IntelliSense (VS Code)
-
-#### VS Code Setup
-
-Recommended extensions:
-- ES7+ React/Redux/React-Native snippets
-- Tailwind CSS IntelliSense
-- TypeScript Importer
-- Auto Rename Tag
-- Bracket Pair Colorizer
-
-### Performance Monitoring
-
-Monitor bundle sizes and performance:
-
-```bash
-# Check bundle size
-npm run build
-ls -la dist/assets/
-
-# Lighthouse audit
-npx lighthouse http://localhost:8080 --view
-```
+See `load-tests/config.js` for the exact definitions of these network profiles.
 
 ---
 

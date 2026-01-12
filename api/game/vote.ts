@@ -5,17 +5,26 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { saveVote } from '../storage.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Set CORS headers for all responses
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).end();
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  // Ensure only POST method is handled
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', ['POST', 'OPTIONS']);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
 
   try {
     const { sessionId, aId, bId, outcome } = req.body;
 
-    // Validate required fields only
+    // Validate required fields
     if (!sessionId || !aId || !bId || (outcome !== 'A' && outcome !== 'B')) {
       return res.status(400).json({ error: 'Invalid vote data' });
     }
@@ -23,9 +32,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const winnerId = outcome === 'A' ? aId : bId;
     const loserId = outcome === 'A' ? bId : aId;
 
-    // Process vote in background for instant response
-    await saveVote(sessionId, winnerId, loserId);
+    // Asynchronously save the vote without waiting for it to complete
+    saveVote(sessionId, winnerId, loserId).catch(console.error);
 
+    // Return immediate success response for a snappy user experience
     return res.status(200).json({ ok: true });
   } catch (error) {
     console.error('[vote] Error:', error);
