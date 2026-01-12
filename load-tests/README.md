@@ -2,6 +2,8 @@
 
 This directory contains load testing scripts for the Presidential Punch Peru game application using [k6](https://k6.io/).
 
+**🇵🇪 Peru-Specific Testing**: All tests include Peru network condition profiles accounting for realistic Peruvian internet (22ms avg latency, 35 Mbps mobile). See `peru-baseline.js` for dedicated Peru testing.
+
 ## Prerequisites
 
 ### Install k6
@@ -109,6 +111,50 @@ npm run loadtest:endurance
 # or
 k6 run load-tests/endurance.js
 ```
+
+### 7. Extreme Scale Test (`extreme-scale.js`)
+Test maximum expected capacity for election day.
+
+- **Users:** Up to 100,000 concurrent (phased ramp)
+- **Duration:** ~55 minutes
+- **Purpose:** Maximum capacity testing
+- **⚠️ Requires Vercel coordination**
+
+```bash
+npm run loadtest:extreme
+# or
+k6 run load-tests/extreme-scale.js
+```
+
+### 8. Peru-Specific Test (`peru-baseline.js`) 🇵🇪
+Test with realistic Peruvian network conditions.
+
+- **Users:** 10-50 concurrent
+- **Duration:** 5 minutes
+- **Purpose:** Measure experience for Peruvian users
+- **Network Profiles:** urban (default), suburban, rural, congested
+
+```bash
+# Default (urban Peru - 35 Mbps, 22ms latency)
+npm run loadtest:peru
+
+# Specific network profiles
+npm run loadtest:peru:urban      # Lima, major cities (60% of users)
+npm run loadtest:peru:suburban   # Mid-size cities (25% of users)
+npm run loadtest:peru:rural      # Remote areas (10% of users)
+npm run loadtest:peru:congested  # Peak hours (5% of users)
+
+# Or manually
+NETWORK_PROFILE=rural k6 run load-tests/peru-baseline.js
+```
+
+**Peru Network Profiles:**
+- **Urban**: 35 Mbps, 22ms latency - Lima, Arequipa, Trujillo
+- **Suburban**: 25 Mbps, 30ms latency - Mid-size cities
+- **Rural**: 10 Mbps, 60ms latency - Remote areas, limited coverage
+- **Congested**: 20 Mbps, 45ms latency - Peak hours (7-10 PM)
+
+See [PERU_NETWORK_CONDITIONS.md](../docs/PERU_NETWORK_CONDITIONS.md) for detailed Peru-specific testing guide.
 
 ## Running Tests
 

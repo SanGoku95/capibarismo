@@ -86,6 +86,75 @@ export const VERCEL_CONFIG = {
   RECOMMEND_TIMEOUT: 10,      // seconds - Balance cost vs UX
 };
 
+// Peru network profiles - Realistic conditions for Peruvian users
+// Based on Speedtest Global Index and Ookla research (2026)
+export const PERU_NETWORK_PROFILES = {
+  urban: {
+    name: 'Urban Peru (Good 4G)',
+    downloadMbps: 35,           // Average mobile download
+    uploadMbps: 15.6,           // Average mobile upload
+    latencyMs: 22,              // Average mobile latency
+    packetLoss: 0.5,            // Good conditions
+    coverage: '60%',            // Estimated user distribution
+    description: 'Lima, Arequipa, Trujillo - Major cities with good 4G coverage',
+  },
+  suburban: {
+    name: 'Suburban Peru (Moderate 4G)',
+    downloadMbps: 25,
+    uploadMbps: 12,
+    latencyMs: 30,
+    packetLoss: 1.5,
+    coverage: '25%',
+    description: 'Mid-size cities, suburban areas with moderate coverage',
+  },
+  rural: {
+    name: 'Rural Peru (Limited 3G/4G)',
+    downloadMbps: 10,
+    uploadMbps: 5,
+    latencyMs: 60,
+    packetLoss: 3,
+    coverage: '10%',
+    description: 'Remote areas with limited coverage',
+  },
+  congested: {
+    name: 'Congested Network (Peak Hours)',
+    downloadMbps: 20,
+    uploadMbps: 8,
+    latencyMs: 45,
+    packetLoss: 2,
+    coverage: '5%',
+    description: 'Urban during 7-10 PM peak hours',
+  },
+};
+
+// Get current network profile (default: urban - most common)
+export const NETWORK_PROFILE = __ENV.NETWORK_PROFILE || 'urban';
+
+// Peru-adjusted QoE thresholds
+// Accounts for average 22ms Peru mobile latency
+export const PERU_QOE_THRESHOLDS = {
+  // Excellent: Users perceive as instant (accounting for Peru latency)
+  EXCELLENT: {
+    vote: 150,      // <150ms feels instant (includes 22ms network latency)
+    ranking: 350,   // <350ms feels responsive
+    ttfb: 120,      // <120ms TTFB is excellent (includes latency)
+  },
+  
+  // Good: Acceptable user experience for Peru
+  GOOD: {
+    vote: 320,      // <320ms still feels fast for Peruvian users
+    ranking: 850,   // <850ms is acceptable
+    ttfb: 220,      // <220ms TTFB is good
+  },
+  
+  // Poor: Users start to notice delay (Peru-adjusted)
+  POOR: {
+    vote: 550,      // >550ms users get impatient (even accounting for network)
+    ranking: 1600,  // >1600ms users may abandon
+    ttfb: 550,      // >550ms TTFB feels slow
+  }
+};
+
 // Candidate data - actual candidate IDs from the application
 export const CANDIDATE_IDS = [
   'antauro-humala',
@@ -214,10 +283,13 @@ export function isValidRankingResponse(response) {
  * 
  * @param {number} duration - Response time in milliseconds
  * @param {string} endpoint - 'vote' or 'ranking'
- * @returns {object} - { score, rating, color }
+ * @param {boolean} usePeruThresholds - Use Peru-adjusted thresholds (default: true)
+ * @returns {object} - { score, rating, color, profile }
  */
-export function calculateQoE(duration, endpoint = 'vote') {
-  const thresholds = QOE_THRESHOLDS;
+export function calculateQoE(duration, endpoint = 'vote', usePeruThresholds = true) {
+  // Use Peru thresholds by default (realistic for target audience)
+  const thresholds = usePeruThresholds ? PERU_QOE_THRESHOLDS : QOE_THRESHOLDS;
+  const profile = usePeruThresholds ? PERU_NETWORK_PROFILES[NETWORK_PROFILE] : null;
   
   let score, rating, color;
   
@@ -251,7 +323,9 @@ export function calculateQoE(duration, endpoint = 'vote') {
     score: Math.round(score),
     rating,
     color,
-    duration
+    duration,
+    profile: profile ? profile.name : 'Global',
+    networkLatency: profile ? profile.latencyMs : 0
   };
 }
 

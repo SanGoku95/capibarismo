@@ -22,7 +22,12 @@
     "loadtest:stress": "k6 run load-tests/stress.js",
     "loadtest:spike": "k6 run load-tests/spike.js",
     "loadtest:endurance": "k6 run load-tests/endurance.js",
-    "loadtest:extreme": "k6 run load-tests/extreme-scale.js"
+    "loadtest:extreme": "k6 run load-tests/extreme-scale.js",
+    "loadtest:peru": "k6 run load-tests/peru-baseline.js",
+    "loadtest:peru:urban": "NETWORK_PROFILE=urban k6 run load-tests/peru-baseline.js",
+    "loadtest:peru:suburban": "NETWORK_PROFILE=suburban k6 run load-tests/peru-baseline.js",
+    "loadtest:peru:rural": "NETWORK_PROFILE=rural k6 run load-tests/peru-baseline.js",
+    "loadtest:peru:congested": "NETWORK_PROFILE=congested k6 run load-tests/peru-baseline.js"
   },
   "dependencies": {
     "@ai-sdk/react": "^2.0.13",

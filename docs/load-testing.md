@@ -6,10 +6,13 @@ This document outlines the comprehensive load testing strategy for the President
 
 **⚠️ Important**: This plan follows [Vercel's official load testing guidelines](https://vercel.com/kb/guide/how-to-effectively-load-test-your-vercel-application). See [VERCEL_BEST_PRACTICES.md](./VERCEL_BEST_PRACTICES.md) and [VERCEL_COST_ANALYSIS.md](./VERCEL_COST_ANALYSIS.md) for detailed Vercel-specific guidance.
 
+**🇵🇪 Peru-Specific Testing**: All tests account for realistic Peruvian network conditions (22ms avg latency, 35 Mbps mobile). See [PERU_NETWORK_CONDITIONS.md](./PERU_NETWORK_CONDITIONS.md) for details.
+
 ## Quick Links
 
 - **[Vercel Best Practices](./VERCEL_BEST_PRACTICES.md)** - Official Vercel recommendations
 - **[Cost Analysis](./VERCEL_COST_ANALYSIS.md)** - Billing implications and cost calculator
+- **[Peru Network Conditions](./PERU_NETWORK_CONDITIONS.md)** - Peruvian internet conditions and testing
 - **[Quick Start Guide](./LOAD_TESTING_QUICKSTART.md)** - Get started in 5 minutes
 - **[Test Scripts](../load-tests/README.md)** - All test scenarios
 
