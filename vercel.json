@@ -2,6 +2,12 @@
   "version": 2,
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
+  "rewrites": [
+    {
+      "source": "/((?!api/|assets/).*)",
+      "destination": "/index.html"
+    }
+  ],
   "functions": {
     "api/**/*.ts": {
       "runtime": "@vercel/node@3.2.1",
