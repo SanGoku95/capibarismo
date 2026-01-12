@@ -24,7 +24,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const { sessionId, aId, bId, outcome } = req.body;
 
-    // Validate required fields only
+    // Validate required fields
     if (!sessionId || !aId || !bId || (outcome !== 'A' && outcome !== 'B')) {
       return res.status(400).json({ error: 'Invalid vote data' });
     }
@@ -32,10 +32,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const winnerId = outcome === 'A' ? aId : bId;
     const loserId = outcome === 'A' ? bId : aId;
 
-    // Asynchronously save the vote without waiting
+    // Asynchronously save the vote without waiting for it to complete
     saveVote(sessionId, winnerId, loserId).catch(console.error);
 
-    // Return immediate success response
+    // Return immediate success response for a snappy user experience
     return res.status(200).json({ ok: true });
   } catch (error) {
     console.error('[vote] Error:', error);
