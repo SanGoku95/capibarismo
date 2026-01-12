@@ -72,12 +72,15 @@ npm run dev
 - `npm run build` - Production build
 - `npm run preview` - Preview production build
 - `npm run lint` - Code linting
+- `npm run loadtest:smoke` - Quick smoke test (5 users, 1 min)
+- `npm run loadtest:baseline` - Baseline performance test (10-50 users, 5 min)
 
 ### 📖 Documentation
 
 - **[Developer Guide](./dev.md)** - Comprehensive technical documentation
 - **[Component Architecture](./dev.md#component-architecture)** - UI component organization
 - **[Design System](./dev.md#design-system--theme)** - 90s gaming theme details
+- **[Load Testing Plan](./docs/load-testing.md)** - Load testing strategy and procedures
 
 ### 🤝 Contributing
 
@@ -149,12 +152,15 @@ npm run dev
 *   `npm run build` - Compilación para producción
 *   `npm run preview` - Previsualizar build de producción
 *   `npm run lint` - Análisis de código con ESLint
+*   `npm run loadtest:smoke` - Prueba rápida de humo (5 usuarios, 1 min)
+*   `npm run loadtest:baseline` - Prueba de rendimiento base (10-50 usuarios, 5 min)
 
 ### 📖 Documentación
 
 - **[Guía de Desarrollo](./dev.md)** - Documentación técnica completa
 - **[Arquitectura de Componentes](./dev.md#component-architecture)** - Organización de componentes UI
 - **[Sistema de Diseño](./dev.md#design-system--theme)** - Detalles del tema gaming de los 90s
+- **[Plan de Pruebas de Carga](./docs/load-testing.md)** - Estrategia y procedimientos de pruebas de carga
 
 ### 🤝 Contribución
 

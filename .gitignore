@@ -70,3 +70,8 @@ Thumbs.db
 .cache/
 .vercel
 .env*.local
+
+# Load test results (raw JSON files)
+*-results.json
+load-tests/*.json
+docs/load-test-results/*.json
