@@ -229,11 +229,13 @@ export function randomSleep(min, max) {
  * Create HTTP request options with common headers
  */
 export function getRequestOptions(sessionId) {
+  const bypass = __ENV.VERCEL_PROTECTION_BYPASS;
+
   return {
     headers: {
       'Content-Type': 'application/json',
       'User-Agent': 'k6-load-test/1.0',
-      'Origin': BASE_URL,
+      ...(bypass ? { 'x-vercel-protection-bypass': bypass } : {}),
     },
     tags: {
       sessionId: sessionId
