@@ -13,7 +13,7 @@ export const base: Record<string, CandidateBase> = {
     nombre: 'Rafael L. Aliaga',
     ideologia: 'Derecha Conservadora',
     headshot: 'https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg',
-    fullBody: '/fotos_candidatos/rafael/full_body_rafael_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/rafael/rafael_poster_h480_q80.webp',
   },
   yonhy: {
     id: 'yonhy',
@@ -27,7 +27,7 @@ export const base: Record<string, CandidateBase> = {
     nombre: 'Carlos Álvarez',
     ideologia: 'Derecha Punitiva',
     headshot: '/fotos_candidatos/alvarez/carlos-alvarez.jpg',
-    fullBody: '/fotos_candidatos/alvarez/full_body_alvarez_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/alvarez/carlos_alvarez_poster_h480_q80.webp',
   },
   'cesar-acuna': {
     id: 'cesar-acuna',
@@ -41,7 +41,7 @@ export const base: Record<string, CandidateBase> = {
     nombre: 'Alfonso Lopez Chau',
     ideologia: 'Centro Izquierda',
     headshot: '/fotos_candidatos/alfonsolc/alfonsolopezchau_headshot.jpg',
-    fullBody: '/fotos_candidatos/alfonsolc/alfonsolopezchau.gif',
+    fullBody: '/fotos_candidatos/alfonsolc/alfonsolopezchau_poster_h480_q80.webp',
   }
 };
 
