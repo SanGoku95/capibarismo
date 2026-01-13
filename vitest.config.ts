@@ -20,6 +20,8 @@ export default defineConfig({
         'dist/',
         '.vercel/',
         'scripts/',
+        '**/__tests__/**',
+        '**/*.{test,spec}.{js,jsx,ts,tsx}',
       ],
     },
   },
