@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import type { CandidateBase } from '@/data/types';
 import { useOptimizedMedia, MediaType } from '@/hooks/useOptimizedMedia';
 
@@ -47,6 +48,50 @@ export function CandidateFullBodyMedia({
     );
   }
 
+  const animImgRef = useRef<HTMLImageElement | null>(null);
+
+  const handleMotionReadyRef = useRef(handleMotionReady);
+  useEffect(() => {
+    handleMotionReadyRef.current = handleMotionReady;
+  }, [handleMotionReady]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (mediaType !== MediaType.Anim) return;
+
+    let cancelled = false;
+    let timer: number | undefined;
+    let attempts = 0;
+
+    const markReady = () => {
+      if (!cancelled) handleMotionReadyRef.current();
+    };
+
+    const check = () => {
+      if (cancelled) return;
+
+      const img = animImgRef.current;
+      if (img && img.complete && img.naturalWidth > 0) {
+        const decode = (img as unknown as { decode?: () => Promise<void> }).decode;
+        if (typeof decode === 'function') {
+          decode.call(img).then(markReady).catch(markReady);
+        } else {
+          markReady();
+        }
+        return;
+      }
+
+      if (attempts++ < 40) timer = window.setTimeout(check, 50);
+    };
+
+    check();
+
+    return () => {
+      cancelled = true;
+      if (timer) window.clearTimeout(timer);
+    };
+  }, [mediaType, assets.animWebp, candidate.id]);
+
   return (
     <div className={`relative ${className ?? ''}`} aria-label={`${candidate.nombre} en posición de combate`}>
       {/* Poster: only a placeholder; fade out once motion is ready */}
@@ -80,6 +125,7 @@ export function CandidateFullBodyMedia({
       
       {mediaType === MediaType.Anim && (
         <img
+          ref={animImgRef}
           key={`${candidate.id}-anim`}
           src={safeSrc(assets.animWebp)}
           alt=""
