@@ -9,11 +9,16 @@ import { sessionService } from '@/services/sessionService';
 import { COMPLETION_GOAL } from '@/lib/gameConstants';
 
 export function useGameCompletion(voteCount: number) {
-  const { openCompletionModal } = useGameUIStore();
+  const { openCompletionModal, closeCompletionModal, completionModalOpen } = useGameUIStore();
 
   useEffect(() => {
-    // Don't show modal if user hasn't reached the goal
-    if (voteCount < COMPLETION_GOAL) return;
+    // If user hasn't reached the goal, ensure modal is closed
+    if (voteCount < COMPLETION_GOAL) {
+      if (completionModalOpen) {
+        closeCompletionModal();
+      }
+      return;
+    }
 
     // Don't show modal if already shown in this session
     if (sessionService.isCompletionShown()) return;
@@ -21,5 +26,5 @@ export function useGameCompletion(voteCount: number) {
     // Show modal and mark as shown
     openCompletionModal();
     sessionService.markCompletionAsShown();
-  }, [voteCount, openCompletionModal]);
+  }, [voteCount, openCompletionModal, closeCompletionModal, completionModalOpen]);
 }

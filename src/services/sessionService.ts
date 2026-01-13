@@ -18,7 +18,7 @@ export interface SessionService {
   resetSession(): string;
 
   // Vote count management
-  getVoteCount(): number;
+  getVoteCount(sessionId?: string): number;
   incrementVoteCount(): number;
   decrementVoteCount(): number;
   resetVoteCount(): void;
@@ -90,8 +90,8 @@ export function createSessionService(
     return `${COMPLETION_SHOWN_PREFIX}-${id}`;
   }
 
-  function getVoteCount(): number {
-    const key = getVoteCountKey();
+  function getVoteCount(sessionId?: string): number {
+    const key = getVoteCountKey(sessionId);
     const stored = localStorage.getItem(key);
     if (!stored) return 0;
 

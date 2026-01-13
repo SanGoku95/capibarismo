@@ -3,7 +3,7 @@
  * Manages vote count locally and syncs with the server.
  */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useSubmitVote } from './useGameAPI';
 import { sessionService } from '@/services/sessionService';
@@ -11,8 +11,14 @@ import type { Pair } from '../../api/types';
 
 export function useOptimisticVote(sessionId: string) {
   const [localVoteCount, setLocalVoteCount] = useState(() => {
-    return sessionService.getVoteCount();
+    return sessionService.getVoteCount(sessionId);
   });
+
+  // Reset vote count when sessionId changes (e.g., after "Nueva Partida")
+  useEffect(() => {
+    const currentCount = sessionService.getVoteCount(sessionId);
+    setLocalVoteCount(currentCount);
+  }, [sessionId]);
 
   const submitVoteMutation = useSubmitVote(sessionId);
 

@@ -12,9 +12,12 @@ import { useGameKeyboard } from '@/hooks/useGameKeyboard';
 import { Button } from '@/components/ui/button';
 import { Keyboard } from 'lucide-react';
 import { COMPLETION_GOAL } from '@/lib/gameConstants';
+import { useNavigate } from 'react-router-dom';
+import { sessionService } from '@/services/sessionService';
 
 export function JugarPage() {
   const sessionId = getSessionId();
+  const navigate = useNavigate();
 
   const {
     closeCandidateInfo,
@@ -30,15 +33,24 @@ export function JugarPage() {
 
   const { voteCount, handleVote, isSubmitting } = useOptimisticVote(sessionId);
 
+  // Redirect to ranking if game was already completed AND modal was already shown
+  // This handles the case when user navigates back to /jugar after completing the game
+  useEffect(() => {
+    if (voteCount >= COMPLETION_GOAL && sessionService.isCompletionShown()) {
+      navigate(`/ranking?mode=personal&sessionId=${sessionId}`);
+    }
+  }, [voteCount, sessionId, navigate]);
+
   // Handle game completion modal
   useGameCompletion(voteCount);
 
   // Handle keyboard controls
+  const isGameCompleted = voteCount >= COMPLETION_GOAL;
   useGameKeyboard({
-    onVoteA: () => pair && handleVote(pair, 'A'),
-    onVoteB: () => pair && handleVote(pair, 'B'),
+    onVoteA: () => pair && !isGameCompleted && handleVote(pair, 'A'),
+    onVoteB: () => pair && !isGameCompleted && handleVote(pair, 'B'),
     onEscape: closeCandidateInfo,
-    enabled: !!pair,
+    enabled: !!pair && !isGameCompleted,
   });
 
   // Check for prefers-reduced-motion
@@ -106,8 +118,8 @@ export function JugarPage() {
       <div className="flex-1 relative overflow-hidden">
         <VSScreen
           pair={pair}
-          onVote={(winner) => handleVote(pair, winner)}
-          isSubmitting={isLoadingNext}
+          onVote={(winner) => !isGameCompleted && handleVote(pair, winner)}
+          isSubmitting={isLoadingNext || isGameCompleted}
         />
       </div>
 
