@@ -33,13 +33,13 @@ export function HomePage() {
   return (
     <div className="min-h-screen flex flex-col fighting-game-bg text-white">
       {/* Fullscreen Hero */}
-      <section className="w-full min-h-[100svh]">
-        <div className="flex min-h-[100svh] w-full flex-col">
-          {/* Artwork grows with viewport height (pushes content down) */}
-          <div className="flex-1 min-h-0 w-full">
-            <picture>
+      <section className="w-full relative">
+        <div className="w-full">
+          {/* Artwork */}
+          <div className="w-full">
+            <picture className="w-full">
               <source
-                media="(max-width: 640px)"
+                media="(max-width: 850px)"
                 srcSet="/fondo_capibarismo_cel.webp"
                 type="image/webp"
               />
@@ -48,7 +48,7 @@ export function HomePage() {
                 src="/fondo_capibarismo_1920x1080.png"
                 alt=""
                 aria-hidden="true"
-                className="block h-full w-full object-contain"
+                className="block w-full h-auto"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -57,7 +57,7 @@ export function HomePage() {
           </div>
 
           {/* Bottom stack: titles + buttons move together */}
-          <div className="w-full px-3 sm:px-4 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+          <div className="w-full px-3 sm:px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] lg:-mt-40 relative z-10">
             <div className="mx-auto w-full max-w-xl">
               {/* Titles */}
               <div className="text-center mt-4">
