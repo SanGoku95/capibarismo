@@ -62,6 +62,9 @@ Thumbs.db
 *.sln
 *.sw?
 
+# Claude Code local settings
+.claude/
+
 # Deployment
 .vercel/
 .netlify/
@@ -75,3 +78,5 @@ Thumbs.db
 *-results.json
 load-tests/*.json
 docs/load-test-results/*.json
+.gitignore
+nul
