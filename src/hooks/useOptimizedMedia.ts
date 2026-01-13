@@ -1,5 +1,17 @@
 import { useState, useEffect, useMemo } from 'react';
 
+const isIOSSafari = (() => {
+  if (typeof window === 'undefined') return false;
+  const ua = navigator.userAgent;
+
+  const isIOS =
+    /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS
+
+  const isAppleBrowser = /WebKit/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
+  return isIOS && isAppleBrowser;
+})();
+
 type OptimizedAssets = {
   poster: string;
   webm: string;
