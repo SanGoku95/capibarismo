@@ -32,105 +32,121 @@ export function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col fighting-game-bg text-white">
-      <main className="relative w-full mx-auto px-3 sm:px-4 pt-6 sm:pt-7 pb-20 sm:pb-16 max-w-6xl">
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="mx-auto mb-3 flex h-28 w-28 items-center justify-center rounded-full bg-background/80 shadow-[0_6px_18px_rgba(0,0,0,0.28)]">
-            <picture>
-              <source srcSet="/capi_logo.webp" type="image/webp" />
-              <img 
-                src="/capi_logo.png" 
-                alt="Capibara logo" 
-                className="h-24 w-24"
-                fetchpriority="high"
-                width="96"
-                height="96"
+      {/* Fullscreen Hero */}
+      <section className="w-full relative">
+        <div className="w-full">
+          {/* Artwork */}
+          <div className="w-full">
+            <picture className="w-full">
+              <source
+                media="(max-width: 850px)"
+                srcSet="/fondo_capibarismo_cel.webp"
+                type="image/webp"
+              />
+              <source srcSet="/fondo_capibarismo_1920x1080.webp" type="image/webp" />
+              <img
+                src="/fondo_capibarismo_1920x1080.png"
+                alt=""
+                aria-hidden="true"
+                className="block w-full h-auto"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
             </picture>
           </div>
-          <div className="flex items-center justify-center gap-3 sm:gap-4">
-            <img 
-              src="/bandera-peru-pixel.png" 
-              alt="Bandera Perú" 
-              className="h-8 sm:h-10 w-auto object-contain"
-            />
-            <h1
-              className="text-[1.3rem] leading-tight sm:text-[1.75rem] md:text-[2rem] font-bold uppercase tracking-wider"
-              style={{
-                fontFamily: "'Press Start 2P', cursive",
-                color: 'hsl(var(--accent))',
-                textShadow: '3px 3px 0px hsl(var(--background)), 5px 5px 0px hsl(var(--border))',
-              }}
-            >
-              CAPIBARISMO
-            </h1>
-            <img 
-              src="/bandera-peru-pixel.png" 
-              alt="Bandera Perú" 
-              className="h-8 sm:h-10 w-auto object-contain transform -scale-x-100"
-            />
-          </div>
-          <p className="mt-3 text-[0.85rem] sm:text-base md:text-lg max-w-2xl mx-auto text-foreground/90 font-sans px-2 leading-relaxed">
-            Tu Dibujito Observador: Elecciones Perú 2026
-          </p>
-        </div>
-        
-        {/* Primary call-to-actions */}
-        <section className="w-full max-w-xl mx-auto mb-6 sm:mb-7">
-          <div className="rounded-2xl border border-border/60 bg-background/75 shadow-[0_8px_20px_rgba(0,0,0,0.32)] backdrop-blur-sm p-4 sm:p-5">
-            <div className="flex flex-col gap-3">
-              <Link
-                to="/jugar"
-                onClick={() => track("home_jugar_click", { via: "cta" })}
-                className="group inline-flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60 active:translate-y-0"
-              >
-                <span className="flex items-center gap-3">
-                  <Gamepad2 size={18} className="shrink-0" />
-                  Jugar: Uno contra uno
-                </span>
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                to="/compare"
-                onClick={() => track("home_compare_click", { via: "cta" })}
-                className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 active:translate-y-0"
-              >
-                <span className="flex items-center gap-3">
-                  <Scale size={18} className="shrink-0" />
-                  Comparar candidatos
-                </span>
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                to="/compass"
-                onClick={() => track("home_mapa_politico_click", { via: "cta" })}
-                className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.16em] text-foreground transition-all duration-200 hover:border-primary/60 hover:bg-primary hover:text-black hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:translate-y-0"
-              >
-                <span className="flex items-center gap-3">
-                  <Compass size={18} className="shrink-0" />
-                  Explorar mapa político
-                </span>
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-              </Link>
+
+          {/* Bottom stack: titles + buttons move together */}
+          <div className="w-full px-3 sm:px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] lg:-mt-40 relative z-10">
+            <div className="mx-auto w-full max-w-xl">
+              {/* Titles */}
+              <div className="text-center mt-4">
+                <div
+                  className="text-[0.95rem] sm:text-[1.05rem] leading-tight tracking-wider"
+                  style={{
+                    fontFamily: "'Press Start 2P', cursive",
+                    color: "hsl(var(--accent))",
+                    textShadow:
+                      "3px 3px 0px hsl(var(--background)), 5px 5px 0px rgba(0,0,0,0.35)",
+                  }}
+                >
+                  Simulador de Elecciones:
+                </div>
+                <div
+                  className="mt-2 text-[2.1rem] sm:text-[2.8rem] leading-none tracking-wider"
+                  style={{
+                    fontFamily: "'Press Start 2P', cursive",
+                    color: "hsl(var(--accent))",
+                    textShadow:
+                      "3px 3px 0px hsl(var(--background)), 6px 6px 0px rgba(0,0,0,0.35)",
+                  }}
+                >
+                  Perú 2026
+                </div>
+              </div>
+
+              {/* CTAs */}
+              <div className="mt-4 rounded-2xl border border-border/60 bg-background/55 shadow-[0_10px_26px_rgba(0,0,0,0.35)] backdrop-blur-sm p-4 sm:p-5">
+                <div className="flex flex-col gap-3">
+                  <Link
+                    to="/jugar"
+                    onClick={() => track("home_jugar_click", { via: "cta" })}
+                    className="group inline-flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60 active:translate-y-0"
+                  >
+                    <span className="flex items-center gap-3">
+                      <Gamepad2 size={18} className="shrink-0" />
+                      Jugar: Simulador de 2ª vuelta
+                    </span>
+                    <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                  </Link>
+
+                  <Link
+                    to="/compare"
+                    onClick={() => track("home_compare_click", { via: "cta" })}
+                    className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 active:translate-y-0"
+                  >
+                    <span className="flex items-center gap-3">
+                      <Scale size={18} className="shrink-0" />
+                      Comparar candidatos
+                    </span>
+                    <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                  </Link>
+
+                  <Link
+                    to="/compass"
+                    onClick={() => track("home_mapa_politico_click", { via: "cta" })}
+                    className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-foreground transition-all duration-200 hover:border-primary/60 hover:bg-primary hover:text-black hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:translate-y-0"
+                  >
+                    <span className="flex items-center gap-3">
+                      <Compass size={18} className="shrink-0" />
+                      Explorar mapa político
+                    </span>
+                    <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </div>
+
+              
             </div>
           </div>
-        </section>
-        
+        </div>
+      </section>
+
+      {/* Rest of the page */}
+      <main className="relative w-full mx-auto px-3 max-w-6xl">
         {/* Goal-driven Support Section */}
-        <section className="w-full max-w-xl mx-auto mt-9">
+        <section className="w-full max-w-xl mx-auto ">
           <div className="rounded-3xl border border-border/45 bg-background/80 backdrop-blur-sm shadow-[0_10px_26px_rgba(0,0,0,0.18)] px-5 py-6">
-            {/* Header */}
             <div className="text-center">
               <h2 className="text-sm sm:text-base tracking-wide font-bold uppercase text-accent font-sans">
-              Apoya el proyecto
+                Apoya el proyecto
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-foreground/70 font-sans">
                 Tu contribución hace crecer este proyecto
               </p>
             </div>
 
-            {/* Current Goal */}
             <div className="mt-5 space-y-4">
-              {/* Goal Header with Target */}
               <div className="flex items-start gap-2">
                 <Target className="w-5 h-5 text-[#74239C] shrink-0 mt-0.5" />
                 <div className="flex-1">
@@ -148,22 +164,24 @@ export function HomePage() {
                 </div>
               </div>
 
-              {/* Progress Bar */}
               <div className="space-y-2">
                 <div className="h-3 bg-muted/50 rounded-full overflow-hidden">
-                  <div 
+                  <div
                     className="h-full bg-gradient-to-r from-[#74239C]/80 to-[#74239C] rounded-full transition-all duration-500"
-                    style={{ width: '35%' }}
+                    style={{ width: "35%" }}
                   />
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-foreground/70 font-sans">S/ 35 recaudados</span>
-                  <span className="text-xs font-medium text-foreground/80 font-sans">35%</span>
+                  <span className="text-xs text-foreground/70 font-sans">
+                    S/ 35 recaudados
+                  </span>
+                  <span className="text-xs font-medium text-foreground/80 font-sans">
+                    35%
+                  </span>
                 </div>
               </div>
 
-               {/* CTA Button */}
-               <button
+              <button
                 onClick={() => {
                   setShowDonationModal(true);
                   track("home_donation_click", { goal: "100_soles", position: "main" });
@@ -174,7 +192,6 @@ export function HomePage() {
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              {/* Show More Goals Toggle */}
               <button
                 onClick={() => {
                   setShowAllGoals(!showAllGoals);
@@ -183,45 +200,51 @@ export function HomePage() {
                 className="w-full text-sm text-foreground/70 hover:text-foreground/90 transition-colors duration-200 flex items-center justify-center gap-2 py-2 font-sans"
               >
                 <span>{showAllGoals ? "Ocultar metas siguientes" : "Ver todas las metas"}</span>
-                {showAllGoals ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                {showAllGoals ? (
+                  <ChevronUp className="w-4 h-4" />
+                ) : (
+                  <ChevronDown className="w-4 h-4" />
+                )}
               </button>
 
-              {/* Future Goals */}
               {showAllGoals && (
                 <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
-                  {/* Goal 2 */}
                   <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
                         Próxima meta
                       </span>
-                      <span className="text-base font-bold text-foreground/80 font-sans">S/ 200</span>
+                      <span className="text-base font-bold text-foreground/80 font-sans">
+                        S/ 200
+                      </span>
                     </div>
                     <p className="text-sm text-foreground/75 font-sans">
                       Mejorar ilustración de la web
                     </p>
                   </div>
 
-                  {/* Goal 3 */}
                   <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
                         Meta futura
                       </span>
-                      <span className="text-base font-bold text-foreground/80 font-sans">S/ 300</span>
+                      <span className="text-base font-bold text-foreground/80 font-sans">
+                        S/ 300
+                      </span>
                     </div>
                     <p className="text-sm text-foreground/75 font-sans">
                       Mejorar ilustración de candidatos
                     </p>
                   </div>
 
-                  {/* Goal 4 */}
                   <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
                         Meta final
                       </span>
-                      <span className="text-base font-bold text-foreground/80 font-sans">S/ 500</span>
+                      <span className="text-base font-bold text-foreground/80 font-sans">
+                        S/ 500
+                      </span>
                     </div>
                     <p className="text-sm text-foreground/75 font-sans">
                       Completar datos de los 15 candidatos
@@ -230,7 +253,6 @@ export function HomePage() {
                 </div>
               )}
 
-              {/* Social Proof / Trust Element */}
               <div className="text-center pt-3 border-t border-border/40">
                 <p className="text-xs text-foreground/70 font-sans">
                   🔒 Pagos seguros • 100% transparente • Actualizado semanalmente
@@ -244,12 +266,7 @@ export function HomePage() {
           Datos en evolución. Este sitio es orientativo.
         </div>
 
-        {/* Donation Modal */}
-        <DonationModal 
-          isOpen={showDonationModal}
-          onClose={() => setShowDonationModal(false)}
-        />
-
+        <DonationModal isOpen={showDonationModal} onClose={() => setShowDonationModal(false)} />
       </main>
     </div>
   );
