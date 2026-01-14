@@ -10,6 +10,7 @@ BIG_H="${BIG_H:-480}"
 CRF="${CRF:-35}"
 WEBP_Q="${WEBP_Q:-75}"
 POSTER_Q="${POSTER_Q:-80}"
+HEVC_BITRATE="${HEVC_BITRATE:-2M}"
 
 # Detect ImageMagick command (v7=magick, v6=convert)
 if command -v magick &>/dev/null; then
@@ -47,24 +48,25 @@ find "$IN_DIR" -type f -iname "*.gif" -print0 | while IFS= read -r -d '' src; do
   
   echo "=== Processing: $src -> h=${TH} ==="
 
-  # Step 1: Use ImageMagick to coalesce (fix disposal) and export as TGA sequence (always supported)
+  # Step 1: Use ImageMagick to coalesce (fix disposal) and export as TGA sequence
   echo "  Extracting frames with proper disposal..."
   $MAGICK "$src" -coalesce -resize "x${TH}" -background none "$TMPDIR/frame_%04d.tga"
   
   FRAME_COUNT=$(ls "$TMPDIR"/frame_*.tga 2>/dev/null | wc -l | tr -d ' ')
   echo "  Extracted $FRAME_COUNT frames"
 
-  # Simple naming: name_poster.webp, name_anim.webp, name_video.webm
+  # Output files
   out_poster="$OUT_DIR/$subdir/${name}_poster.webp"
   out_webp="$OUT_DIR/$subdir/${name}_anim.webp"
   out_webm="$OUT_DIR/$subdir/${name}_video.webm"
+  out_hevc="$OUT_DIR/$subdir/${name}_hevc.mov"
 
-  # Poster (first frame) - use ffmpeg instead of magick
+  # Poster (first frame)
   ffmpeg -nostdin -y -v error -i "$TMPDIR/frame_0000.tga" \
     -c:v libwebp -lossless 0 -q:v "$POSTER_Q" -pix_fmt yuva420p \
     "$out_poster"
 
-  # Animated WebP (fallback for iOS)
+  # Animated WebP (fallback)
   ffmpeg -nostdin -y -v error -framerate "$FPS" -i "$TMPDIR/frame_%04d.tga" \
     -c:v libwebp -pix_fmt yuva420p -lossless 0 -q:v "$WEBP_Q" \
     -loop 0 -an "$out_webp"
@@ -75,6 +77,29 @@ find "$IN_DIR" -type f -iname "*.gif" -print0 | while IFS= read -r -d '' src; do
     -b:v 0 -crf "$CRF" -row-mt 1 \
     -auto-alt-ref 0 \
     -an "$out_webm"
+
+  # HEVC with alpha for Safari (macOS only - uses VideoToolbox)
+  if ffmpeg -hide_banner -encoders 2>/dev/null | grep -q hevc_videotoolbox; then
+    echo "  Encoding HEVC with alpha for Safari..."
+    ffmpeg -nostdin -y -v error -framerate "$FPS" -i "$TMPDIR/frame_%04d.tga" \
+      -c:v hevc_videotoolbox \
+      -b:v "$HEVC_BITRATE" \
+      -tag:v hvc1 \
+      -alpha_quality 0.75 \
+      -an "$out_hevc" 2>/dev/null || \
+    ffmpeg -nostdin -y -v error -framerate "$FPS" -i "$TMPDIR/frame_%04d.tga" \
+      -c:v hevc_videotoolbox \
+      -b:v "$HEVC_BITRATE" \
+      -tag:v hvc1 \
+      -an "$out_hevc" 2>/dev/null || \
+    echo "  (HEVC encoding failed)"
+    
+    if [[ -f "$out_hevc" ]]; then
+      echo "  hevc:   $(du -h "$out_hevc" | awk '{print $1}')"
+    fi
+  else
+    echo "  (HEVC skipped - hevc_videotoolbox not available)"
+  fi
 
   rm -rf "$TMPDIR"
 

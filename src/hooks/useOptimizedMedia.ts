@@ -1,90 +1,140 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
-type OptimizedAssets = {
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface OptimizedAssets {
   poster: string;
   webm: string;
   animWebp: string;
-};
+  hevc: string;
+}
 
-function deriveOptimizedAssets(poster: string): OptimizedAssets | null {
-  // expects: /.../NAME_poster.webp
-  const m = poster.match(/^(.*\/)([^/]+?)_poster\.webp$/);
-  if (!m) return null;
+export enum MediaType {
+  Poster = 'poster',
+  Anim = 'anim',
+  Video = 'video',
+  Hevc = 'hevc',
+}
 
-  const [, dir, base] = m;
+// ============================================================================
+// Browser Capability Detection
+// ============================================================================
+
+const isServer = typeof window === 'undefined';
+
+function detectBrowserCapabilities() {
+  if (isServer) {
+    return { isSafari: false, isIOS: false, canPlayHevc: false, canPlayVp9: false };
+  }
+
+  const ua = navigator.userAgent;
+  
+  const isSafari = /Safari/.test(ua) && !/Chrome|Chromium/.test(ua);
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || 
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  const testVideo = document.createElement('video');
+  
+  // HEVC with alpha: Safari 13+ on macOS/iOS
+  const canPlayHevc = (isSafari || isIOS) && 
+    testVideo.canPlayType('video/mp4; codecs="hvc1"') !== '';
+  
+  // VP9 with alpha: Chrome/Android (Safari/iOS don't support VP9 alpha properly)
+  const canPlayVp9 = !isSafari && !isIOS && 
+    testVideo.canPlayType('video/webm; codecs="vp9"') !== '';
+
+  return { isSafari, isIOS, canPlayHevc, canPlayVp9 };
+}
+
+// Computed once at module load
+const browserCapabilities = detectBrowserCapabilities();
+
+// ============================================================================
+// Asset Path Derivation
+// ============================================================================
+
+const POSTER_PATTERN = /^(?<dir>.*\/)(?<base>[^/]+?)_poster\.webp$/;
+
+/**
+ * Derives all optimized asset paths from a poster URL.
+ * Expected format: /path/to/NAME_poster.webp
+ */
+function deriveOptimizedAssets(posterUrl: string): OptimizedAssets | null {
+  const match = posterUrl.match(POSTER_PATTERN);
+  if (!match?.groups) return null;
+
+  const { dir, base } = match.groups;
 
   return {
-    poster,
+    poster: posterUrl,
     webm: `${dir}${base}_video.webm`,
     animWebp: `${dir}${base}_anim.webp`,
+    hevc: `${dir}${base}_hevc.mov`,
   };
 }
 
-// Detect iOS/iPadOS (Safari doesn't properly support VP9 alpha)
-const isIOS = (() => {
-  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
-    return false;
-  }
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-})();
-
-// Memoized check for WebM VP9 support (excluding iOS which has broken alpha support)
-const canPlayWebmVp9WithAlpha = (() => {
-  if (typeof window === 'undefined') {
-    return false;
-  }
-  // iOS Safari reports VP9 support but doesn't handle alpha correctly
-  if (isIOS) {
-    return false;
-  }
-  try {
-    const v = document.createElement('video');
-    return v.canPlayType('video/webm; codecs="vp9"') !== '';
-  } catch {
-    return false;
-  }
-})();
-
-export enum MediaType {
-  Poster,
-  Anim,
-  Video,
+/**
+ * Determines the best media type based on browser capabilities.
+ * Priority: HEVC (Safari/iOS) > VP9 WebM (Chrome/Android) > Animated WebP
+ */
+function selectOptimalMediaType(): MediaType {
+  if (browserCapabilities.canPlayHevc) return MediaType.Hevc;
+  if (browserCapabilities.canPlayVp9) return MediaType.Video;
+  return MediaType.Anim;
 }
 
-export function useOptimizedMedia(mediaUrl: string | undefined, candidateId: string) {
-  const assets = useMemo(() => (mediaUrl ? deriveOptimizedAssets(mediaUrl) : null), [mediaUrl]);
+// ============================================================================
+// Hook
+// ============================================================================
+
+export interface UseOptimizedMediaResult {
+  assets: OptimizedAssets | null;
+  mediaType: MediaType;
+  isMotionReady: boolean;
+  handleVideoError: () => void;
+  handleAnimError: () => void;
+  handleMotionReady: () => void;
+}
+
+export function useOptimizedMedia(
+  mediaUrl: string | undefined, 
+  candidateId: string
+): UseOptimizedMediaResult {
+  const assets = useMemo(
+    () => (mediaUrl ? deriveOptimizedAssets(mediaUrl) : null), 
+    [mediaUrl]
+  );
 
   const [mediaType, setMediaType] = useState<MediaType>(MediaType.Poster);
   const [isMotionReady, setMotionReady] = useState(false);
 
+  // Reset and select optimal media type when candidate changes
   useEffect(() => {
     setMotionReady(false);
-    if (!assets) {
-      setMediaType(MediaType.Poster);
-      return;
-    }
+    setMediaType(assets ? selectOptimalMediaType() : MediaType.Poster);
+  }, [assets, candidateId]);
 
-    if (canPlayWebmVp9WithAlpha) {
+  // Fallback chain: HEVC → VP9 → Anim → Poster
+  const handleVideoError = useCallback(() => {
+    setMotionReady(false);
+    
+    if (mediaType === MediaType.Hevc && browserCapabilities.canPlayVp9) {
       setMediaType(MediaType.Video);
     } else {
       setMediaType(MediaType.Anim);
     }
-  }, [assets, candidateId]);
+  }, [mediaType]);
 
-  const handleVideoError = () => {
-    setMediaType(MediaType.Anim); // Fallback to animated WebP
+  const handleAnimError = useCallback(() => {
     setMotionReady(false);
-  };
+    setMediaType(MediaType.Poster);
+  }, []);
 
-  const handleAnimError = () => {
-    setMediaType(MediaType.Poster); // Fallback to static poster
-    setMotionReady(false);
-  };
-
-  const handleMotionReady = () => {
+  const handleMotionReady = useCallback(() => {
     setMotionReady(true);
-  };
+  }, []);
 
   return {
     assets,

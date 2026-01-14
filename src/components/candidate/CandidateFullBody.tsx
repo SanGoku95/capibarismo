@@ -16,7 +16,7 @@ export function CandidateFullBodyMedia({
 }: {
   candidate: CandidateBase;
   side: 'left' | 'right';
-  className?: string; // container sizing/rounding/shadow/margins
+  className?: string;
 }) {
   const {
     assets,
@@ -49,7 +49,7 @@ export function CandidateFullBodyMedia({
 
   return (
     <div className={`relative ${className ?? ''}`} aria-label={`${candidate.nombre} en posición de combate`}>
-      {/* Poster: only a placeholder; fade out once motion is ready */}
+      {/* Poster: placeholder; fade out once motion is ready */}
       <img
         src={safeSrc(assets.poster)}
         alt={`${candidate.nombre} full body`}
@@ -60,6 +60,23 @@ export function CandidateFullBodyMedia({
           transition: 'opacity 150ms ease',
         }}
       />
+
+      {mediaType === MediaType.Hevc && (
+        <video
+          key={`${candidate.id}-hevc`}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className={`absolute inset-0 ${mediaClass}`}
+          aria-hidden="true"
+          onCanPlay={handleMotionReady}
+          onError={handleVideoError}
+        >
+          <source src={safeSrc(assets.hevc)} type="video/mp4; codecs=hvc1" />
+        </video>
+      )}
 
       {mediaType === MediaType.Video && (
         <video
