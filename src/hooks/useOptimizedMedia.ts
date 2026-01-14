@@ -7,16 +7,16 @@ type OptimizedAssets = {
 };
 
 function deriveOptimizedAssets(poster: string): OptimizedAssets | null {
-  // expects: /.../NAME_poster_h432_q80.webp
-  const m = poster.match(/^(.*\/)([^/]+?)_poster_(h\d+)_q\d+\.webp$/);
+  // expects: /.../NAME_poster.webp
+  const m = poster.match(/^(.*\/)([^/]+?)_poster\.webp$/);
   if (!m) return null;
 
-  const [, dir, base, h] = m;
+  const [, dir, base] = m;
 
   return {
     poster,
-    webm: `${dir}${base}_vp9_alpha_${h}_fps15_crf35.webm`,
-    animWebp: `${dir}${base}_anim_${h}_fps15_q60.webp`,
+    webm: `${dir}${base}_video.webm`,
+    animWebp: `${dir}${base}_anim.webp`,
   };
 }
 
