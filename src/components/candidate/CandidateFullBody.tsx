@@ -22,7 +22,6 @@ export function CandidateFullBodyMedia({
     assets,
     mediaType,
     isMotionReady,
-    handleVideoError,
     handleAnimError,
     handleMotionReady,
   } = useOptimizedMedia(candidate.fullBody, candidate.id);
@@ -52,7 +51,7 @@ export function CandidateFullBodyMedia({
 
   return (
     <div className={`relative ${className ?? ''}`} aria-label={`${candidate.nombre} en posición de combate`}>
-      {/* Poster: always rendered, fades out when motion is ready */}
+      {/* Poster: fades out when animated image is ready */}
       <img
         src={safeSrc(assets.poster)}
         alt={`${candidate.nombre} full body`}
@@ -63,56 +62,8 @@ export function CandidateFullBodyMedia({
           ...transitionStyle,
         }}
       />
-
-      {/* HEVC video for Safari/iOS - fades in when ready */}
-      {mediaType === MediaType.Hevc && (
-        <video
-          key={`${candidate.id}-hevc`}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className={`absolute inset-0 ${mediaClass}`}
-          style={{
-            opacity: isMotionReady ? 1 : 0,
-            ...transitionStyle,
-          }}
-          aria-hidden="true"
-          onLoadedData={handleMotionReady}
-          onError={handleVideoError}
-        >
-          {/* .mov container - use QuickTime type for Safari compatibility */}
-          <source src={safeSrc(assets.hevc)} type='video/quicktime; codecs="hvc1"' />
-          <source src={safeSrc(assets.hevc)} type='video/mp4; codecs="hvc1"' />
-        </video>
-      )}
-
-      {/* VP9 WebM for Chrome/Android - fades in when ready */}
-      {mediaType === MediaType.Video && (
-        <video
-          key={`${candidate.id}-webm`}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className={`absolute inset-0 ${mediaClass}`}
-          style={{
-            opacity: isMotionReady ? 1 : 0,
-            ...transitionStyle,
-          }}
-          aria-hidden="true"
-          onLoadedData={handleMotionReady}
-          onError={handleVideoError}
-        >
-          {/* Some browsers prefer vp09 codec string */}
-          <source src={safeSrc(assets.webm)} type='video/webm; codecs="vp09.00.10.08"' />
-          <source src={safeSrc(assets.webm)} type='video/webm; codecs="vp9"' />
-        </video>
-      )}
       
-      {/* Animated WebP fallback - fades in when ready */}
+      {/* Animated WebP - works on iPhone iOS 14.5+, Android, and all desktop browsers */}
       {mediaType === MediaType.Anim && (
         <img
           key={`${candidate.id}-anim`}
