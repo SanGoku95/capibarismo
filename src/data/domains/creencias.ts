@@ -137,4 +137,9 @@ export const creencias: Record<string, Creencia[]> = {
       fuente: "https://www.youtube.com/watch?v=KlEIO-G6ORQ",
     },
   ],
+  belmont: [],
+  cerron: [],
+  guevara: [],
+  olivera: [],
+  sanchez: [],
 };

@@ -42,5 +42,35 @@ export const compass: Record<string, CompassStance> = {
     social: -3,
     territorial: -5,
     power: 1,
-  }
+  },
+  belmont: {
+    econ: 0,
+    social: 0,
+    territorial: 0,
+    power: 0,
+  },
+  cerron: {
+    econ: 0,
+    social: 0,
+    territorial: 0,
+    power: 0,
+  },
+  guevara: {
+    econ: 0,
+    social: 0,
+    territorial: 0,
+    power: 0,
+  },
+  olivera: {
+    econ: 0,
+    social: 0,
+    territorial: 0,
+    power: 0,
+  },
+  sanchez: {
+    econ: 0,
+    social: 0,
+    territorial: 0,
+    power: 0,
+  },
 };

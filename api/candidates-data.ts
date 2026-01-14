@@ -37,6 +37,31 @@ export const candidates: Record<string, CandidateBase> = {
     nombre: 'Alfonso Lopez Chau',
     ideologia: 'Centro Izquierda',
   },
+  belmont: {
+    id: 'belmont',
+    nombre: 'Ricardo Belmont Cassinelli',
+    ideologia: 'Próximamente',
+  },
+  cerron: {
+    id: 'cerron',
+    nombre: 'Vladimir Cerrón Rojas',
+    ideologia: 'Próximamente',
+  },
+  guevara: {
+    id: 'guevara',
+    nombre: 'Mesías Guevara Amasifuén',
+    ideologia: 'Próximamente',
+  },
+  olivera: {
+    id: 'olivera',
+    nombre: 'Fernando Olivera Vega',
+    ideologia: 'Próximamente',
+  },
+  sanchez: {
+    id: 'sanchez',
+    nombre: 'Roberto Sánchez Palomino',
+    ideologia: 'Próximamente',
+  },
 };
 
 export function listCandidates(): CandidateBase[] {
