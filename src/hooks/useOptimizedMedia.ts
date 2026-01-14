@@ -32,6 +32,12 @@ function detectBrowserCapabilities() {
   const ua = navigator.userAgent;
   
   const isSafari = /Safari/.test(ua) && !/Chrome|Chromium/.test(ua);
+  
+  // NOTE: iOS detection via userAgent can be unreliable due to UA freezing in iOS 13+.
+  // The maxTouchPoints check for iPadOS may have false positives on touch-enabled Macs.
+  // However, for media format selection, this is acceptable as the fallback (animated WebP)
+  // works on all platforms. This detection primarily prevents VP9 alpha on Safari/iOS
+  // where it renders incorrectly.
   const isIOS = /iPad|iPhone|iPod/.test(ua) || 
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
@@ -55,24 +61,41 @@ const browserCapabilities = detectBrowserCapabilities();
 // Asset Path Derivation
 // ============================================================================
 
-const POSTER_PATTERN = /^(?<dir>.*\/)(?<base>[^/]+?)_poster\.webp$/;
+// Supports both naming conventions
+const NEW_POSTER_PATTERN = /^(?<dir>.*\/)(?<base>[^/]+?)_poster\.webp$/;
+const OLD_POSTER_PATTERN = /^(?<dir>.*\/)(?<base>[^/]+?)_poster_h\d+_q\d+\.webp$/;
 
 /**
  * Derives all optimized asset paths from a poster URL.
- * Expected format: /path/to/NAME_poster.webp
+ * Supports both old format (/path/NAME_poster_h480_q80.webp) and 
+ * new format (/path/NAME_poster.webp)
  */
 function deriveOptimizedAssets(posterUrl: string): OptimizedAssets | null {
-  const match = posterUrl.match(POSTER_PATTERN);
-  if (!match?.groups) return null;
+  // Try new naming first: NAME_poster.webp
+  let match = posterUrl.match(NEW_POSTER_PATTERN);
+  if (match?.groups) {
+    const { dir, base } = match.groups;
+    return {
+      poster: posterUrl,
+      webm: `${dir}${base}_video.webm`,
+      animWebp: `${dir}${base}_anim.webp`,
+      hevc: `${dir}${base}_hevc.mov`,
+    };
+  }
 
-  const { dir, base } = match.groups;
+  // Fallback to old naming: NAME_poster_h480_q80.webp
+  match = posterUrl.match(OLD_POSTER_PATTERN);
+  if (match?.groups) {
+    const { dir, base } = match.groups;
+    return {
+      poster: posterUrl,
+      webm: `${dir}${base}_video.webm`,
+      animWebp: `${dir}${base}_anim.webp`,
+      hevc: `${dir}${base}_hevc.mov`,
+    };
+  }
 
-  return {
-    poster: posterUrl,
-    webm: `${dir}${base}_video.webm`,
-    animWebp: `${dir}${base}_anim.webp`,
-    hevc: `${dir}${base}_hevc.mov`,
-  };
+  return null;
 }
 
 /**

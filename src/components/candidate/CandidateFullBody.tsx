@@ -47,9 +47,12 @@ export function CandidateFullBodyMedia({
     );
   }
 
+  // Shared transition style for smooth crossfade
+  const transitionStyle = { transition: 'opacity 150ms ease' };
+
   return (
     <div className={`relative ${className ?? ''}`} aria-label={`${candidate.nombre} en posición de combate`}>
-      {/* Poster: placeholder; fade out once motion is ready */}
+      {/* Poster: always rendered, fades out when motion is ready */}
       <img
         src={safeSrc(assets.poster)}
         alt={`${candidate.nombre} full body`}
@@ -57,10 +60,11 @@ export function CandidateFullBodyMedia({
         style={{
           display: 'block',
           opacity: isMotionReady ? 0 : 1,
-          transition: 'opacity 150ms ease',
+          ...transitionStyle,
         }}
       />
 
+      {/* HEVC video for Safari/iOS - fades in when ready */}
       {mediaType === MediaType.Hevc && (
         <video
           key={`${candidate.id}-hevc`}
@@ -68,16 +72,23 @@ export function CandidateFullBodyMedia({
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           className={`absolute inset-0 ${mediaClass}`}
+          style={{
+            opacity: isMotionReady ? 1 : 0,
+            ...transitionStyle,
+          }}
           aria-hidden="true"
-          onCanPlay={handleMotionReady}
+          onLoadedData={handleMotionReady}
           onError={handleVideoError}
         >
-          <source src={safeSrc(assets.hevc)} type="video/mp4; codecs=hvc1" />
+          {/* .mov container - use QuickTime type for Safari compatibility */}
+          <source src={safeSrc(assets.hevc)} type='video/quicktime; codecs="hvc1"' />
+          <source src={safeSrc(assets.hevc)} type='video/mp4; codecs="hvc1"' />
         </video>
       )}
 
+      {/* VP9 WebM for Chrome/Android - fades in when ready */}
       {mediaType === MediaType.Video && (
         <video
           key={`${candidate.id}-webm`}
@@ -85,16 +96,23 @@ export function CandidateFullBodyMedia({
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           className={`absolute inset-0 ${mediaClass}`}
+          style={{
+            opacity: isMotionReady ? 1 : 0,
+            ...transitionStyle,
+          }}
           aria-hidden="true"
-          onCanPlay={handleMotionReady}
+          onLoadedData={handleMotionReady}
           onError={handleVideoError}
         >
+          {/* Some browsers prefer vp09 codec string */}
+          <source src={safeSrc(assets.webm)} type='video/webm; codecs="vp09.00.10.08"' />
           <source src={safeSrc(assets.webm)} type='video/webm; codecs="vp9"' />
         </video>
       )}
       
+      {/* Animated WebP fallback - fades in when ready */}
       {mediaType === MediaType.Anim && (
         <img
           key={`${candidate.id}-anim`}
@@ -102,6 +120,10 @@ export function CandidateFullBodyMedia({
           alt=""
           aria-hidden="true"
           className={`absolute inset-0 ${mediaClass}`}
+          style={{
+            opacity: isMotionReady ? 1 : 0,
+            ...transitionStyle,
+          }}
           onLoad={handleMotionReady}
           onError={handleAnimError}
         />
