@@ -53,12 +53,12 @@ find "$IN_DIR" -type f -iname "*.gif" -print0 | while IFS= read -r -d '' src; do
     -c:v libwebp -q:v "$POSTER_Q" \
     "$out_poster"
 
-  # Animated WebP - fixed ghosting with proper settings
+  # Animated WebP - use libwebp_anim to prevent ghosting and preserve alpha
   ffmpeg -nostdin -y -v error -i "$src" \
-    -vf "fps=${FPS},${SCALE},split[a][b];[a]palettegen=reserve_transparent=1[pal];[b][pal]paletteuse=dither=none" \
-    -c:v libwebp -pix_fmt yuva420p \
+    -vf "fps=${FPS},${SCALE},format=rgba" \
+    -c:v libwebp_anim \
     -lossless 0 -compression_level 6 -q:v "$WEBP_Q" \
-    -loop 0 -an -vsync 0 -auto-alt-ref 0 \
+    -loop 0 -an -vsync 0 \
     "$out_webp"
 
   echo "  anim:  $(du -h "$out_webp"  | awk '{print $1}')"
