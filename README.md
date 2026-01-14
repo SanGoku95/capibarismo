@@ -11,7 +11,7 @@
 
 ## English
 
-Presidential Punch Peru provides an interactive platform for comparing political candidates using modern visualization tools and detailed analysis. Built with React and TypeScript, it features a unique retro gaming aesthetic while delivering serious political insights.
+Capibarismo provides an interactive platform for comparing political candidates using modern visualization tools and detailed analysis. Built with React and TypeScript, it features a unique retro gaming aesthetic while delivering serious political insights.
 
 > 🇵🇪 **Open Source Community Project**: This project is developed by volunteers committed to promoting democratic transparency in Peru through technology. All contributions are welcome!
 > 🗳️ **Facts Protocol**: This project follows a secure fact protocol to verify truthfulness. Every fact can be traced back to their original source with time stamps.
