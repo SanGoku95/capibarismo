@@ -10,7 +10,7 @@ export const base: Record<string, CandidateBase> = {
   },
   rafael: {
     id: 'rafael',
-    nombre: 'Rafael L. Aliaga',
+    nombre: 'Rafael López Aliaga',
     ideologia: 'Derecha Conservadora',
     headshot: 'https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg',
     fullBody: '/fotos_candidatos/rafael/rafael_poster_h480_q80.webp',
@@ -60,7 +60,7 @@ export const base: Record<string, CandidateBase> = {
   },
   guevara: {
     id: 'guevara',
-    nombre: 'Mesías Guevara Amasifuén',
+    nombre: 'Mesías Guevara',
     ideologia: 'Próximamente',
     headshot: '/fotos_candidatos/guevara/mesiasguevara_headshot.jpg',
     fullBody: '/fotos_candidatos/guevara/mesiasguevara_poster_h480_q80.webp',
@@ -74,7 +74,7 @@ export const base: Record<string, CandidateBase> = {
   },
   sanchez: {
     id: 'sanchez',
-    nombre: 'Roberto Sánchez Palomino',
+    nombre: 'Roberto Sánchez',
     ideologia: 'Próximamente',
     headshot: '/fotos_candidatos/sanchez/roberto-sanchez_headshot.jpg',
     fullBody: '/fotos_candidatos/sanchez/roberto-sanchez_poster_h480_q80.webp',
