@@ -20,9 +20,22 @@ function deriveOptimizedAssets(poster: string): OptimizedAssets | null {
   };
 }
 
-// Memoized check for WebM VP9 support.
-const canPlayWebmVp9 = (() => {
+// Detect iOS/iPadOS (Safari doesn't properly support VP9 alpha)
+const isIOS = (() => {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return false;
+  }
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+})();
+
+// Memoized check for WebM VP9 support (excluding iOS which has broken alpha support)
+const canPlayWebmVp9WithAlpha = (() => {
   if (typeof window === 'undefined') {
+    return false;
+  }
+  // iOS Safari reports VP9 support but doesn't handle alpha correctly
+  if (isIOS) {
     return false;
   }
   try {
@@ -52,7 +65,7 @@ export function useOptimizedMedia(mediaUrl: string | undefined, candidateId: str
       return;
     }
 
-    if (canPlayWebmVp9) {
+    if (canPlayWebmVp9WithAlpha) {
       setMediaType(MediaType.Video);
     } else {
       setMediaType(MediaType.Anim);
