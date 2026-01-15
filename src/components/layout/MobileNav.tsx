@@ -16,9 +16,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import GavelIcon from '@mui/icons-material/Gavel';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 
 const navItems = [
   { text: 'Inicio', path: '/', icon: <HomeIcon /> },
+  { text: 'Simulador 2ª Vuelta', path: '/jugar', icon: <SportsEsportsIcon /> },
   { text: 'Comparador', path: '/compare', icon: <CompareArrowsIcon /> },
   { text: 'Mapa Político', path: '/compass', icon: <GavelIcon /> },
   { text: 'Acerca de', path: '/about', icon: <InfoOutlinedIcon /> },
