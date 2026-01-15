@@ -1,0 +1,106 @@
+Encuestadora,Fecha,Candidato,Porcentaje,Fuente
+Datum,2026-01,Voto en blanco,23.3,texto
+Datum,2026-01,Ninguno,23.3,texto
+Datum,2026-01,Rafael López Aliaga,10.5,texto
+Datum,2026-01,Keiko Fujimori,7.5,texto
+Datum,2026-01,Otro candidato,7.3,texto
+Datum,2026-01,Carlos Álvarez,4.0,texto
+Datum,2026-01,Alfonso López Chau,2.9,texto
+Datum,2026-01,Yonhy Lescano,1.9,texto
+Datum,2026-01,César Acuña,1.9,texto
+Datum,2026-01,Ricardo Belmont,1.6,texto
+Datum,2026-01,Fernando Olivera,1.2,texto
+Datum,2026-01,Vladimir Cerrón,0.7,texto
+Datum,2025-12,Rafael López Aliaga,10.5,texto
+Datum,2025-12,Keiko Fujimori,7.5,texto
+Datum,2025-12,Carlos Álvarez,4.0,texto
+Datum,2025-12,Alfonso López Chau,2.9,texto
+Datum,2025-12,Yonhy Lescano,1.9,texto
+Datum,2025-12,César Acuña,1.9,texto
+Datum,2025-12,Ricardo Belmont,1.6,texto
+Datum,2025-12,Fernando Olivera,1.2,texto
+Ipsos,2025-12,Keiko Fujimori,10.0,tabla
+Ipsos,2025-12,Rafael López Aliaga,10.0,tabla
+Ipsos,2025-12,Yonhy Lescano,10.0,tabla
+Ipsos,2025-12,Carlos Álvarez,10.0,tabla
+Ipsos,2025-12,César Acuña,10.0,tabla
+Ipsos,2025-12,Alfonso López Chau,10.0,tabla
+Ipsos,2025-12,Voto en blanco,10.0,tabla
+Ipsos,2025-12,No precisa,10.0,tabla
+Ipsos,2025-12,Ninguno,10.0,tabla
+Ipsos,2025-12,Otro candidato,10.0,tabla
+Ipsos,2025-12,Ricardo Belmont,2.0,tabla
+Ipsos,2025-12,Vladimir Cerrón,2.0,tabla
+Ipsos,2025-12,Fernando Olivera,2.0,tabla
+Ipsos,2025-12,Roberto Sánchez,2.0,tabla
+IEP,2025-11,No sabe/No opina,43.7,texto
+IEP,2025-11,César Acuña,39.5,texto
+IEP,2025-11,Ricardo Belmont,39.5,texto
+IEP,2025-11,Voto en blanco,17.0,texto
+IEP,2025-11,No precisa,17.0,texto
+IEP,2025-11,Ninguno,17.0,texto
+IEP,2025-11,No votaría,17.0,texto
+IEP,2025-11,Rafael López Aliaga,11.0,texto
+IEP,2025-11,Voto nulo,5.8,texto
+IEP,2025-11,Keiko Fujimori,3.7,texto
+IEP,2025-11,Alfonso López Chau,2.4,texto
+IEP,2025-11,Carlos Álvarez,1.1,texto
+Ipsos,2025-11,Keiko Fujimori,9.0,tabla
+Ipsos,2025-11,Rafael López Aliaga,9.0,tabla
+Ipsos,2025-11,Yonhy Lescano,9.0,tabla
+Ipsos,2025-11,Carlos Álvarez,9.0,tabla
+Ipsos,2025-11,César Acuña,9.0,tabla
+Ipsos,2025-11,Alfonso López Chau,9.0,tabla
+Ipsos,2025-11,Voto en blanco,9.0,tabla
+Ipsos,2025-11,No precisa,9.0,tabla
+Ipsos,2025-11,Ninguno,9.0,tabla
+Ipsos,2025-11,Otro candidato,9.0,tabla
+Ipsos,2025-11,Ricardo Belmont,2.0,tabla
+Ipsos,2025-11,Vladimir Cerrón,2.0,tabla
+Ipsos,2025-11,Mesías Guevara,2.0,tabla
+Ipsos,2025-11,Fernando Olivera,2.0,tabla
+Ipsos,2025-11,Roberto Sánchez,2.0,tabla
+Ipsos,2025-10,Keiko Fujimori,9.0,tabla
+Ipsos,2025-10,Rafael López Aliaga,9.0,tabla
+Ipsos,2025-10,Yonhy Lescano,9.0,tabla
+Ipsos,2025-10,Carlos Álvarez,9.0,tabla
+Ipsos,2025-10,César Acuña,9.0,tabla
+Ipsos,2025-10,Ninguno,9.0,tabla
+Ipsos,2025-10,Otro candidato,9.0,tabla
+Ipsos,2025-10,Alfonso López Chau,9.0,tabla
+Ipsos,2025-10,Voto en blanco,9.0,tabla
+Ipsos,2025-10,No precisa,9.0,tabla
+Ipsos,2025-10,Ricardo Belmont,2.0,tabla
+Ipsos,2025-10,Vladimir Cerrón,2.0,tabla
+Ipsos,2025-10,Fernando Olivera,2.0,tabla
+Ipsos,2025-10,Roberto Sánchez,2.0,tabla
+IEP,2025-09,No precisa,39.5,texto
+IEP,2025-09,Voto en blanco,26.4,texto
+IEP,2025-09,Voto nulo,26.4,texto
+IEP,2025-09,Keiko Fujimori,26.0,texto
+IEP,2025-09,Rafael López Aliaga,26.0,texto
+IEP,2025-09,Ninguno,12.0,texto
+IEP,2025-09,Otro candidato,5.5,texto
+IEP,2025-09,Carlos Álvarez,2.4,texto
+IEP,2025-09,No votaría,1.2,texto
+IEP,2025-09,Alfonso López Chau,0.9,texto
+IEP,2025-09,Yonhy Lescano,0.8,texto
+Ipsos,2025-09,César Acuña,3.0,tabla
+Ipsos,2025-09,Ricardo Belmont,3.0,tabla
+Ipsos,2025-09,Vladimir Cerrón,3.0,tabla
+Ipsos,2025-09,Fernando Olivera,3.0,tabla
+Ipsos,2025-09,Roberto Sánchez,3.0,tabla
+Ipsos,2025-07,Keiko Fujimori,9.0,tabla
+Ipsos,2025-07,Rafael López Aliaga,9.0,tabla
+Ipsos,2025-07,Yonhy Lescano,9.0,tabla
+Ipsos,2025-07,Carlos Álvarez,9.0,tabla
+Ipsos,2025-07,César Acuña,9.0,tabla
+Ipsos,2025-07,Alfonso López Chau,9.0,tabla
+Ipsos,2025-07,Ricardo Belmont,9.0,tabla
+Ipsos,2025-07,Vladimir Cerrón,9.0,tabla
+Ipsos,2025-07,Fernando Olivera,9.0,tabla
+Ipsos,2025-07,Roberto Sánchez,9.0,tabla
+Ipsos,2025-07,Voto en blanco,7.0,tabla
+Ipsos,2025-07,No precisa,7.0,tabla
+Ipsos,2025-07,Ninguno,7.0,tabla
+Ipsos,2025-07,Otro candidato,7.0,tabla

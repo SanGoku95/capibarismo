@@ -142,6 +142,13 @@ function generateLocalPair(): Pair {
   }
 
   const candidates = listCandidates();
+  console.log('🔍 ALL CANDIDATES WITH PARTY INFO:', candidates.map(c => ({ 
+    id: c.id, 
+    nombre: c.nombre, 
+    partido: c.partido, 
+    partyIcon: c.partyIcon 
+  })));
+  
   if (candidates.length < 2) {
     throw new Error('Not enough candidates to generate a pair');
   }
@@ -195,6 +202,8 @@ function createPair(candidateA: CandidateBase, candidateB: CandidateBase, pairId
       id: candidateA.id,
       nombre: candidateA.nombre,
       ideologia: candidateA.ideologia,
+      partido: candidateA.partido,
+      partyIcon: candidateA.partyIcon,
       fullBody: candidateA.fullBody,
       headshot: candidateA.headshot,
     },
@@ -202,6 +211,8 @@ function createPair(candidateA: CandidateBase, candidateB: CandidateBase, pairId
       id: candidateB.id,
       nombre: candidateB.nombre,
       ideologia: candidateB.ideologia,
+      partido: candidateB.partido,
+      partyIcon: candidateB.partyIcon,
       fullBody: candidateB.fullBody,
       headshot: candidateB.headshot,
     },
