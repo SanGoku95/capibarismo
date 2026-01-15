@@ -157,6 +157,28 @@ export function CandidateFullBody({ candidate, side }: CandidateFullBodyProps) {
       >
         {candidate.ideologia}
       </motion.p>
+      
+      {/* Party Icon */}
+      {candidate.partyIcon && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.9, duration: 0.3 }}
+          className="mt-4 flex flex-col items-center gap-2"
+        >
+          <img
+            src={safeSrc(candidate.partyIcon)}
+            alt={candidate.partido || 'Partido político'}
+            className="w-16 h-16 object-contain rounded-lg bg-white/10 p-2"
+            loading="lazy"
+          />
+          {candidate.partido && (
+            <p className="text-xs text-white/60 text-center">
+              {candidate.partido}
+            </p>
+          )}
+        </motion.div>
+      )}
     </motion.div>
   );
 }

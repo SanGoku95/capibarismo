@@ -92,5 +92,40 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/candidate/lopez-chau"/>
   </url>
+  <url>
+    <loc>https://capibarismo.com/candidate/belmont</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/candidate/belmont"/>
+  </url>
+  <url>
+    <loc>https://capibarismo.com/candidate/cerron</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/candidate/cerron"/>
+  </url>
+  <url>
+    <loc>https://capibarismo.com/candidate/guevara</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/candidate/guevara"/>
+  </url>
+  <url>
+    <loc>https://capibarismo.com/candidate/olivera</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/candidate/olivera"/>
+  </url>
+  <url>
+    <loc>https://capibarismo.com/candidate/sanchez</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es-PE" href="https://capibarismo.com/candidate/sanchez"/>
+  </url>
 </urlset>
 </urlset>

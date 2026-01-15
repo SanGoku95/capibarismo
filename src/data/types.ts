@@ -4,6 +4,8 @@ export interface CandidateBase {
   id: CandidateID;
   nombre: string;
   ideologia?: string;
+  partido?: string;
+  partyIcon?: string;
   headshot?: string;
   fullBody?: string;
   color?: string;

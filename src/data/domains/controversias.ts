@@ -44,5 +44,10 @@ export const controversias: Record<string, Controversia[]> = {
   'lopez-chau': [
     { id: 'politizacion-uni', titulo: 'Acusaciones de politización de la UNI', descripcion: 'Críticos señalan el uso de la universidad como plataforma política personal.', fuente: 'https://peru21.pe/politica/la-uni-se-convierte-en-un-bunker-politico-noticia/', rank: 1, legal: 'denuncia_en_medios', severidad: 'media' },
     { id: 'alojamiento-manifestantes', titulo: 'Alojamiento de manifestantes en la UNI', descripcion: 'Decisión controvertida de permitir el ingreso de manifestantes de regiones durante las protestas de 2023.', fuente: 'https://elcomercio.pe/lima/sucesos/rector-de-la-uni-justifica-alojamiento-a-manifestantes-es-un-acto-de-humanidad-noticia/', rank: 2, legal: 'clausurado', severidad: 'media' },
-  ]
+  ],
+  belmont: [],
+  cerron: [],
+  guevara: [],
+  olivera: [],
+  sanchez: [],
 };

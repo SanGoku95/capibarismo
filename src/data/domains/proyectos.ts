@@ -135,4 +135,29 @@ export const proyectos: Record<string, ProyectoPolitico> = {
       },
     ],
   },
+  belmont: {
+    titulo: "Próximamente",
+    resumen: "Próximamente",
+    detalles: [],
+  },
+  cerron: {
+    titulo: "Próximamente",
+    resumen: "Próximamente",
+    detalles: [],
+  },
+  guevara: {
+    titulo: "Próximamente",
+    resumen: "Próximamente",
+    detalles: [],
+  },
+  olivera: {
+    titulo: "Próximamente",
+    resumen: "Próximamente",
+    detalles: [],
+  },
+  sanchez: {
+    titulo: "Próximamente",
+    resumen: "Próximamente",
+    detalles: [],
+  },
 };

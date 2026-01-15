@@ -33,7 +33,7 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
       className="flex flex-col items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-lg border border-white/20 sm:border-2 bg-black/40 transition-opacity"
       style={{ opacity: isDisabled ? 0.6 : 1 }}
     >
-      {/* Info button - smaller on mobile */}
+      {/* Info button - top right */}
       <div className="w-full flex justify-end mb-2">
         <Button
           variant="ghost"
@@ -75,9 +75,26 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
           {candidate.nombre}
         </h3>
         {candidate.ideologia && (
-          <p className="text-white/80 text-[10px] sm:text-xs md:text-sm mb-2 sm:mb-4 px-1 line-clamp-2">
+          <p className="text-white/80 text-[10px] sm:text-xs md:text-sm mb-2 sm:mb-3 px-1 line-clamp-2">
             {candidate.ideologia}
           </p>
+        )}
+        
+        {/* Party Icon - debajo del nombre y subtítulo */}
+        {candidate.partyIcon && (
+          <div className="flex flex-col items-center gap-1 mb-3 sm:mb-4">
+            <img
+              src={safeSrc(candidate.partyIcon)}
+              alt={candidate.partido || 'Partido político'}
+              className="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-lg bg-white/10 p-2 border border-white/20"
+              loading="lazy"
+            />
+            {candidate.partido && (
+              <p className="text-white/60 text-[9px] sm:text-[10px] text-center px-2 line-clamp-2">
+                {candidate.partido}
+              </p>
+            )}
+          </div>
         )}
         
         <Button
