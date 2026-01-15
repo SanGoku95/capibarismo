@@ -71,7 +71,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Perú Libre',
     partyIcon: '/iconos_partidos/peru_libre.jpg',
     headshot: '/fotos_candidatos/cerron/vladimir_headshot.jpg',
-    fullBody: '/fotos_candidatos/cerron/vladimircerron_posterwebp',
+    fullBody: '/fotos_candidatos/cerron/vladimircerron_poster.webp',
   },
   guevara: {
     id: 'guevara',
