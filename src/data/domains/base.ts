@@ -27,14 +27,14 @@ export const base: Record<string, CandidateBase> = {
     nombre: 'Carlos Álvarez',
     ideologia: 'Derecha Punitiva',
     headshot: '/fotos_candidatos/alvarez/carlos-alvarez.jpg',
-    fullBody: '/fotos_candidatos/alvarez/carlos alvarez_poster.webp',
+    fullBody: '/fotos_candidatos/alvarez/carlosalvarez_poster.webp',
   },
   'cesar-acuna': {
     id: 'cesar-acuna',
     nombre: 'César Acuña',
     ideologia: 'Populismo Clientelar',
     headshot: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg',
-    fullBody: '/fotos_candidatos/acuna/full_body_acuña_move_poster.webp',
+    fullBody: '/fotos_candidatos/acuna/full_body_acuna_move_poster.webp',
   },
   'lopez-chau': {
     id: 'lopez-chau',
