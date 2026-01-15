@@ -16,13 +16,12 @@ export function CandidateFullBodyMedia({
 }: {
   candidate: CandidateBase;
   side: 'left' | 'right';
-  className?: string; // container sizing/rounding/shadow/margins
+  className?: string;
 }) {
   const {
     assets,
     mediaType,
     isMotionReady,
-    handleVideoError,
     handleAnimError,
     handleMotionReady,
   } = useOptimizedMedia(candidate.fullBody, candidate.id);
@@ -47,9 +46,12 @@ export function CandidateFullBodyMedia({
     );
   }
 
+  // Shared transition style for smooth crossfade
+  const transitionStyle = { transition: 'opacity 150ms ease' };
+
   return (
     <div className={`relative ${className ?? ''}`} aria-label={`${candidate.nombre} en posición de combate`}>
-      {/* Poster: only a placeholder; fade out once motion is ready */}
+      {/* Poster: fades out when animated image is ready */}
       <img
         src={safeSrc(assets.poster)}
         alt={`${candidate.nombre} full body`}
@@ -57,27 +59,11 @@ export function CandidateFullBodyMedia({
         style={{
           display: 'block',
           opacity: isMotionReady ? 0 : 1,
-          transition: 'opacity 150ms ease',
+          ...transitionStyle,
         }}
       />
-
-      {mediaType === MediaType.Video && (
-        <video
-          key={`${candidate.id}-webm`}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className={`absolute inset-0 ${mediaClass}`}
-          aria-hidden="true"
-          onCanPlay={handleMotionReady}
-          onError={handleVideoError}
-        >
-          <source src={safeSrc(assets.webm)} type='video/webm; codecs="vp9"' />
-        </video>
-      )}
       
+      {/* Animated WebP - works on iPhone iOS 14.5+, Android, and all desktop browsers */}
       {mediaType === MediaType.Anim && (
         <img
           key={`${candidate.id}-anim`}
@@ -85,6 +71,10 @@ export function CandidateFullBodyMedia({
           alt=""
           aria-hidden="true"
           className={`absolute inset-0 ${mediaClass}`}
+          style={{
+            opacity: isMotionReady ? 1 : 0,
+            ...transitionStyle,
+          }}
           onLoad={handleMotionReady}
           onError={handleAnimError}
         />

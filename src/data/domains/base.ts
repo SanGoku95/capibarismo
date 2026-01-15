@@ -8,7 +8,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Fuerza Popular',
     partyIcon: '/iconos_partidos/fuerza_popular.jpg',
     headshot: 'https://pbs.twimg.com/profile_images/1876955744525856768/1H9ukeEv_400x400.jpg',
-    fullBody: '/fotos_candidatos/keiko/full_body_keiko_poster_h432_q80.webp',
+    fullBody: '/fotos_candidatos/keiko/full_body_keiko_poster.webp',
   },
   rafael: {
     id: 'rafael',
@@ -17,7 +17,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Renovación Popular',
     partyIcon: '/iconos_partidos/renovacion_popular.jpg',
     headshot: 'https://pbs.twimg.com/profile_images/1372582295987757058/P2yzmjJP_400x400.jpg',
-    fullBody: '/fotos_candidatos/rafael/rafael_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/rafael/rafael_poster.webp',
   },
   yonhy: {
     id: 'yonhy',
@@ -26,7 +26,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Cooperación Popular',
     partyIcon: '/iconos_partidos/cooperacion_popular.jpg',
     headshot: 'https://pbs.twimg.com/profile_images/991790180129476608/w-QUgKQT_400x400.jpg',
-    fullBody: '/fotos_candidatos/lescano/full_body_lescano_poster_h432_q80.webp',
+    fullBody: '/fotos_candidatos/lescano/full_body_lescano_poster.webp',
   },
   'carlos-alvarez': {
     id: 'carlos-alvarez',
@@ -35,7 +35,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'País Para Todos',
     partyIcon: '/iconos_partidos/pais_para_todos.jpg',
     headshot: '/fotos_candidatos/alvarez/carlos-alvarez.jpg',
-    fullBody: '/fotos_candidatos/alvarez/carlos_alvarez_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/alvarez/carlosalvarez_poster.webp',
   },
   'cesar-acuna': {
     id: 'cesar-acuna',
@@ -44,7 +44,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Alianza Para el Progreso',
     partyIcon: '/iconos_partidos/alianza_progreso.png',
     headshot: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/C%C3%A9sar_Acu%C3%B1a_Peralta.jpg',
-    fullBody: '/fotos_candidatos/acuna/full_body_acuna_move_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/acuna/full_body_acuna_move_poster.webp',
   },
   'lopez-chau': {
     id: 'lopez-chau',
@@ -53,7 +53,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Ahora Nación',
     partyIcon: '/iconos_partidos/ahora_nacion.jpg',
     headshot: '/fotos_candidatos/alfonsolc/alfonsolopezchau_headshot.jpg',
-    fullBody: '/fotos_candidatos/alfonsolc/alfonsolopezchau_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/alfonsolc/alfonsolopezchau_poster.webp',
   },
   belmont: {
     id: 'belmont',
@@ -62,7 +62,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Obras',
     partyIcon: '/iconos_partidos/obras.jpg',
     headshot: '/fotos_candidatos/belmont/belmont_headshot.jpg',
-    fullBody: '/fotos_candidatos/belmont/belmont_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/belmont/belmont_poster.webp',
   },
   cerron: {
     id: 'cerron',
@@ -71,7 +71,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Perú Libre',
     partyIcon: '/iconos_partidos/peru_libre.jpg',
     headshot: '/fotos_candidatos/cerron/vladimir_headshot.jpg',
-    fullBody: '/fotos_candidatos/cerron/vladimir cerron_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/cerron/vladimircerron_posterwebp',
   },
   guevara: {
     id: 'guevara',
@@ -80,7 +80,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Partido Morado',
     partyIcon: '/iconos_partidos/morado.jpg',
     headshot: '/fotos_candidatos/guevara/mesiasguevara_headshot.jpg',
-    fullBody: '/fotos_candidatos/guevara/mesiasguevara_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/guevara/mesiasguevara_poster.webp',
   },
   olivera: {
     id: 'olivera',
@@ -89,7 +89,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Frente Esperanza',
     partyIcon: '/iconos_partidos/frente_esperanza.jpg',
     headshot: '/fotos_candidatos/olivera/olivera_headshot.jpg',
-    fullBody: '/fotos_candidatos/olivera/olivera_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/olivera/olivera_poster.webp',
   },
   sanchez: {
     id: 'sanchez',
@@ -98,7 +98,7 @@ export const base: Record<string, CandidateBase> = {
     partido: 'Juntos por el Perú',
     partyIcon: '/iconos_partidos/juntos_peru.jpg',
     headshot: '/fotos_candidatos/sanchez/roberto-sanchez_headshot.jpg',
-    fullBody: '/fotos_candidatos/sanchez/roberto-sanchez_poster_h480_q80.webp',
+    fullBody: '/fotos_candidatos/sanchez/roberto-sanchez_poster.webp',
   }
 };
 

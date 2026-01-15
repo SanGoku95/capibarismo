@@ -1,42 +1,47 @@
 import { useState, useEffect, useMemo } from 'react';
 
+/**
+ * Simple hook for optimized media loading
+ * Uses animated WebP (supported on iPhone iOS 14.5+, Android, and all desktop browsers)
+ * with static poster fallback
+ */
+
 type OptimizedAssets = {
   poster: string;
-  webm: string;
   animWebp: string;
 };
 
 function deriveOptimizedAssets(poster: string): OptimizedAssets | null {
-  // expects: /.../NAME_poster_h432_q80.webp
-  const m = poster.match(/^(.*\/)([^/]+?)_poster_(h\d+)_q\d+\.webp$/);
-  if (!m) return null;
+  // Supports both naming conventions:
+  // Old: /path/NAME_poster_h480_q80.webp
+  // New: /path/NAME_poster.webp
+  const oldPattern = /^(.*\/)([^/]+?)_poster_h\d+_q\d+\.webp$/;
+  const newPattern = /^(.*\/)([^/]+?)_poster\.webp$/;
+  
+  let match = poster.match(newPattern);
+  if (match) {
+    const [, dir, base] = match;
+    return {
+      poster,
+      animWebp: `${dir}${base}_anim.webp`,
+    };
+  }
 
-  const [, dir, base, h] = m;
+  match = poster.match(oldPattern);
+  if (match) {
+    const [, dir, base] = match;
+    return {
+      poster,
+      animWebp: `${dir}${base}_anim_h480_fps15_q60.webp`,
+    };
+  }
 
-  return {
-    poster,
-    webm: `${dir}${base}_vp9_alpha_${h}_fps15_crf35.webm`,
-    animWebp: `${dir}${base}_anim_${h}_fps15_q60.webp`,
-  };
+  return null;
 }
-
-// Memoized check for WebM VP9 support.
-const canPlayWebmVp9 = (() => {
-  if (typeof window === 'undefined') {
-    return false;
-  }
-  try {
-    const v = document.createElement('video');
-    return v.canPlayType('video/webm; codecs="vp9"') !== '';
-  } catch {
-    return false;
-  }
-})();
 
 export enum MediaType {
   Poster,
   Anim,
-  Video,
 }
 
 export function useOptimizedMedia(mediaUrl: string | undefined, candidateId: string) {
@@ -47,22 +52,9 @@ export function useOptimizedMedia(mediaUrl: string | undefined, candidateId: str
 
   useEffect(() => {
     setMotionReady(false);
-    if (!assets) {
-      setMediaType(MediaType.Poster);
-      return;
-    }
-
-    if (canPlayWebmVp9) {
-      setMediaType(MediaType.Video);
-    } else {
-      setMediaType(MediaType.Anim);
-    }
+    // Always use animated WebP if assets are available (works on all modern browsers)
+    setMediaType(assets ? MediaType.Anim : MediaType.Poster);
   }, [assets, candidateId]);
-
-  const handleVideoError = () => {
-    setMediaType(MediaType.Anim); // Fallback to animated WebP
-    setMotionReady(false);
-  };
 
   const handleAnimError = () => {
     setMediaType(MediaType.Poster); // Fallback to static poster
@@ -77,7 +69,6 @@ export function useOptimizedMedia(mediaUrl: string | undefined, candidateId: str
     assets,
     mediaType,
     isMotionReady,
-    handleVideoError,
     handleAnimError,
     handleMotionReady,
   };
