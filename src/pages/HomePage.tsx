@@ -152,7 +152,7 @@ export function HomePage() {
                 <div className="flex-1">
                   <div className="flex items-baseline justify-between gap-2 flex-wrap">
                     <span className="text-sm sm:text-base font-semibold text-foreground font-sans">
-                      Meta actual: Completar datos de 10 candidatos
+                      Meta actual: Completar datos de 11 candidatos
                     </span>
                     <span className="text-lg sm:text-xl font-bold text-accent font-sans shrink-0">
                       S/ 100
@@ -219,7 +219,7 @@ export function HomePage() {
                       </span>
                     </div>
                     <p className="text-sm text-foreground/75 font-sans">
-                      Mejorar ilustración de la web
+                      Incluir Infomación de Vicepresidentes
                     </p>
                   </div>
 
@@ -233,21 +233,49 @@ export function HomePage() {
                       </span>
                     </div>
                     <p className="text-sm text-foreground/75 font-sans">
-                      Mejorar ilustración de candidatos
+                      Incluir todas las listas presentadas.
                     </p>
                   </div>
 
                   <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Meta final
+                        Meta futura
                       </span>
                       <span className="text-base font-bold text-foreground/80 font-sans">
                         S/ 500
                       </span>
                     </div>
                     <p className="text-sm text-foreground/75 font-sans">
-                      Completar datos de los 15 candidatos
+                      Completar datos de los candidatos al Senado.
+                    </p>
+                  </div>
+                  
+                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
+                        Meta futura
+                      </span>
+                      <span className="text-base font-bold text-foreground/80 font-sans">
+                        S/ 700
+                      </span>
+                    </div>
+                    <p className="text-sm text-foreground/75 font-sans">
+                      Completar datos de los candidatos a la cámara de Diputados.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
+                        Meta futura
+                      </span>
+                      <span className="text-base font-bold text-foreground/80 font-sans">
+                        S/ 1000
+                      </span>
+                    </div>
+                    <p className="text-sm text-foreground/75 font-sans">
+                      Incluir animación de "Ataques Especiales" de los candidatos.
                     </p>
                   </div>
                 </div>

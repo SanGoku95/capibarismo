@@ -123,4 +123,19 @@ export const presencia: Record<string, PresenciaDigital> = {
       },
     ],
   },
+  belmont: {
+    plataformas: [],
+  },
+  cerron: {
+    plataformas: [],
+  },
+  guevara: {
+    plataformas: [],
+  },
+  olivera: {
+    plataformas: [],
+  },
+  sanchez: {
+    plataformas: [],
+  },
 };

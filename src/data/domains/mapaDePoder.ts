@@ -178,4 +178,24 @@ export const mapaDePoder: Record<string, MapaDePoder> = {
       },
     ],
   },
+  belmont: {
+    alianzas: [],
+    opositores: [],
+  },
+  cerron: {
+    alianzas: [],
+    opositores: [],
+  },
+  guevara: {
+    alianzas: [],
+    opositores: [],
+  },
+  olivera: {
+    alianzas: [],
+    opositores: [],
+  },
+  sanchez: {
+    alianzas: [],
+    opositores: [],
+  },
 };
