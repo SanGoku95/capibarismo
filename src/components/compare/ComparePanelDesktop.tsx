@@ -213,7 +213,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                         </Link>
                       </>
                     ) : (
-                      <p className="text-sm text-muted-foreground italic">Sin controversias registradas.</p>
+                      <p className="text-sm text-muted-foreground italic">Próximamente.</p>
                     );
                   })()}
                 </div>

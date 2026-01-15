@@ -15,15 +15,15 @@ export function CompletionModal() {
 
   return (
     <Dialog open={completionModalOpen} onOpenChange={() => {}}>
-      <DialogContent className="pointer-events-auto" onPointerDownOutside={(e) => e.preventDefault()} onEscapeKeyDown={(e) => e.preventDefault()}>
+      <DialogContent className="pointer-events-auto text-center" onPointerDownOutside={(e) => e.preventDefault()} onEscapeKeyDown={(e) => e.preventDefault()}>
         <DialogHeader>
-          <DialogTitle>¡Felicitaciones! Has completado el juego</DialogTitle>
+          <DialogTitle>¡Tu ranking esta listo!</DialogTitle>
         </DialogHeader>
 
-        <p>Has completado todas las comparaciones. ¡Es hora de ver tu ranking personal!</p>
+        <p>Has completado suficientes comparaciones.</p>
 
-        <DialogFooter>
-          <Button onClick={handleViewRanking} size="lg">
+        <DialogFooter className="flex justify-center">
+          <Button onClick={handleViewRanking} size="lg" className="w-full">
             Ver mi ranking
           </Button>
         </DialogFooter>
