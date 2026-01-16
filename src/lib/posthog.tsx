@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
 import { PostHogProvider as PHProvider, usePostHog } from '@posthog/react';
 import posthog from 'posthog-js';
+import { useRef } from 'react';
 
 // PostHog configuration
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
-const POSTHOG_HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://app.posthog.com';
+const POSTHOG_HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://us.posthog.com';
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const HOME_FIRST_SEEN_AT_KEY = 'ppp.home_first_seen_at';
@@ -15,11 +15,12 @@ if (typeof window !== 'undefined' && POSTHOG_KEY && !posthog.__loaded) {
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
     
+    // Only enable debug in development
+    debug: import.meta.env.DEV,
+    
     // Session Replay Configuration
     session_recording: {
-      // Mask all inputs by default (passwords are always masked)
       maskAllInputs: true,
-      // Capture request headers/body for replay network debugging
       recordHeaders: true,
       recordBody: true,
     },
@@ -28,11 +29,7 @@ if (typeof window !== 'undefined' && POSTHOG_KEY && !posthog.__loaded) {
     enable_recording_console_log: true,
 
     // Autocapture configuration
-    autocapture: {
-      enabled: true,
-      // Capture CSS selectors for better event identification
-      css_selector_allowlist: ['[data-ph-capture]'],
-    },
+    autocapture: true,
 
     // Capture pageviews automatically
     capture_pageview: true,
@@ -49,10 +46,10 @@ if (typeof window !== 'undefined' && POSTHOG_KEY && !posthog.__loaded) {
     // Persistence configuration
     persistence: 'localStorage',
     
-    // Loaded callback
+    // Loaded callback (dev only logging)
     loaded: (posthog) => {
       if (import.meta.env.DEV) {
-        console.log('PostHog loaded successfully');
+        console.log('[PostHog] ✅ Loaded. Distinct ID:', posthog.get_distinct_id());
       }
     },
   });
@@ -80,7 +77,9 @@ if (typeof window !== 'undefined' && POSTHOG_KEY && !posthog.__loaded) {
 // PostHog Provider Component using official package
 export const PostHogProvider = ({ children }: { children: React.ReactNode }) => {
   if (!POSTHOG_KEY) {
-    console.warn('PostHog key not found. Analytics will not be enabled.');
+    if (import.meta.env.DEV) {
+      console.warn('[PostHog] Key not found. Analytics disabled.');
+    }
     return <>{children}</>;
   }
 
@@ -101,34 +100,28 @@ export { posthog };
 export const useTrackEvent = () => {
   const posthog = usePostHog();
   return (eventName: string, properties?: Record<string, any>) => {
-    try {
-      posthog?.capture(eventName, properties);
-    } catch {
-      // ignore tracking errors
-    }
+    posthog?.capture(eventName, properties);
   };
 };
 
-// Helper functions that work with or without the hook
-export const trackHomeView = (posthogInstance: ReturnType<typeof usePostHog> | typeof posthog, properties?: Record<string, any>) => {
-  try {
-    posthogInstance?.capture('home_view', properties);
-  } catch {
-    // ignore
-  }
-  
-  if (typeof window === 'undefined') return;
+// Hook to track home view once per mount (avoids StrictMode duplicates)
+export const useTrackHomeView = () => {
+  const posthog = usePostHog();
+  const hasFired = useRef(false);
 
+  if (typeof window === 'undefined') return;
+  if (hasFired.current) return;
+  hasFired.current = true;
+
+  posthog?.capture('home_view');
+
+  // Handle first-time vs returning visitor
   const now = Date.now();
   const firstSeenRaw = window.localStorage.getItem(HOME_FIRST_SEEN_AT_KEY);
 
   if (!firstSeenRaw) {
     window.localStorage.setItem(HOME_FIRST_SEEN_AT_KEY, String(now));
-    try {
-      posthogInstance?.capture('first_time_home_view');
-    } catch {
-      // ignore
-    }
+    posthog?.capture('first_time_home_view');
     return;
   }
 
@@ -139,19 +132,27 @@ export const trackHomeView = (posthogInstance: ReturnType<typeof usePostHog> | t
     const alreadySent = window.localStorage.getItem(HOME_RETURNING_24H_SENT_KEY) === 'true';
     if (!alreadySent) {
       window.localStorage.setItem(HOME_RETURNING_24H_SENT_KEY, 'true');
-      try {
-        posthogInstance?.capture('returning_home_view_ge_24h');
-      } catch {
-        // ignore
-      }
+      posthog?.capture('returning_home_view_ge_24h');
     }
   }
 };
 
+// Hook to track jugar view once per mount
+export const useTrackJugarView = (properties?: Record<string, any>) => {
+  const posthog = usePostHog();
+  const hasFired = useRef(false);
+
+  if (hasFired.current) return;
+  hasFired.current = true;
+
+  posthog?.capture('jugar_view', properties);
+};
+
+// Legacy function exports (for backward compatibility)
+export const trackHomeView = (posthogInstance: ReturnType<typeof usePostHog> | typeof posthog, properties?: Record<string, any>) => {
+  posthogInstance?.capture('home_view', properties);
+};
+
 export const trackJugarView = (posthogInstance: ReturnType<typeof usePostHog> | typeof posthog, properties?: Record<string, any>) => {
-  try {
-    posthogInstance?.capture('jugar_view', properties);
-  } catch {
-    // ignore
-  }
+  posthogInstance?.capture('jugar_view', properties);
 };

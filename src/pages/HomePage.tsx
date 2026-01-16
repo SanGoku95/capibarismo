@@ -1,19 +1,18 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Compass, Scale, Gamepad2, ChevronDown, ChevronUp, Target } from "lucide-react";
 import { listCandidates, getCandidateProfile } from "@/data";
 import { useItemListSEO } from '@/lib/useSEO';
 import { DonationModal } from '@/components/common/DonationModal';
-import { usePostHog, trackHomeView } from '@/lib/posthog';
+import { usePostHog, useTrackHomeView } from '@/lib/posthog';
 
 export function HomePage() {
   const [showAllGoals, setShowAllGoals] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
   const posthog = usePostHog();
 
-  useEffect(() => {
-    trackHomeView(posthog);
-  }, [posthog]);
+  // Track home view once (handles StrictMode deduplication)
+  useTrackHomeView();
 
   // SEO for homepage with ItemList structured data for candidates
   const candidateItems = useMemo(() => {
