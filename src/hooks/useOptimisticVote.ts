@@ -7,6 +7,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useSubmitVote } from './useGameAPI';
 import { sessionService } from '@/services/sessionService';
+import { trackEvent } from '@/lib/posthog';
 import type { Pair } from '../../api/types';
 
 export function useOptimisticVote(sessionId: string) {
@@ -31,6 +32,14 @@ export function useOptimisticVote(sessionId: string) {
       const previousCount = localVoteCount;
       const nextCount = sessionService.incrementVoteCount();
       setLocalVoteCount(nextCount);
+
+      if (previousCount === 0) {
+        trackEvent('game_first_vote', {
+          sessionId,
+          pairId: pair.pairId,
+          winner,
+        });
+      }
 
       // Fire mutation without awaiting
       submitVoteMutation.mutate(

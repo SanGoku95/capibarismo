@@ -5,10 +5,19 @@ import posthog from 'posthog-js';
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
 const POSTHOG_HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://app.posthog.com';
 
+let _initAttempted = false;
+
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+const HOME_FIRST_SEEN_AT_KEY = 'ppp.home_first_seen_at';
+const HOME_RETURNING_24H_SENT_KEY = 'ppp.home_returning_24h_sent';
+
 // Initialize PostHog
 export const initPostHog = () => {
+  if (_initAttempted) return;
+  _initAttempted = true;
+
   if (!POSTHOG_KEY) {
-    console.warn('PostHog key not found. Session replay will not be enabled.');
+    console.warn('PostHog key not found. Analytics will not be enabled.');
     return;
   }
 
@@ -18,25 +27,19 @@ export const initPostHog = () => {
       
       // Session Replay Configuration
       session_recording: {
-        enabled: true,
-        // Record console logs for better debugging
-        recordConsoleLog: true,
-        // Record network requests (useful for debugging API issues)
-        recordNetwork: true,
-        // Mask all text content for privacy (can be toggled off if needed)
-        maskAllText: false,
         // Mask all inputs by default (passwords are always masked)
         maskAllInputs: true,
-        // Sample rate: 1.0 = 100% of sessions (adjust for production)
-        sampleRate: 1.0,
-        // Minimum duration before recording starts (in ms)
-        minimumDuration: 1000,
+        // Capture request headers/body for replay network debugging
+        recordHeaders: true,
+        recordBody: true,
       },
+
+      // Record console logs for better debugging (replay)
+      enable_recording_console_log: true,
 
       // Autocapture configuration
       autocapture: {
         // Automatically capture clicks, form submissions, etc.
-        enabled: true,
         // Capture CSS selectors for better event identification
         css_selector_allowlist: ['[data-ph-capture]'],
       },
@@ -49,7 +52,6 @@ export const initPostHog = () => {
 
       // Advanced privacy settings
       mask_all_text: false,
-      mask_all_inputs: true,
       
       // Disable in development if needed (optional)
       // disable_session_recording: import.meta.env.DEV,
@@ -103,27 +105,75 @@ export { posthog };
 
 // Utility functions for common tracking patterns
 export const trackEvent = (eventName: string, properties?: Record<string, any>) => {
-  if (posthog.__loaded) {
+  initPostHog();
+  if (!POSTHOG_KEY || typeof window === 'undefined') return;
+
+  try {
     posthog.capture(eventName, properties);
+  } catch {
+    // ignore tracking errors
   }
 };
 
 export const identifyUser = (userId: string, properties?: Record<string, any>) => {
-  if (posthog.__loaded) {
+  initPostHog();
+  if (!POSTHOG_KEY || typeof window === 'undefined') return;
+
+  try {
     posthog.identify(userId, properties);
+  } catch {
+    // ignore
   }
 };
 
 export const resetUser = () => {
-  if (posthog.__loaded) {
+  initPostHog();
+  if (!POSTHOG_KEY || typeof window === 'undefined') return;
+
+  try {
     posthog.reset();
+  } catch {
+    // ignore
   }
 };
 
 // Feature flag utilities
 export const isFeatureEnabled = (flagKey: string): boolean => {
-  if (posthog.__loaded) {
+  initPostHog();
+  if (!POSTHOG_KEY || typeof window === 'undefined') return false;
+
+  try {
     return posthog.isFeatureEnabled(flagKey) || false;
+  } catch {
+    return false;
   }
-  return false;
+};
+
+export const trackHomeView = (properties?: Record<string, any>) => {
+  trackEvent('home_view', properties);
+  if (typeof window === 'undefined') return;
+
+  const now = Date.now();
+  const firstSeenRaw = window.localStorage.getItem(HOME_FIRST_SEEN_AT_KEY);
+
+  if (!firstSeenRaw) {
+    window.localStorage.setItem(HOME_FIRST_SEEN_AT_KEY, String(now));
+    trackEvent('first_time_home_view');
+    return;
+  }
+
+  const firstSeenAt = Number(firstSeenRaw);
+  if (!Number.isFinite(firstSeenAt)) return;
+
+  if (now - firstSeenAt >= ONE_DAY_MS) {
+    const alreadySent = window.localStorage.getItem(HOME_RETURNING_24H_SENT_KEY) === 'true';
+    if (!alreadySent) {
+      window.localStorage.setItem(HOME_RETURNING_24H_SENT_KEY, 'true');
+      trackEvent('returning_home_view_ge_24h');
+    }
+  }
+};
+
+export const trackJugarView = (properties?: Record<string, any>) => {
+  trackEvent('jugar_view', properties);
 };

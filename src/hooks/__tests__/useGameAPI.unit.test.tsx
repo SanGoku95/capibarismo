@@ -3,6 +3,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useNextPair, usePersonalRanking, useSubmitVote, getSessionId, resetSession } from '../useGameAPI';
 import { sessionService } from '@/services/sessionService';
+import { base } from '@/data/domains/base';
 import type { ReactNode } from 'react';
 
 // Mock sessionService
@@ -457,25 +458,11 @@ describe('useGameAPI - Unit Tests', () => {
 
   describe('Pair Generation Edge Cases', () => {
     it('should handle all pairs seen scenario', async () => {
-      // Mock that all pairs have been seen
-      const allPairs = new Set([
-        'candidate1-candidate2',
-        'candidate1-candidate3',
-        'candidate1-candidate4',
-        'candidate1-candidate5',
-        'candidate1-candidate6',
-        'candidate2-candidate3',
-        'candidate2-candidate4',
-        'candidate2-candidate5',
-        'candidate2-candidate6',
-        'candidate3-candidate4',
-        'candidate3-candidate4',
-        'candidate3-candidate5',
-        'candidate3-candidate6',
-        'candidate4-candidate5',
-        'candidate4-candidate6',
-        'candidate5-candidate6',
-      ]);
+      const candidates = Object.values(base);
+      const totalPossiblePairs = (candidates.length * (candidates.length - 1)) / 2;
+
+      // Mock that all pairs have been seen (size-based check in generateLocalPair)
+      const allPairs = new Set(Array.from({ length: totalPossiblePairs }, (_, i) => `pair-${i}`));
 
       vi.mocked(sessionService.getSeenPairs).mockReturnValue(allPairs);
 
