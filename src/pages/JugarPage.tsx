@@ -14,6 +14,7 @@ import { Keyboard } from 'lucide-react';
 import { COMPLETION_GOAL } from '@/lib/gameConstants';
 import { useNavigate } from 'react-router-dom';
 import { sessionService } from '@/services/sessionService';
+import { useTrackJugarView } from '@/lib/posthog';
 
 export function JugarPage() {
   const sessionId = getSessionId();
@@ -32,6 +33,8 @@ export function JugarPage() {
   } = useNextPair();
 
   const { voteCount, handleVote, isSubmitting } = useOptimisticVote(sessionId);
+
+  useTrackJugarView({ sessionId });
 
   // Redirect to ranking if game was already completed AND modal was already shown
   // This handles the case when user navigates back to /jugar after completing the game
