@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 // PostHog configuration
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
-const POSTHOG_HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://us.posthog.com';
+const POSTHOG_HOST = import.meta.env.VITE_POSTHOG_HOST || '/_capi';
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const HOME_FIRST_SEEN_AT_KEY = 'ppp.home_first_seen_at';
