@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 import { useEffect } from 'react';
-import { trackEvent } from '@/lib/posthog';
+import { usePostHog } from '@/lib/posthog';
 
 interface DonationModalProps {
   isOpen: boolean;
@@ -8,11 +8,13 @@ interface DonationModalProps {
 }
 
 export function DonationModal({ isOpen, onClose }: DonationModalProps) {
+  const posthog = usePostHog();
+
   useEffect(() => {
     if (isOpen) {
-      trackEvent('donation_modal_view');
+      posthog?.capture('donation_modal_view');
     }
-  }, [isOpen]);
+  }, [isOpen, posthog]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -116,7 +118,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
             <button
               type="button"
               onClick={() => {
-                trackEvent('donation_completed', { method: 'yape', handle: '@capibarismo' });
+                posthog?.capture('donation_completed', { method: 'yape', handle: '@capibarismo' });
                 onClose();
               }}
               className="mt-4 w-full rounded-xl bg-[#74239C] hover:bg-[#74239C]/90 text-white font-semibold py-3 px-4 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#74239C]/50"
