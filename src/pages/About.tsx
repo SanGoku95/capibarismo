@@ -27,13 +27,13 @@ export function About() {
 
         <Card className="fighting-game-card max-w-4xl mx-auto shadow-lg">
           <CardHeader className="pb-6">
-            <CardTitle className="text-2xl md:text-3xl text-center font-display text-accent">Acerca de Capybarismo</CardTitle>
+            <CardTitle className="text-2xl md:text-3xl text-center font-display text-accent">Acerca de Capibarismo</CardTitle>
           </CardHeader>
           <CardContent className="space-y-8 text-muted-foreground leading-relaxed">
             <section>
               <h3 className="font-bold text-xl text-foreground mb-3">Nuestra Misión</h3>
               <p>
-                En un panorama político complejo, tomar una decisión informada puede ser un desafío. Capybarismo nace con el objetivo de simplificar este proceso. Nuestra misión es presentar la información de los candidatos presidenciales de Perú de una manera clara, objetiva y fácil de digerir.
+                En un panorama político complejo, tomar una decisión informada puede ser un desafío. Capibarismo nace con el objetivo de simplificar este proceso. Nuestra misión es presentar la información de los candidatos presidenciales de Perú de una manera clara, objetiva y fácil de digerir.
               </p>
               <p className="mt-2">
                 Utilizamos un formato inspirado en los juegos de lucha clásicos, no para trivializar la política, sino para hacerla más atractiva y accesible para todos, especialmente para quienes se sienten desconectados del debate tradicional.

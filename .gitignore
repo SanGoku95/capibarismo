@@ -78,5 +78,5 @@ Thumbs.db
 *-results.json
 load-tests/*.json
 docs/load-test-results/*.json
-.gitignore
+nul
 nul

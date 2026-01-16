@@ -111,30 +111,33 @@ export const candidateSourcesRaw = [
 			"https://elcomercio.pe/lima/sucesos/rector-de-la-uni-justifica-alojamiento-a-manifestantes-es-un-acto-de-humanidad-noticia/",
 			"https://twitter.com/AlfonsoLopezCh"
 		]
-	},
-	{
-		id: "belmont",
-		name: "Ricardo Belmont Cassinelli",
-		sources: []
-	},
-	{
-		id: "cerron",
-		name: "Vladimir Cerrón Rojas",
-		sources: []
-	},
-	{
-		id: "guevara",
-		name: "Mesías Guevara Amasifuén",
-		sources: []
-	},
-	{
-		id: "olivera",
-		name: "Fernando Olivera Vega",
-		sources: []
-	},
-	{
-		id: "sanchez",
-		name: "Roberto Sánchez Palomino",
-		sources: []
 	}
 ];
+//
+//	{
+//		id: "belmont",
+//		name: "Ricardo Belmont Cassinelli",
+//		sources: []
+//	},
+//	{
+//		id: "cerron",
+//		name: "Vladimir Cerrón Rojas",
+//		sources: []
+//	},
+//	{
+//		id: "guevara",
+//		name: "Mesías Guevara Amasifuén",
+//		sources: []
+//	},
+//	{
+//		id: "olivera",
+//		name: "Fernando Olivera Vega",
+//		sources: []
+//	},
+//	{
+//		id: "sanchez",
+//		name: "Roberto Sánchez Palomino",
+//		sources: []
+//	}
+//];
+//
