@@ -69,10 +69,16 @@ git clone https://github.com/Italosayan/presidential-punch-peru.git
 cd presidential-punch-peru
 npm install
 
+# Set up environment variables (optional for basic development)
+cp .env.example .env.local
+# Edit .env.local with your values (see ENVIRONMENT.md for details)
+
 # Start development server
 npm run dev
 # → http://localhost:8080
 ```
+
+**First time setup?** See [ENVIRONMENT.md](./ENVIRONMENT.md) for detailed configuration guide.
 
 ### 📋 Available Scripts
 
@@ -83,12 +89,46 @@ npm run dev
 - `npm run loadtest:smoke` - Quick smoke test (5 users, 1 min)
 - `npm run loadtest:baseline` - Baseline performance test (10-50 users, 5 min)
 
+### 🔧 Troubleshooting
+
+**Build fails or dependencies won't install:**
+```bash
+# Clear npm cache and reinstall
+rm -rf node_modules package-lock.json
+npm cache clean --force
+npm install
+```
+
+**Environment variable issues:**
+- See [ENVIRONMENT.md](./ENVIRONMENT.md) for detailed setup
+- Make sure `.env.local` exists (copy from `.env.example`)
+- Restart dev server after changing `VITE_*` variables
+
+**API routes not working:**
+- Check that `BLOB_READ_WRITE_TOKEN` is set in `.env.local`
+- API routes require Vercel Blob Storage in production
+
+**Analytics not tracking:**
+- PostHog requires `VITE_POSTHOG_KEY` in environment
+- Analytics are optional and will gracefully disable if not configured
+
+**Port already in use:**
+```bash
+# Use a different port
+npm run dev -- --port 3000
+```
+
+For more help, check existing [issues](https://github.com/Italosayan/presidential-punch-peru/issues) or open a new one.
+
 ### 📖 Documentation
 
 - **[Developer Guide](./dev.md)** - Comprehensive technical documentation
+- **[Environment Setup](./ENVIRONMENT.md)** - Environment variables configuration guide
 - **[Component Architecture](./dev.md#component-architecture)** - UI component organization
 - **[Design System](./dev.md#design-system--theme)** - 90s gaming theme details
 - **[Load Testing Plan](./docs/load-testing.md)** - Load testing strategy and procedures
+- **[Security Policy](./SECURITY.md)** - Vulnerability reporting and security guidelines
+- **[License & Attributions](./NOTICE)** - Third-party licenses and acknowledgments
 
 ### 🤝 Contributing
 
