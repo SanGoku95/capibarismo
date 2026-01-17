@@ -14,10 +14,7 @@ We take the security of Presidential Punch Peru seriously. If you believe you ha
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-Instead, please report them via one of the following methods:
-
-1. **GitHub Security Advisories**: [Report a vulnerability](https://github.com/Italosayan/presidential-punch-peru/security/advisories/new)
-2. **Email**: Send details to italosayan@gmail.com
+Use private channels
 
 ### What to Include
 

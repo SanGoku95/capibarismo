@@ -2,7 +2,7 @@
 
 **Audit Date**: January 17, 2025  
 **Auditor**: GitHub Copilot (automated audit)  
-**Repository**: Italosayan/presidential-punch-peru  
+**Repository**: presidential-punch-peru  
 **Purpose**: Prepare codebase for open source release
 
 ---
@@ -88,7 +88,7 @@ The repository is ready to be made public with the implemented changes. A few op
 
 5. **Copyright & Attribution** ✅ FIXED
    - **Issue**: No copyright holder in LICENSE
-   - **Resolution**: Added "Italo Sayan and Contributors"
+   - **Resolution**: Added "SanGoku95 and Contributors"
 
 6. **Disclaimer** ✅ FIXED
    - **Issue**: No disclaimer about political neutrality
@@ -249,7 +249,7 @@ All dependencies use compatible open source licenses:
 
 ### Current State
 
-- **Maintainer**: Italo Sayan (clear owner)
+- **Maintainer**: Sangoku (clear owner)
 - **Contribution Process**: Documented in CONTRIBUTING.md
 - **Code of Conduct**: Present with Facts Protocol
 - **Issue Templates**: Available

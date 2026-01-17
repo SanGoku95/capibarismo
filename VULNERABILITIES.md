@@ -129,5 +129,5 @@ We use several tools to monitor security:
 
 If you have questions about these vulnerabilities:
 1. Check [SECURITY.md](SECURITY.md) for reporting guidelines
-2. Review existing [security advisories](https://github.com/Italosayan/presidential-punch-peru/security/advisories)
+2. Review existing [security advisories](https://github.com/SanGoku95/presidential-punch-peru/security/advisories)
 3. Open a security advisory if you find a new issue

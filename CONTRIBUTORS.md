@@ -4,7 +4,7 @@ Thank you to everyone who has contributed to Presidential Punch Peru! 🇵🇪
 
 ## Project Maintainer
 
-- **Italo Sayan** ([@Italosayan](https://github.com/Italosayan)) - Project creator and lead maintainer
+- **SanGoku95**  **Daphini-UPT** **Boji**
 
 ## How to Become a Contributor
 
@@ -47,27 +47,12 @@ Build our community by:
 - Sharing the project
 - Providing feedback and suggestions
 
-## Recognition
-
-All contributors are automatically listed on our [GitHub Contributors page](https://github.com/Italosayan/presidential-punch-peru/graphs/contributors).
-
-Special recognition for significant contributions:
-- First-time contributors get a special shoutout in PR comments
-- Regular contributors may be invited to become project maintainers
-- Exceptional contributions are highlighted in release notes
-
 ## Contribution Guidelines
 
 Before contributing, please:
 1. Read our [Contributing Guide](CONTRIBUTING.md)
 2. Follow our [Code of Conduct](CODE_OF_CONDUCT.md)
 3. Review the [Facts Protocol](CODE_OF_CONDUCT.md#protocolo-de-hechos-para-contribuciones) for data contributions
-
-## Get in Touch
-
-- 💬 [Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions) - Ask questions and share ideas
-- 🐛 [Issues](https://github.com/Italosayan/presidential-punch-peru/issues) - Report bugs or request features
-- 📧 Email: italosayan@gmail.com
 
 ## Attribution
 

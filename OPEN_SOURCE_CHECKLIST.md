@@ -5,7 +5,7 @@ This checklist helps ensure the project is ready for open source release. Review
 ## ✅ Legal & Licensing
 
 - [x] **LICENSE file**: Apache 2.0 license with proper copyright notice
-- [x] **Copyright holder identified**: "Italo Sayan and Contributors"
+- [x] **Copyright holder identified**: "San Goku and Contributors"
 - [x] **NOTICE file**: Third-party attributions and acknowledgments included
 - [x] **License compatibility**: All dependencies use compatible licenses (MIT, Apache 2.0, ISC, BSD)
 - [ ] **Trademark considerations**: No conflicting trademarks (verify if needed)
@@ -75,7 +75,6 @@ This checklist helps ensure the project is ready for open source release. Review
 
 ## ✅ Community & Governance
 
-- [x] **Maintainer identified**: Italo Sayan (italosayan@gmail.com)
 - [ ] **Governance model**: Document who reviews PRs, releases (add if multi-maintainer)
 - [ ] **Release process**: Document versioning and release process (add when needed)
 - [ ] **Roadmap**: Public roadmap or project board (optional)

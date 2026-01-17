@@ -9,9 +9,9 @@ updates:
       time: "09:00"
     open-pull-requests-limit: 10
     reviewers:
-      - "Italosayan"
+      - "SanGoku95"
     assignees:
-      - "Italosayan"
+      - "SanGoku95"
     labels:
       - "dependencies"
       - "automated"

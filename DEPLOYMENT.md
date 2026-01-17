@@ -308,13 +308,6 @@ git push origin main
 - Review access logs for suspicious activity
 - Rotate tokens/keys quarterly
 
-## Support
-
-Questions about deployment?
-- Check [ENVIRONMENT.md](ENVIRONMENT.md) for configuration help
-- Review [troubleshooting section](README.md#🔧-troubleshooting) in README
-- Open an [issue](https://github.com/Italosayan/presidential-punch-peru/issues)
-- Join [discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)
 
 ---
 

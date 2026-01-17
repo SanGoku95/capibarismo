@@ -25,14 +25,8 @@ This project is licensed under the [Apache License 2.0](LICENSE) - see the LICEN
 
 ## 🙏 Acknowledgments  
 
-- Thanks to all [contributors](https://github.com/Italosayan/presidential-punch-peru/contributors) who have helped make this project possible
 - Candidate information based on publicly available, verifiable sources
 - Inspired by the need for democratic transparency in Peru
-
-## 📞 Contact & Community
-
-- 🐛 **Issues**: [GitHub Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)
 
 ---
 
@@ -68,7 +62,7 @@ We treat this civic tool like a fighting game. To maintain "Game Feel", we adher
 
 ```bash
 # Clone and install
-git clone https://github.com/Italosayan/presidential-punch-peru.git
+git clone https://github.com/SanGoku95/presidential-punch-peru.git
 cd presidential-punch-peru
 npm install
 
@@ -121,7 +115,7 @@ npm install
 npm run dev -- --port 3000
 ```
 
-For more help, check existing [issues](https://github.com/Italosayan/presidential-punch-peru/issues) or open a new one.
+For more help, check existing [issues](https://github.com/SanGoku95/presidential-punch-peru/issues) or open a new one.
 
 ### 📖 Documentation
 
@@ -152,7 +146,7 @@ We welcome contributions from the community! This is an open source project that
 - ✅ Test your changes locally before submitting
 
 **Ways to Contribute:**
-- 🐛 Report bugs or suggest features via [Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
+- 🐛 Report bugs or suggest features via [Issues](https://github.com/SanGoku95/presidential-punch-peru/issues)
 - 📊 Help verify and update candidate data
 - 🌐 Improve translations (Spanish/English)
 - 💻 Contribute code improvements
@@ -198,7 +192,7 @@ Tratamos esta herramienta cívica como un videojuego de pelea. Para mantener el 
 
 ```bash
 # Clonar e instalar
-git clone https://github.com/Italosayan/presidential-punch-peru.git
+git clone https://github.com/SanGoku95/presidential-punch-peru.git
 cd presidential-punch-peru
 npm install
 
@@ -242,7 +236,7 @@ npm run dev
 - ✅ Prueba tus cambios localmente antes de enviar
 
 **Formas de Contribuir:**
-- 🐛 Reportar bugs o sugerir características vía [Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
+- 🐛 Reportar bugs o sugerir características vía [Issues](https://github.com/SanGoku95/presidential-punch-peru/issues)
 - 📊 Ayudar a verificar y actualizar datos de candidatos
 - 🌐 Mejorar traducciones (Español/Inglés)
 - 💻 Contribuir mejoras de código
@@ -254,14 +248,14 @@ Este proyecto está bajo la Licencia Apache 2.0. Consulta el archivo [LICENSE](L
 
 ## 🙏 Reconocimientos
 
-- Gracias a todos los [contribuidores](https://github.com/Italosayan/presidential-punch-peru/contributors) que han ayudado a hacer este proyecto posible
+- Gracias a todos los [contribuidores](https://github.com/SanGoku95/presidential-punch-peru/contributors) que han ayudado a hacer este proyecto posible
 - Información de candidatos basada en fuentes públicas y verificables
 - Inspirado en la necesidad de transparencia democrática en el Perú
 
 ## 📞 Contacto & Comunidad
 
-- 🐛 **Issues**: [GitHub Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
-- 💬 **Discusiones**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/SanGoku95/presidential-punch-peru/issues)
+- 💬 **Discusiones**: [GitHub Discussions](https://github.com/SanGoku95/presidential-punch-peru/discussions)
 
 ### 🗂️ Datos & Fuentes
 
@@ -271,7 +265,7 @@ Toda la información de candidatos en este proyecto proviene de fuentes verifica
 - **Transparencia** en nuestros métodos de recolección de datos
 - **Actualizaciones regulares** para mantener la información actualizada
 
-Si encuentras información inexacta, por favor [abre un issue de datos](https://github.com/Italosayan/presidential-punch-peru/issues/new?template=data_update.md) con fuentes apropiadas.
+Si encuentras información inexacta, por favor [abre un issue de datos](https://github.com/SanGoku95/presidential-punch-peru/issues/new?template=data_update.md) con fuentes apropiadas.
 
 ---
 
