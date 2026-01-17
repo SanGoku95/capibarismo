@@ -44,15 +44,23 @@ jobs:
 
       - name: Check for high/critical vulnerabilities
         run: |
-          CRITICAL=$(npm audit --json | jq '.metadata.vulnerabilities.critical // 0')
-          HIGH=$(npm audit --json | jq '.metadata.vulnerabilities.high // 0')
+          # Check production dependencies only for critical/high vulnerabilities
+          PROD_AUDIT=$(npm audit --production --json || true)
+          CRITICAL=$(echo "$PROD_AUDIT" | jq '.metadata.vulnerabilities.critical // 0')
+          HIGH=$(echo "$PROD_AUDIT" | jq '.metadata.vulnerabilities.high // 0')
           
-          echo "Critical vulnerabilities: $CRITICAL"
-          echo "High vulnerabilities: $HIGH"
+          echo "Production dependencies - Critical vulnerabilities: $CRITICAL"
+          echo "Production dependencies - High vulnerabilities: $HIGH"
           
           # Fail if there are critical vulnerabilities in production dependencies
           if [ "$CRITICAL" -gt 0 ]; then
-            echo "❌ Critical vulnerabilities found!"
+            echo "❌ Critical vulnerabilities found in production dependencies!"
+            npm audit --production
+            exit 1
+          fi
+          
+          if [ "$HIGH" -gt 0 ]; then
+            echo "⚠️  High vulnerabilities found in production dependencies!"
             npm audit --production
             exit 1
           fi
@@ -123,6 +131,7 @@ jobs:
 
       - name: Check licenses
         run: |
+          npm install -g license-checker
           npx license-checker --summary
           npx license-checker --onlyAllow "MIT;Apache-2.0;ISC;BSD;BSD-2-Clause;BSD-3-Clause;0BSD;CC0-1.0;Unlicense;Python-2.0" --production
 

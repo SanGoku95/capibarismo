@@ -2,7 +2,9 @@
 
 This document tracks known vulnerabilities in dependencies and the status of addressing them.
 
-Last updated: 2025-01-17
+> **Note**: This document should be reviewed and updated monthly. The automated security workflow runs weekly and will detect new vulnerabilities.
+
+Last reviewed: January 17, 2025
 
 ## Current Status
 

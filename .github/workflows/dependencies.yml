@@ -35,7 +35,7 @@ jobs:
   dependabot-auto-merge:
     name: Auto-merge Dependabot PRs
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    if: github.actor == 'dependabot[bot]' && github.event.pull_request.user.type == 'Bot'
     permissions:
       contents: write
       pull-requests: write
