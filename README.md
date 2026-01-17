@@ -14,7 +14,10 @@
 Capibarismo provides an interactive platform for comparing political candidates using modern visualization tools and detailed analysis. Built with React and TypeScript, it features a unique retro gaming aesthetic while delivering serious political insights.
 
 > 🇵🇪 **Open Source Community Project**: This project is developed by volunteers committed to promoting democratic transparency in Peru through technology. All contributions are welcome!
+> 
 > 🗳️ **Facts Protocol**: This project follows a secure fact protocol to verify truthfulness. Every fact can be traced back to their original source with time stamps.
+> 
+> ⚖️ **Disclaimer**: This is an independent, non-partisan information platform. We strive for accuracy and neutrality, presenting verifiable facts from public sources. All information should be independently verified. We are not affiliated with any political party or candidate.
 
 ## 📄 License
 
@@ -162,6 +165,8 @@ We welcome contributions from the community! This is an open source project that
 Web moderna para informar sobre los distintos candidatos, sus posiciones políticas, propuestas, y trajectorias.
 
 > 🗳️ **Protocolo de Hechos**: Este proyecto sigue un protocolo riguroso de hechos verificables. Cada dato es rastreable hasta fuentes primarias y se presenta con marcas de tiempo, contexto y procedimientos de verificación.
+> 
+> ⚖️ **Descargo de Responsabilidad**: Esta es una plataforma de información independiente y no partidista. Nos esforzamos por la precisión y neutralidad, presentando hechos verificables de fuentes públicas. Toda la información debe ser verificada de forma independiente. No estamos afiliados a ningún partido político ni candidato.
 
 ### ✨ Características Principales
 
