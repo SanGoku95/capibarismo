@@ -77,6 +77,16 @@ verifiable sources including:
 All data follows the Facts Protocol outlined in the CODE_OF_CONDUCT.md and
 CONTRIBUTING.md files, ensuring traceability to primary sources.
 
+Vercel Analytics (@vercel/analytics)
+Copyright (c) Vercel, Inc.
+Licensed under the Mozilla Public License Version 2.0 (MPL-2.0).
+https://github.com/vercel/analytics
+
+This project includes unmodified MPL-2.0 licensed software.
+Modifications to MPL-licensed files, if any, are governed by the MPL-2.0.
+The full license text is available at https://www.mozilla.org/MPL/2.0/.
+
+
 ================================================================================
 
 Special Thanks:
