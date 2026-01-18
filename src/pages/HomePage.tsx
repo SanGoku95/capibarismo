@@ -10,6 +10,7 @@ import { usePostHog, useTrackHomeView } from '@/lib/posthog';
 export function HomePage() {
   const [showAllGoals, setShowAllGoals] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
+  const posthog = usePostHog();
   const location = useLocation();
 
   // Track home view once (handles StrictMode)
