@@ -1,0 +1,26 @@
+# CODEOWNERS - Automatically request reviews from the right people
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+* @SanGoku95 @aldodelgadoh @Daphini-UPT
+
+# Core application code
+/src/ @SanGoku95 @aldodelgadoh @Daphini-UPT
+/api/ @SanGoku95 @aldodelgadoh @Daphini-UPT
+
+# Infrastructure and CI/CD
+/.github/ @SanGoku95 @aldodelgadoh @Daphini-UPT
+/vercel.json @SanGoku95 @aldodelgadoh @Daphini-UPT
+
+# Security-sensitive files
+/.github/workflows/ @SanGoku95 @aldodelgadoh @Daphini-UPT
+/.github/dependabot.yml @SanGoku95 @aldodelgadoh @Daphini-UPT
+
+# Configuration files
+/package.json @SanGoku95 @aldodelgadoh @Daphini-UPT
+/tsconfig*.json @SanGoku95 @aldodelgadoh @Daphini-UPT
+/vite.config.ts @SanGoku95 @aldodelgadoh @Daphini-UPT
+
+# Documentation
+/docs/ @SanGoku95 @aldodelgadoh @Daphini-UPT
+/*.md @SanGoku95 @aldodelgadoh @Daphini-UPT

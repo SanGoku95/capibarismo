@@ -5,6 +5,7 @@ import { track } from "@vercel/analytics";
 import { listCandidates, getCandidateProfile } from "@/data";
 import { useItemListSEO } from '@/lib/useSEO';
 import { DonationModal } from '@/components/common/DonationModal';
+import { usePostHog, useTrackHomeView } from '@/lib/posthog';
 
 export function HomePage() {
   const [showAllGoals, setShowAllGoals] = useState(false);
@@ -105,7 +106,7 @@ export function HomePage() {
                 <div className="flex flex-col gap-3">
                   <Link
                     to="/jugar"
-                    onClick={() => track("home_jugar_click", { via: "cta" })}
+                    onClick={() => posthog?.capture('jugar_click', { via: 'home_cta' })}
                     className="group inline-flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60 active:translate-y-0"
                   >
                     <span className="flex items-center gap-3">
@@ -117,7 +118,7 @@ export function HomePage() {
 
                   <Link
                     to="/compare"
-                    onClick={() => track("home_compare_click", { via: "cta" })}
+                    onClick={() => posthog?.capture('compare_click', { via: 'home_cta' })}
                     className="group inline-flex items-center justify-between gap-3 rounded-xl bg-accent text-black px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 active:translate-y-0"
                   >
                     <span className="flex items-center gap-3">
@@ -129,7 +130,7 @@ export function HomePage() {
 
                   <Link
                     to="/compass"
-                    onClick={() => track("home_mapa_politico_click", { via: "cta" })}
+                    onClick={() => posthog?.capture('mapa_politico_click', { via: 'home_cta' })}
                     className="group inline-flex items-center justify-between gap-3 rounded-xl border border-border/70 bg-background/70 px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-foreground transition-all duration-200 hover:border-primary/60 hover:bg-primary hover:text-black hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 active:translate-y-0"
                   >
                     <span className="flex items-center gap-3">
@@ -260,7 +261,7 @@ export function HomePage() {
               <button
                 onClick={() => {
                   setShowAllGoals(!showAllGoals);
-                  track("home_donation_toggle_goals", { expanded: !showAllGoals });
+                  posthog?.capture('donation_goals_toggle', { expanded: !showAllGoals, source: 'home' });
                 }}
                 className="w-full text-sm text-foreground/70 hover:text-foreground/90 transition-colors duration-200 flex items-center justify-center gap-2 py-2 font-sans"
               >

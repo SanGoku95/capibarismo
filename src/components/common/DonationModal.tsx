@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 import { useEffect } from 'react';
+import { usePostHog } from '@/lib/posthog';
 
 interface DonationModalProps {
   isOpen: boolean;
@@ -7,6 +8,14 @@ interface DonationModalProps {
 }
 
 export function DonationModal({ isOpen, onClose }: DonationModalProps) {
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    if (isOpen) {
+      posthog?.capture('donation_modal_view');
+    }
+  }, [isOpen, posthog]);
+
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -34,14 +43,14 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 pb-[calc(env(safe-area-inset-bottom)+12px)] bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="donation-modal-title"
     >
       <div 
-        className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300"
+        className="relative w-full max-w-[22rem] sm:max-w-sm md:max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300 max-h-[calc(100dvh-24px)] sm:max-h-[calc(100dvh-48px)] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Enhanced Close Button */}
@@ -74,35 +83,49 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
           </div>
         </div>
 
-        {/* QR Code with better spacing and styling */}
-        <div className="p-6 sm:p-8 bg-white">
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-5 rounded-2xl shadow-inner border border-gray-200/50">
-            <img 
-              src="/qr_capi.png"
-              alt="QR Code de Yape para @capibarismo"
-              className="w-full h-auto rounded-lg"
-              loading="lazy"
-            />
+        {/* Scrollable content (mobile-safe) */}
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          {/* QR Code with better spacing and styling */}
+          <div className="p-4 sm:p-6 md:p-8 bg-white">
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-5 rounded-2xl shadow-inner border border-gray-200/50">
+              <img 
+                src="/qr_capi.png"
+                alt="QR Code de Yape para @capibarismo"
+                className="w-full h-auto rounded-lg"
+                loading="lazy"
+              />
+            </div>
+            
+            <div className="mt-5 sm:mt-6 text-center space-y-2">
+              <p className="text-gray-900 font-bold text-xl font-sans tracking-tight">
+                @capibarismo
+              </p>
+              <p className="text-gray-600 text-sm font-sans leading-relaxed">
+                Escanea el código desde tu app Yape
+              </p>
+            </div>
           </div>
-          
-          <div className="mt-6 text-center space-y-2">
-            <p className="text-gray-900 font-bold text-xl font-sans tracking-tight">
-              @capibarismo
-            </p>
-            <p className="text-gray-600 text-sm font-sans leading-relaxed">
-              Escanea el código desde tu app Yape
-            </p>
-          </div>
-        </div>
 
-        {/* Enhanced Footer */}
-        <div className="bg-gradient-to-b from-gray-50 to-gray-100 px-6 py-5 text-center border-t border-gray-200">
-          <p className="text-sm text-gray-700 font-sans font-medium">
-            Gracias por apoyar este proyecto 💜
-          </p>
-          <p className="text-xs text-gray-500 mt-1 font-sans">
-            Tu contribución hace la diferencia
-          </p>
+          {/* Enhanced Footer */}
+          <div className="bg-gradient-to-b from-gray-50 to-gray-100 px-4 sm:px-6 py-5 text-center border-t border-gray-200">
+            <p className="text-sm text-gray-700 font-sans font-medium">
+              Gracias por apoyar este proyecto 💜
+            </p>
+            <p className="text-xs text-gray-500 mt-1 font-sans">
+              Tu contribución hace la diferencia
+            </p>
+
+            <button
+              type="button"
+              onClick={() => {
+                posthog?.capture('donation_completed', { method: 'yape', handle: '@capibarismo' });
+                onClose();
+              }}
+              className="mt-4 w-full rounded-xl bg-[#74239C] hover:bg-[#74239C]/90 text-white font-semibold py-3 px-4 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#74239C]/50"
+            >
+              Ya doné
+            </button>
+          </div>
         </div>
       </div>
     </div>

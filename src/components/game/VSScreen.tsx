@@ -3,9 +3,9 @@ import { CandidateCard } from './CandidateCard';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { cn } from '@/lib/utils';
 import { Heart, ArrowRight, X } from 'lucide-react';
-import { track } from '@vercel/analytics';
 import { useState } from 'react';
 import { DonationModal } from '../common/DonationModal';
+import { usePostHog } from '@/lib/posthog';
 
 interface VSScreenProps {
   pair: {
@@ -30,6 +30,7 @@ interface VSScreenProps {
 export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
   const { reducedMotion } = useGameUIStore();
   const [showDonationModal, setShowDonationModal] = useState(false);
+  const posthog = usePostHog();
   
   return (
     <div className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-4 md:p-8">
@@ -89,7 +90,7 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
         <button
           onClick={() => {
             setShowDonationModal(true);
-            track("game_yape_click", { via: "vs_screen_mobile" });
+            posthog?.capture('donation_click', { source: 'vs_screen_mobile' });
           }}
           className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-black/40 backdrop-blur-sm px-3 py-2 text-xs text-white/70 transition-all duration-200 hover:bg-black/60 hover:text-white hover:border-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
           aria-label="Apoya el proyecto con Yape"
