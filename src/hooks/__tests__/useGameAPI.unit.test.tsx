@@ -11,7 +11,7 @@ vi.mock('@/services/sessionService', () => ({
   sessionService: {
     getSessionId: vi.fn(() => 'test-session-id'),
     resetSession: vi.fn(() => 'new-session-id'),
-    getSeenPairs: vi.fn(() => new Set()),
+    getSeenPairs: vi.fn(() => new Set())
     addSeenPair: vi.fn(),
     clearSeenPairs: vi.fn(),
     getVoteCount: vi.fn(() => 0),

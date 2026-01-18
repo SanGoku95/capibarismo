@@ -7,9 +7,11 @@ import { useEffect } from 'react';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { sessionService } from '@/services/sessionService';
 import { COMPLETION_GOAL } from '@/lib/gameConstants';
+import { usePostHog } from '@/lib/posthog';
 
 export function useGameCompletion(voteCount: number) {
   const { openCompletionModal, closeCompletionModal, completionModalOpen } = useGameUIStore();
+  const posthog = usePostHog();
 
   useEffect(() => {
     // If user hasn't reached the goal, ensure modal is closed
@@ -23,8 +25,14 @@ export function useGameCompletion(voteCount: number) {
     // Don't show modal if already shown in this session
     if (sessionService.isCompletionShown()) return;
 
+    // Track game completion
+    posthog?.capture('game_completed', {
+      sessionId: sessionService.getSessionId(),
+      totalVotes: voteCount,
+    });
+
     // Show modal and mark as shown
     openCompletionModal();
     sessionService.markCompletionAsShown();
-  }, [voteCount, openCompletionModal, closeCompletionModal, completionModalOpen]);
+  }, [voteCount, openCompletionModal, closeCompletionModal, completionModalOpen, posthog]);
 }
