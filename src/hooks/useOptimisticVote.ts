@@ -34,13 +34,15 @@ export function useOptimisticVote(sessionId: string) {
       const nextCount = sessionService.incrementVoteCount();
       setLocalVoteCount(nextCount);
 
-      if (previousCount === 0) {
-        posthog?.capture('game_first_vote', {
-          sessionId,
-          pairId: pair.pairId,
-          winner,
-        });
-      }
+      // Track every vote with vote count
+      posthog?.capture('game_vote', {
+        sessionId,
+        pairId: pair.pairId,
+        winnerId: winner === 'A' ? pair.a.id : pair.b.id,
+        loserId: winner === 'A' ? pair.b.id : pair.a.id,
+        winner,
+        voteNumber: nextCount,
+      });
 
       // Fire mutation without awaiting
       submitVoteMutation.mutate(
