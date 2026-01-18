@@ -51,41 +51,36 @@ export const candidates: Record<string, CandidateBase> = {
     partido: 'Ahora Nación',
     partyIcon: '/iconos_partidos/ahora_nacion.jpg',
   },
-  // belmont: {
-  //   id: 'belmont',
-  //   nombre: 'Ricardo Belmont Cassinelli',
-  //   ideologia: 'Próximamente',
-  //   partido: 'Obras',
-  //   partyIcon: '/iconos_partidos/obras.jpg',
-  // },
-  // cerron: {
-  //   id: 'cerron',
-  //   nombre: 'Vladimir Cerrón Rojas',
-  //   ideologia: 'Próximamente',
-  //   partido: 'Perú Libre',
-  //   partyIcon: '/iconos_partidos/peru_libre.jpg',
-  // },
-  // guevara: {
-  //   id: 'guevara',
-  //   nombre: 'Mesías Guevara Amasifuén',
-  //   ideologia: 'Próximamente',
-  //   partido: 'Partido Morado',
-  //   partyIcon: '/iconos_partidos/morado.jpg',
-  // },
-  // olivera: {
-  //   id: 'olivera',
-  //   nombre: 'Fernando Olivera Vega',
-  //   ideologia: 'Próximamente',
-  //   partido: 'Frente Esperanza',
-  //   partyIcon: '/iconos_partidos/frente_esperanza.jpg',
-  // },
-  // sanchez: {
-  //   id: 'sanchez',
-  //   nombre: 'Roberto Sánchez Palomino',
-  //   ideologia: 'Próximamente',
-  //   partido: 'Juntos por el Perú',
-  //   partyIcon: '/iconos_partidos/juntos_peru.jpg',
-  // },
+  belmont: {
+    id: 'belmont',
+    nombre: 'Ricardo Belmont',
+    partido: 'Obras',
+    partyIcon: '/iconos_partidos/obras.jpg',
+  },
+  cerron: {
+    id: 'cerron',
+    nombre: 'Vladimir Cerrón',
+    partido: 'Perú Libre',
+    partyIcon: '/iconos_partidos/peru_libre.jpg',
+  },
+  guevara: {
+    id: 'guevara',
+    nombre: 'Mesías Guevara',
+    partido: 'Partido Morado',
+    partyIcon: '/iconos_partidos/morado.jpg',
+  },
+  olivera: {
+    id: 'olivera',
+    nombre: 'Fernando Olivera',
+    partido: 'Frente Esperanza',
+    partyIcon: '/iconos_partidos/frente_esperanza.jpg',
+  },
+  sanchez: {
+    id: 'sanchez',
+    nombre: 'Roberto Sánchez',
+    partido: 'Juntos por el Perú',
+    partyIcon: '/iconos_partidos/juntos_peru.jpg',
+  },
 };
 
 export function listCandidates(): CandidateBase[] {
