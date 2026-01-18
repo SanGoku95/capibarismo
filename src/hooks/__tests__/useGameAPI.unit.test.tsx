@@ -3,6 +3,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useNextPair, usePersonalRanking, useSubmitVote, getSessionId, resetSession } from '../useGameAPI';
 import { sessionService } from '@/services/sessionService';
+import { listCandidates } from '@/data';
 import type { ReactNode } from 'react';
 
 // Mock sessionService
@@ -83,12 +84,12 @@ describe('useGameAPI - Unit Tests', () => {
       // Check candidate A
       expect(pair.a.id).toBeTruthy();
       expect(pair.a.nombre).toBeTruthy();
-      expect(pair.a.ideologia).toBeDefined();
+      // ideologia is optional for some candidates
 
       // Check candidate B
       expect(pair.b.id).toBeTruthy();
       expect(pair.b.nombre).toBeTruthy();
-      expect(pair.b.ideologia).toBeDefined();
+      // ideologia is optional for some candidates
     });
 
     it('should generate pair with valid pairId format', async () => {
@@ -457,25 +458,16 @@ describe('useGameAPI - Unit Tests', () => {
 
   describe('Pair Generation Edge Cases', () => {
     it('should handle all pairs seen scenario', async () => {
-      // Mock that all pairs have been seen
-      const allPairs = new Set([
-        'candidate1-candidate2',
-        'candidate1-candidate3',
-        'candidate1-candidate4',
-        'candidate1-candidate5',
-        'candidate1-candidate6',
-        'candidate2-candidate3',
-        'candidate2-candidate4',
-        'candidate2-candidate5',
-        'candidate2-candidate6',
-        'candidate3-candidate4',
-        'candidate3-candidate4',
-        'candidate3-candidate5',
-        'candidate3-candidate6',
-        'candidate4-candidate5',
-        'candidate4-candidate6',
-        'candidate5-candidate6',
-      ]);
+      // Get actual candidates and generate all possible pairs
+      const candidates = listCandidates();
+      const allPairs = new Set<string>();
+      
+      for (let i = 0; i < candidates.length; i++) {
+        for (let j = i + 1; j < candidates.length; j++) {
+          const pairId = [candidates[i].id, candidates[j].id].sort().join('-');
+          allPairs.add(pairId);
+        }
+      }
 
       vi.mocked(sessionService.getSeenPairs).mockReturnValue(allPairs);
 

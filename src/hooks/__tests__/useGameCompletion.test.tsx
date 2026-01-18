@@ -61,13 +61,13 @@ describe('useGameCompletion', () => {
       expect(mockOpenCompletionModal).not.toHaveBeenCalled();
     });
 
-    it('should work with COMPLETION_GOAL of 10', () => {
-      expect(COMPLETION_GOAL).toBe(10);
+    it('should work with COMPLETION_GOAL of 15', () => {
+      expect(COMPLETION_GOAL).toBe(15);
 
-      renderHook(() => useGameCompletion(9));
+      renderHook(() => useGameCompletion(14));
       expect(mockOpenCompletionModal).not.toHaveBeenCalled();
 
-      renderHook(() => useGameCompletion(10));
+      renderHook(() => useGameCompletion(15));
       expect(mockOpenCompletionModal).toHaveBeenCalled();
     });
   });

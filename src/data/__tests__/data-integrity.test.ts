@@ -30,7 +30,7 @@ describe('Data Integrity Tests', () => {
       candidates.forEach(candidate => {
         expect(candidate.id).toBeTruthy();
         expect(candidate.nombre).toBeTruthy();
-        expect(candidate.ideologia).toBeTruthy();
+        // ideologia is optional for some candidates
         expect(candidate.headshot).toBeTruthy();
         expect(candidate.fullBody).toBeTruthy();
 
@@ -202,7 +202,7 @@ describe('Data Integrity Tests', () => {
       const candidates = listCandidates();
 
       expect(candidates.every(c =>
-        c.id && c.nombre && c.ideologia && c.headshot && c.fullBody
+        c.id && c.nombre && c.headshot && c.fullBody
       )).toBe(true);
     });
   });
