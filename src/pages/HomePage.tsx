@@ -233,10 +233,10 @@ export function HomePage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-semibold text-foreground font-sans">
-                    S/ 100 de S/ 200
+                    S/ 115 de S/ 200
                   </span>
                   <span className="text-sm font-bold text-[#74239C] font-sans">
-                    50%
+                    58%
                   </span>
                 </div>
                 <p className="text-xs text-foreground/60 text-center font-sans pt-1">
