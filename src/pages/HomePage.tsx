@@ -194,14 +194,14 @@ export function HomePage() {
                     </div>
                     <div className="flex items-baseline justify-between gap-2 flex-wrap mb-2">
                       <span className="text-base sm:text-lg font-bold text-foreground font-sans">
-                        Información de Vicepresidentes
+                        Incluir todos los candidatos presidenciales.
                       </span>
                       <span className="text-xl sm:text-2xl font-bold text-accent font-sans shrink-0">
                         S/ 200
                       </span>
                     </div>
                     <p className="text-xs text-foreground/70 font-sans">
-                      Perfiles completos de candidatos a vicepresidencia, trayectoria y propuestas
+                      Perfiles completos de los 36 candidatos presidenciales.
                     </p>
                   </div>
                 </div>
@@ -284,7 +284,7 @@ export function HomePage() {
                       </span>
                     </div>
                     <p className="text-sm text-foreground/75 font-sans">
-                      Incluir todos los candidatos presidenciales.
+                      Información de Vicepresidentes
                     </p>
                   </div>
 

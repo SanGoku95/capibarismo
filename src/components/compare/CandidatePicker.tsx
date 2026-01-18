@@ -104,7 +104,7 @@ export function CandidatePicker() {
         </div>
 
         {/* Unified Responsive Candidate Grid */}
-        <div className="flex flex-wrap gap-2 justify-center max-w-[516px] mx-auto">
+        <div className="grid grid-cols-6 gap-x-3 gap-y-2 max-w-[575px] mx-auto">
           {listCandidates().map(renderCandidateButton)}
           
           {/* Placeholder for upcoming candidates */}
