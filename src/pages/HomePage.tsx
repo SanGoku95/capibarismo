@@ -12,6 +12,9 @@ export function HomePage() {
   const [showDonationModal, setShowDonationModal] = useState(false);
   const location = useLocation();
 
+  // Track home view once (handles StrictMode)
+  useTrackHomeView();
+
   // Handle scroll to anchor on load
   useEffect(() => {
     if (location.hash) {
@@ -150,7 +153,7 @@ export function HomePage() {
 
       {/* Rest of the page */}
       <main className="relative w-full mx-auto px-3 max-w-6xl">
-        {/* Goal-driven Support Section */}
+        <section id="apoyar" className="w-full max-w-xl mx-auto">
         <section id="apoyar" className="w-full max-w-xl mx-auto ">
           <div className="rounded-3xl border border-border/45 bg-background/80 backdrop-blur-sm shadow-[0_10px_26px_rgba(0,0,0,0.18)] px-5 py-6">
             <div className="text-center">
