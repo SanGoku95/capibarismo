@@ -467,6 +467,16 @@
     }
   }
 
+  /* Shimmer animation for progress bar */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
   /* Ensure avatars are fully visible */
   .avatar-container {
     max-height: 100%; /* Prevent clipping */
