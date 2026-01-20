@@ -5,10 +5,20 @@ import { useGameUIStore } from '@/store/useGameUIStore';
 import { sessionService } from '@/services/sessionService';
 import { COMPLETION_GOAL } from '@/lib/gameConstants';
 
+// Mock PostHog BEFORE other mocks to prevent real initialization
+vi.mock('@/lib/posthog', () => ({
+  usePostHog: vi.fn(() => ({
+    capture: vi.fn(),
+  })),
+  captureDeferred: vi.fn(),
+}));
+
 // Mock dependencies
 vi.mock('@/store/useGameUIStore', () => ({
   useGameUIStore: vi.fn(() => ({
     openCompletionModal: vi.fn(),
+    closeCompletionModal: vi.fn(),
+    completionModalOpen: false,
   })),
 }));
 
@@ -16,21 +26,27 @@ vi.mock('@/services/sessionService', () => ({
   sessionService: {
     isCompletionShown: vi.fn(() => false),
     markCompletionAsShown: vi.fn(),
+    getSessionId: vi.fn(() => 'test-session-id'),
   },
 }));
 
 describe('useGameCompletion', () => {
   let mockOpenCompletionModal: ReturnType<typeof vi.fn>;
+  let mockCloseCompletionModal: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     vi.clearAllMocks();
 
     mockOpenCompletionModal = vi.fn();
+    mockCloseCompletionModal = vi.fn();
     vi.mocked(useGameUIStore).mockReturnValue({
       openCompletionModal: mockOpenCompletionModal,
+      closeCompletionModal: mockCloseCompletionModal,
+      completionModalOpen: false,
     } as any);
 
     vi.mocked(sessionService.isCompletionShown).mockReturnValue(false);
+    vi.mocked(sessionService.getSessionId).mockReturnValue('test-session-id');
   });
 
   describe('Completion Goal', () => {

@@ -127,7 +127,7 @@ export function JugarPage() {
       </div>
 
       {/* Controls footer - more compact on mobile */}
-      <div className="bg-black/50 backdrop-blur-sm border-t border-white/10 p-2 sm:p-3">
+      <div className="bg-black/80 border-t border-white/10 p-2 sm:p-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-1 sm:gap-2 text-white/70 text-[10px] sm:text-xs md:text-sm">
             <Keyboard className="w-3 h-3 sm:w-4 sm:h-4" />

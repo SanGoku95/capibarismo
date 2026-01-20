@@ -7,7 +7,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { useSubmitVote } from './useGameAPI';
 import { sessionService } from '@/services/sessionService';
-import { usePostHog } from '@/lib/posthog';
+import { usePostHog, captureDeferred } from '@/lib/posthog';
 import type { Pair } from '../../api/types';
 
 export function useOptimisticVote(sessionId: string) {
@@ -34,8 +34,9 @@ export function useOptimisticVote(sessionId: string) {
       const nextCount = sessionService.incrementVoteCount();
       setLocalVoteCount(nextCount);
 
-      // Track every vote with vote count
-      posthog?.capture('game_vote', {
+      // Track vote - deferred to avoid blocking INP
+      // Properties are captured immediately to avoid stale closures
+      captureDeferred(posthog, 'game_vote', {
         sessionId,
         pairId: pair.pairId,
         winnerId: winner === 'A' ? pair.a.id : pair.b.id,

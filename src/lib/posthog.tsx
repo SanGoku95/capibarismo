@@ -1,10 +1,10 @@
 import { PostHogProvider as PHProvider, usePostHog } from '@posthog/react';
 import posthog from 'posthog-js';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 // PostHog configuration
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
-const POSTHOG_HOST ='/_capi';
+const POSTHOG_HOST = '/_capi';
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const HOME_FIRST_SEEN_AT_KEY = 'ppp.home_first_seen_at';
@@ -96,12 +96,64 @@ export { usePostHog };
 // Export posthog instance for manual event tracking
 export { posthog };
 
+/**
+ * Helper to capture events with sessionId automatically included.
+ * Uses requestIdleCallback to avoid blocking INP.
+ */
+export function captureDeferred(
+  posthogInstance: ReturnType<typeof usePostHog> | null | undefined,
+  eventName: string,
+  properties: Record<string, unknown>
+): void {
+  if (!posthogInstance) return;
+  
+  // Capture a snapshot of properties to avoid stale closures
+  const propsSnapshot = { ...properties };
+  
+  if (typeof requestIdleCallback !== 'undefined') {
+    requestIdleCallback(() => {
+      posthogInstance.capture(eventName, propsSnapshot);
+    });
+  } else {
+    setTimeout(() => {
+      posthogInstance.capture(eventName, propsSnapshot);
+    }, 0);
+  }
+}
+
 // Helper hook for tracking with fallback (for components that can't use hooks)
 export const useTrackEvent = () => {
   const posthog = usePostHog();
-  return (eventName: string, properties?: Record<string, any>) => {
+  return (eventName: string, properties?: Record<string, unknown>) => {
     posthog?.capture(eventName, properties);
   };
+};
+
+/**
+ * Hook to link PostHog identity with game sessionId.
+ * Call this once when the game session is established.
+ */
+export const useIdentifyGameSession = (gameSessionId: string | null) => {
+  const posthog = usePostHog();
+  const identifiedRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!posthog || !gameSessionId) return;
+    
+    // Only identify once per sessionId
+    if (identifiedRef.current === gameSessionId) return;
+    identifiedRef.current = gameSessionId;
+    
+    // Set game session as a property on the user
+    posthog.people?.set({ game_session_id: gameSessionId });
+    
+    // Register as super property so it's included in all events
+    posthog.register({ game_session_id: gameSessionId });
+    
+    if (import.meta.env.DEV) {
+      console.log('[PostHog] Registered game session:', gameSessionId);
+    }
+  }, [posthog, gameSessionId]);
 };
 
 // Hook to track home view once per mount (avoids StrictMode duplicates)
@@ -109,50 +161,54 @@ export const useTrackHomeView = () => {
   const posthog = usePostHog();
   const hasFired = useRef(false);
 
-  if (typeof window === 'undefined') return;
-  if (hasFired.current) return;
-  hasFired.current = true;
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (hasFired.current) return;
+    hasFired.current = true;
 
-  posthog?.capture('home_view');
+    posthog?.capture('home_view');
 
-  // Handle first-time vs returning visitor
-  const now = Date.now();
-  const firstSeenRaw = window.localStorage.getItem(HOME_FIRST_SEEN_AT_KEY);
+    // Handle first-time vs returning visitor
+    const now = Date.now();
+    const firstSeenRaw = window.localStorage.getItem(HOME_FIRST_SEEN_AT_KEY);
 
-  if (!firstSeenRaw) {
-    window.localStorage.setItem(HOME_FIRST_SEEN_AT_KEY, String(now));
-    posthog?.capture('first_time_home_view');
-    return;
-  }
-
-  const firstSeenAt = Number(firstSeenRaw);
-  if (!Number.isFinite(firstSeenAt)) return;
-
-  if (now - firstSeenAt >= ONE_DAY_MS) {
-    const alreadySent = window.localStorage.getItem(HOME_RETURNING_24H_SENT_KEY) === 'true';
-    if (!alreadySent) {
-      window.localStorage.setItem(HOME_RETURNING_24H_SENT_KEY, 'true');
-      posthog?.capture('returning_home_view_ge_24h');
+    if (!firstSeenRaw) {
+      window.localStorage.setItem(HOME_FIRST_SEEN_AT_KEY, String(now));
+      posthog?.capture('first_time_home_view');
+      return;
     }
-  }
+
+    const firstSeenAt = Number(firstSeenRaw);
+    if (!Number.isFinite(firstSeenAt)) return;
+
+    if (now - firstSeenAt >= ONE_DAY_MS) {
+      const alreadySent = window.localStorage.getItem(HOME_RETURNING_24H_SENT_KEY) === 'true';
+      if (!alreadySent) {
+        window.localStorage.setItem(HOME_RETURNING_24H_SENT_KEY, 'true');
+        posthog?.capture('returning_home_view_ge_24h');
+      }
+    }
+  }, [posthog]);
 };
 
 // Hook to track jugar view once per mount
-export const useTrackJugarView = (properties?: Record<string, any>) => {
+export const useTrackJugarView = (properties?: Record<string, unknown>) => {
   const posthog = usePostHog();
   const hasFired = useRef(false);
 
-  if (hasFired.current) return;
-  hasFired.current = true;
+  useEffect(() => {
+    if (hasFired.current) return;
+    hasFired.current = true;
 
-  posthog?.capture('jugar_view', properties);
+    posthog?.capture('jugar_view', properties);
+  }, [posthog, properties]);
 };
 
 // Legacy function exports (for backward compatibility)
-export const trackHomeView = (posthogInstance: ReturnType<typeof usePostHog> | typeof posthog, properties?: Record<string, any>) => {
+export const trackHomeView = (posthogInstance: ReturnType<typeof usePostHog> | typeof posthog, properties?: Record<string, unknown>) => {
   posthogInstance?.capture('home_view', properties);
 };
 
-export const trackJugarView = (posthogInstance: ReturnType<typeof usePostHog> | typeof posthog, properties?: Record<string, any>) => {
+export const trackJugarView = (posthogInstance: ReturnType<typeof usePostHog> | typeof posthog, properties?: Record<string, unknown>) => {
   posthogInstance?.capture('jugar_view', properties);
 };
