@@ -29,7 +29,7 @@ export function CompletionModal() {
         onPointerDownOutside={(e) => e.preventDefault()} 
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
-        <DialogHeader className="text-center sm:text-center space-y-3">
+        <DialogHeader className="text-center space-y-3">
           <div className="mx-auto">
             {isPreliminary ? (
               <Target className="w-12 h-12 text-yellow-500" />
