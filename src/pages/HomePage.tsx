@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, Compass, Scale, Gamepad2, ChevronDown, ChevronUp, Target } from "lucide-react";
+import { useMemo, useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowRight, Compass, Scale, Gamepad2, ChevronDown, ChevronUp, Target, CheckCircle, TrendingUp } from "lucide-react";
+import { track } from "@vercel/analytics";
 import { listCandidates, getCandidateProfile } from "@/data";
 import { useItemListSEO } from '@/lib/useSEO';
 import { DonationModal } from '@/components/common/DonationModal';
@@ -10,9 +11,24 @@ export function HomePage() {
   const [showAllGoals, setShowAllGoals] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
   const posthog = usePostHog();
+  const location = useLocation();
 
-  // Track home view once (handles StrictMode deduplication)
+  // Track home view once (handles StrictMode)
   useTrackHomeView();
+
+  // Handle scroll to anchor on load
+  useEffect(() => {
+    if (location.hash) {
+      const elementId = location.hash.replace('#', '');
+      const element = document.getElementById(elementId);
+      if (element) {
+        // Small delay to ensure the page is rendered
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, [location]);
 
   // SEO for homepage with ItemList structured data for candidates
   const candidateItems = useMemo(() => {
@@ -139,7 +155,7 @@ export function HomePage() {
       {/* Rest of the page */}
       <main className="relative w-full mx-auto px-3 max-w-6xl">
         {/* Goal-driven Support Section */}
-        <section className="w-full max-w-xl mx-auto ">
+        <section id="apoyar" className="w-full max-w-xl mx-auto ">
           <div className="rounded-3xl border border-border/45 bg-background/80 backdrop-blur-sm shadow-[0_10px_26px_rgba(0,0,0,0.18)] px-5 py-6">
             <div className="text-center">
               <h2 className="text-sm sm:text-base tracking-wide font-bold uppercase text-accent font-sans">
@@ -151,49 +167,99 @@ export function HomePage() {
             </div>
 
             <div className="mt-5 space-y-4">
-              <div className="flex items-start gap-2">
-                <Target className="w-5 h-5 text-[#74239C] shrink-0 mt-0.5" />
-                <div className="flex-1">
-                  <div className="flex items-baseline justify-between gap-2 flex-wrap">
-                    <span className="text-sm sm:text-base font-semibold text-foreground font-sans">
-                      Meta actual: Completar datos de 11 candidatos
-                    </span>
-                    <span className="text-lg sm:text-xl font-bold text-accent font-sans shrink-0">
-                      S/ 100
-                    </span>
+              {/* Achievement Unlocked - Meta 1 */}
+              <div className="rounded-xl bg-gradient-to-r from-amber-900/20 to-yellow-800/20 border border-amber-700/40 p-3 animate-in fade-in slide-in-from-top-2 duration-500">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-amber-400 shrink-0" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs font-semibold text-amber-400/90 uppercase tracking-wide font-sans">
+                        ¡Logrado!
+                      </span>
+                      <span className="text-xs text-amber-200/70 font-sans">
+                        Meta 1: Datos de 11 candidatos
+                      </span>
+                    </div>
                   </div>
-                  <p className="text-xs text-foreground/60 mt-1 font-sans">
-                    Información completa sobre posiciones políticas, trayectoria y propuestas
-                  </p>
+                  <span className="text-sm font-bold text-amber-400 font-sans shrink-0">
+                    S/ 100
+                  </span>
                 </div>
               </div>
 
+              {/* Current Goal - Meta 2 */}
+              <div className="rounded-2xl bg-gradient-to-br from-[#74239C]/10 to-purple-900/10 border-2 border-[#74239C]/60 p-4 shadow-lg shadow-purple-900/20 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                <div className="flex items-start gap-3">
+                  <TrendingUp className="w-6 h-6 text-[#74239C] shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-bold text-[#74239C] uppercase tracking-wider font-sans">
+                        Siguiente Nivel
+                      </span>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-2 flex-wrap mb-2">
+                      <span className="text-base sm:text-lg font-bold text-foreground font-sans">
+                        Incluir todos los candidatos presidenciales.
+                      </span>
+                      <span className="text-xl sm:text-2xl font-bold text-accent font-sans shrink-0">
+                        S/ 200
+                      </span>
+                    </div>
+                    <p className="text-xs text-foreground/70 font-sans">
+                      Perfiles completos de los 36 candidatos presidenciales.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cumulative Progress Bar */}
               <div className="space-y-2">
-                <div className="h-3 bg-muted/50 rounded-full overflow-hidden">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-semibold text-foreground/80 font-sans">
+                    Progreso total
+                  </span>
+                  <span className="text-xs text-foreground/60 font-sans">
+                    Meta 2 de 5
+                  </span>
+                </div>
+                <div className="h-4 bg-muted/50 rounded-full overflow-hidden shadow-inner">
                   <div
-                    className="h-full bg-gradient-to-r from-[#74239C]/80 to-[#74239C] rounded-full transition-all duration-500"
-                    style={{ width: "35%" }}
-                  />
+                    className="h-full bg-gradient-to-r from-[#74239C] via-purple-500 to-[#74239C] rounded-full transition-all duration-700 ease-out relative overflow-hidden"
+                    style={{ width: "50%" }}
+                  >
+                    {/* Shine animation */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" 
+                         style={{ 
+                           backgroundSize: '200% 100%',
+                           animation: 'shimmer 2s infinite'
+                         }} 
+                    />
+                  </div>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-foreground/70 font-sans">
-                    S/ 35 recaudados
+                  <span className="text-sm font-semibold text-foreground font-sans">
+                    S/ 115 de S/ 200
                   </span>
-                  <span className="text-xs font-medium text-foreground/80 font-sans">
-                    35%
+                  <span className="text-sm font-bold text-[#74239C] font-sans">
+                    58%
                   </span>
                 </div>
+                <p className="text-xs text-foreground/60 text-center font-sans pt-1">
+                  ¡Ya estamos a mitad de camino del siguiente nivel! 🎯
+                </p>
               </div>
 
               <button
                 onClick={() => {
                   setShowDonationModal(true);
-                  posthog?.capture('donation_click', { source: 'home', goal: '100_soles', position: 'main' });
+                  track("home_donation_click", { goal: "200_soles", position: "main" });
                 }}
-                className="w-full rounded-2xl bg-[#74239C] hover:bg-[#74239C]/90 text-white font-semibold py-4 px-6 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#74239C]/70 flex items-center justify-center gap-2 font-sans"
+                className="w-full rounded-2xl bg-gradient-to-r from-[#74239C] to-purple-600 hover:from-[#74239C]/90 hover:to-purple-600/90 text-white font-bold py-4 px-6 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(116,35,156,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#74239C]/70 flex items-center justify-center gap-2 font-sans relative overflow-hidden group"
               >
-                <span>Contribuir con Yape</span>
-                <ArrowRight className="w-4 h-4" />
+                <span className="relative z-10">Contribuir con Yape</span>
+                <ArrowRight className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1" />
+                {/* Pulse effect */}
+                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
               </button>
 
               <button
@@ -213,38 +279,24 @@ export function HomePage() {
 
               {showAllGoals && (
                 <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
+                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4 hover:border-border/60 transition-colors duration-200">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Próxima meta
-                      </span>
-                      <span className="text-base font-bold text-foreground/80 font-sans">
-                        S/ 200
-                      </span>
-                    </div>
-                    <p className="text-sm text-foreground/75 font-sans">
-                      Incluir Infomación de Vicepresidentes
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Meta futura
+                        Meta 3
                       </span>
                       <span className="text-base font-bold text-foreground/80 font-sans">
                         S/ 300
                       </span>
                     </div>
                     <p className="text-sm text-foreground/75 font-sans">
-                      Incluir todas las listas presentadas.
+                      Información de Vicepresidentes
                     </p>
                   </div>
 
-                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
+                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4 hover:border-border/60 transition-colors duration-200">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Meta futura
+                        Meta 4
                       </span>
                       <span className="text-base font-bold text-foreground/80 font-sans">
                         S/ 500
@@ -255,10 +307,10 @@ export function HomePage() {
                     </p>
                   </div>
                   
-                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
+                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4 hover:border-border/60 transition-colors duration-200">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Meta futura
+                        Meta 5
                       </span>
                       <span className="text-base font-bold text-foreground/80 font-sans">
                         S/ 700
@@ -269,12 +321,12 @@ export function HomePage() {
                     </p>
                   </div>
 
-                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4">
+                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4 hover:border-border/60 transition-colors duration-200">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Meta futura
+                        Meta épica 🎮
                       </span>
-                      <span className="text-base font-bold text-foreground/80 font-sans">
+                      <span className="text-base font-bold text-accent font-sans">
                         S/ 1000
                       </span>
                     </div>

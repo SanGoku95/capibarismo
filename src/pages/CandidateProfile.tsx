@@ -260,7 +260,7 @@ export function CandidateProfile() {
                 {(() => {
                   const t = trayectorias[candidate.id];
                   if (!t) {
-                    return <p className="text-sm text-muted-foreground">No hay datos estructurados de trayectoria.</p>;
+                    return null;
                   }
                   return (
                     <div className="space-y-6">
@@ -485,9 +485,7 @@ export function CandidateProfile() {
                       );
                     })}
                   </Accordion>
-                ) : (
-                  <p className="text-sm text-muted-foreground">No hay controversias registradas para este candidato.</p>
-                )}
+                ) : null}
               </CardContent>
             </Card>
           </div>

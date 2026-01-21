@@ -101,9 +101,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                 {(() => {
                   const t = trayectorias[candidate.id];
                   if (!t) {
-                    return (
-                      <div className="text-sm text-muted-foreground">Sin datos estructurados. Ver perfil para más detalles.</div>
-                    );
+                    return null;
                   }
                   return (
                     <div className="pt-2 text-sm">
@@ -212,9 +210,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                           Ver más
                         </Link>
                       </>
-                    ) : (
-                      <p className="text-sm text-muted-foreground italic">Próximamente.</p>
-                    );
+                    ) : null;
                   })()}
                 </div>
               </AccordionContent>
@@ -233,9 +229,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                         {profile.proyectoPolitico.resumen}
                       </p>
                     </>
-                  ) : (
-                    <p className="text-sm text-muted-foreground italic">Sin agenda registrada.</p>
-                  )}
+                  ) : null}
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -256,11 +250,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                           <div className="text-base font-sans font-medium">{alianza.nombre}</div>
                         </Link>
                       ))
-                    : (
-                      <p className="text-sm text-muted-foreground italic">
-                        Sin alianzas registradas.
-                      </p>
-                    )}
+                    : null}
                 </div>
               </AccordionContent>
             </AccordionItem>

@@ -7,14 +7,14 @@
  * Número de votos requeridos para completar una sesión de juego.
  * Cuando el usuario alcanza este número, se muestra el modal de completado.
  */
-export const COMPLETION_GOAL = 10;
+export const COMPLETION_GOAL = 15;
 
 /**
  * Máximo número de intentos para encontrar un par no visto.
  * Previene loops infinitos durante generación de pares.
- * Con 6 candidatos hay 15 pares posibles, 50 intentos es más que suficiente.
+ * Con 11 candidatos hay 55 pares posibles, 100 intentos es más que suficiente.
  */
-export const MAX_PAIR_SELECTION_ATTEMPTS = 50;
+export const MAX_PAIR_SELECTION_ATTEMPTS = 100;
 
 /**
  * Factor K del sistema ELO. Determina la velocidad de cambio de ratings.

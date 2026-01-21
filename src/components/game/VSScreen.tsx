@@ -41,8 +41,8 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
           animate={{ scale: 1, rotate: 0 }}
           transition={{ 
             type: reducedMotion ? 'tween' : 'spring',
-            duration: reducedMotion ? 0 : 0.5,
-            delay: reducedMotion ? 0 : 0.2,
+            duration: reducedMotion ? 0 : 0.3, // Reduce from 0.5
+            delay: 0, // Remove delay
           }}
           className={cn(
             'text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold',
@@ -60,7 +60,7 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
       
       {/* Candidates - side by side on all screens */}
       <div className="w-full max-w-7xl grid grid-cols-2 gap-2 sm:gap-4 md:gap-8 lg:gap-16 items-center">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout">
           <CandidateCard
             key={pair.a.id}
             candidate={pair.a}
@@ -70,7 +70,7 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
           />
         </AnimatePresence>
         
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout">
           <CandidateCard
             key={pair.b.id}
             candidate={pair.b}
