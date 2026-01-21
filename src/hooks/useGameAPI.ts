@@ -150,7 +150,7 @@ function generateSmartPair(): Pair {
     throw new Error('Not enough candidates to generate a pair');
   }
 
-  const seenPairs = sessionService.getSeenPairs();
+  let seenPairs = sessionService.getSeenPairs();
   const appearances = sessionService.getCandidateAppearances();
   const ratings = sessionService.getLocalRatings();
   const totalPossiblePairs = (candidates.length * (candidates.length - 1)) / 2;
@@ -158,6 +158,7 @@ function generateSmartPair(): Pair {
   // Reset seen pairs if all possible pairs have been shown
   if (seenPairs.size >= totalPossiblePairs) {
     sessionService.clearSeenPairs();
+    seenPairs = new Set(); // Use fresh empty set after clearing
   }
 
   // Try smart selection first
