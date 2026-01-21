@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { useNavigate } from 'react-router-dom';
@@ -25,11 +25,11 @@ export function CompletionModal() {
   return (
     <Dialog open={completionModalOpen} onOpenChange={() => {}}>
       <DialogContent 
-        className="pointer-events-auto text-center max-w-md" 
+        className="pointer-events-auto max-w-[calc(100vw-2rem)] sm:max-w-md mx-auto" 
         onPointerDownOutside={(e) => e.preventDefault()} 
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
-        <DialogHeader className="space-y-3">
+        <DialogHeader className="text-center sm:text-center space-y-3">
           <div className="mx-auto">
             {isPreliminary ? (
               <Target className="w-12 h-12 text-yellow-500" />
@@ -37,12 +37,12 @@ export function CompletionModal() {
               <Trophy className="w-12 h-12 text-yellow-500" />
             )}
           </div>
-          <DialogTitle className="text-xl">
+          <DialogTitle className="text-xl text-center">
             {isPreliminary 
-              ? '¡Tu ranking preliminar está listo!' 
+              ? '¡Tu ranking borrador está listo!' 
               : '¡Tu ranking está completo!'}
           </DialogTitle>
-          <DialogDescription className="text-base">
+          <DialogDescription className="text-base text-center">
             {isPreliminary ? (
               <>
                 Has completado <strong>{PRELIMINARY_GOAL} comparaciones</strong>. 
@@ -59,16 +59,17 @@ export function CompletionModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="flex flex-col gap-2 sm:flex-col">
+        {/* Custom footer for centered stacked buttons */}
+        <div className="flex flex-col gap-3 mt-2">
           <Button onClick={handleViewRanking} size="lg" className="w-full">
-            {isPreliminary ? 'Ver ranking preliminar' : 'Ver mi ranking final'}
+            {isPreliminary ? 'Ver ranking borrador' : 'Ver mi ranking final'}
           </Button>
           {isPreliminary && (
             <Button onClick={handleContinuePlaying} variant="outline" size="lg" className="w-full">
               Seguir comparando
             </Button>
           )}
-        </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   );
