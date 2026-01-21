@@ -16,7 +16,6 @@ export function GameHUD({ comparisons }: GameHUDProps) {
   
   // Determine which phase the user is in
   const isPastPreliminary = comparisons >= PRELIMINARY_GOAL;
-  const currentGoal = isPastPreliminary ? RECOMMENDED_GOAL : PRELIMINARY_GOAL;
   
   // Calculate progress percentage based on current phase
   const progressPercent = isPastPreliminary
