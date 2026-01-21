@@ -25,7 +25,7 @@ export function RankingPage() {
   // Get vote count to determine if ranking is preliminary
   const voteCount = sessionService.getVoteCount(sessionId);
   const isPreliminary = voteCount >= PRELIMINARY_GOAL && voteCount < RECOMMENDED_GOAL;
-  const progressPercent = Math.min(100, Math.round((voteCount / RECOMMENDED_GOAL) * 100));
+  const progressPercent = Math.min(100, Math.round(((voteCount - PRELIMINARY_GOAL) / (RECOMMENDED_GOAL - PRELIMINARY_GOAL)) * 100));
   
   // Check if the user has actually played any games
   // The API returns all candidates with 0 games if no history exists, so length check isn't enough
@@ -68,7 +68,7 @@ export function RankingPage() {
                 textShadow: '3px 3px 0px hsl(var(--background)), 5px 5px 0px hsl(var(--border))',
               }}
             >
-              {isPreliminary ? 'Ranking Preliminar' : 'Ranking Personal'}
+              {isPreliminary ? 'Ranking Borrador' : 'Ranking Personal'}
             </h1>
           </div>
           <p className="text-white/80 text-sm sm:text-base max-w-2xl mx-auto">
@@ -76,18 +76,9 @@ export function RankingPage() {
             Los puntajes se calculan usando el sistema Elo para reflejar tus preferencias.
           </p>
           
-          {/* CTA to play */}
-          <div className="mt-6 flex gap-3 justify-center flex-wrap">
-            {isPreliminary ? (
-              <Button 
-                onClick={handleContinuePlaying} 
-                size="lg" 
-                className="gap-2 shadow-lg hover:scale-105 transition-transform"
-              >
-                <Play className="w-5 h-5" />
-                Seguir Comparando
-              </Button>
-            ) : (
+          {/* CTA - only show Nueva Partida here, continue is in the banner */}
+          {!isPreliminary && (
+            <div className="mt-6 flex gap-3 justify-center flex-wrap">
               <Button 
                 onClick={handleNewGame} 
                 size="lg" 
@@ -96,17 +87,17 @@ export function RankingPage() {
                 <RotateCcw className="w-5 h-5" />
                 Nueva Partida
               </Button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
-        {/* Preliminary ranking banner */}
+        {/* Preliminary ranking banner with CTA */}
         {isPreliminary && hasPlayed && (
           <div className="bg-yellow-500/20 border border-yellow-500/50 rounded-lg p-4 mb-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <AlertTriangle className="w-5 h-5 text-yellow-500 flex-shrink-0" />
               <div className="flex-1">
-                <p className="text-white font-medium">Ranking Preliminar</p>
+                <p className="text-white font-medium">Ranking Borrador</p>
                 <p className="text-white/70 text-sm">
                   {voteCount}/{RECOMMENDED_GOAL} comparaciones. 
                   Continúa para mejorar la precisión de tu ranking.
@@ -114,11 +105,11 @@ export function RankingPage() {
               </div>
               <Button 
                 onClick={handleContinuePlaying} 
-                variant="secondary" 
                 size="sm"
-                className="flex-shrink-0"
+                className="flex-shrink-0 gap-2"
               >
-                Continuar
+                <Play className="w-4 h-4" />
+                Seguir Comparando
               </Button>
             </div>
             <Progress value={progressPercent} className="mt-3 h-2" />
@@ -246,7 +237,7 @@ export function RankingPage() {
                 </ul>
                 {isPreliminary && (
                   <p className="text-yellow-400/80 text-sm pt-2 border-t border-white/10 mt-2">
-                    ⚠️ Este es un ranking preliminar. Recomendamos completar {RECOMMENDED_GOAL} comparaciones para resultados más precisos.
+                    ⚠️ Este es un ranking borrador. Recomendamos completar {RECOMMENDED_GOAL} comparaciones para resultados más precisos.
                   </p>
                 )}
                 <p className="text-xs text-white/50 pt-2 border-t border-white/10 mt-2">
