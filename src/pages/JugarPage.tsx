@@ -11,7 +11,6 @@ import { useGameCompletion } from '@/hooks/useGameCompletion';
 import { useGameKeyboard } from '@/hooks/useGameKeyboard';
 import { Button } from '@/components/ui/button';
 import { Keyboard } from 'lucide-react';
-import { RECOMMENDED_GOAL } from '@/lib/gameConstants';
 import { useTrackJugarView } from '@/lib/posthog';
 
 export function JugarPage() {
@@ -90,22 +89,13 @@ export function JugarPage() {
     );
   }
 
-  // Progress shows toward recommended goal (30)
-  const progressPercent = Math.min(
-    100,
-    Math.round((voteCount / RECOMMENDED_GOAL) * 100)
-  );
-
   // Show loading while submitting vote OR fetching next pair (refetch)
   const isLoadingNext = isSubmitting || pairFetching;
 
   return (
     <div className="min-h-screen fighting-game-bg flex flex-col">
-      {/* HUD */}
-      <GameHUD
-        comparisons={voteCount}
-        progressPercent={progressPercent}
-      />
+      {/* HUD - now calculates its own progress based on comparisons */}
+      <GameHUD comparisons={voteCount} />
 
       {/* Main game area */}
       <div className="flex-1 relative overflow-hidden">
