@@ -25,7 +25,7 @@ export function CompletionModal() {
   return (
     <Dialog open={completionModalOpen} onOpenChange={() => {}}>
       <DialogContent 
-        className="pointer-events-auto max-w-[calc(100vw-2rem)] sm:max-w-md mx-auto" 
+        className="pointer-events-auto max-w-[calc(100vw-2rem)] sm:max-w-md mx-auto [&>button]:hidden" 
         onPointerDownOutside={(e) => e.preventDefault()} 
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
@@ -39,7 +39,7 @@ export function CompletionModal() {
           </div>
           <DialogTitle className="text-xl text-center">
             {isPreliminary 
-              ? '¡Tu ranking borrador está listo!' 
+              ? '¡Tu ranking está listo!' 
               : '¡Tu ranking está completo!'}
           </DialogTitle>
           <DialogDescription className="text-base text-center">
@@ -52,7 +52,7 @@ export function CompletionModal() {
               </>
             ) : (
               <>
-                Con <strong>{RECOMMENDED_GOAL} comparaciones</strong>, tu ranking es estadísticamente confiable.
+                Con <strong>{RECOMMENDED_GOAL} comparaciones</strong>, tu ranking es confiable.
                 ¡Descubre quién es tu candidato favorito!
               </>
             )}
@@ -62,7 +62,7 @@ export function CompletionModal() {
         {/* Custom footer for centered stacked buttons */}
         <div className="flex flex-col gap-3 mt-2">
           <Button onClick={handleViewRanking} size="lg" className="w-full">
-            {isPreliminary ? 'Ver ranking borrador' : 'Ver mi ranking final'}
+            {isPreliminary ? 'Ver ranking actual' : 'Ver mi ranking final'}
           </Button>
           {isPreliminary && (
             <Button onClick={handleContinuePlaying} variant="outline" size="lg" className="w-full">

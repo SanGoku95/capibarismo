@@ -75,7 +75,7 @@ export function RankingPage() {
                 textShadow: '3px 3px 0px hsl(var(--background)), 5px 5px 0px hsl(var(--border))',
               }}
             >
-              {isPreliminary ? 'Ranking Borrador' : 'Ranking Personal'}
+              {isPreliminary ? 'Ranking Actual' : 'Ranking Personal'}
             </h1>
           </div>
           <p className="text-white/80 text-sm sm:text-base max-w-2xl mx-auto">
@@ -244,7 +244,7 @@ export function RankingPage() {
                 </ul>
                 {isPreliminary && (
                   <p className="text-yellow-400/80 text-sm pt-2 border-t border-white/10 mt-2">
-                    ⚠️ Este es un ranking borrador. Recomendamos completar {RECOMMENDED_GOAL} comparaciones para resultados más precisos.
+                    ⚠️ Recomendamos completar {RECOMMENDED_GOAL} comparaciones para resultados más precisos.
                   </p>
                 )}
                 <p className="text-xs text-white/50 pt-2 border-t border-white/10 mt-2">
