@@ -66,6 +66,12 @@ function createWrapper() {
 describe('useGameAPI - Unit Tests', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Force production mode so fetch() is actually called
+    vi.stubEnv('DEV', false);
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
   });
 
   describe('Session Management Functions', () => {
