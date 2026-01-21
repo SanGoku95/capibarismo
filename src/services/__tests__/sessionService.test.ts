@@ -259,7 +259,8 @@ describe('SessionService', () => {
       const sessionId = service.getSessionId();
       const stored = sessionStorage.getItem(`completion-shown-${sessionId}`);
 
-      expect(stored).toBe('true');
+      // markCompletionAsShown now stores 'preliminary' instead of 'true'
+      expect(stored).toBe('preliminary');
     });
 
     it('should clear completion status', () => {
