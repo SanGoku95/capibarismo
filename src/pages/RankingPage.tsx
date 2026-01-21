@@ -2,11 +2,14 @@ import { usePersonalRanking, getSessionId, resetSession } from '@/hooks/useGameA
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Trophy, Info, Medal, AlertCircle, RotateCcw } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { Trophy, Info, Medal, AlertCircle, RotateCcw, Play, AlertTriangle } from 'lucide-react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { base } from '@/data/domains/base';
 import { useQueryClient } from '@tanstack/react-query';
+import { sessionService } from '@/services/sessionService';
+import { PRELIMINARY_GOAL, RECOMMENDED_GOAL } from '@/lib/gameConstants';
 
 export function RankingPage() {
   const [searchParams] = useSearchParams();
@@ -18,6 +21,11 @@ export function RankingPage() {
   const sessionId = searchParams.get('sessionId') || getSessionId();
   
   const { data: rankings, isLoading, error } = usePersonalRanking(sessionId);
+  
+  // Get vote count to determine if ranking is preliminary
+  const voteCount = sessionService.getVoteCount(sessionId);
+  const isPreliminary = voteCount >= PRELIMINARY_GOAL && voteCount < RECOMMENDED_GOAL;
+  const progressPercent = Math.min(100, Math.round((voteCount / RECOMMENDED_GOAL) * 100));
   
   // Check if the user has actually played any games
   // The API returns all candidates with 0 games if no history exists, so length check isn't enough
@@ -31,6 +39,10 @@ export function RankingPage() {
     queryClient.clear();
     
     // Navigate to game page with new session
+    navigate('/jugar');
+  };
+
+  const handleContinuePlaying = () => {
     navigate('/jugar');
   };
   
@@ -56,7 +68,7 @@ export function RankingPage() {
                 textShadow: '3px 3px 0px hsl(var(--background)), 5px 5px 0px hsl(var(--border))',
               }}
             >
-              Ranking Personal
+              {isPreliminary ? 'Ranking Preliminar' : 'Ranking Personal'}
             </h1>
           </div>
           <p className="text-white/80 text-sm sm:text-base max-w-2xl mx-auto">
@@ -66,16 +78,52 @@ export function RankingPage() {
           
           {/* CTA to play */}
           <div className="mt-6 flex gap-3 justify-center flex-wrap">
-            <Button 
-              onClick={handleNewGame} 
-              size="lg" 
-              className="gap-2 shadow-lg hover:scale-105 transition-transform"
-            >
-              <RotateCcw className="w-5 h-5" />
-              Nueva Partida
-            </Button>
+            {isPreliminary ? (
+              <Button 
+                onClick={handleContinuePlaying} 
+                size="lg" 
+                className="gap-2 shadow-lg hover:scale-105 transition-transform"
+              >
+                <Play className="w-5 h-5" />
+                Seguir Comparando
+              </Button>
+            ) : (
+              <Button 
+                onClick={handleNewGame} 
+                size="lg" 
+                className="gap-2 shadow-lg hover:scale-105 transition-transform"
+              >
+                <RotateCcw className="w-5 h-5" />
+                Nueva Partida
+              </Button>
+            )}
           </div>
         </div>
+
+        {/* Preliminary ranking banner */}
+        {isPreliminary && hasPlayed && (
+          <div className="bg-yellow-500/20 border border-yellow-500/50 rounded-lg p-4 mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <AlertTriangle className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-white font-medium">Ranking Preliminar</p>
+                <p className="text-white/70 text-sm">
+                  {voteCount}/{RECOMMENDED_GOAL} comparaciones. 
+                  Continúa para mejorar la precisión de tu ranking.
+                </p>
+              </div>
+              <Button 
+                onClick={handleContinuePlaying} 
+                variant="secondary" 
+                size="sm"
+                className="flex-shrink-0"
+              >
+                Continuar
+              </Button>
+            </div>
+            <Progress value={progressPercent} className="mt-3 h-2" />
+          </div>
+        )}
         
         {/* Rankings table */}
         <div className="bg-background/90 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl overflow-hidden">
@@ -196,6 +244,11 @@ export function RankingPage() {
                   <li><strong>Partidas:</strong> Número de enfrentamientos directos en los que participó el candidato.</li>
                   <li><strong>% Victorias:</strong> Porcentaje de victorias en enfrentamientos directos.</li>
                 </ul>
+                {isPreliminary && (
+                  <p className="text-yellow-400/80 text-sm pt-2 border-t border-white/10 mt-2">
+                    ⚠️ Este es un ranking preliminar. Recomendamos completar {RECOMMENDED_GOAL} comparaciones para resultados más precisos.
+                  </p>
+                )}
                 <p className="text-xs text-white/50 pt-2 border-t border-white/10 mt-2">
                   Nota: Este es un ranking de preferencia personal basado únicamente en tus decisiones de esta sesión.
                 </p>

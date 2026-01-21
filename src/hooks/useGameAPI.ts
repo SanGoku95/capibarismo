@@ -3,7 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base } from '../data/domains/base';
 import type { CandidateBase } from '../data/types';
-import { MAX_PAIR_SELECTION_ATTEMPTS } from '@/lib/gameConstants';
+import { MAX_PAIR_SELECTION_ATTEMPTS, INITIAL_ELO } from '@/lib/gameConstants';
 import { sessionService } from '@/services/sessionService';
 
 // Helper to match previous API function signature
@@ -66,8 +66,8 @@ export function useNextPair() {
     queryKey: ['game', 'nextpair', sessionId],
     enabled: isClient && Boolean(sessionId),
     queryFn: () => {
-      // Generate pair locally - no network call needed
-      const pair = generateLocalPair();
+      // Generate pair locally with smart selection
+      const pair = generateSmartPair();
       prefetchNextPair(pair);
       return pair;
     },
@@ -135,8 +135,12 @@ async function submitVote(vote: VoteRequest): Promise<{ ok: boolean }> {
   return response.json();
 }
 
-// Generate a pair of candidates locally
-function generateLocalPair(): Pair {
+/**
+ * Smart pair generation algorithm:
+ * Phase 1 (Coverage): Prioritize candidates who haven't been seen yet
+ * Phase 2 (Adaptive): Compare candidates with similar Elo ratings
+ */
+function generateSmartPair(): Pair {
   if (typeof window === 'undefined') {
     throw new Error('Pair generation requires a browser environment');
   }
@@ -147,6 +151,8 @@ function generateLocalPair(): Pair {
   }
 
   const seenPairs = sessionService.getSeenPairs();
+  const appearances = sessionService.getCandidateAppearances();
+  const ratings = sessionService.getLocalRatings();
   const totalPossiblePairs = (candidates.length * (candidates.length - 1)) / 2;
 
   // Reset seen pairs if all possible pairs have been shown
@@ -154,29 +160,125 @@ function generateLocalPair(): Pair {
     sessionService.clearSeenPairs();
   }
 
-  let pair: Pair | null = null;
+  // Try smart selection first
+  let pair = trySmartPairSelection(candidates, appearances, ratings, seenPairs);
 
-  // Try to find an unseen pair
-  for (let attempt = 0; attempt < MAX_PAIR_SELECTION_ATTEMPTS; attempt++) {
-    const [candidateA, candidateB] = pickDistinctCandidates(candidates);
-    const pairId = createPairId(candidateA.id, candidateB.id);
-
-    if (!seenPairs.has(pairId)) {
-      pair = createPair(candidateA, candidateB, pairId);
-      break;
-    }
+  // Fallback to random if smart selection fails
+  if (!pair) {
+    pair = tryRandomPairSelection(candidates, seenPairs);
   }
 
-  // Fallback: if we couldn't find an unseen pair, just generate a random one
+  // Last resort: just pick any two candidates
   if (!pair) {
     const [candidateA, candidateB] = pickDistinctCandidates(candidates);
     pair = createPair(candidateA, candidateB);
   }
 
-  // Mark pair as seen
+  // Mark pair as seen and track appearances
   sessionService.addSeenPair(pair.pairId);
+  sessionService.incrementCandidateAppearances([pair.a.id, pair.b.id]);
 
   return pair;
+}
+
+function trySmartPairSelection(
+  candidates: CandidateBase[],
+  appearances: Record<string, number>,
+  ratings: Record<string, number>,
+  seenPairs: Set<string>
+): Pair | null {
+  // Phase 1: Coverage - find candidates who haven't appeared yet
+  const unseenCandidates = candidates.filter(c => (appearances[c.id] ?? 0) === 0);
+
+  if (unseenCandidates.length >= 2) {
+    // Pair two unseen candidates
+    return tryPairFromList(unseenCandidates, seenPairs, 'coverage-both-new');
+  }
+  
+  if (unseenCandidates.length === 1) {
+    // Pair the unseen candidate with a random seen one
+    const seenCandidates = candidates.filter(c => (appearances[c.id] ?? 0) > 0);
+    if (seenCandidates.length > 0) {
+      const pair = tryPairWithFirst(unseenCandidates[0], seenCandidates, seenPairs);
+      if (pair) {
+        return { ...pair, hint: { rationale: 'coverage-one-new' } };
+      }
+    }
+  }
+
+  // Phase 2: Adaptive - compare candidates with similar ratings
+  // Sort by rating and pair adjacent candidates
+  const sortedByRating = [...candidates].sort((a, b) => {
+    const ratingA = ratings[a.id] ?? INITIAL_ELO;
+    const ratingB = ratings[b.id] ?? INITIAL_ELO;
+    return ratingB - ratingA;
+  });
+
+  // Try to find an unseen pair among candidates with similar ratings
+  for (let i = 0; i < sortedByRating.length - 1; i++) {
+    const candidateA = sortedByRating[i];
+    // Look at nearby candidates (within 3 positions for variety)
+    const nearbyIndices = [i + 1, i + 2, i + 3].filter(j => j < sortedByRating.length);
+    
+    for (const j of nearbyIndices) {
+      const candidateB = sortedByRating[j];
+      const pairId = createPairId(candidateA.id, candidateB.id);
+      
+      if (!seenPairs.has(pairId)) {
+        return createPair(candidateA, candidateB, pairId, 'adaptive-similar-rating');
+      }
+    }
+  }
+
+  return null;
+}
+
+function tryRandomPairSelection(
+  candidates: CandidateBase[],
+  seenPairs: Set<string>
+): Pair | null {
+  for (let attempt = 0; attempt < MAX_PAIR_SELECTION_ATTEMPTS; attempt++) {
+    const [candidateA, candidateB] = pickDistinctCandidates(candidates);
+    const pairId = createPairId(candidateA.id, candidateB.id);
+
+    if (!seenPairs.has(pairId)) {
+      return createPair(candidateA, candidateB, pairId, 'random');
+    }
+  }
+  return null;
+}
+
+function tryPairFromList(
+  candidates: CandidateBase[],
+  seenPairs: Set<string>,
+  rationale: string
+): Pair | null {
+  for (let attempt = 0; attempt < Math.min(MAX_PAIR_SELECTION_ATTEMPTS, candidates.length * 2); attempt++) {
+    const [candidateA, candidateB] = pickDistinctCandidates(candidates);
+    const pairId = createPairId(candidateA.id, candidateB.id);
+
+    if (!seenPairs.has(pairId)) {
+      return createPair(candidateA, candidateB, pairId, rationale);
+    }
+  }
+  return null;
+}
+
+function tryPairWithFirst(
+  first: CandidateBase,
+  others: CandidateBase[],
+  seenPairs: Set<string>
+): Pair | null {
+  // Shuffle others for randomness
+  const shuffled = [...others].sort(() => Math.random() - 0.5);
+  
+  for (const second of shuffled) {
+    const pairId = createPairId(first.id, second.id);
+    if (!seenPairs.has(pairId)) {
+      return createPair(first, second, pairId);
+    }
+  }
+  return null;
 }
 
 function pickDistinctCandidates(candidates: CandidateBase[]): [CandidateBase, CandidateBase] {
@@ -188,7 +290,12 @@ function pickDistinctCandidates(candidates: CandidateBase[]): [CandidateBase, Ca
   return [candidates[firstIndex], candidates[secondIndex]];
 }
 
-function createPair(candidateA: CandidateBase, candidateB: CandidateBase, pairId?: string): Pair {
+function createPair(
+  candidateA: CandidateBase, 
+  candidateB: CandidateBase, 
+  pairId?: string,
+  rationale: string = 'random'
+): Pair {
   return {
     pairId: pairId ?? createPairId(candidateA.id, candidateB.id),
     a: {
@@ -205,7 +312,7 @@ function createPair(candidateA: CandidateBase, candidateB: CandidateBase, pairId
       fullBody: candidateB.fullBody,
       headshot: candidateB.headshot,
     },
-    hint: { rationale: 'random' },
+    hint: { rationale },
   };
 }
 

@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import type { CompletionTier } from '@/services/sessionService';
 
 interface GameUIState {
   // Overlay state
@@ -11,15 +12,16 @@ interface GameUIState {
   // Effects toggle
   reducedMotion: boolean;
   
-  // Completion modal
+  // Completion modal - now tracks which tier
   completionModalOpen: boolean;
+  completionTier: CompletionTier;
   
   // Actions
   openCandidateInfo: (candidateId: string) => void;
   closeCandidateInfo: () => void;
   toggleKeyboardHelp: () => void;
   setReducedMotion: (enabled: boolean) => void;
-  openCompletionModal: () => void;
+  openCompletionModal: (tier: CompletionTier) => void;
   closeCompletionModal: () => void;
 }
 
@@ -30,6 +32,7 @@ export const useGameUIStore = create<GameUIState>((set) => ({
   showKeyboardHelp: false,
   reducedMotion: false,
   completionModalOpen: false,
+  completionTier: 'none',
   
   // Actions
   openCandidateInfo: (candidateId) => 
@@ -44,8 +47,8 @@ export const useGameUIStore = create<GameUIState>((set) => ({
   setReducedMotion: (enabled) => 
     set({ reducedMotion: enabled }),
   
-  openCompletionModal: () => 
-    set({ completionModalOpen: true }),
+  openCompletionModal: (tier) => 
+    set({ completionModalOpen: true, completionTier: tier }),
   
   closeCompletionModal: () => 
     set({ completionModalOpen: false }),

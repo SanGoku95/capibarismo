@@ -1,16 +1,21 @@
 /**
  * Centralized session management service.
- * Handles session IDs, vote counts, and seen pairs tracking.
+ * Handles session IDs, vote counts, seen pairs tracking, and local Elo ratings.
  */
 
 import { nanoid } from 'nanoid';
 import { localStorageService, sessionStorageService, type StorageService } from './browserStorage';
+import { INITIAL_ELO, ELO_K } from '@/lib/gameConstants';
 
 // Storage keys
 const SESSION_KEY = 'ranking-game-session-id';
 const SEEN_PAIRS_KEY_PREFIX = 'ranking-game-seen-pairs';
 const LOCAL_VOTE_COUNT_PREFIX = 'local-vote-count';
 const COMPLETION_SHOWN_PREFIX = 'completion-shown';
+const LOCAL_RATINGS_PREFIX = 'local-ratings';
+const CANDIDATE_APPEARANCES_PREFIX = 'candidate-appearances';
+
+export type CompletionTier = 'none' | 'preliminary' | 'recommended';
 
 export interface SessionService {
   // Session ID management
@@ -28,10 +33,47 @@ export interface SessionService {
   addSeenPair(pairId: string): void;
   clearSeenPairs(): void;
 
-  // Completion status
+  // Completion status (now supports tiers)
+  getCompletionTierShown(): CompletionTier;
+  markCompletionTierShown(tier: CompletionTier): void;
+  clearCompletionStatus(): void;
+  
+  // Legacy compatibility
   isCompletionShown(): boolean;
   markCompletionAsShown(): void;
-  clearCompletionStatus(): void;
+
+  // Local Elo ratings for smart pair selection
+  getLocalRatings(): Record<string, number>;
+  updateLocalRatings(winnerId: string, loserId: string): void;
+  clearLocalRatings(): void;
+
+  // Candidate appearances tracking for coverage
+  getCandidateAppearances(): Record<string, number>;
+  incrementCandidateAppearances(candidateIds: string[]): void;
+  clearCandidateAppearances(): void;
+}
+
+// Elo calculation helper
+function calculateExpected(ratingA: number, ratingB: number): number {
+  return 1 / (1 + Math.pow(10, (ratingB - ratingA) / 400));
+}
+
+function updateEloRatings(
+  ratings: Record<string, number>,
+  winnerId: string,
+  loserId: string
+): Record<string, number> {
+  const ratingA = ratings[winnerId] ?? INITIAL_ELO;
+  const ratingB = ratings[loserId] ?? INITIAL_ELO;
+  
+  const expectedA = calculateExpected(ratingA, ratingB);
+  const expectedB = calculateExpected(ratingB, ratingA);
+  
+  return {
+    ...ratings,
+    [winnerId]: ratingA + ELO_K * (1 - expectedA),
+    [loserId]: ratingB + ELO_K * (0 - expectedB),
+  };
 }
 
 /**
@@ -61,9 +103,11 @@ export function createSessionService(
     // Get old session ID to clean up
     const oldSessionId = _cachedSessionId || localStorage.getItem(SESSION_KEY);
     if (oldSessionId) {
-      // Clear seen pairs for old session
+      // Clear all session-specific data
       localStorage.removeItem(getSeenPairsKey(oldSessionId));
       localStorage.removeItem(getVoteCountKey(oldSessionId));
+      localStorage.removeItem(getLocalRatingsKey(oldSessionId));
+      localStorage.removeItem(getCandidateAppearancesKey(oldSessionId));
       sessionStorage.removeItem(getCompletionKey(oldSessionId));
     }
 
@@ -88,6 +132,16 @@ export function createSessionService(
   function getCompletionKey(sessionId?: string): string {
     const id = sessionId || getSessionId();
     return `${COMPLETION_SHOWN_PREFIX}-${id}`;
+  }
+
+  function getLocalRatingsKey(sessionId?: string): string {
+    const id = sessionId || getSessionId();
+    return `${LOCAL_RATINGS_PREFIX}-${id}`;
+  }
+
+  function getCandidateAppearancesKey(sessionId?: string): string {
+    const id = sessionId || getSessionId();
+    return `${CANDIDATE_APPEARANCES_PREFIX}-${id}`;
   }
 
   function getVoteCount(sessionId?: string): number {
@@ -143,19 +197,89 @@ export function createSessionService(
     localStorage.removeItem(getSeenPairsKey());
   }
 
-  function isCompletionShown(): boolean {
+  // New: Tiered completion status
+  function getCompletionTierShown(): CompletionTier {
     const key = getCompletionKey();
-    return sessionStorage.getItem(key) === 'true';
+    const value = sessionStorage.getItem(key);
+    if (value === 'preliminary' || value === 'recommended') {
+      return value;
+    }
+    // Legacy compatibility: 'true' means preliminary was shown
+    if (value === 'true') {
+      return 'preliminary';
+    }
+    return 'none';
   }
 
-  function markCompletionAsShown(): void {
+  function markCompletionTierShown(tier: CompletionTier): void {
     const key = getCompletionKey();
-    sessionStorage.setItem(key, 'true');
+    sessionStorage.setItem(key, tier);
   }
 
   function clearCompletionStatus(): void {
     const key = getCompletionKey();
     sessionStorage.removeItem(key);
+  }
+
+  // Legacy compatibility
+  function isCompletionShown(): boolean {
+    return getCompletionTierShown() !== 'none';
+  }
+
+  function markCompletionAsShown(): void {
+    markCompletionTierShown('preliminary');
+  }
+
+  // Local Elo ratings
+  function getLocalRatings(): Record<string, number> {
+    const key = getLocalRatingsKey();
+    const raw = localStorage.getItem(key);
+    if (!raw) return {};
+
+    try {
+      const parsed = JSON.parse(raw);
+      if (typeof parsed !== 'object' || parsed === null) return {};
+      return parsed as Record<string, number>;
+    } catch {
+      return {};
+    }
+  }
+
+  function updateLocalRatings(winnerId: string, loserId: string): void {
+    const current = getLocalRatings();
+    const updated = updateEloRatings(current, winnerId, loserId);
+    localStorage.setItem(getLocalRatingsKey(), JSON.stringify(updated));
+  }
+
+  function clearLocalRatings(): void {
+    localStorage.removeItem(getLocalRatingsKey());
+  }
+
+  // Candidate appearances tracking
+  function getCandidateAppearances(): Record<string, number> {
+    const key = getCandidateAppearancesKey();
+    const raw = localStorage.getItem(key);
+    if (!raw) return {};
+
+    try {
+      const parsed = JSON.parse(raw);
+      if (typeof parsed !== 'object' || parsed === null) return {};
+      return parsed as Record<string, number>;
+    } catch {
+      return {};
+    }
+  }
+
+  function incrementCandidateAppearances(candidateIds: string[]): void {
+    const current = getCandidateAppearances();
+    for (const id of candidateIds) {
+      current[id] = (current[id] ?? 0) + 1;
+    }
+    localStorage.setItem(getCandidateAppearancesKey(), JSON.stringify(current));
+  }
+
+  function clearCandidateAppearances(): void {
+    localStorage.removeItem(getCandidateAppearancesKey());
   }
 
   return {
@@ -168,9 +292,17 @@ export function createSessionService(
     getSeenPairs,
     addSeenPair,
     clearSeenPairs,
+    getCompletionTierShown,
+    markCompletionTierShown,
+    clearCompletionStatus,
     isCompletionShown,
     markCompletionAsShown,
-    clearCompletionStatus,
+    getLocalRatings,
+    updateLocalRatings,
+    clearLocalRatings,
+    getCandidateAppearances,
+    incrementCandidateAppearances,
+    clearCandidateAppearances,
   };
 }
 

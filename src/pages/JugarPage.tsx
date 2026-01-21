@@ -11,18 +11,16 @@ import { useGameCompletion } from '@/hooks/useGameCompletion';
 import { useGameKeyboard } from '@/hooks/useGameKeyboard';
 import { Button } from '@/components/ui/button';
 import { Keyboard } from 'lucide-react';
-import { COMPLETION_GOAL } from '@/lib/gameConstants';
-import { useNavigate } from 'react-router-dom';
-import { sessionService } from '@/services/sessionService';
+import { RECOMMENDED_GOAL } from '@/lib/gameConstants';
 import { useTrackJugarView } from '@/lib/posthog';
 
 export function JugarPage() {
   const sessionId = getSessionId();
-  const navigate = useNavigate();
 
   const {
     closeCandidateInfo,
     setReducedMotion,
+    completionModalOpen,
   } = useGameUIStore();
 
   const {
@@ -36,24 +34,15 @@ export function JugarPage() {
 
   useTrackJugarView({ sessionId });
 
-  // Redirect to ranking if game was already completed AND modal was already shown
-  // This handles the case when user navigates back to /jugar after completing the game
-  useEffect(() => {
-    if (voteCount >= COMPLETION_GOAL && sessionService.isCompletionShown()) {
-      navigate(`/ranking?mode=personal&sessionId=${sessionId}`);
-    }
-  }, [voteCount, sessionId, navigate]);
-
-  // Handle game completion modal
+  // Handle game completion modal (now handles both tiers)
   useGameCompletion(voteCount);
 
-  // Handle keyboard controls
-  const isGameCompleted = voteCount >= COMPLETION_GOAL;
+  // Handle keyboard controls - disable when modal is open
   useGameKeyboard({
-    onVoteA: () => pair && !isGameCompleted && handleVote(pair, 'A'),
-    onVoteB: () => pair && !isGameCompleted && handleVote(pair, 'B'),
+    onVoteA: () => pair && !completionModalOpen && handleVote(pair, 'A'),
+    onVoteB: () => pair && !completionModalOpen && handleVote(pair, 'B'),
     onEscape: closeCandidateInfo,
-    enabled: !!pair && !isGameCompleted,
+    enabled: !!pair && !completionModalOpen,
   });
 
   // Check for prefers-reduced-motion
@@ -101,9 +90,10 @@ export function JugarPage() {
     );
   }
 
+  // Progress shows toward recommended goal (30)
   const progressPercent = Math.min(
     100,
-    Math.round((voteCount / COMPLETION_GOAL) * 100)
+    Math.round((voteCount / RECOMMENDED_GOAL) * 100)
   );
 
   // Show loading while submitting vote OR fetching next pair (refetch)
@@ -121,8 +111,8 @@ export function JugarPage() {
       <div className="flex-1 relative overflow-hidden">
         <VSScreen
           pair={pair}
-          onVote={(winner) => !isGameCompleted && handleVote(pair, winner)}
-          isSubmitting={isLoadingNext || isGameCompleted}
+          onVote={(winner) => !completionModalOpen && handleVote(pair, winner)}
+          isSubmitting={isLoadingNext || completionModalOpen}
         />
       </div>
 
