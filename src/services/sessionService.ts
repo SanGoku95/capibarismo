@@ -86,6 +86,12 @@ export function createSessionService(
 ): SessionService {
   let _cachedSessionId: string | null = null;
 
+  // Type validation helper
+  function isRecordOfNumbers(obj: unknown): obj is Record<string, number> {
+    if (typeof obj !== 'object' || obj === null) return false;
+    return Object.values(obj).every(v => typeof v === 'number');
+  }
+
   function getSessionId(): string {
     if (_cachedSessionId) return _cachedSessionId;
 
@@ -232,7 +238,7 @@ export function createSessionService(
 
   // Local Elo ratings
   function getLocalRatings(): Record<string, number> {
-    const raw = browserStorage.getItem(STORAGE_KEYS.LOCAL_RATINGS);
+    const raw = localStorage.getItem(getLocalRatingsKey());
     if (!raw) return {};
     try {
       const parsed = JSON.parse(raw);
@@ -255,7 +261,7 @@ export function createSessionService(
 
   // Candidate appearances tracking
   function getCandidateAppearances(): Record<string, number> {
-    const raw = browserStorage.getItem(STORAGE_KEYS.CANDIDATE_APPEARANCES);
+    const raw = localStorage.getItem(getCandidateAppearancesKey());
     if (!raw) return {};
     try {
       const parsed = JSON.parse(raw);
