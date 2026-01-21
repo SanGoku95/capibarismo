@@ -1,8 +1,9 @@
 /**
  * Hook for managing game completion modal logic.
- * Handles showing the completion modal at two tiers:
- * - Preliminary (15 votes): Quick ranking preview
- * - Recommended (30 votes): Full reliable ranking
+ * 
+ * Shows completion modals at two milestones:
+ * - Preliminary (15 votes): Quick preview of preferences
+ * - Recommended (30 votes): Statistically reliable ranking
  */
 
 import { useEffect } from 'react';
@@ -11,49 +12,87 @@ import { sessionService, type CompletionTier } from '@/services/sessionService';
 import { PRELIMINARY_GOAL, RECOMMENDED_GOAL } from '@/lib/gameConstants';
 import { usePostHog } from '@/lib/posthog';
 
-export function useGameCompletion(voteCount: number) {
+// =============================================================================
+// Types
+// =============================================================================
+
+interface CompletionState {
+  currentTier: CompletionTier;
+  tierShown: CompletionTier;
+}
+
+// =============================================================================
+// Hook
+// =============================================================================
+
+export function useGameCompletion(voteCount: number): void {
   const { openCompletionModal, closeCompletionModal, completionModalOpen } = useGameUIStore();
   const posthog = usePostHog();
 
   useEffect(() => {
-    const tierShown = sessionService.getCompletionTierShown();
-
-    // Determine which tier user has reached
-    const currentTier: CompletionTier = 
-      voteCount >= RECOMMENDED_GOAL ? 'recommended' :
-      voteCount >= PRELIMINARY_GOAL ? 'preliminary' : 
-      'none';
-
-    // If user hasn't reached any goal, ensure modal is closed
-    if (currentTier === 'none') {
-      if (completionModalOpen) {
-        closeCompletionModal();
-      }
+    const state = getCompletionState(voteCount);
+    
+    // Close modal if user hasn't reached any goal
+    if (state.currentTier === 'none') {
+      if (completionModalOpen) closeCompletionModal();
       return;
     }
 
-    // Check if we should show a modal based on tier progression
-    const shouldShowPreliminary = currentTier === 'preliminary' && tierShown === 'none';
-    const shouldShowRecommended = currentTier === 'recommended' && tierShown !== 'recommended';
-
-    if (shouldShowPreliminary) {
-      // Track preliminary completion
-      posthog?.capture('game_preliminary_completed', {
-        sessionId: sessionService.getSessionId(),
-        totalVotes: voteCount,
-      });
-
-      openCompletionModal('preliminary');
-      sessionService.markCompletionTierShown('preliminary');
-    } else if (shouldShowRecommended) {
-      // Track full completion
-      posthog?.capture('game_completed', {
-        sessionId: sessionService.getSessionId(),
-        totalVotes: voteCount,
-      });
-
-      openCompletionModal('recommended');
-      sessionService.markCompletionTierShown('recommended');
+    // Show appropriate modal based on progression
+    const tierToShow = getTierToShow(state);
+    
+    if (tierToShow) {
+      trackCompletion(posthog, tierToShow, voteCount);
+      openCompletionModal(tierToShow);
+      sessionService.markCompletionTierShown(tierToShow);
     }
   }, [voteCount, openCompletionModal, closeCompletionModal, completionModalOpen, posthog]);
+}
+
+// =============================================================================
+// Helper Functions
+// =============================================================================
+
+function getCompletionState(voteCount: number): CompletionState {
+  return {
+    currentTier: calculateCurrentTier(voteCount),
+    tierShown: sessionService.getCompletionTierShown(),
+  };
+}
+
+function calculateCurrentTier(voteCount: number): CompletionTier {
+  if (voteCount >= RECOMMENDED_GOAL) return 'recommended';
+  if (voteCount >= PRELIMINARY_GOAL) return 'preliminary';
+  return 'none';
+}
+
+function getTierToShow(state: CompletionState): CompletionTier | null {
+  const { currentTier, tierShown } = state;
+
+  // Show preliminary if just reached and not yet shown
+  if (currentTier === 'preliminary' && tierShown === 'none') {
+    return 'preliminary';
+  }
+
+  // Show recommended if reached and not yet shown
+  if (currentTier === 'recommended' && tierShown !== 'recommended') {
+    return 'recommended';
+  }
+
+  return null;
+}
+
+function trackCompletion(
+  posthog: ReturnType<typeof usePostHog>,
+  tier: CompletionTier,
+  voteCount: number
+): void {
+  const eventName = tier === 'preliminary' 
+    ? 'game_preliminary_completed' 
+    : 'game_completed';
+
+  posthog?.capture(eventName, {
+    sessionId: sessionService.getSessionId(),
+    totalVotes: voteCount,
+  });
 }
