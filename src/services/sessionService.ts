@@ -232,14 +232,12 @@ export function createSessionService(
 
   // Local Elo ratings
   function getLocalRatings(): Record<string, number> {
-    const key = getLocalRatingsKey();
-    const raw = localStorage.getItem(key);
+    const raw = browserStorage.getItem(STORAGE_KEYS.LOCAL_RATINGS);
     if (!raw) return {};
-
     try {
       const parsed = JSON.parse(raw);
-      if (typeof parsed !== 'object' || parsed === null) return {};
-      return parsed as Record<string, number>;
+      if (!isRecordOfNumbers(parsed)) return {};
+      return parsed;
     } catch {
       return {};
     }
@@ -257,14 +255,12 @@ export function createSessionService(
 
   // Candidate appearances tracking
   function getCandidateAppearances(): Record<string, number> {
-    const key = getCandidateAppearancesKey();
-    const raw = localStorage.getItem(key);
+    const raw = browserStorage.getItem(STORAGE_KEYS.CANDIDATE_APPEARANCES);
     if (!raw) return {};
-
     try {
       const parsed = JSON.parse(raw);
-      if (typeof parsed !== 'object' || parsed === null) return {};
-      return parsed as Record<string, number>;
+      if (!isRecordOfNumbers(parsed)) return {};
+      return parsed;
     } catch {
       return {};
     }

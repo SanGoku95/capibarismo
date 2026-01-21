@@ -25,7 +25,14 @@ export function RankingPage() {
   // Get vote count to determine if ranking is preliminary
   const voteCount = sessionService.getVoteCount(sessionId);
   const isPreliminary = voteCount >= PRELIMINARY_GOAL && voteCount < RECOMMENDED_GOAL;
-  const progressPercent = Math.min(100, Math.round(((voteCount - PRELIMINARY_GOAL) / (RECOMMENDED_GOAL - PRELIMINARY_GOAL)) * 100));
+  const progressPercent = isPreliminary
+    ? Math.min(
+        100,
+        Math.round(
+          ((voteCount - PRELIMINARY_GOAL) / (RECOMMENDED_GOAL - PRELIMINARY_GOAL)) * 100
+        )
+      )
+    : 0;
   
   // Check if the user has actually played any games
   // The API returns all candidates with 0 games if no history exists, so length check isn't enough
