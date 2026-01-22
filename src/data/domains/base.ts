@@ -95,7 +95,7 @@ export const base: Record<string, CandidateBase> = {
     headshot: '/fotos_candidatos/sanchez/roberto-sanchez_headshot.jpg',
     fullBody: '/fotos_candidatos/sanchez/roberto-sanchez_poster.webp',
   },
-  // Mock candidates for 36-candidate support (candidates 12-36)
+  // 25 additional mock candidates (cand-12 through cand-36) for 36-candidate support
   'cand-12': {
     id: 'cand-12',
     nombre: 'Ana García',
