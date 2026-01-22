@@ -38,8 +38,8 @@ export function CandidatePicker() {
         className={cn(
           "relative aspect-square transition-transform duration-150 ease-out",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-          "w-full overflow-hidden rounded-lg",
-          "min-w-[44px] min-h-[44px]",
+          "overflow-hidden rounded-lg",
+          "w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16",
           !selected && "hover:scale-[1.03] active:scale-[0.98]"
         )}
         aria-label={`Seleccionar a ${candidate.nombre} para comparar`}
@@ -47,14 +47,14 @@ export function CandidatePicker() {
         tabIndex={0}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center">
-          <div className="text-xs font-bold text-white truncate">
+        <div className="absolute bottom-0 left-0 right-0 p-0.5 sm:p-1 text-center">
+          <div className="text-[0.6rem] sm:text-xs font-bold text-white truncate">
             {candidate.nombre.split(' ')[0]}
           </div>
         </div>
         {selected && (
           <div className={cn(
-            "absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center text-white",
+            "absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full text-[0.6rem] sm:text-xs font-bold flex items-center justify-center text-white",
             side === 'left' ? "bg-team-left" : "bg-team-right"
           )}>
             {side === 'left' ? '1' : '2'}
@@ -73,11 +73,11 @@ export function CandidatePicker() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-30 lg:static w-full border-t-2 border-border bg-background/80 backdrop-blur-sm lg:flex-shrink-0 lg:h-auto">
-      <div className="container mx-auto p-2 lg:p-3">
+      <div className="container mx-auto px-2 py-1.5 lg:px-3 lg:py-2">
         {/* Header with instructions */}
-        <div className="flex items-center justify-between mb-2 lg:mb-3">
+        <div className="flex items-center justify-between mb-1.5 lg:mb-2">
           <div>
-            <h2 className="text-base lg:text-lg font-bold flex items-baseline">
+            <h2 className="text-sm lg:text-base font-bold flex items-baseline">
               <span>Candidatos:</span>
               <span className="text-xs lg:text-sm text-muted-foreground font-normal ml-2">
                 {!leftCandidate && !rightCandidate 
@@ -107,7 +107,7 @@ export function CandidatePicker() {
 
         {/* Unified Responsive Candidate Grid */}
         <div 
-          className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2 max-h-[60vh] overflow-y-auto pr-1 pb-2"
+          className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-1.5 sm:gap-2 max-h-[35vh] overflow-y-auto pr-1 pb-2"
         >
           {listCandidates().map(renderCandidateButton)}
           
@@ -116,8 +116,8 @@ export function CandidatePicker() {
             to="/#apoyar"
             className={cn(
               "relative aspect-square",
-              "w-full overflow-hidden rounded-lg",
-              "min-w-[44px] min-h-[44px]",
+              "overflow-hidden rounded-lg",
+              "w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16",
               "bg-muted/30 border-2 border-dashed border-muted-foreground/30",
               "flex items-center justify-center",
               "opacity-60 hover:opacity-100 hover:border-muted-foreground/50 transition-all duration-200",
@@ -127,7 +127,7 @@ export function CandidatePicker() {
             aria-label="Apoya el proyecto - Ayúdanos a agregar más candidatos"
             title="Apoya el proyecto"
           >
-            <Plus className="w-6 h-6 sm:w-8 sm:h-8 text-muted-foreground" />
+            <Plus className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-muted-foreground" />
           </Link>
         </div>
       </div>
