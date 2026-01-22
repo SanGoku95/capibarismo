@@ -38,11 +38,12 @@ export function CandidatePicker() {
         className={cn(
           "relative aspect-square transition-transform duration-150 ease-out",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-          "flex-shrink-0 w-20 lg:w-20 overflow-hidden rounded-lg",
-          "min-h-[80px]",
+          "w-full overflow-hidden rounded-lg",
+          "min-w-[44px] min-h-[44px]",
           !selected && "hover:scale-[1.03] active:scale-[0.98]"
         )}
         aria-label={`Seleccionar a ${candidate.nombre} para comparar`}
+        aria-selected={selected}
         tabIndex={0}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent pointer-events-none" />
@@ -64,6 +65,7 @@ export function CandidatePicker() {
           src={candidate.headshot}
           alt={`Retrato de ${candidate.nombre}`}
           className="w-full h-full object-cover"
+          loading="lazy"
         />
       </button>
     );
@@ -104,7 +106,9 @@ export function CandidatePicker() {
         </div>
 
         {/* Unified Responsive Candidate Grid */}
-        <div className="grid grid-cols-6 gap-x-3 gap-y-2 max-w-[575px] mx-auto">
+        <div 
+          className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2 max-h-[60vh] overflow-y-auto pr-1 pb-2"
+        >
           {listCandidates().map(renderCandidateButton)}
           
           {/* Placeholder for upcoming candidates */}
@@ -112,8 +116,8 @@ export function CandidatePicker() {
             to="/#apoyar"
             className={cn(
               "relative aspect-square",
-              "flex-shrink-0 w-20 lg:w-20 overflow-hidden rounded-lg",
-              "min-h-[80px]",
+              "w-full overflow-hidden rounded-lg",
+              "min-w-[44px] min-h-[44px]",
               "bg-muted/30 border-2 border-dashed border-muted-foreground/30",
               "flex items-center justify-center",
               "opacity-60 hover:opacity-100 hover:border-muted-foreground/50 transition-all duration-200",
@@ -123,7 +127,7 @@ export function CandidatePicker() {
             aria-label="Apoya el proyecto - Ayúdanos a agregar más candidatos"
             title="Apoya el proyecto"
           >
-            <Plus className="w-8 h-8 text-muted-foreground" />
+            <Plus className="w-6 h-6 sm:w-8 sm:h-8 text-muted-foreground" />
           </Link>
         </div>
       </div>
