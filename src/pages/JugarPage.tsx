@@ -10,7 +10,6 @@ import { useOptimisticVote } from '@/hooks/useOptimisticVote';
 import { useGameCompletion } from '@/hooks/useGameCompletion';
 import { useGameKeyboard } from '@/hooks/useGameKeyboard';
 import { Button } from '@/components/ui/button';
-import { Keyboard } from 'lucide-react';
 import { COMPLETION_GOAL } from '@/lib/gameConstants';
 import { useNavigate } from 'react-router-dom';
 import { sessionService } from '@/services/sessionService';
@@ -124,17 +123,6 @@ export function JugarPage() {
           onVote={(winner) => !isGameCompleted && handleVote(pair, winner)}
           isSubmitting={isLoadingNext || isGameCompleted}
         />
-      </div>
-
-      {/* Controls footer - more compact on mobile */}
-      <div className="bg-black/80 border-t border-white/10 p-2 sm:p-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-1 sm:gap-2 text-white/70 text-[10px] sm:text-xs md:text-sm">
-            <Keyboard className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="hidden sm:inline">← / → para elegir</span>
-            <span className="sm:hidden">← / →</span>
-          </div>
-        </div>
       </div>
 
       {/* Overlays */}
