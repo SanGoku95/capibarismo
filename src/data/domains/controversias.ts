@@ -51,4 +51,5 @@ export const controversias: Record<string, Controversia[]> = {
 //  guevara: [],
 //  olivera: [],
 //  sanchez: [],
+//  prueba: [],
 //};
