@@ -54,8 +54,9 @@ export function InfoBadge({ label, className, description }: InfoBadgeProps) {
       <PopoverTrigger asChild>
         <button
           type="button"
-          className={triggerClasses}
+          className={cn(triggerClasses, 'group')}
           aria-describedby={contentId}
+          aria-expanded={open}
           onClick={handleClick}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}

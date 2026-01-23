@@ -110,12 +110,6 @@ export interface Ingreso {
 
 export interface CandidateProfile {
   base: CandidateBase;
-  trayectoria?: import('./domains/trayectorias').TrayectoriaEstructurada;
-  proyectoPolitico?: ProyectoPolitico;
-  creenciasClave: Creencia[];
-  presenciaDigital?: PresenciaDigital;
-  mapaDePoder?: MapaDePoder;
-  controversias?: Controversia[];
   // Nuevos campos de datos JNE
   educacion?: Educacion;
   experienciaLaboral?: Trabajo[];

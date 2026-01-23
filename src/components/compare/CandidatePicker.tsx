@@ -71,36 +71,32 @@ export function CandidatePicker() {
     );
   };
 
+  const statusText =
+    leftCandidate && rightCandidate ? 'Listo' : leftCandidate || rightCandidate ? 'Falta 1' : 'Elige 2';
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-30 lg:static w-full border-t-2 border-border bg-background/80 backdrop-blur-sm lg:flex-shrink-0 lg:h-auto">
       <div className="container mx-auto px-2 py-1 lg:px-3 lg:py-2">
-        {/* Header with instructions */}
+        {/* Header (compact) */}
         <div className="flex items-center justify-between mb-1 lg:mb-2">
-          <div>
-            <h2 className="text-xs lg:text-base font-bold flex items-baseline">
-              <span>Candidatos:</span>
-              <span className="text-[0.65rem] lg:text-sm text-muted-foreground font-normal ml-1 lg:ml-2">
-                {!leftCandidate && !rightCandidate 
-                  ? "Elige dos para comparar" 
-                  : leftCandidate && rightCandidate 
-                  ? "Haz clic para cambiar." 
-                  : "Elige el segundo candidato"}
-              </span>
-            </h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-xs lg:text-sm font-bold">Candidatos</h2>
+            <span className={cn(
+              "text-[10px] lg:text-xs font-semibold rounded-full px-2 py-0.5 border",
+              leftCandidate && rightCandidate
+                ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                : "border-muted-foreground/20 bg-muted/30 text-muted-foreground"
+            )}>
+              {statusText}
+            </span>
           </div>
-          
-          {/* VS Indicator (Desktop) */}
+
+          {/* keep VS only when both selected (already minimal) */}
           {leftCandidate && rightCandidate && (
-            <div className="hidden lg:flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <img src={leftCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />
-                <span className="text-sm font-semibold">{leftCandidate.nombre.split(' ')[0]}</span>
-              </div>
-              <div className="fighting-game-vs">VS</div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold">{rightCandidate.nombre.split(' ')[0]}</span>
-                <img src={rightCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />
-              </div>
+            <div className="hidden lg:flex items-center gap-3">
+              <img src={leftCandidate.headshot} alt="" className="w-7 h-7 rounded-full" />
+              <div className="fighting-game-vs text-sm">VS</div>
+              <img src={rightCandidate.headshot} alt="" className="w-7 h-7 rounded-full" />
             </div>
           )}
         </div>
