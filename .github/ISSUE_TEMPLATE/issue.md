@@ -1,9 +1,11 @@
 ---
 name: Reporte de Issue
-about: Reportar un error, solicitar una funcionalidad, o sugerir actualizaciones de datos
+about: Reportar un error, solicitar una funcionalidad, o sugerir actualizaciones de
+  datos
 title: ''
 labels: ''
 assignees: ''
+
 ---
 
 ## Tipo de Issue
