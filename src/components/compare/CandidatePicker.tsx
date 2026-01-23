@@ -107,7 +107,7 @@ export function CandidatePicker() {
 
         {/* Unified Responsive Candidate Grid */}
         <div 
-          className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-1 sm:gap-1.5 md:gap-2 max-h-[18vh] sm:max-h-[25vh] lg:max-h-[35vh] overflow-y-auto pr-1 pb-1"
+          className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-1 sm:gap-1.5 md:gap-2 max-h-[18vh] sm:max-h-[25vh] lg:max-h-[30vh] overflow-y-auto pr-1 pb-1"
         >
           {listCandidates().map(renderCandidateButton)}
           
