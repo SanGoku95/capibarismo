@@ -1,14 +1,14 @@
 import type { CandidateBase } from '@/data/types';
 
 export const base: Record<string, CandidateBase> = {
-  'pablo-lopez chau': {
-    id: 'pablo-lopez chau',
+  'lopez-chau': {
+    id: 'lopez-chau',
     nombre: 'Alfonso Lopez Chau',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Ahora Nacion - An',
-    partyIcon: '/iconos_partidos/pablo-lopez chau.jpg',
-    headshot: '/fotos_candidatos/pablo-lopez chau/pablo-lopez chau_headshot.jpg',
-    fullBody: '/fotos_candidatos/pablo-lopez chau/pablo-lopez chau_poster.webp',
+    partyIcon: '/iconos_partidos/lopez-chau.jpg',
+    headshot: '/fotos_candidatos/lopez-chau/lopez-chau_headshot.jpg',
+    fullBody: '/fotos_candidatos/lopez-chau/lopez-chau_poster.webp',
   },
   'ronald-atencio': {
     id: 'ronald-atencio',
@@ -55,8 +55,8 @@ export const base: Record<string, CandidateBase> = {
     headshot: '/fotos_candidatos/yonhy-lescano/yonhy-lescano_headshot.jpg',
     fullBody: '/fotos_candidatos/yonhy-lescano/yonhy-lescano_poster.webp',
   },
-  'alvaro-paz de la barra': {
-    id: 'alvaro-paz de la barra',
+  'alvaro-paz': {
+    id: 'alvaro-paz',
     nombre: 'Alvaro P. Freigeiro',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Fe en el Peru',
@@ -289,14 +289,14 @@ export const base: Record<string, CandidateBase> = {
     headshot: '/fotos_candidatos/paul-jaimes/paul-jaimes_headshot.jpg',
     fullBody: '/fotos_candidatos/paul-jaimes/paul-jaimes_poster.webp',
   },
-  'rafael-lopez aliaga': {
-    id: 'rafael-lopez aliaga',
+  'rafael-lopezaliaga': {
+    id: 'rafael-lopezaliaga',
     nombre: 'Rafael L. Aliaga ',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Renovacion Popular',
-    partyIcon: '/iconos_partidos/rafael-lopez aliaga.jpg',
-    headshot: '/fotos_candidatos/rafael-lopez aliaga/rafael-lopez aliaga_headshot.jpg',
-    fullBody: '/fotos_candidatos/rafael-lopez aliaga/rafael-lopez aliaga_poster.webp',
+    partyIcon: '/iconos_partidos/rafael-lopezaliaga.jpg',
+    headshot: '/fotos_candidatos/rafael-lopezaliaga/rafael-lopezaliaga_headshot.jpg',
+    fullBody: '/fotos_candidatos/rafael-lopezaliaga/rafael-lopezaliaga_poster.webp',
   },
   'antonio-ortiz': {
     id: 'antonio-ortiz',

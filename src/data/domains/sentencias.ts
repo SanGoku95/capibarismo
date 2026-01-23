@@ -8,13 +8,13 @@ export interface Sentencia {
 }
 
 export const sentencias: Record<string, Sentencia[]> = {
-  'pablo-lopez chau': [],
+  'lopez-chau': [],
   'ronald-atencio': [],
   'fiorella-molinelli': [],
   'cesar-acuna': [],
   'jose-williams': [],
   'yonhy-lescano': [],
-  'alvaro-paz de la barra': [],
+  'alvaro-paz': [],
   'luis-olivera': [],
   'keiko-fujimori': [],
   'wolfgang-grozo': [],
@@ -73,7 +73,7 @@ export const sentencias: Record<string, Sentencia[]> = {
   'maria-perez': [],
   'walter-chirinos': [],
   'paul-jaimes': [],
-  'rafael-lopez aliaga': [],
+  'rafael-lopezaliaga': [],
   'antonio-ortiz': [],
   'rosario-fernandez': [],
   'roberto-chiabra': []

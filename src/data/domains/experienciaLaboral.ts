@@ -8,7 +8,7 @@ export interface Trabajo {
 }
 
 export const experienciaLaboral: Record<string, Trabajo[]> = {
-  'pablo-lopez chau': [
+  'lopez-chau': [
     {
       puesto: 'Rector',
       empresa: 'Universidad Nacional de Ingeniería',
@@ -134,7 +134,7 @@ export const experienciaLaboral: Record<string, Trabajo[]> = {
       ubicacion: 'Lima, Lima, Peru',
     },
   ],
-  'alvaro-paz de la barra': [
+  'alvaro-paz': [
     {
       puesto: 'Gerente Municipal',
       empresa: 'Municipalidad Distrital Rimac',
@@ -624,7 +624,7 @@ export const experienciaLaboral: Record<string, Trabajo[]> = {
       ubicacion: 'Lima, Lima, Peru',
     },
   ],
-  'rafael-lopez aliaga': [
+  'rafael-lopezaliaga': [
     {
       puesto: 'Alcalde',
       empresa: 'Municipalidad Metropolitana de Lima',

@@ -19,16 +19,16 @@ describe('ComparePage', () => {
   });
 
   describe('Rendering', () => {
-    it('should render without crashing', () => {
+    it('should render without crashing', async () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ComparePage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
-      // Use getAllByText since "Candidatos" appears in both mobile and desktop views
-      const candidatosHeaders = screen.getAllByText(/candidatos:/i);
-      expect(candidatosHeaders.length).toBeGreaterThan(0);
+      // Updated: look for text that actually exists in the new UI
+      const candidato1Text = screen.getAllByText(/candidato 1/i);
+      expect(candidato1Text.length).toBeGreaterThan(0);
     });
 
     it('should render CompareView component', () => {
@@ -42,15 +42,15 @@ describe('ComparePage', () => {
       expect(container.querySelector('.min-h-screen')).toBeInTheDocument();
     });
 
-    it('should render CandidatePicker component', () => {
+    it('should render CandidatePicker component', async () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ComparePage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
-      // Should show instruction text (appears in both mobile and desktop)
-      const instructions = screen.getAllByText(/elige dos para comparar/i);
+      // Updated: look for instruction text that actually exists
+      const instructions = screen.getAllByText(/selecciona un candidato abajo/i);
       expect(instructions.length).toBeGreaterThan(0);
     });
   });

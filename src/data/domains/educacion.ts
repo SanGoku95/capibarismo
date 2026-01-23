@@ -7,7 +7,7 @@ export interface Educacion {
 }
 
 export const educacion: Record<string, Educacion> = {
-  'pablo-lopez chau': {
+  'lopez-chau': {
     basica: { primaria: 'Sí', secundaria: 'Sí' },
     universitaria: [
       { universidad: 'Universidad Nacional del Callao', carrera: 'Economista', año: 'None' },
@@ -70,7 +70,7 @@ export const educacion: Record<string, Educacion> = {
       { tipo: 'Maestría', institucion: 'Universidad de Chile', especialidad: 'Grado de Magíster en Derecho (grado de Maestro)', año: '2022' },
     ],
   },
-  'alvaro-paz de la barra': {
+  'alvaro-paz': {
     basica: { primaria: 'Sí', secundaria: 'Sí' },
     universitaria: [
       { universidad: 'Universidad de San Martín de Porres', carrera: 'Bachiller en Derecho', año: '2007' },
@@ -321,7 +321,7 @@ export const educacion: Record<string, Educacion> = {
       { tipo: 'Doctorado', institucion: 'Instituto de Gobierno y Gestión Publica Universidad San Martin de Porres', especialidad: 'Gobierno y Gestión Publica', año: 'None' },
     ],
   },
-  'rafael-lopez aliaga': {
+  'rafael-lopezaliaga': {
     basica: { primaria: 'Sí', secundaria: 'Sí' },
     universitaria: [
       { universidad: 'Universidad de Piura', carrera: 'Ingeniero Industrial', año: '1995' },
