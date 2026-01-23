@@ -1,7 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Compass, Scale, Gamepad2, ChevronDown, ChevronUp, Target, CheckCircle, TrendingUp } from "lucide-react";
-import { track } from "@vercel/analytics";
 import { listCandidates, getCandidateProfile } from "@/data";
 import { useItemListSEO } from '@/lib/useSEO';
 import { DonationModal } from '@/components/common/DonationModal';
@@ -252,7 +251,7 @@ export function HomePage() {
               <button
                 onClick={() => {
                   setShowDonationModal(true);
-                  track("home_donation_click", { goal: "200_soles", position: "main" });
+                  posthog?.capture('home_donation_click', { goal: '200_soles', position: 'main' });
                 }}
                 className="w-full rounded-2xl bg-gradient-to-r from-[#74239C] to-purple-600 hover:from-[#74239C]/90 hover:to-purple-600/90 text-white font-bold py-4 px-6 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(116,35,156,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#74239C]/70 flex items-center justify-center gap-2 font-sans relative overflow-hidden group"
               >
