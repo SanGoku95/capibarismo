@@ -14,7 +14,10 @@
 Capibarismo provides an interactive platform for comparing political candidates using modern visualization tools and detailed analysis. Built with React and TypeScript, it features a unique retro gaming aesthetic while delivering serious political insights.
 
 > 🇵🇪 **Open Source Community Project**: This project is developed by volunteers committed to promoting democratic transparency in Peru through technology. All contributions are welcome!
+> 
 > 🗳️ **Facts Protocol**: This project follows a secure fact protocol to verify truthfulness. Every fact can be traced back to their original source with time stamps.
+> 
+> ⚖️ **Disclaimer**: This is an independent, non-partisan information platform. We strive for accuracy and neutrality, presenting verifiable facts from public sources. All information should be independently verified. We are not affiliated with any political party or candidate.
 
 ## 📄 License
 
@@ -22,14 +25,8 @@ This project is licensed under the [Apache License 2.0](LICENSE) - see the LICEN
 
 ## 🙏 Acknowledgments  
 
-- Thanks to all [contributors](https://github.com/Italosayan/presidential-punch-peru/contributors) who have helped make this project possible
 - Candidate information based on publicly available, verifiable sources
 - Inspired by the need for democratic transparency in Peru
-
-## 📞 Contact & Community
-
-- 🐛 **Issues**: [GitHub Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)
 
 ---
 
@@ -65,14 +62,20 @@ We treat this civic tool like a fighting game. To maintain "Game Feel", we adher
 
 ```bash
 # Clone and install
-git clone https://github.com/Italosayan/presidential-punch-peru.git
+git clone https://github.com/SanGoku95/presidential-punch-peru.git
 cd presidential-punch-peru
 npm install
+
+# Set up environment variables (optional for basic development)
+cp .env.example .env.local
+# Edit .env.local with your values (see ENVIRONMENT.md for details)
 
 # Start development server
 npm run dev
 # → http://localhost:8080
 ```
+
+**First time setup?** See [ENVIRONMENT.md](./ENVIRONMENT.md) for detailed configuration guide.
 
 ### 📋 Available Scripts
 
@@ -83,12 +86,46 @@ npm run dev
 - `npm run loadtest:smoke` - Quick smoke test (5 users, 1 min)
 - `npm run loadtest:baseline` - Baseline performance test (10-50 users, 5 min)
 
+### 🔧 Troubleshooting
+
+**Build fails or dependencies won't install:**
+```bash
+# Clear npm cache and reinstall
+rm -rf node_modules package-lock.json
+npm cache clean --force
+npm install
+```
+
+**Environment variable issues:**
+- See [ENVIRONMENT.md](./ENVIRONMENT.md) for detailed setup
+- Make sure `.env.local` exists (copy from `.env.example`)
+- Restart dev server after changing `VITE_*` variables
+
+**API routes not working:**
+- Check that `BLOB_READ_WRITE_TOKEN` is set in `.env.local`
+- API routes require Vercel Blob Storage in production
+
+**Analytics not tracking:**
+- PostHog requires `VITE_POSTHOG_KEY` in environment
+- Analytics are optional and will gracefully disable if not configured
+
+**Port already in use:**
+```bash
+# Use a different port
+npm run dev -- --port 3000
+```
+
+For more help, check existing [issues](https://github.com/SanGoku95/presidential-punch-peru/issues) or open a new one.
+
 ### 📖 Documentation
 
 - **[Developer Guide](./dev.md)** - Comprehensive technical documentation
+- **[Environment Setup](./ENVIRONMENT.md)** - Environment variables configuration guide
 - **[Component Architecture](./dev.md#component-architecture)** - UI component organization
 - **[Design System](./dev.md#design-system--theme)** - 90s gaming theme details
 - **[Load Testing Plan](./docs/load-testing.md)** - Load testing strategy and procedures
+- **[Security Policy](./SECURITY.md)** - Vulnerability reporting and security guidelines
+- **[License & Attributions](./NOTICE)** - Third-party licenses and acknowledgments
 
 ### 🤝 Contributing
 
@@ -109,7 +146,7 @@ We welcome contributions from the community! This is an open source project that
 - ✅ Test your changes locally before submitting
 
 **Ways to Contribute:**
-- 🐛 Report bugs or suggest features via [Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
+- 🐛 Report bugs or suggest features via [Issues](https://github.com/SanGoku95/presidential-punch-peru/issues)
 - 📊 Help verify and update candidate data
 - 🌐 Improve translations (Spanish/English)
 - 💻 Contribute code improvements
@@ -122,6 +159,8 @@ We welcome contributions from the community! This is an open source project that
 Web moderna para informar sobre los distintos candidatos, sus posiciones políticas, propuestas, y trajectorias.
 
 > 🗳️ **Protocolo de Hechos**: Este proyecto sigue un protocolo riguroso de hechos verificables. Cada dato es rastreable hasta fuentes primarias y se presenta con marcas de tiempo, contexto y procedimientos de verificación.
+> 
+> ⚖️ **Descargo de Responsabilidad**: Esta es una plataforma de información independiente y no partidista. Nos esforzamos por la precisión y neutralidad, presentando hechos verificables de fuentes públicas. Toda la información debe ser verificada de forma independiente. No estamos afiliados a ningún partido político ni candidato.
 
 ### ✨ Características Principales
 
@@ -153,7 +192,7 @@ Tratamos esta herramienta cívica como un videojuego de pelea. Para mantener el 
 
 ```bash
 # Clonar e instalar
-git clone https://github.com/Italosayan/presidential-punch-peru.git
+git clone https://github.com/SanGoku95/presidential-punch-peru.git
 cd presidential-punch-peru
 npm install
 
@@ -197,7 +236,7 @@ npm run dev
 - ✅ Prueba tus cambios localmente antes de enviar
 
 **Formas de Contribuir:**
-- 🐛 Reportar bugs o sugerir características vía [Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
+- 🐛 Reportar bugs o sugerir características vía [Issues](https://github.com/SanGoku95/presidential-punch-peru/issues)
 - 📊 Ayudar a verificar y actualizar datos de candidatos
 - 🌐 Mejorar traducciones (Español/Inglés)
 - 💻 Contribuir mejoras de código
@@ -209,14 +248,14 @@ Este proyecto está bajo la Licencia Apache 2.0. Consulta el archivo [LICENSE](L
 
 ## 🙏 Reconocimientos
 
-- Gracias a todos los [contribuidores](https://github.com/Italosayan/presidential-punch-peru/contributors) que han ayudado a hacer este proyecto posible
+- Gracias a todos los [contribuidores](https://github.com/SanGoku95/presidential-punch-peru/contributors) que han ayudado a hacer este proyecto posible
 - Información de candidatos basada en fuentes públicas y verificables
 - Inspirado en la necesidad de transparencia democrática en el Perú
 
 ## 📞 Contacto & Comunidad
 
-- 🐛 **Issues**: [GitHub Issues](https://github.com/Italosayan/presidential-punch-peru/issues)
-- 💬 **Discusiones**: [GitHub Discussions](https://github.com/Italosayan/presidential-punch-peru/discussions)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/SanGoku95/presidential-punch-peru/issues)
+- 💬 **Discusiones**: [GitHub Discussions](https://github.com/SanGoku95/presidential-punch-peru/discussions)
 
 ### 🗂️ Datos & Fuentes
 
@@ -226,7 +265,7 @@ Toda la información de candidatos en este proyecto proviene de fuentes verifica
 - **Transparencia** en nuestros métodos de recolección de datos
 - **Actualizaciones regulares** para mantener la información actualizada
 
-Si encuentras información inexacta, por favor [abre un issue de datos](https://github.com/Italosayan/presidential-punch-peru/issues/new?template=data_update.md) con fuentes apropiadas.
+Si encuentras información inexacta, por favor [abre un issue de datos](https://github.com/SanGoku95/presidential-punch-peru/issues/new?template=data_update.md) con fuentes apropiadas.
 
 ---
 
