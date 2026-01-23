@@ -13,12 +13,14 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import GavelIcon from '@mui/icons-material/Gavel';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const navItems = [
   { text: 'Inicio', path: '/', icon: <HomeIcon /> },
+  { text: 'Jugar', path: '/jugar', icon: <SportsEsportsIcon /> },
   { text: 'Comparador', path: '/compare', icon: <CompareArrowsIcon /> },
   { text: 'Mapa Político', path: '/compass', icon: <GavelIcon /> },
   { text: 'Acerca de', path: '/about', icon: <InfoOutlinedIcon /> },
