@@ -7,7 +7,7 @@ export interface Educacion {
 }
 
 export const educacion: Record<string, Educacion> = {
-  'pablo-lopez chau': {
+  'lopez-chau': {
     basica: { primaria: 'Sí', secundaria: 'Sí' },
     universitaria: [
       { universidad: 'Universidad Nacional del Callao', carrera: 'Economista', año: 'None' },
@@ -39,7 +39,7 @@ export const educacion: Record<string, Educacion> = {
     ],
   },
   'cesar-acuna': {
-    basica: { primaria: 'No', secundaria: 'No' },
+    basica: { primaria: 'Si', secundaria: 'Sí' },
     universitaria: [
       { universidad: 'Universidad Nacional de Trujillo', carrera: 'Bachiller en Ingenieria Quimica', año: 'None' },
       { universidad: 'Universidad Nacional de Trujillo', carrera: 'Ingeniero Quimico', año: '1995' },
@@ -70,7 +70,7 @@ export const educacion: Record<string, Educacion> = {
       { tipo: 'Maestría', institucion: 'Universidad de Chile', especialidad: 'Grado de Magíster en Derecho (grado de Maestro)', año: '2022' },
     ],
   },
-  'alvaro-paz de la barra': {
+  'alvaro-paz': {
     basica: { primaria: 'Sí', secundaria: 'Sí' },
     universitaria: [
       { universidad: 'Universidad de San Martín de Porres', carrera: 'Bachiller en Derecho', año: '2007' },
@@ -298,7 +298,7 @@ export const educacion: Record<string, Educacion> = {
       { universidad: 'Universidad de San Martín de Porres', carrera: 'Bachiller en Derecho', año: '1995' },
     ],
     postgrado: [
-      { tipo: 'Doctorado', institucion: 'Pontificia Universidad Catolica del Peru', especialidad: 'Maestria en Derecho Constitucional', año: 'None' },
+      { tipo: 'Maestría', institucion: 'Pontificia Universidad Catolica del Peru', especialidad: 'Maestria en Derecho Constitucional', año: 'None' },
     ],
   },
   'walter-chirinos': {
@@ -318,10 +318,10 @@ export const educacion: Record<string, Educacion> = {
       { universidad: 'Universidad de San Martín de Porres', carrera: 'Abogado', año: '2009' },
     ],
     postgrado: [
-      { tipo: 'Doctorado', institucion: 'Instituto de Gobierno y Gestión Publica Universidad San Martin de Porres', especialidad: 'Gobierno y Gestión Publica', año: 'None' },
+      { tipo: 'Diplomado', institucion: 'Instituto de Gobierno y Gestión Publica Universidad San Martin de Porres', especialidad: 'Gobierno y Gestión Publica', año: 'None' },
     ],
   },
-  'rafael-lopez aliaga': {
+  'rafael-lopezaliaga': {
     basica: { primaria: 'Sí', secundaria: 'Sí' },
     universitaria: [
       { universidad: 'Universidad de Piura', carrera: 'Ingeniero Industrial', año: '1995' },

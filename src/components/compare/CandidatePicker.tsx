@@ -2,8 +2,6 @@ import { useCompareStore } from '@/store/useCompareStore';
 import { cn } from '@/lib/utils';
 import { listCandidates } from '@/data';
 import type { CandidateBase } from '@/data/types';
-import { Plus } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export function CandidatePicker() {
   const {
@@ -71,36 +69,32 @@ export function CandidatePicker() {
     );
   };
 
+  const statusText =
+    leftCandidate && rightCandidate ? 'Listo' : leftCandidate || rightCandidate ? 'Falta 1' : 'Elige 2';
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-30 lg:static w-full border-t-2 border-border bg-background/80 backdrop-blur-sm lg:flex-shrink-0 lg:h-auto">
       <div className="container mx-auto px-2 py-1 lg:px-3 lg:py-2">
-        {/* Header with instructions */}
+        {/* Header (compact) */}
         <div className="flex items-center justify-between mb-1 lg:mb-2">
-          <div>
-            <h2 className="text-xs lg:text-base font-bold flex items-baseline">
-              <span>Candidatos:</span>
-              <span className="text-[0.65rem] lg:text-sm text-muted-foreground font-normal ml-1 lg:ml-2">
-                {!leftCandidate && !rightCandidate 
-                  ? "Elige dos para comparar" 
-                  : leftCandidate && rightCandidate 
-                  ? "Haz clic para cambiar." 
-                  : "Elige el segundo candidato"}
-              </span>
-            </h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-xs lg:text-sm font-bold">Candidatos</h2>
+            <span className={cn(
+              "text-[10px] lg:text-xs font-semibold rounded-full px-2 py-0.5 border",
+              leftCandidate && rightCandidate
+                ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                : "border-muted-foreground/20 bg-muted/30 text-muted-foreground"
+            )}>
+              {statusText}
+            </span>
           </div>
-          
-          {/* VS Indicator (Desktop) */}
+
+          {/* keep VS only when both selected (already minimal) */}
           {leftCandidate && rightCandidate && (
-            <div className="hidden lg:flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <img src={leftCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />
-                <span className="text-sm font-semibold">{leftCandidate.nombre.split(' ')[0]}</span>
-              </div>
-              <div className="fighting-game-vs">VS</div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold">{rightCandidate.nombre.split(' ')[0]}</span>
-                <img src={rightCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />
-              </div>
+            <div className="hidden lg:flex items-center gap-3">
+              <img src={leftCandidate.headshot} alt="" className="w-7 h-7 rounded-full" />
+              <div className="fighting-game-vs text-sm">VS</div>
+              <img src={rightCandidate.headshot} alt="" className="w-7 h-7 rounded-full" />
             </div>
           )}
         </div>
@@ -110,25 +104,6 @@ export function CandidatePicker() {
           className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-1 sm:gap-1.5 md:gap-2 max-h-[18vh] sm:max-h-[25vh] lg:max-h-[30vh] overflow-y-auto pr-1 pb-1"
         >
           {listCandidates().map(renderCandidateButton)}
-          
-          {/* Placeholder for upcoming candidates */}
-          <Link
-            to="/#apoyar"
-            className={cn(
-              "relative aspect-square",
-              "overflow-hidden rounded-md",
-              "w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16",
-              "bg-muted/30 border-2 border-dashed border-muted-foreground/30",
-              "flex items-center justify-center",
-              "opacity-60 hover:opacity-100 hover:border-muted-foreground/50 transition-all duration-200",
-              "hover:scale-105 active:scale-95",
-              "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-            )}
-            aria-label="Apoya el proyecto - Ayúdanos a agregar más candidatos"
-            title="Apoya el proyecto"
-          >
-            <Plus className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-muted-foreground" />
-          </Link>
         </div>
       </div>
     </div>

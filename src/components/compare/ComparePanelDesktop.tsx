@@ -1,54 +1,116 @@
 import { motion } from 'framer-motion';
 import type { CandidateBase } from '@/data/types';
-import { getCandidateProfile } from '@/data';
-import { TagPill } from '../common/TagPill';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
-import { SocialIcon } from '../common/SocialIcon';
 import { CandidateAvatar } from '../candidate/CandidateAvatar';
 import { PlayerIndicator } from '../common/PlayerIndicator';
-import { type SocialPlatformType } from '@/lib/constants';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Shield, Briefcase, Power, Radio, Sparkles, AlertTriangle, GraduationCap, Building2, Landmark, Flag } from 'lucide-react';
 import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
-import { trayectorias } from '@/data/domains/trayectorias';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Briefcase, GraduationCap, Banknote, Home, Car, Package, Gavel, Check, X, ArrowUpRight } from 'lucide-react';
 
-import { InfoBadge } from './InfoBadge';
-import { severityProps, legalProps, severityHelp, legalHelp } from './controversy-utils';
+import { educacion } from '@/data/domains/educacion';
+import { experienciaLaboral } from '@/data/domains/experienciaLaboral';
+import { ingresos } from '@/data/domains/ingresos';
+import { propiedades } from '@/data/domains/propiedades';
+import { sentencias } from '@/data/domains/sentencias';
 
 interface CandidateFactSheetProps {
   candidate: CandidateBase | null;
   side: CandidateSide;
-  openSection: string | null; // Shared state for open accordion section
-  setOpenSection: (section: string | null) => void; // Setter for shared state
+  openSection: string | null;
+  setOpenSection: (section: string | null) => void;
+}
+
+const formatYear = (y?: string) => (!y || y === 'None' ? '—' : y);
+
+const formatMoneyCompact = (n?: number) => {
+  if (typeof n !== 'number' || Number.isNaN(n)) return '—';
+  return new Intl.NumberFormat('es-PE', {
+    style: 'currency',
+    currency: 'PEN',
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  }).format(n);
+};
+
+const getLatestIngreso = (candidateId: string) => {
+  const rows = ingresos[candidateId] ?? [];
+  if (!rows.length) return null;
+  return rows.slice().sort((a, b) => Number(b.año) - Number(a.año))[0] ?? null;
+};
+
+function MiniBar({ a, b, aClass, bClass }: { a: number; b: number; aClass: string; bClass: string }) {
+  const total = a + b;
+  const aPct = total > 0 ? Math.round((a / total) * 100) : 0;
+  const bPct = total > 0 ? 100 - aPct : 0;
+  return (
+    <div className="h-2 w-full rounded-full overflow-hidden bg-muted/40">
+      <div className="h-full flex">
+        <div className={cn('h-full', aClass)} style={{ width: `${aPct}%` }} />
+        <div className={cn('h-full', bClass)} style={{ width: `${bPct}%` }} />
+      </div>
+    </div>
+  );
+}
+
+function StatTile({
+  icon,
+  label,
+  value,
+  sub,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: React.ReactNode;
+  sub?: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-lg border border-border/60 bg-muted/20 p-2">
+      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <span className="opacity-80">{icon}</span>
+        <span className="uppercase tracking-wide">{label}</span>
+      </div>
+      <div className="mt-1 text-sm font-semibold leading-tight">{value}</div>
+      {sub ? <div className="mt-0.5 text-xs text-muted-foreground line-clamp-2">{sub}</div> : null}
+    </div>
+  );
+}
+
+// Link al perfil con hash
+function ProfileLink({ candidateId, hash, children }: { candidateId: string; hash: string; children?: React.ReactNode }) {
+  return (
+    <Link
+      to={`/candidate/${candidateId}#${hash}`}
+      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary mt-2"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {children ?? 'Ver más'} <ArrowUpRight size={12} />
+    </Link>
+  );
 }
 
 export function CandidateFactSheet({ candidate, side, openSection, setOpenSection }: CandidateFactSheetProps) {
   const config = PLAYER_INDICATORS[side];
-  const profile = candidate ? getCandidateProfile(candidate.id) : null;
-  
+
   if (!candidate) {
     return (
-      <Card className={cn("h-full border-l-4 fighting-game-card", config.borderColor)}>
+      <Card className={cn('h-full border-l-4 fighting-game-card', config.borderColor)}>
         <CardContent className="flex items-center justify-center h-full p-8">
           <div className="text-center text-muted-foreground">
             <PlayerIndicator side={side} size="lg" className="mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">
-              Candidato {config.number}
-            </h3>
+            <h3 className="text-lg font-semibold mb-2">Candidato {config.number}</h3>
             <p className="text-sm">Selecciona un candidato para comparar</p>
           </div>
         </CardContent>
       </Card>
     );
   }
+
+  const e = educacion[candidate.id];
+  const jobs = experienciaLaboral[candidate.id] ?? [];
+  const latestJob = jobs[0];
 
   return (
     <motion.div
@@ -58,7 +120,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className={cn("h-full border-l-4 fighting-game-card", config.borderColor)}>
+      <Card className={cn('h-full border-l-4 fighting-game-card', config.borderColor)}>
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="flex-1">
@@ -70,20 +132,19 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                   </Link>
                 </CardTitle>
               </div>
+
               <Badge className={`text-xs md:text-sm ${config.badgeColor}`}>
-                {candidate.ideologia}
+                {candidate.ideologia ?? '—'}
               </Badge>
             </div>
+
             {candidate.headshot ? (
-              <CandidateAvatar
-                src={candidate.headshot}
-                alt={`Retrato de ${candidate.nombre}`}
-              />
+              <CandidateAvatar src={candidate.headshot} alt={`Retrato de ${candidate.nombre}`} />
             ) : null}
           </div>
         </CardHeader>
-        
-        <CardContent className="space-y-4 pt-4">
+
+        <CardContent className="space-y-3 pt-4">
           <Accordion
             type="single"
             collapsible
@@ -91,195 +152,147 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
             value={openSection ?? undefined}
             onValueChange={(value) => setOpenSection(value ?? null)}
           >
-
-             {/* Trayectoria FIRST */}
-            <AccordionItem value="trayectoria">
+            <AccordionItem value="educacion">
               <AccordionTrigger className="text-base font-semibold">
-                <Briefcase size={16} className="mr-2" /> Trayectoria
+                <GraduationCap size={16} className="mr-2" /> Educación
               </AccordionTrigger>
               <AccordionContent>
                 {(() => {
-                  const t = trayectorias[candidate.id];
-                  if (!t) {
-                    return null;
-                  }
+                  const e2 = e;
+                  if (!e2) return <div className="pt-2 text-sm text-muted-foreground">Sin datos</div>;
+
+                  const primariaOk = (e2.basica?.primaria ?? '').toLowerCase() === 'sí';
+                  const secundariaOk = (e2.basica?.secundaria ?? '').toLowerCase() === 'sí';
+                  const topPost = e2.postgrado?.[0];
+                  const topUni = e2.universitaria?.[0];
+
                   return (
-                    <div className="pt-2 text-sm">
-                      <div className="flex flex-col divide-y divide-border/40 rounded-md overflow-hidden">
-                        <Link to={`/candidate/${candidate.id}#tray-educacion`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
-                          <div className="flex items-center gap-2 font-semibold">
-                            <GraduationCap size={14} className="opacity-80" />
-                            Educación
-                          </div>
-                          <div className="text-muted-foreground mt-0.5">{t.educacion.formacion}</div>
-                        </Link>
-
-                        <Link to={`/candidate/${candidate.id}#tray-privado`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
-                          <div className="flex items-center gap-2 font-semibold">
-                            <Building2 size={14} className="opacity-80" />
-                            Sector Privado
-                          </div>
-                          <div className="text-muted-foreground mt-0.5">{t.sector_privado.actividad}</div>
-                        </Link>
-
-                        <Link to={`/candidate/${candidate.id}#tray-publico`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
-                          <div className="flex items-center gap-2 font-semibold">
-                            <Landmark size={14} className="opacity-80" />
-                            Sector Público
-                          </div>
-                          <div className="text-muted-foreground mt-0.5">{t.sector_publico.cargos_roles ?? '—'}</div>
-                        </Link>
-
-                        <Link to={`/candidate/${candidate.id}#tray-politica`} className="p-2 hover:bg-muted/50 focus:bg-muted/60 focus:outline-none">
-                          <div className="flex items-center gap-2 font-semibold">
-                            <Flag size={14} className="opacity-80" />
-                            Política
-                          </div>
-                          <div className="text-muted-foreground mt-0.5">{t.politica.rol_accion}</div>
-                        </Link>
+                    <div className="pt-2 space-y-3">
+                      <div className="grid grid-cols-2 gap-2">
+                        <StatTile
+                          icon={<GraduationCap size={14} />}
+                          label="Primaria"
+                          value={primariaOk ? <Check size={14} className="text-emerald-500" /> : <X size={14} className="text-red-500" />}
+                        />
+                        <StatTile
+                          icon={<GraduationCap size={14} />}
+                          label="Secundaria"
+                          value={secundariaOk ? <Check size={14} className="text-emerald-500" /> : <X size={14} className="text-red-500" />}
+                        />
+                        <StatTile
+                          icon={<GraduationCap size={14} />}
+                          label="Títulos"
+                          value={`${(e2.universitaria?.length ?? 0) + (e2.postgrado?.length ?? 0)}`}
+                          sub={topPost ? `${topPost.tipo}` : topUni ? 'Universitario' : '—'}
+                        />
                       </div>
+                      <ProfileLink candidateId={candidate.id} hash="tray-educacion" />
                     </div>
                   );
                 })()}
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="creencias-clave">
+            <AccordionItem value="experiencia-laboral">
               <AccordionTrigger className="text-base font-semibold">
-                <Sparkles size={16} className="mr-2" /> Creencias
+                <Briefcase size={16} className="mr-2" /> Experiencia laboral
               </AccordionTrigger>
               <AccordionContent>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {(profile?.creenciasClave ?? []).map((creencia) => (
-                    <Link key={creencia.id} to={`/candidate/${candidate.id}#creencia-${creencia.id}`}>
-                      <TagPill variant="belief">
-                        {creencia.nombre}
-                      </TagPill>
-                    </Link>
-                  ))}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
+                {(() => {
+                  if (!jobs.length) return <div className="pt-2 text-sm text-muted-foreground">Sin datos</div>;
 
+                  return (
+                    <div className="pt-2 space-y-3">
+                      <StatTile
+                        icon={<Briefcase size={14} />}
+                        label="Cargos"
+                        value={jobs.length}
+                      />
 
-            <AccordionItem value="controversias">
-              <AccordionTrigger className="text-base font-semibold">
-                <AlertTriangle size={16} className="mr-2" /> Controversias
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-1 pt-2">
-                  {(() => {
-                    const controversies = profile?.controversias ?? [];
-                    return controversies.length > 0 ? (
-                      <>
-                        {controversies
-                          .slice()
-                          .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
-                          .slice(0, 3)
-                          .map((c) => {
-                            const s = severityProps(c.severidad);
-                            const l = legalProps(c.legal);
-                            return (
-                              <div key={c.id} className="block p-2 rounded-md hover:bg-muted/50">
-                                <Link to={`/candidate/${candidate.id}#controversia-${c.id}`} className="text-base font-sans font-medium hover:underline">
-                                  {c.titulo}
-                                </Link>
-                                <div className="flex flex-wrap gap-2 my-1">
-                                  <InfoBadge
-                                    className={s.className}
-                                    label={s.label}
-                                    description={<div><span className="font-semibold">Severidad:</span> {severityHelp(c.severidad)}</div>}
-                                  />
-                                  <InfoBadge
-                                    className={l.className}
-                                    label={l.label}
-                                    description={<div><span className="font-semibold">Estado legal:</span> {legalHelp(c.legal)}</div>}
-                                  />
-                                </div>
-                                <div className="text-sm text-muted-foreground">{c.descripcion}</div>
-                                <div className="text-xs text-muted-foreground mt-1">
-                                  <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="underline">Fuente</a>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        <Link
-                          to={`/candidate/${candidate.id}#controversias`}
-                          className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary mt-2"
-                        >
-                          Ver más
-                        </Link>
-                      </>
-                    ) : null;
-                  })()}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="proyecto-politico">
-              <AccordionTrigger className="text-base font-semibold">
-                <Shield size={16} className="mr-2" /> Agenda
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="pt-2">
-                  {profile?.proyectoPolitico ? (
-                    <>
-                      <Link to={`/candidate/${candidate.id}#proyecto-politico`} className="font-bold text-foreground hover:underline">{profile.proyectoPolitico.titulo}</Link>
-                      <p className="text-base font-sans text-muted-foreground leading-relaxed mt-1 line-clamp-4">
-                        {profile.proyectoPolitico.resumen}
-                      </p>
-                    </>
-                  ) : null}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="mapa-de-poder">
-              <AccordionTrigger className="text-base font-semibold">
-                <Power size={16} className="mr-2" /> Mapa de Poder
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-1 pt-2">
-                  {profile?.mapaDePoder?.alianzas?.length
-                    ? profile.mapaDePoder.alianzas.slice(0, 3).map((alianza) => (
-                        <Link
-                          to={`/candidate/${candidate.id}#mapa-de-poder`}
-                          key={alianza.nombre}
-                          className="block p-2 rounded-md hover:bg-muted/50"
-                        >
-                          <div className="text-base font-sans font-medium">{alianza.nombre}</div>
-                        </Link>
-                      ))
-                    : null}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="presencia-digital">
-              <AccordionTrigger className="text-base font-semibold">
-                <Radio size={16} className="mr-2" /> Redes
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-2 pt-2">
-                  {(profile?.presenciaDigital?.plataformas ?? []).map((platform) => (
-                    <a
-                      key={platform.nombre}
-                      href={platform.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Ver perfil de ${candidate.nombre} en ${platform.nombre}`}
-                      className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors"
-                    >
-                      <div className="text-muted-foreground">
-                        <SocialIcon platform={platform.nombre as SocialPlatformType} />
+                      {/* Últimos 2 cargos */}
+                      <div className="space-y-2">
+                        {jobs.slice(0, 2).map((job, idx) => (
+                          <div key={idx} className="rounded-md border border-border/50 bg-muted/10 p-2">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-xs font-semibold line-clamp-1">{job.puesto}</span>
+                              <span className="text-[10px] text-muted-foreground whitespace-nowrap">{job.periodo.slice(-4)}</span>
+                            </div>
+                            <div className="text-[11px] text-muted-foreground line-clamp-1">{job.empresa}</div>
+                          </div>
+                        ))}
                       </div>
-                      <div>
-                        <div className="font-medium capitalize text-base font-sans">{platform.nombre}</div>
-                        <div className="text-sm text-muted-foreground">{platform.handle}</div>
+
+                      <ProfileLink candidateId={candidate.id} hash="tray-experiencia" />
+                    </div>
+                  );
+                })()}
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="ingresos">
+              <AccordionTrigger className="text-base font-semibold">
+                <Banknote size={16} className="mr-2" /> Ingresos
+              </AccordionTrigger>
+              <AccordionContent>
+                {(() => {
+                  const row = getLatestIngreso(candidate.id);
+                  if (!row) return <div className="pt-2 text-sm text-muted-foreground">Sin datos</div>;
+
+                  return (
+                    <div className="pt-2 space-y-3">
+                      <div className="grid grid-cols-2 gap-2">
+                        <StatTile icon={<Banknote size={14} />} label="Total" value={formatMoneyCompact(row.total)} sub={`Año ${row.año}`} />
+                        <StatTile icon={<Banknote size={14} />} label="Mix" value={`${Math.round(((row.publico ?? 0) / (row.total || 1)) * 100)}% Pub`} />
                       </div>
-                    </a>
-                  ))}
-                </div>
+                      <MiniBar a={row.publico ?? 0} b={row.privado ?? 0} aClass="bg-sky-500/80" bClass="bg-fuchsia-500/80" />
+                      <ProfileLink candidateId={candidate.id} hash="patrimonio" />
+                    </div>
+                  );
+                })()}
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="propiedades">
+              <AccordionTrigger className="text-base font-semibold">
+                <Home size={16} className="mr-2" /> Propiedades
+              </AccordionTrigger>
+              <AccordionContent>
+                {(() => {
+                  const p = propiedades[candidate.id];
+                  if (!p) return <div className="pt-2 text-sm text-muted-foreground">Sin datos</div>;
+
+                  return (
+                    <div className="pt-2 space-y-3">
+                      <div className="grid grid-cols-3 gap-2">
+                        <StatTile icon={<Home size={14} />} label="Inm" value={p.inmuebles} />
+                        <StatTile icon={<Car size={14} />} label="Veh" value={p.vehiculos} />
+                        <StatTile icon={<Package size={14} />} label="Otros" value={p.otros} />
+                      </div>
+                      <ProfileLink candidateId={candidate.id} hash="patrimonio" />
+                    </div>
+                  );
+                })()}
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="sentencias">
+              <AccordionTrigger className="text-base font-semibold">
+                <Gavel size={16} className="mr-2" /> Sentencias
+              </AccordionTrigger>
+              <AccordionContent>
+                {(() => {
+                  const rows = sentencias[candidate.id] ?? [];
+                  const top = rows[0];
+                  return (
+                    <div className="pt-2 space-y-3">
+                      <div className="grid grid-cols-2 gap-2">
+                        <StatTile icon={<Gavel size={14} />} label="Total" value={`${rows.length}`} sub={rows.length ? 'Ver detalle' : 'Sin registro'} />
+                        <StatTile icon={<Gavel size={14} />} label="Última" value={top ? formatYear(top.año) : '—'} sub={top ? top.fallo : '—'} />
+                      </div>
+                      <ProfileLink candidateId={candidate.id} hash="sentencias" />
+                    </div>
+                  );
+                })()}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
