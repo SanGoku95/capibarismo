@@ -39,7 +39,7 @@ export const educacion: Record<string, Educacion> = {
     ],
   },
   'cesar-acuna': {
-    basica: { primaria: 'Si', secundaria: 'Sí' },
+    basica: { primaria: 'Sí', secundaria: 'Sí' },
     universitaria: [
       { universidad: 'Universidad Nacional de Trujillo', carrera: 'Bachiller en Ingenieria Quimica', año: 'None' },
       { universidad: 'Universidad Nacional de Trujillo', carrera: 'Ingeniero Quimico', año: '1995' },
