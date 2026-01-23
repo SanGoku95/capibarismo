@@ -71,7 +71,7 @@ function MiniBar({ a, b, aClass, bClass }: { a: number; b: number; aClass: strin
   );
 }
 
-function Stat({
+function MetricRow({
   icon,
   label,
   value,
@@ -83,13 +83,29 @@ function Stat({
   sub?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg bg-white/5 border border-white/10 p-2">
-      <div className="flex items-center gap-2">
-        <div className="opacity-90">{icon}</div>
-        <div className="text-[10px] uppercase tracking-wide text-white/70">{label}</div>
+    <div className="rounded-md border border-white/10 bg-white/5 px-2.5 py-2 overflow-hidden">
+      <div className="flex items-center justify-between gap-3 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-white/80 flex-shrink-0">{icon}</span>
+          <span className="text-[11px] text-white/70 font-semibold truncate">{label}</span>
+        </div>
+        <span className="text-sm font-bold text-white truncate tabular-nums">{value}</span>
       </div>
-      <div className="mt-1 text-sm font-semibold leading-tight">{value}</div>
-      {sub ? <div className="mt-0.5 text-[11px] text-white/70 line-clamp-2">{sub}</div> : null}
+      {sub ? (
+        <div className="mt-1 text-[11px] leading-snug text-white/65 line-clamp-2 break-words">
+          {sub}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function CountChip({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
+  return (
+    <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2 py-1 min-w-0">
+      <span className="text-white/75 flex-shrink-0">{icon}</span>
+      <span className="text-[10px] text-white/65 font-semibold truncate">{label}</span>
+      <span className="ml-auto text-xs font-bold text-white tabular-nums">{value}</span>
     </div>
   );
 }
@@ -140,11 +156,11 @@ const ComparisonSection = memo(function ComparisonSection({
       <h3 className="section-title text-sm font-bold mb-3 text-center tracking-wide uppercase opacity-90">
         {title}
       </h3>
-      <div className={UI_CLASSES.GRID_TWO_COLS}>
+
+      <div className={cn('grid grid-cols-1 min-[360px]:grid-cols-2 gap-3', UI_CLASSES.BREAK_WORDS)}>
         <div
           className={cn(
-            'p-3 md:p-4 rounded-lg',
-            UI_CLASSES.BREAK_WORDS,
+            'p-3 md:p-4 rounded-lg min-w-0',
             hasLeftCandidate ? `${leftConfig.panelColor} text-white` : 'bg-muted/20 border border-muted text-muted-foreground italic'
           )}
         >
@@ -152,8 +168,7 @@ const ComparisonSection = memo(function ComparisonSection({
         </div>
         <div
           className={cn(
-            'p-3 md:p-4 rounded-lg',
-            UI_CLASSES.BREAK_WORDS,
+            'p-3 md:p-4 rounded-lg min-w-0',
             hasRightCandidate ? `${rightConfig.panelColor} text-white` : 'bg-muted/20 border border-muted text-muted-foreground italic'
           )}
         >
@@ -174,29 +189,33 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
     const primariaOk = (e.basica?.primaria ?? '').toLowerCase() === 'sí';
     const secundariaOk = (e.basica?.secundaria ?? '').toLowerCase() === 'sí';
 
+    const uniCount = e.universitaria?.length ?? 0;
+    const postCount = e.postgrado?.length ?? 0;
+
     const topPost = e.postgrado?.[0];
     const topUni = e.universitaria?.[0];
 
     return (
-      <div className="grid grid-cols-2 gap-2">
-        <Stat
+      <div className="space-y-2">
+        <MetricRow
           icon={<GraduationCap size={14} />}
           label="Básica"
           value={
-            <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-3">
               <span className="inline-flex items-center gap-1 text-xs">
-                {primariaOk ? <Check size={14} /> : <X size={14} />} <span className="text-white/70">Pri</span>
+                {primariaOk ? <Check size={14} /> : <X size={14} />} <span className="text-white/60">Pri</span>
               </span>
               <span className="inline-flex items-center gap-1 text-xs">
-                {secundariaOk ? <Check size={14} /> : <X size={14} />} <span className="text-white/70">Sec</span>
+                {secundariaOk ? <Check size={14} /> : <X size={14} />} <span className="text-white/60">Sec</span>
               </span>
-            </div>
+            </span>
           }
         />
-        <Stat
+
+        <MetricRow
           icon={<GraduationCap size={14} />}
           label="Registros"
-          value={`${(e.universitaria?.length ?? 0)} Uni · ${(e.postgrado?.length ?? 0)} Post`}
+          value={`${uniCount + postCount}`}
           sub={
             topPost
               ? `${topPost.tipo}: ${topPost.institucion} (${formatYear(topPost.año)})`
@@ -212,10 +231,21 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
   const renderExperiencia = (candidateId: string) => {
     const jobs = experienciaLaboral[candidateId] ?? [];
     const top = jobs[0];
+
     return (
-      <div className="grid grid-cols-2 gap-2">
-        <Stat icon={<Briefcase size={14} />} label="Cargos" value={`${jobs.length}`} sub={top ? `${top.puesto}` : 'Sin datos'} />
-        <Stat icon={<Briefcase size={14} />} label="Más reciente" value={top ? top.periodo : '—'} sub={top ? top.empresa : '—'} />
+      <div className="space-y-2">
+        <MetricRow
+          icon={<Briefcase size={14} />}
+          label="Cargos"
+          value={jobs.length}
+          sub={top ? top.puesto : 'Sin datos'}
+        />
+        <MetricRow
+          icon={<Briefcase size={14} />}
+          label="Más reciente"
+          value={top ? top.periodo.slice(-4) : '—'}
+          sub={top ? top.empresa : '—'}
+        />
       </div>
     );
   };
@@ -223,16 +253,33 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
   const renderIngresos = (candidateId: string) => {
     const row = getLatestIngreso(candidateId);
     if (!row) return <div className="text-sm text-white/70">Sin datos</div>;
+
+    const pub = row.publico ?? 0;
+    const priv = row.privado ?? 0;
+    const total = row.total || 0;
+    const pubPct = total > 0 ? Math.round((pub / total) * 100) : 0;
+
     return (
       <div className="space-y-2">
-        <div className="grid grid-cols-2 gap-2">
-          <Stat icon={<Banknote size={14} />} label="Total" value={formatMoneyCompact(row.total)} sub={`Año ${row.año}`} />
-          <Stat icon={<Banknote size={14} />} label="Mix" value={`${Math.round(((row.publico ?? 0) / (row.total || 1)) * 100)}% Pub`} sub={`${Math.round(((row.privado ?? 0) / (row.total || 1)) * 100)}% Priv`} />
-        </div>
-        <MiniBar a={row.publico ?? 0} b={row.privado ?? 0} aClass="bg-sky-500/80" bClass="bg-fuchsia-500/80" />
-        <div className="flex justify-between text-[11px] text-white/70">
-          <span>Púb: {formatMoneyCompact(row.publico)}</span>
-          <span>Priv: {formatMoneyCompact(row.privado)}</span>
+        <MetricRow
+          icon={<Banknote size={14} />}
+          label="Total"
+          value={formatMoneyCompact(row.total)}
+          sub={`Año ${row.año}`}
+        />
+
+        <div className="rounded-md border border-white/10 bg-white/5 px-2.5 py-2">
+          <div className="flex items-center justify-between text-[11px] text-white/65">
+            <span>Púb {pubPct}%</span>
+            <span>Priv {100 - pubPct}%</span>
+          </div>
+          <div className="mt-1">
+            <MiniBar a={pub} b={priv} aClass="bg-sky-500/80" bClass="bg-fuchsia-500/80" />
+          </div>
+          <div className="mt-1 flex justify-between text-[11px] text-white/65">
+            <span className="truncate max-w-[48%]">Púb: {formatMoneyCompact(row.publico)}</span>
+            <span className="truncate max-w-[48%] text-right">Priv: {formatMoneyCompact(row.privado)}</span>
+          </div>
         </div>
       </div>
     );
@@ -241,11 +288,12 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
   const renderPropiedades = (candidateId: string) => {
     const p = propiedades[candidateId];
     if (!p) return <div className="text-sm text-white/70">Sin datos</div>;
+
     return (
-      <div className="grid grid-cols-3 gap-2">
-        <Stat icon={<Home size={14} />} label="Inm" value={p.inmuebles} />
-        <Stat icon={<Car size={14} />} label="Veh" value={p.vehiculos} />
-        <Stat icon={<Package size={14} />} label="Otros" value={p.otros} />
+      <div className="flex flex-wrap gap-2">
+        <CountChip icon={<Home size={14} />} label="Inm" value={p.inmuebles} />
+        <CountChip icon={<Car size={14} />} label="Veh" value={p.vehiculos} />
+        <CountChip icon={<Package size={14} />} label="Otros" value={p.otros} />
       </div>
     );
   };
@@ -253,10 +301,16 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
   const renderSentencias = (candidateId: string) => {
     const rows = sentencias[candidateId] ?? [];
     const top = rows[0];
+
     return (
-      <div className="grid grid-cols-2 gap-2">
-        <Stat icon={<Gavel size={14} />} label="Registros" value={`${rows.length}`} sub={rows.length ? 'Ver detalle en perfil' : 'Sin registro'} />
-        <Stat
+      <div className="space-y-2">
+        <MetricRow
+          icon={<Gavel size={14} />}
+          label="Registros"
+          value={rows.length}
+          sub={rows.length ? 'Detalle en perfil' : 'Sin registro'}
+        />
+        <MetricRow
           icon={<Gavel size={14} />}
           label="Última"
           value={top ? formatYear(top.año) : '—'}

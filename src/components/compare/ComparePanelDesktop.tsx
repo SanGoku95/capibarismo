@@ -41,35 +41,6 @@ const getLatestIngreso = (candidateId: string) => {
   return rows.slice().sort((a, b) => Number(b.año) - Number(a.año))[0] ?? null;
 };
 
-function SummaryPill({
-  icon,
-  label,
-  value,
-  tone = 'neutral',
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: React.ReactNode;
-  tone?: 'neutral' | 'good' | 'warn';
-}) {
-  const toneClass =
-    tone === 'good'
-      ? 'border-emerald-500/25 bg-emerald-500/10 text-emerald-300'
-      : tone === 'warn'
-        ? 'border-rose-500/25 bg-rose-500/10 text-rose-200'
-        : 'border-border/60 bg-muted/20 text-muted-foreground';
-
-  return (
-    <div className={cn('rounded-md border px-2 py-1 flex items-center justify-between gap-2 text-xs', toneClass)}>
-      <span className="inline-flex items-center gap-1">
-        <span className="opacity-80">{icon}</span>
-        <span className="font-semibold">{label}</span>
-      </span>
-      <span className="font-semibold tabular-nums">{value}</span>
-    </div>
-  );
-}
-
 function MiniBar({ a, b, aClass, bClass }: { a: number; b: number; aClass: string; bClass: string }) {
   const total = a + b;
   const aPct = total > 0 ? Math.round((a / total) * 100) : 0;
@@ -125,17 +96,8 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
   }
 
   const e = educacion[candidate.id];
-  const eduScore = (e?.universitaria?.length ?? 0) + (e?.postgrado?.length ?? 0);
-
   const jobs = experienciaLaboral[candidate.id] ?? [];
   const latestJob = jobs[0];
-
-  const inc = getLatestIngreso(candidate.id);
-  const props = propiedades[candidate.id];
-  const propTotal = props ? (props.inmuebles ?? 0) + (props.vehiculos ?? 0) + (props.otros ?? 0) : 0;
-
-  const sents = sentencias[candidate.id] ?? [];
-  const sentTone: 'good' | 'warn' = sents.length > 0 ? 'warn' : 'good';
 
   return (
     <motion.div
@@ -170,15 +132,6 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
         </CardHeader>
 
         <CardContent className="space-y-3 pt-4">
-          {/* Summary (candidate-specific, scan-first) */}
-          <div className="grid grid-cols-5 gap-2">
-            <SummaryPill icon={<GraduationCap size={14} />} label="Edu" value={eduScore} />
-            <SummaryPill icon={<Briefcase size={14} />} label="Exp" value={jobs.length} />
-            <SummaryPill icon={<Banknote size={14} />} label="Ing" value={inc ? formatMoneyCompact(inc.total) : '—'} />
-            <SummaryPill icon={<Home size={14} />} label="Prop" value={props ? propTotal : '—'} />
-            <SummaryPill icon={<Gavel size={14} />} label="Sent" value={sents.length} tone={sentTone} />
-          </div>
-
           <Accordion
             type="single"
             collapsible
