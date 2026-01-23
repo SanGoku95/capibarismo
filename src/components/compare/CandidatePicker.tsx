@@ -2,8 +2,6 @@ import { useCompareStore } from '@/store/useCompareStore';
 import { cn } from '@/lib/utils';
 import { listCandidates } from '@/data';
 import type { CandidateBase } from '@/data/types';
-import { Plus } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export function CandidatePicker() {
   const {
@@ -106,25 +104,6 @@ export function CandidatePicker() {
           className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-1 sm:gap-1.5 md:gap-2 max-h-[18vh] sm:max-h-[25vh] lg:max-h-[30vh] overflow-y-auto pr-1 pb-1"
         >
           {listCandidates().map(renderCandidateButton)}
-          
-          {/* Placeholder for upcoming candidates */}
-          <Link
-            to="/#apoyar"
-            className={cn(
-              "relative aspect-square",
-              "overflow-hidden rounded-md",
-              "w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16",
-              "bg-muted/30 border-2 border-dashed border-muted-foreground/30",
-              "flex items-center justify-center",
-              "opacity-60 hover:opacity-100 hover:border-muted-foreground/50 transition-all duration-200",
-              "hover:scale-105 active:scale-95",
-              "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-            )}
-            aria-label="Apoya el proyecto - Ayúdanos a agregar más candidatos"
-            title="Apoya el proyecto"
-          >
-            <Plus className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-muted-foreground" />
-          </Link>
         </div>
       </div>
     </div>
