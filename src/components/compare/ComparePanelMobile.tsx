@@ -260,16 +260,25 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
       <div className="space-y-2">
         <MetricRow
           icon={<Briefcase size={14} />}
-          label="Cargos"
+          label="Total cargos"
           value={jobs.length}
-          sub={top ? top.puesto : 'Sin datos'}
         />
-        <MetricRow
-          icon={<Briefcase size={14} />}
-          label="Más reciente"
-          value={top ? top.periodo.slice(-4) : '—'}
-          sub={top ? top.empresa : '—'}
-        />
+        {top && (
+          <MetricRow
+            icon={<Briefcase size={14} />}
+            label="Más reciente"
+            value={top.periodo.slice(-4)}
+            sub={`${top.puesto} · ${top.empresa}`}
+          />
+        )}
+        {!top && (
+          <MetricRow
+            icon={<Briefcase size={14} />}
+            label="Más reciente"
+            value="—"
+            sub="Sin datos"
+          />
+        )}
       </div>
     );
   };
