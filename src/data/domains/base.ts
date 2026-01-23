@@ -184,7 +184,7 @@ export const base: Record<string, CandidateBase> = {
   'george-forsyth': {
     id: 'george-forsyth',
     nombre: 'George Forsyth',
-    ideologia: 'centro',
+    ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Democratico Somos Peru',
     partyIcon: '/iconos_partidos/george-forsyth.jpg',
     headshot: '/fotos_candidatos/george-forsyth/george-forsyth_headshot.jpg',
