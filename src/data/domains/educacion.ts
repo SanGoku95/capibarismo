@@ -298,7 +298,7 @@ export const educacion: Record<string, Educacion> = {
       { universidad: 'Universidad de San Martín de Porres', carrera: 'Bachiller en Derecho', año: '1995' },
     ],
     postgrado: [
-      { tipo: 'Doctorado', institucion: 'Pontificia Universidad Catolica del Peru', especialidad: 'Maestria en Derecho Constitucional', año: 'None' },
+      { tipo: 'Maestría', institucion: 'Pontificia Universidad Catolica del Peru', especialidad: 'Maestria en Derecho Constitucional', año: 'None' },
     ],
   },
   'walter-chirinos': {
@@ -318,7 +318,7 @@ export const educacion: Record<string, Educacion> = {
       { universidad: 'Universidad de San Martín de Porres', carrera: 'Abogado', año: '2009' },
     ],
     postgrado: [
-      { tipo: 'Doctorado', institucion: 'Instituto de Gobierno y Gestión Publica Universidad San Martin de Porres', especialidad: 'Gobierno y Gestión Publica', año: 'None' },
+      { tipo: 'Diplomado', institucion: 'Instituto de Gobierno y Gestión Publica Universidad San Martin de Porres', especialidad: 'Gobierno y Gestión Publica', año: 'None' },
     ],
   },
   'rafael-lopezaliaga': {
