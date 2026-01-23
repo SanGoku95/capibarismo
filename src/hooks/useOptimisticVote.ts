@@ -1,6 +1,7 @@
 /**
  * Hook for handling vote submission with optimistic updates and rollback.
  * Manages vote count locally and syncs with the server.
+ * Also updates local Elo ratings for smart pair selection.
  */
 
 import { useCallback, useState, useEffect } from 'react';
@@ -29,18 +30,24 @@ export function useOptimisticVote(sessionId: string) {
       if (!pair) return;
       if (submitVoteMutation.isPending) return; // Prevent double votes
 
+      const winnerId = winner === 'A' ? pair.a.id : pair.b.id;
+      const loserId = winner === 'A' ? pair.b.id : pair.a.id;
+
       // Optimistic update - increment immediately
       const previousCount = localVoteCount;
       const nextCount = sessionService.incrementVoteCount();
       setLocalVoteCount(nextCount);
+
+      // Update local Elo ratings for smart pair selection
+      sessionService.updateLocalRatings(winnerId, loserId);
 
       // Track vote - deferred to avoid blocking INP
       // Properties are captured immediately to avoid stale closures
       captureDeferred(posthog, 'game_vote', {
         sessionId,
         pairId: pair.pairId,
-        winnerId: winner === 'A' ? pair.a.id : pair.b.id,
-        loserId: winner === 'A' ? pair.b.id : pair.a.id,
+        winnerId,
+        loserId,
         winner,
         voteNumber: nextCount,
       });
@@ -59,6 +66,8 @@ export function useOptimisticVote(sessionId: string) {
             // Roll back optimistic update
             sessionService.decrementVoteCount();
             setLocalVoteCount(previousCount);
+            // Note: We don't roll back local ratings as it's too complex
+            // and the user will likely vote again anyway
 
             console.error('Failed to submit vote:', error);
             toast.error(
