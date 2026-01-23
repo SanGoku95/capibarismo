@@ -59,25 +59,29 @@ export function VSScreen({ pair, onVote, isSubmitting }: VSScreenProps) {
       </div>
       
       {/* Candidates - side by side on all screens */}
-      <div className="w-full max-w-7xl grid grid-cols-2 gap-2 sm:gap-4 md:gap-8 lg:gap-16 items-center">
-        <AnimatePresence mode="popLayout">
-          <CandidateCard
-            key={pair.a.id}
-            candidate={pair.a}
-            side="left"
-            onSelect={() => onVote('A')}
-            disabled={isSubmitting}
-          />
-        </AnimatePresence>
-        
-        <AnimatePresence mode="popLayout">
-          <CandidateCard
-            key={pair.b.id}
-            candidate={pair.b}
-            side="right"
-            onSelect={() => onVote('B')}
-            disabled={isSubmitting}
-          />
+      <div className="relative w-full max-w-7xl">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={pair.pairId}
+            initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reducedMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
+            transition={{ duration: reducedMotion ? 0 : 0.15 }}
+            className="w-full grid grid-cols-2 gap-2 sm:gap-4 md:gap-8 lg:gap-16 items-center"
+          >
+            <CandidateCard
+              candidate={pair.a}
+              side="left"
+              onSelect={() => onVote('A')}
+              disabled={isSubmitting}
+            />
+            <CandidateCard
+              candidate={pair.b}
+              side="right"
+              onSelect={() => onVote('B')}
+              disabled={isSubmitting}
+            />
+          </motion.div>
         </AnimatePresence>
       </div>
       {/* Yape support button - mobile only */}
