@@ -192,7 +192,7 @@ export const trayectorias: Record<string, TrayectoriaEstructurada> = {
     },
     sector_publico: {
       cargos_roles: "Rector de la Universidad Nacional de Ingeniería",
-      periodo: "2021 - Presente",
+      periodo: "2021 - 2026",
       logros_controversias: "Defensa de la autonomía universitaria durante crisis política",
       territorio_ambito: "Nacional (Educación)",
     },

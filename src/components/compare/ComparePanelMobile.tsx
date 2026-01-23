@@ -33,6 +33,7 @@ interface CandidateComparisonGridProps {
 interface ComparisonSectionProps {
   title: string;
   sectionId: string;
+  profileHash: string; // Hash para navegar al perfil
   leftCandidate: CandidateBase | null;
   rightCandidate: CandidateBase | null;
   leftContent: React.ReactNode;
@@ -141,6 +142,7 @@ function SectionNav() {
 const ComparisonSection = memo(function ComparisonSection({
   title,
   sectionId,
+  profileHash,
   leftCandidate,
   rightCandidate,
   leftContent,
@@ -158,22 +160,49 @@ const ComparisonSection = memo(function ComparisonSection({
       </h3>
 
       <div className={cn('grid grid-cols-1 min-[360px]:grid-cols-2 gap-3', UI_CLASSES.BREAK_WORDS)}>
-        <div
-          className={cn(
-            'p-3 md:p-4 rounded-lg min-w-0',
-            hasLeftCandidate ? `${leftConfig.panelColor} text-white` : 'bg-muted/20 border border-muted text-muted-foreground italic'
-          )}
-        >
-          {leftContent}
-        </div>
-        <div
-          className={cn(
-            'p-3 md:p-4 rounded-lg min-w-0',
-            hasRightCandidate ? `${rightConfig.panelColor} text-white` : 'bg-muted/20 border border-muted text-muted-foreground italic'
-          )}
-        >
-          {rightContent}
-        </div>
+        {/* Left Panel - Clickeable */}
+        {hasLeftCandidate ? (
+          <Link
+            to={`/candidate/${leftCandidate.id}#${profileHash}`}
+            className={cn(
+              'p-3 md:p-4 rounded-lg min-w-0 block transition-all',
+              `${leftConfig.panelColor} text-white`,
+              'hover:ring-2 hover:ring-white/30 hover:scale-[1.02] active:scale-[0.98]'
+            )}
+          >
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] uppercase tracking-wider opacity-60">Ver más</span>
+              <ArrowUpRight size={12} className="opacity-60" />
+            </div>
+            {leftContent}
+          </Link>
+        ) : (
+          <div className="p-3 md:p-4 rounded-lg min-w-0 bg-muted/20 border border-muted text-muted-foreground italic">
+            <span className="font-sans">—</span>
+          </div>
+        )}
+
+        {/* Right Panel - Clickeable */}
+        {hasRightCandidate ? (
+          <Link
+            to={`/candidate/${rightCandidate.id}#${profileHash}`}
+            className={cn(
+              'p-3 md:p-4 rounded-lg min-w-0 block transition-all',
+              `${rightConfig.panelColor} text-white`,
+              'hover:ring-2 hover:ring-white/30 hover:scale-[1.02] active:scale-[0.98]'
+            )}
+          >
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] uppercase tracking-wider opacity-60">Ver más</span>
+              <ArrowUpRight size={12} className="opacity-60" />
+            </div>
+            {rightContent}
+          </Link>
+        ) : (
+          <div className="p-3 md:p-4 rounded-lg min-w-0 bg-muted/20 border border-muted text-muted-foreground italic">
+            <span className="font-sans">—</span>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -199,22 +228,17 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
       <div className="space-y-2">
         <MetricRow
           icon={<GraduationCap size={14} />}
-          label="Básica"
-          value={
-            <span className="inline-flex items-center gap-3">
-              <span className="inline-flex items-center gap-1 text-xs">
-                {primariaOk ? <Check size={14} /> : <X size={14} />} <span className="text-white/60">Pri</span>
-              </span>
-              <span className="inline-flex items-center gap-1 text-xs">
-                {secundariaOk ? <Check size={14} /> : <X size={14} />} <span className="text-white/60">Sec</span>
-              </span>
-            </span>
-          }
+          label="Primaria"
+          value={primariaOk ? <Check size={16} className="text-emerald-400" /> : <X size={16} className="text-red-400" />}
         />
-
         <MetricRow
           icon={<GraduationCap size={14} />}
-          label="Registros"
+          label="Secundaria"
+          value={secundariaOk ? <Check size={16} className="text-emerald-400" /> : <X size={16} className="text-red-400" />}
+        />
+        <MetricRow
+          icon={<GraduationCap size={14} />}
+          label="Títulos"
           value={`${uniCount + postCount}`}
           sub={
             topPost
@@ -392,6 +416,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 <ComparisonSection
                   title="Educación"
                   sectionId="educacion"
+                  profileHash="tray-educacion"
                   leftCandidate={leftCandidate}
                   rightCandidate={rightCandidate}
                   leftContent={leftCandidate ? renderEducacion(leftCandidate.id) : <span className="font-sans">—</span>}
@@ -401,6 +426,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 <ComparisonSection
                   title="Experiencia"
                   sectionId="experiencia-laboral"
+                  profileHash="tray-experiencia"
                   leftCandidate={leftCandidate}
                   rightCandidate={rightCandidate}
                   leftContent={leftCandidate ? renderExperiencia(leftCandidate.id) : <span className="font-sans">—</span>}
@@ -410,6 +436,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 <ComparisonSection
                   title="Ingresos"
                   sectionId="ingresos"
+                  profileHash="patrimonio"
                   leftCandidate={leftCandidate}
                   rightCandidate={rightCandidate}
                   leftContent={leftCandidate ? renderIngresos(leftCandidate.id) : <span className="font-sans">—</span>}
@@ -419,6 +446,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 <ComparisonSection
                   title="Propiedades"
                   sectionId="propiedades"
+                  profileHash="patrimonio"
                   leftCandidate={leftCandidate}
                   rightCandidate={rightCandidate}
                   leftContent={leftCandidate ? renderPropiedades(leftCandidate.id) : <span className="font-sans">—</span>}
@@ -428,35 +456,12 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                 <ComparisonSection
                   title="Sentencias"
                   sectionId="sentencias"
+                  profileHash="sentencias"
                   leftCandidate={leftCandidate}
                   rightCandidate={rightCandidate}
                   leftContent={leftCandidate ? renderSentencias(leftCandidate.id) : <span className="font-sans">—</span>}
                   rightContent={rightCandidate ? renderSentencias(rightCandidate.id) : <span className="font-sans">—</span>}
                 />
-
-                {/* Minimal CTAs */}
-                <div className="px-4 pb-4 -mt-2">
-                  <div className="grid grid-cols-2 gap-2">
-                    {leftCandidate ? (
-                      <Link
-                        to={`/candidate/${leftCandidate.id}`}
-                        className="flex items-center justify-center gap-1 text-xs rounded-md border border-white/10 bg-white/5 py-2 hover:bg-white/10"
-                        aria-label="Ver perfil del candidato 1"
-                      >
-                        Perfil <ArrowUpRight size={14} />
-                      </Link>
-                    ) : <div />}
-                    {rightCandidate ? (
-                      <Link
-                        to={`/candidate/${rightCandidate.id}`}
-                        className="flex items-center justify-center gap-1 text-xs rounded-md border border-white/10 bg-white/5 py-2 hover:bg-white/10"
-                        aria-label="Ver perfil del candidato 2"
-                      >
-                        Perfil <ArrowUpRight size={14} />
-                      </Link>
-                    ) : <div />}
-                  </div>
-                </div>
               </motion.div>
             </>
           )}

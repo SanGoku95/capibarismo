@@ -1,8 +1,8 @@
 import type { CandidateBase } from '@/data/types';
 
 export const base: Record<string, CandidateBase> = {
-  'pablo-lopez chau': {
-    id: 'pablo-lopez chau',
+  'lopez-chau': {
+    id: 'lopez-chau',
     nombre: 'Alfonso Lopez Chau',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Ahora Nacion - An',
@@ -55,8 +55,8 @@ export const base: Record<string, CandidateBase> = {
     headshot: '/fotos_candidatos/lescano/lescano_headshot.jpg',
     fullBody: '/fotos_candidatos/lescano/lescano-anim.webp',
   },
-  'alvaro-paz de la barra': {
-    id: 'alvaro-paz de la barra',
+  'alvaro-paz': {
+    id: 'alvaro-paz',
     nombre: 'Alvaro P. Freigeiro',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Fe en el Peru',
@@ -184,7 +184,7 @@ export const base: Record<string, CandidateBase> = {
   'george-forsyth': {
     id: 'george-forsyth',
     nombre: 'George Forsyth',
-    ideologia: 'centro',
+    ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Democratico Somos Peru',
     partyIcon: '/iconos_partidos/PartidoDemocraticoSomosPeru.jpg',
     headshot: '/fotos_candidatos/forsyth/forsyth_headshot.jpg',
@@ -289,8 +289,8 @@ export const base: Record<string, CandidateBase> = {
     headshot: '/fotos_candidatos/pauljaimes/pauljaimes_headshot.jpg',
     fullBody: '/fotos_candidatos/pauljaimes/pauljaimes-anim.webp',
   },
-  'rafael-lopez aliaga': {
-    id: 'rafael-lopez aliaga',
+  'rafael-lopezaliaga': {
+    id: 'rafael-lopezaliaga',
     nombre: 'Rafael L. Aliaga ',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Renovacion Popular',

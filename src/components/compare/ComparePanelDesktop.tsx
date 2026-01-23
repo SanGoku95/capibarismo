@@ -299,7 +299,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                   return (
                     <div className="pt-2 space-y-3">
                       <div className="grid grid-cols-2 gap-2">
-                        <StatTile icon={<Gavel size={14} />} label="Registros" value={`${rows.length}`} sub={rows.length ? 'Ver detalle en perfil' : 'Sin registro'} />
+                        <StatTile icon={<Gavel size={14} />} label="Títulos" value={`${rows.length}`} sub={rows.length ? 'Ver detalle en perfil' : 'Sin registro'} />
                         <StatTile
                           icon={<Gavel size={14} />}
                           label="Última"

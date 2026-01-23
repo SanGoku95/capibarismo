@@ -4,69 +4,11 @@ import { getCandidateProfile } from '@/data';
 import NotFound from './NotFound';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Shield, Star, Briefcase, Radio, Power, Rss, Link as LinkIcon, AlertTriangle, GraduationCap, Building2, Gavel, Wallet, Home, Car } from 'lucide-react';
+import { ArrowLeft, Briefcase, GraduationCap, Building2, Gavel, Wallet, Home, Car } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { FaTiktok, FaYoutube, FaInstagram, FaFacebook, FaTwitter, FaRegWindowRestore } from 'react-icons/fa';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Badge } from '@/components/ui/badge';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { usePersonSEO } from '@/lib/useSEO';
 import type { CandidateProfile as CandidateProfileType } from '@/data/types';
-
-
-const socialIcons: { [key: string]: React.ReactElement } = {
-  tiktok: <FaTiktok />,
-  youtube: <FaYoutube />,
-  instagram: <FaInstagram />,
-  facebook: <FaFacebook />,
-  twitter: <FaTwitter />,
-  web: <FaRegWindowRestore />,
-};
-
-// Helpers for controversy badges
-const severityProps = (sev?: string) => {
-  switch (sev) {
-    case 'muy-alta': return { label: 'Severidad: Muy alta', className: 'bg-red-600/90 text-white' };
-    case 'alta':     return { label: 'Severidad: Alta',     className: 'bg-orange-600/90 text-white' };
-    case 'media':    return { label: 'Severidad: Media',    className: 'bg-amber-300/90 text-foreground' };
-    default:         return { label: 'Severidad: —',        className: 'bg-muted text-foreground' };
-  }
-};
-const legalProps = (legal?: string) => {
-  switch (legal) {
-    case 'denuncia_en_medios':  return { label: 'Legal: Denuncia en medios',  className: 'bg-sky-600/90 text-white' };
-    case 'en_curso':            return { label: 'Legal: En curso',            className: 'bg-amber-500/90 text-black' };
-    case 'sancion':             return { label: 'Legal: Sanción',             className: 'bg-rose-600/90 text-white' };
-    case 'cerrado_sin_sancion': return { label: 'Legal: Cerrado sin sanción', className: 'bg-emerald-600/90 text-white' };
-    case 'condena':             return { label: 'Legal: Condena',             className: 'bg-red-700/90 text-white' };
-    default:                    return { label: 'Legal: —',                   className: 'bg-muted text-foreground' };
-  }
-};
-
-const severityHelp = (sev?: string) => {
-  switch (sev) {
-    case 'muy-alta': return 'Controversia de muy alto impacto público o institucional.';
-    case 'alta':     return 'Controversia de impacto significativo o con medidas relevantes.';
-    case 'media':    return 'Controversia relevante en seguimiento.';
-    default:         return 'Sin clasificación específica.';
-  }
-};
-const legalHelp = (l?: string) => {
-  switch (l) {
-    case 'denuncia_en_medios':  return 'Se dijo en prensa/redes; sin trámite oficial.';
-    case 'en_curso':            return 'Trámite oficial abierto (investigación o juicio).';
-    case 'sancion':             return 'Hubo sanción institucional (no es condena penal).';
-    case 'cerrado_sin_sancion': return 'Archivado o absuelto; sin sanción.';
-    case 'condena':             return 'Sentencia penal firme de culpabilidad.';
-    default:                    return 'Sin datos suficientes para clasificar.';
-  }
-};
 
 // Helper para formatear moneda
 const formatCurrency = (amount: number) => {
@@ -77,25 +19,6 @@ const formatCurrency = (amount: number) => {
     maximumFractionDigits: 0,
   }).format(amount);
 };
-
-// Badge con hover/click explicativo
-const ExplainBadge = ({ label, className, description }: { label: string; className?: string; description: React.ReactNode }) => (
-  <Popover>
-    <TooltipProvider delayDuration={100}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <PopoverTrigger asChild>
-            <Badge className={className} role="button" tabIndex={0}>
-              {label}
-            </Badge>
-          </PopoverTrigger>
-        </TooltipTrigger>
-        <TooltipContent className="max-w-xs text-sm z-50">{description}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-    <PopoverContent className="max-w-xs text-sm z-50">{description}</PopoverContent>
-  </Popover>
-);
 
 // Helper para obtener badge de fallo de sentencia
 const getFalloBadge = (fallo: string) => {
@@ -116,7 +39,6 @@ export function CandidateProfile() {
   const profile = id ? getCandidateProfile(id) : null;
 
   type CandidateView = CandidateProfileType['base'] & Pick<CandidateProfileType,
-    'proyectoPolitico' | 'creenciasClave' | 'presenciaDigital' | 'mapaDePoder' | 'controversias' |
     'educacion' | 'experienciaLaboral' | 'sentencias' | 'propiedades' | 'ingresos'
   >;
 
@@ -124,11 +46,6 @@ export function CandidateProfile() {
     profile?.base
       ? {
           ...profile.base,
-          proyectoPolitico: profile.proyectoPolitico,
-          creenciasClave: profile.creenciasClave,
-          presenciaDigital: profile.presenciaDigital,
-          mapaDePoder: profile.mapaDePoder,
-          controversias: profile.controversias,
           educacion: profile.educacion,
           experienciaLaboral: profile.experienciaLaboral,
           sentencias: profile.sentencias,
@@ -138,7 +55,6 @@ export function CandidateProfile() {
       : null
   ), [profile]);
 
-  const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
   const lastProcessedHash = useRef<string>('');
 
   useEffect(() => {
@@ -153,11 +69,8 @@ export function CandidateProfile() {
     lastProcessedHash.current = hash;
 
     if (hash) {
-      let valueToOpen = hash;
-      let elementToScrollToId = hash;
-      let needsAccordionExpansion = false;
-
-      if (hash.startsWith('tray-')) {
+      // Handle section scrolling
+      if (hash.startsWith('tray-') || ['trayectoria', 'sentencias', 'patrimonio'].includes(hash)) {
         const sectionEl = document.getElementById(hash);
         if (sectionEl) {
           setTimeout(() => {
@@ -165,32 +78,6 @@ export function CandidateProfile() {
           }, 150);
         }
         return;
-      }
-
-      if (hash.startsWith('creencia-')) {
-        valueToOpen = hash.split('creencia-')[1];
-        elementToScrollToId = 'creencias-clave';
-        needsAccordionExpansion = true;
-      } else if (hash.startsWith('controversia-')) {
-        valueToOpen = hash.split('controversia-')[1];
-        elementToScrollToId = 'controversias';
-        needsAccordionExpansion = true;
-      } else if (hash === 'controversias' && candidate.controversias && candidate.controversias.length > 0) {
-        valueToOpen = candidate.controversias[0].id;
-        needsAccordionExpansion = true;
-      } else if (hash === 'mapa-de-poder' || hash === 'presencia-digital' || hash === 'proyecto-politico' ||
-                 hash === 'sentencias' || hash === 'patrimonio') {
-        elementToScrollToId = hash;
-      }
-
-      setOpenAccordionItems(prev => [...new Set([...prev, valueToOpen])]);
-
-      const element = document.getElementById(elementToScrollToId);
-      if (element) {
-        const scrollDelay = needsAccordionExpansion ? 400 : 150;
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, scrollDelay);
       }
     } else {
       window.scrollTo(0, 0);
@@ -201,25 +88,18 @@ export function CandidateProfile() {
     navigate(-1);
   };
 
-  const knowsAbout = profile?.creenciasClave.map(c => c.nombre) || [];
-  const affiliation = profile?.mapaDePoder?.alianzas?.[0]?.nombre;
-
   usePersonSEO(
     candidate?.nombre || 'Candidato',
-    candidate ? `${candidate.nombre} - ${candidate.ideologia}. ${candidate.proyectoPolitico?.resumen ?? ''}`.trim() || 'Perfil de candidato' : 'Perfil de candidato',
+    candidate ? `${candidate.nombre} - ${candidate.ideologia ?? ''}. Perfil de candidato presidencial Perú 2026`.trim() : 'Perfil de candidato',
     'Candidato Presidencial de Perú 2026',
     candidate?.headshot ? `https://capibarismo.com${candidate.headshot}` : undefined,
-    affiliation,
-    knowsAbout
+    candidate?.partido,
+    []
   );
 
   if (!candidate) {
     return <NotFound />;
   }
-
-  const controversiesSorted = (candidate.controversias || [])
-    .slice()
-    .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99));
 
   return (
     <div className="min-h-screen fighting-game-bg text-white">
@@ -251,14 +131,17 @@ export function CandidateProfile() {
                     />
                   </div>
                   <h2 className="text-2xl font-bold mt-4 text-center tracking-wide">{candidate.nombre}</h2>
-                  <p className="text-center text-muted-foreground font-medium">{candidate.ideologia}</p>
+                  <p className="text-center text-muted-foreground font-medium">{candidate.partido}</p>
+                  {candidate.ideologia && (
+                    <p className="text-center text-sm text-muted-foreground/70">{candidate.ideologia}</p>
+                  )}
                 </CardContent>
               </Card>
             </div>
           </div>
 
           <div className="lg:col-span-2 space-y-6">
-            {/* Trayectoria - Ahora con datos de educación y experiencia laboral del JNE */}
+            {/* Trayectoria - Educación y Experiencia Laboral */}
             <Card className="fighting-game-card scroll-mt-24" id="trayectoria">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Briefcase size={20} /> Trayectoria</CardTitle>
@@ -341,201 +224,7 @@ export function CandidateProfile() {
               </CardContent>
             </Card>
 
-            {/* Proyecto Político */}
-            {candidate.proyectoPolitico && (
-            <Card className="fighting-game-card scroll-mt-24" id="proyecto-politico">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Shield size={20} /> Agenda</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <h3 className="text-xl font-bold mb-2">{candidate.proyectoPolitico.titulo}</h3>
-                <p className="leading-relaxed text-muted-foreground">{candidate.proyectoPolitico.resumen}</p>
-                {candidate.proyectoPolitico.detalles && (
-                  <Accordion
-                    type="multiple"
-                    className="w-full mt-4"
-                    value={openAccordionItems}
-                    onValueChange={setOpenAccordionItems}
-                  >
-                    {candidate.proyectoPolitico.detalles.map((detalle) => (
-                      <AccordionItem value={detalle.subtitulo} key={detalle.subtitulo} className="border-b-muted-foreground/20">
-                        <AccordionTrigger>{detalle.subtitulo}</AccordionTrigger>
-                        <AccordionContent>
-                          {detalle.texto}
-                          {detalle.fuente && (
-                            <a href={detalle.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
-                              <LinkIcon size={12} />
-                              Fuente
-                            </a>
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                )}
-              </CardContent>
-            </Card>
-            )}
-
-            {/* Creencias Clave */}
-            {candidate.creenciasClave && candidate.creenciasClave.length > 0 && (
-            <Card className="fighting-game-card scroll-mt-24" id="creencias-clave">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Star size={20} /> Creencias Clave</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Accordion
-                  type="multiple"
-                  className="w-full"
-                  value={openAccordionItems}
-                  onValueChange={setOpenAccordionItems}
-                >
-                  {candidate.creenciasClave.map((creencia) => (
-                    <AccordionItem value={creencia.id} key={creencia.id} id={`creencia-${creencia.id}`} className="border-b-muted-foreground/20">
-                      <AccordionTrigger>{creencia.nombre}</AccordionTrigger>
-                      <AccordionContent>
-                        <p>{creencia.resumen}</p>
-                        {creencia.detalle && <p className="mt-2 text-sm text-muted-foreground">{creencia.detalle}</p>}
-                        {creencia.fuente ? (
-                          <a
-                            href={creencia.fuente}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2"
-                          >
-                            <LinkIcon size={12} />
-                            Fuente
-                          </a>
-                        ) : null}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </CardContent>
-            </Card>
-            )}
-
-            {/* Presencia Digital */}
-            {candidate.presenciaDigital && (
-            <Card className="fighting-game-card scroll-mt-24" id="presencia-digital">
-              <CardHeader>
-              <CardTitle className="flex items-center gap-2"><Rss size={20} /> Presencia en Medios Digitales</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-              {candidate.presenciaDigital.plataformas.map((plataforma) => (
-                <div key={plataforma.nombre} className="flex items-start gap-4">
-                <div className="text-2xl text-muted-foreground mt-1">
-                  {socialIcons[plataforma.nombre] || <Radio />}
-                </div>
-                <div>
-                  <a
-                    href={plataforma.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                  <h4 className="font-semibold capitalize flex items-center gap-1.5">
-                    {plataforma.nombre}
-                    <LinkIcon size={14} className="inline-block text-primary/80" />
-                  </h4>
-                  </a>
-                  <p className="leading-relaxed text-muted-foreground mt-1">{plataforma.estrategia}</p>
-                </div>
-                </div>
-              ))}
-              </CardContent>
-            </Card>
-            )}
-
-            {/* Mapa de Poder */}
-            {candidate.mapaDePoder && (
-            <Card className="fighting-game-card scroll-mt-24" id="mapa-de-poder">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Power size={20} /> Mapa de Poder</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Separator />
-                <div>
-                  <h4 className="font-semibold text-lg mb-2">Alianzas Clave</h4>
-                  <div className="space-y-3">
-                    {candidate.mapaDePoder.alianzas.map(item => (
-                      <div key={item.nombre}>
-                        <p className="font-semibold">{item.nombre}</p>
-                        <p className="text-sm text-muted-foreground">{item.descripcion}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <Separator />
-                <div>
-                  <h4 className="font-semibold text-lg mb-2">Principales Opositores</h4>
-                  <div className="space-y-3">
-                    {candidate.mapaDePoder.opositores.map(item => (
-                      <div key={item.nombre}>
-                        <p className="font-semibold">{item.nombre}</p>
-                        <p className="text-sm text-muted-foreground">{item.descripcion}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <Separator />
-              </CardContent>
-            </Card>
-            )}
-
-            {/* Controversias */}
-            {controversiesSorted && controversiesSorted.length > 0 && (
-            <Card className="fighting-game-card scroll-mt-24" id="controversias">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><AlertTriangle size={20} /> Controversias</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Accordion
-                  type="multiple"
-                  className="w-full"
-                  value={openAccordionItems}
-                  onValueChange={setOpenAccordionItems}
-                >
-                  {controversiesSorted.map((c) => {
-                    const sev = severityProps(c.severidad);
-                    const leg = legalProps(c.legal);
-                    return (
-                      <AccordionItem value={c.id} key={c.id} id={`controversia-${c.id}`} className="border-b-muted-foreground/20">
-                        <AccordionTrigger>{c.titulo}</AccordionTrigger>
-                        <AccordionContent>
-                          <div className="flex flex-wrap gap-2 mb-2">
-                            <ExplainBadge
-                              className={sev.className}
-                              label={sev.label}
-                              description={
-                                <div><span className="font-semibold">Severidad:</span> {severityHelp(c.severidad)}</div>
-                              }
-                            />
-                            <ExplainBadge
-                              className={leg.className}
-                              label={leg.label}
-                              description={
-                                <div><span className="font-semibold">Estado legal:</span> {legalHelp(c.legal)}</div>
-                              }
-                            />
-                          </div>
-                          <p className="text-base text-muted-foreground">{c.descripcion}</p>
-                          {c.fuente && (
-                            <a href={c.fuente} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/80 hover:text-primary flex items-center gap-1 mt-2">
-                              <LinkIcon size={12} />
-                              Fuente
-                            </a>
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    );
-                  })}
-                </Accordion>
-              </CardContent>
-            </Card>
-            )}
-
-            {/* Sentencias - Nueva sección */}
+            {/* Sentencias */}
             <Card className="fighting-game-card scroll-mt-24" id="sentencias">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Gavel size={20} /> Sentencias Judiciales</CardTitle>
@@ -569,7 +258,7 @@ export function CandidateProfile() {
               </CardContent>
             </Card>
 
-            {/* Propiedades e Ingresos - Nueva sección combinada */}
+            {/* Patrimonio */}
             <Card className="fighting-game-card scroll-mt-24" id="patrimonio">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Wallet size={20} /> Patrimonio Declarado</CardTitle>

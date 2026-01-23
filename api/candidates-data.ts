@@ -1,4 +1,3 @@
-
 export interface CandidateBase {
   id: string;
   nombre: string;
@@ -7,11 +6,11 @@ export interface CandidateBase {
   partyIcon?: string;
 }
 export const candidates: Record<string, CandidateBase> = {
-  'pablo-lopez chau': {
-    id: 'pablo-lopez chau',
+  'lopez-chau': {
+    id: 'lopez-chau',
     nombre: 'Pablo Alfonso Lopez Chau Nava',
     partido: 'Ahora Nacion - An',
-    partyIcon: '/iconos_partidos/pablo-lopez chau.jpg',
+    partyIcon: '/iconos_partidos/lopez-chau.jpg',
   },
   'ronald-atencio': {
     id: 'ronald-atencio',
@@ -43,8 +42,8 @@ export const candidates: Record<string, CandidateBase> = {
     partido: 'Partido Politico Cooperacion Popular',
     partyIcon: '/iconos_partidos/yonhy-lescano.jpg',
   },
-  'alvaro-paz de la barra': {
-    id: 'alvaro-paz de la barra',
+  'alvaro-paz': {
+    id: 'alvaro-paz',
     nombre: 'Alvaro Gonzalo Paz de la Barra Freigeiro',
     partido: 'Fe en el Peru',
     partyIcon: '/iconos_partidos/alvaro-paz de la barra.jpg',
@@ -199,11 +198,11 @@ export const candidates: Record<string, CandidateBase> = {
     partido: 'Progresemos',
     partyIcon: '/iconos_partidos/paul-jaimes.jpg',
   },
-  'rafael-lopez aliaga': {
-    id: 'rafael-lopez aliaga',
+  'rafael-lopezaliaga': {
+    id: 'rafael-lopezaliaga',
     nombre: 'Rafael Bernardo López Aliaga Cazorla',
     partido: 'Renovacion Popular',
-    partyIcon: '/iconos_partidos/rafael-lopez aliaga.jpg',
+    partyIcon: '/iconos_partidos/rafael-lopezaliaga.jpg',
   },
   'antonio-ortiz': {
     id: 'antonio-ortiz',

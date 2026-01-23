@@ -7,7 +7,7 @@ export interface Propiedades {
 }
 
 export const propiedades: Record<string, Propiedades> = {
-  'pablo-lopez chau': {
+  'lopez-chau': {
     inmuebles: 2,
     vehiculos: 0,
     otros: 0,
@@ -37,7 +37,7 @@ export const propiedades: Record<string, Propiedades> = {
     vehiculos: 3,
     otros: 0,
   },
-  'alvaro-paz de la barra': {
+  'alvaro-paz': {
     inmuebles: 20,
     vehiculos: 3,
     otros: 0,
@@ -167,7 +167,7 @@ export const propiedades: Record<string, Propiedades> = {
     vehiculos: 2,
     otros: 0,
   },
-  'rafael-lopez aliaga': {
+  'rafael-lopezaliaga': {
     inmuebles: 0,
     vehiculos: 0,
     otros: 0,

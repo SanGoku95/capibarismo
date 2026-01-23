@@ -8,7 +8,7 @@ export interface Ingreso {
 }
 
 export const ingresos: Record<string, Ingreso[]> = {
-  'pablo-lopez chau': [
+  'lopez-chau': [
     {
       año: '2024',
       publico: 350000.0,
@@ -56,7 +56,7 @@ export const ingresos: Record<string, Ingreso[]> = {
       total: 120000.0,
     },
   ],
-  'alvaro-paz de la barra': [
+  'alvaro-paz': [
     {
       año: '2024',
       publico: 0.0,
@@ -258,7 +258,7 @@ export const ingresos: Record<string, Ingreso[]> = {
       total: 263500.0,
     },
   ],
-  'rafael-lopez aliaga': [
+  'rafael-lopezaliaga': [
     {
       año: '2024',
       publico: 0.0,

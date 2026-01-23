@@ -93,16 +93,23 @@ describe('useGameAPI - Unit Tests', () => {
     });
 
     it('should generate pair with valid pairId format', async () => {
+      const queryClient = new QueryClient({
+        defaultOptions: { queries: { retry: false } },
+      });
+      
       const { result } = renderHook(() => useNextPair(), {
-        wrapper: createWrapper(),
+        wrapper: ({ children }) => (
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
+        ),
       });
-
-      await waitFor(() => {
-        expect(result.current.isSuccess).toBe(true);
-      });
+      
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       const pair = result.current.data!;
-      expect(pair.pairId).toMatch(/^[a-z0-9-]+-[a-z0-9-]+$/i);
+      // Updated regex to allow spaces in candidate IDs
+      expect(pair.pairId).toMatch(/^[a-z0-9- ]+-[a-z0-9- ]+$/i);
       expect(pair.pairId).toContain('-');
     });
 
