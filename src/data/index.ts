@@ -21,7 +21,7 @@ export function getCandidateProfile(id: string): CandidateProfile | null {
   const ingresos = ingresosData[id];
 
   // Compat: si CandidateProfile aún tiene campos legacy, se devuelven con defaults.
-  return {
+  return ({
     base,
 
     trayectoria: undefined,
@@ -36,7 +36,7 @@ export function getCandidateProfile(id: string): CandidateProfile | null {
     sentencias,
     propiedades,
     ingresos,
-  } as CandidateProfile;
+  } satisfies CandidateProfile) as CandidateProfile;
 }
 
 // Backward-compat convenience: quick lookup for simple pages

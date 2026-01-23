@@ -1,8 +1,8 @@
-import { base as baseRecords } from '@/data/domains/base';
-import { proyectos } from '@/data/domains/proyectos';
-import { creencias } from '@/data/domains/creencias';
-import { presencia } from '@/data/domains/presencia';
-import { ProyectoPoliticoSchema, CreenciaSchema, PresenciaDigitalSchema } from '@/data/schemas';
+import { base as baseRecords } from '../src/data/domains/base';
+import { proyectos } from '../src/data/domains/proyectos';
+import { creencias } from '../src/data/domains/creencias';
+import { presencia } from '../src/data/domains/presencia';
+import { ProyectoPoliticoSchema, CreenciaSchema, PresenciaDigitalSchema } from '../src/data/schemas';
 
 let ok = true;
 
