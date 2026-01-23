@@ -214,7 +214,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
 
         <MetricRow
           icon={<GraduationCap size={14} />}
-          label="Registros"
+          label="Títulos"
           value={`${uniCount + postCount}`}
           sub={
             topPost
