@@ -205,7 +205,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                     <div className="pt-2 space-y-3">
                       <StatTile
                         icon={<Briefcase size={14} />}
-                        label="Total cargos"
+                        label="Cargos"
                         value={jobs.length}
                       />
 

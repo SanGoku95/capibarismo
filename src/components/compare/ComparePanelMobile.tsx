@@ -260,7 +260,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
       <div className="space-y-2">
         <MetricRow
           icon={<Briefcase size={14} />}
-          label="Total cargos"
+          label="Cargos"
           value={jobs.length}
         />
         {top && (
