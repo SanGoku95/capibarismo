@@ -78,6 +78,19 @@ function StatTile({
   );
 }
 
+// Link al perfil con hash
+function ProfileLink({ candidateId, hash, children }: { candidateId: string; hash: string; children?: React.ReactNode }) {
+  return (
+    <Link
+      to={`/candidate/${candidateId}#${hash}`}
+      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary mt-2"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {children ?? 'Ver más'} <ArrowUpRight size={12} />
+    </Link>
+  );
+}
+
 export function CandidateFactSheet({ candidate, side, openSection, setOpenSection }: CandidateFactSheetProps) {
   const config = PLAYER_INDICATORS[side];
 
@@ -158,35 +171,22 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                       <div className="grid grid-cols-2 gap-2">
                         <StatTile
                           icon={<GraduationCap size={14} />}
-                          label="Básica"
-                          value={
-                            <div className="flex items-center gap-3">
-                              <span className="inline-flex items-center gap-1">
-                                {primariaOk ? <Check size={14} /> : <X size={14} />} <span className="text-muted-foreground">Pri</span>
-                              </span>
-                              <span className="inline-flex items-center gap-1">
-                                {secundariaOk ? <Check size={14} /> : <X size={14} />} <span className="text-muted-foreground">Sec</span>
-                              </span>
-                            </div>
-                          }
+                          label="Primaria"
+                          value={primariaOk ? <Check size={14} className="text-emerald-500" /> : <X size={14} className="text-red-500" />}
                         />
                         <StatTile
                           icon={<GraduationCap size={14} />}
-                          label="Top"
-                          value={topPost ? topPost.tipo : topUni ? 'Uni' : '—'}
-                          sub={
-                            topPost
-                              ? `${topPost.institucion} (${formatYear(topPost.año)})`
-                              : topUni
-                                ? `${topUni.universidad} (${formatYear(topUni.año)})`
-                                : '—'
-                          }
+                          label="Secundaria"
+                          value={secundariaOk ? <Check size={14} className="text-emerald-500" /> : <X size={14} className="text-red-500" />}
+                        />
+                        <StatTile
+                          icon={<GraduationCap size={14} />}
+                          label="Títulos"
+                          value={`${(e2.universitaria?.length ?? 0) + (e2.postgrado?.length ?? 0)}`}
+                          sub={topPost ? `${topPost.tipo}` : topUni ? 'Universitario' : '—'}
                         />
                       </div>
-
-                      <Link to={`/candidate/${candidate.id}#educacion`} className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary">
-                        Perfil <ArrowUpRight size={12} />
-                      </Link>
+                      <ProfileLink candidateId={candidate.id} hash="tray-educacion" />
                     </div>
                   );
                 })()}
@@ -203,23 +203,26 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
 
                   return (
                     <div className="pt-2 space-y-3">
-                      <div className="grid grid-cols-2 gap-2">
-                        <StatTile icon={<Briefcase size={14} />} label="Cargos" value={`${jobs.length}`} sub={latestJob ? latestJob.puesto : '—'} />
-                        <StatTile icon={<Briefcase size={14} />} label="Último" value={latestJob ? latestJob.periodo : '—'} sub={latestJob ? latestJob.empresa : '—'} />
-                      </div>
+                      <StatTile
+                        icon={<Briefcase size={14} />}
+                        label="Total cargos"
+                        value={jobs.length}
+                      />
 
-                      <div className="grid grid-cols-1 gap-2">
-                        {jobs.slice(0, 2).map((j, idx) => (
-                          <div key={`${j.empresa}-${idx}`} className="rounded-md border border-border/50 bg-muted/10 p-2">
-                            <div className="text-sm font-semibold leading-tight line-clamp-1">{j.puesto}</div>
-                            <div className="text-xs text-muted-foreground line-clamp-1">{j.empresa} · {j.periodo}</div>
+                      {/* Últimos 2 cargos */}
+                      <div className="space-y-2">
+                        {jobs.slice(0, 2).map((job, idx) => (
+                          <div key={idx} className="rounded-md border border-border/50 bg-muted/10 p-2">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-xs font-semibold line-clamp-1">{job.puesto}</span>
+                              <span className="text-[10px] text-muted-foreground whitespace-nowrap">{job.periodo.slice(-4)}</span>
+                            </div>
+                            <div className="text-[11px] text-muted-foreground line-clamp-1">{job.empresa}</div>
                           </div>
                         ))}
                       </div>
 
-                      <Link to={`/candidate/${candidate.id}#experiencia-laboral`} className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary">
-                        Perfil <ArrowUpRight size={12} />
-                      </Link>
+                      <ProfileLink candidateId={candidate.id} hash="tray-experiencia" />
                     </div>
                   );
                 })()}
@@ -239,23 +242,10 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                     <div className="pt-2 space-y-3">
                       <div className="grid grid-cols-2 gap-2">
                         <StatTile icon={<Banknote size={14} />} label="Total" value={formatMoneyCompact(row.total)} sub={`Año ${row.año}`} />
-                        <StatTile
-                          icon={<Banknote size={14} />}
-                          label="Mix"
-                          value={`${Math.round(((row.publico ?? 0) / (row.total || 1)) * 100)}% Pub`}
-                          sub={`${Math.round(((row.privado ?? 0) / (row.total || 1)) * 100)}% Priv`}
-                        />
+                        <StatTile icon={<Banknote size={14} />} label="Mix" value={`${Math.round(((row.publico ?? 0) / (row.total || 1)) * 100)}% Pub`} />
                       </div>
-
                       <MiniBar a={row.publico ?? 0} b={row.privado ?? 0} aClass="bg-sky-500/80" bClass="bg-fuchsia-500/80" />
-                      <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>Púb: {formatMoneyCompact(row.publico)}</span>
-                        <span>Priv: {formatMoneyCompact(row.privado)}</span>
-                      </div>
-
-                      <Link to={`/candidate/${candidate.id}#ingresos`} className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary">
-                        Perfil <ArrowUpRight size={12} />
-                      </Link>
+                      <ProfileLink candidateId={candidate.id} hash="patrimonio" />
                     </div>
                   );
                 })()}
@@ -278,10 +268,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                         <StatTile icon={<Car size={14} />} label="Veh" value={p.vehiculos} />
                         <StatTile icon={<Package size={14} />} label="Otros" value={p.otros} />
                       </div>
-
-                      <Link to={`/candidate/${candidate.id}#propiedades`} className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary">
-                        Perfil <ArrowUpRight size={12} />
-                      </Link>
+                      <ProfileLink candidateId={candidate.id} hash="patrimonio" />
                     </div>
                   );
                 })()}
@@ -299,25 +286,10 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                   return (
                     <div className="pt-2 space-y-3">
                       <div className="grid grid-cols-2 gap-2">
-                        <StatTile icon={<Gavel size={14} />} label="Títulos" value={`${rows.length}`} sub={rows.length ? 'Ver detalle en perfil' : 'Sin registro'} />
-                        <StatTile
-                          icon={<Gavel size={14} />}
-                          label="Última"
-                          value={top ? formatYear(top.año) : '—'}
-                          sub={top ? `${top.delito} · ${top.fallo}` : '—'}
-                        />
+                        <StatTile icon={<Gavel size={14} />} label="Total" value={`${rows.length}`} sub={rows.length ? 'Ver detalle' : 'Sin registro'} />
+                        <StatTile icon={<Gavel size={14} />} label="Última" value={top ? formatYear(top.año) : '—'} sub={top ? top.fallo : '—'} />
                       </div>
-
-                      {rows.slice(0, 2).map((s, idx) => (
-                        <div key={`${s.delito}-${idx}`} className="rounded-md border border-border/50 bg-muted/10 p-2">
-                          <div className="text-sm font-semibold leading-tight line-clamp-1">{s.delito}</div>
-                          <div className="text-xs text-muted-foreground line-clamp-1">{formatYear(s.año)} · {s.fallo}</div>
-                        </div>
-                      ))}
-
-                      <Link to={`/candidate/${candidate.id}#sentencias`} className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary">
-                        Perfil <ArrowUpRight size={12} />
-                      </Link>
+                      <ProfileLink candidateId={candidate.id} hash="sentencias" />
                     </div>
                   );
                 })()}
