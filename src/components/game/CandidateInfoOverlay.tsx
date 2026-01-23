@@ -90,13 +90,13 @@ export function CandidateInfoOverlay() {
           </div>
         </SheetHeader>
 
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="flex-1 flex flex-col">
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="flex-1 flex flex-col min-h-0">
           <TabsList className="grid grid-cols-2 mx-4 mt-3 h-9">
             <TabsTrigger value="resumen" className="text-xs">Resumen</TabsTrigger>
             <TabsTrigger value="detalle" className="text-xs">Detalle</TabsTrigger>
           </TabsList>
 
-          <ScrollArea className="flex-1">
+          <ScrollArea className="flex-1 min-h-0">
             <TabsContent value="resumen" className="px-4 py-3 mt-0 space-y-3">
               <DataCard
                 icon={<GraduationCap size={16} />}
