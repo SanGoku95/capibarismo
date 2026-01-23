@@ -20,23 +20,14 @@ export function getCandidateProfile(id: string): CandidateProfile | null {
   const propiedades = propiedadesData[id];
   const ingresos = ingresosData[id];
 
-  // Compat: si CandidateProfile aún tiene campos legacy, se devuelven con defaults.
-  return ({
+  return {
     base,
-
-    trayectoria: undefined,
-    proyectoPolitico: undefined,
-    creenciasClave: [],
-    presenciaDigital: undefined,
-    mapaDePoder: undefined,
-    controversias: [],
-
     educacion,
     experienciaLaboral,
     sentencias,
     propiedades,
     ingresos,
-  } satisfies CandidateProfile) as CandidateProfile;
+  };
 }
 
 // Backward-compat convenience: quick lookup for simple pages

@@ -3,7 +3,7 @@ import type { CandidateBase } from '@/data/types';
 export const base: Record<string, CandidateBase> = {
   'pablo-lopez chau': {
     id: 'pablo-lopez chau',
-    nombre: 'Pablo Alfonso Lopez Chau Nava',
+    nombre: 'Alfonso Lopez Chau',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Ahora Nacion - An',
     partyIcon: '/iconos_partidos/pablo-lopez chau.jpg',
@@ -12,7 +12,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'ronald-atencio': {
     id: 'ronald-atencio',
-    nombre: 'Ronald Darwin Atencio Sotomayor',
+    nombre: 'Ronald Atencio',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Alianza Electoral Venceremos',
     partyIcon: '/iconos_partidos/ronald-atencio.jpg',
@@ -21,7 +21,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'fiorella-molinelli': {
     id: 'fiorella-molinelli',
-    nombre: 'Fiorella Giannina Molinelli Aristondo',
+    nombre: 'Fiorella Molinelli',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Fuerza y Libertad',
     partyIcon: '/iconos_partidos/fiorella-molinelli.jpg',
@@ -30,7 +30,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'cesar-acuna': {
     id: 'cesar-acuna',
-    nombre: 'Cesar Acuña Peralta',
+    nombre: 'Cesar Acuña',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Alianza para el Progreso',
     partyIcon: '/iconos_partidos/cesar-acuna.jpg',
@@ -39,7 +39,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'jose-williams': {
     id: 'jose-williams',
-    nombre: 'Jose Daniel Williams Zapata',
+    nombre: 'Jose Williams',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Avanza Pais - Partido de Integracion Social',
     partyIcon: '/iconos_partidos/jose-williams.jpg',
@@ -48,7 +48,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'yonhy-lescano': {
     id: 'yonhy-lescano',
-    nombre: 'Yonhy Lescano Ancieta',
+    nombre: 'Yonhy Lescano',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Politico Cooperacion Popular',
     partyIcon: '/iconos_partidos/yonhy-lescano.jpg',
@@ -57,7 +57,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'alvaro-paz de la barra': {
     id: 'alvaro-paz de la barra',
-    nombre: 'Alvaro Gonzalo Paz de la Barra Freigeiro',
+    nombre: 'Alvaro P. Freigeiro',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Fe en el Peru',
     partyIcon: '/iconos_partidos/alvaro-paz de la barra.jpg',
@@ -66,7 +66,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'luis-olivera': {
     id: 'luis-olivera',
-    nombre: 'Luis Fernando Olivera Vega',
+    nombre: 'Fernando Olivera',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Frente de la Esperanza 2021',
     partyIcon: '/iconos_partidos/luis-olivera.jpg',
@@ -75,7 +75,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'keiko-fujimori': {
     id: 'keiko-fujimori',
-    nombre: 'Keiko Sofia Fujimori Higuchi',
+    nombre: 'Keiko Fujimori',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Fuerza Popular',
     partyIcon: '/iconos_partidos/keiko-fujimori.jpg',
@@ -84,7 +84,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'wolfgang-grozo': {
     id: 'wolfgang-grozo',
-    nombre: 'Wolfgang Mario Grozo Costa',
+    nombre: 'Wolfgang Grozo',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Politico Integridad Democratica',
     partyIcon: '/iconos_partidos/wolfgang-grozo.jpg',
@@ -93,7 +93,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'roberto-sanchez': {
     id: 'roberto-sanchez',
-    nombre: 'Roberto Helbert Sanchez Palomino',
+    nombre: 'Roberto Sanchez',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Juntos por el Peru',
     partyIcon: '/iconos_partidos/roberto-sanchez.jpg',
@@ -102,7 +102,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'rafael-belaunde': {
     id: 'rafael-belaunde',
-    nombre: 'Rafael Jorge Belaunde Llosa',
+    nombre: 'Rafael Belaunde',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Libertad Popular',
     partyIcon: '/iconos_partidos/rafael-belaunde.jpg',
@@ -111,7 +111,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'carlos-alvarez': {
     id: 'carlos-alvarez',
-    nombre: 'Carlos Gonsalo Alvarez Loayza',
+    nombre: 'Carlos Alvarez',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Pais para Todos',
     partyIcon: '/iconos_partidos/carlos-alvarez.jpg',
@@ -120,7 +120,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'pitter-valderrama': {
     id: 'pitter-valderrama',
-    nombre: 'Pitter Enrique Valderrama Peña',
+    nombre: 'Pitter Valderrama',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Aprista Peruano',
     partyIcon: '/iconos_partidos/pitter-valderrama.jpg',
@@ -129,7 +129,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'ricardo-belmont': {
     id: 'ricardo-belmont',
-    nombre: 'Ricardo Pablo Belmont Cassinelli',
+    nombre: 'Ricardo Belmont',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Civico Obras',
     partyIcon: '/iconos_partidos/ricardo-belmont.jpg',
@@ -138,7 +138,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'napoleon-becerra': {
     id: 'napoleon-becerra',
-    nombre: 'Napoleon Becerra Garcia',
+    nombre: 'Napoleon Becerra',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido de los Trabajadores y Emprendedores Pte - Peru',
     partyIcon: '/iconos_partidos/napoleon-becerra.jpg',
@@ -147,7 +147,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'jorge-nieto': {
     id: 'jorge-nieto',
-    nombre: 'Jorge Nieto Montesinos',
+    nombre: 'Jorge Nieto',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido del Buen Gobierno',
     partyIcon: '/iconos_partidos/jorge-nieto.jpg',
@@ -156,7 +156,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'charlie-carrasco': {
     id: 'charlie-carrasco',
-    nombre: 'Charlie Carrasco Salazar',
+    nombre: 'Charlie Carrasco',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Democrata Unido Peru',
     partyIcon: '/iconos_partidos/charlie-carrasco.jpg',
@@ -165,7 +165,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'alex-gonzales': {
     id: 'alex-gonzales',
-    nombre: 'Alex Gonzales Castillo',
+    nombre: 'Alex Gonzales',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Democrata Verde',
     partyIcon: '/iconos_partidos/alex-gonzales.jpg',
@@ -174,7 +174,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'armando-masse': {
     id: 'armando-masse',
-    nombre: 'Armando Joaquin Masse Fernandez',
+    nombre: 'Armando Masse',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Democratico Federal',
     partyIcon: '/iconos_partidos/armando-masse.jpg',
@@ -183,8 +183,8 @@ export const base: Record<string, CandidateBase> = {
   },
   'george-forsyth': {
     id: 'george-forsyth',
-    nombre: 'George Patrick Forsyth Sommer',
-    ideologia: null, // TODO: Completar manualmente
+    nombre: 'George Forsyth',
+    ideologia: 'centro',
     partido: 'Partido Democratico Somos Peru',
     partyIcon: '/iconos_partidos/george-forsyth.jpg',
     headshot: '/fotos_candidatos/george-forsyth/george-forsyth_headshot.jpg',
@@ -192,7 +192,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'mesias-guevara': {
     id: 'mesias-guevara',
-    nombre: 'Mesias Antonio Guevara Amasifuen',
+    nombre: 'Mesias Guevara',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Morado',
     partyIcon: '/iconos_partidos/mesias-guevara.jpg',
@@ -201,7 +201,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'herbert-caller': {
     id: 'herbert-caller',
-    nombre: 'Herbert Caller Gutierrez',
+    nombre: 'Herbert Gutierrez',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Patriotico del Peru',
     partyIcon: '/iconos_partidos/herbert-caller.jpg',
@@ -210,7 +210,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'alfonso-espa': {
     id: 'alfonso-espa',
-    nombre: 'Alfonso Carlos Espa y Garces-alvear',
+    nombre: 'Carlos Espa',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Sicreo',
     partyIcon: '/iconos_partidos/alfonso-espa.jpg',
@@ -219,7 +219,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'francisco-diez-canseco': {
     id: 'francisco-diez-canseco',
-    nombre: 'Francisco Ernesto Diez-canseco Távara',
+    nombre: 'Francisco Diez-canseco',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Politico Peru Accion',
     partyIcon: '/iconos_partidos/francisco-diez-canseco.jpg',
@@ -228,7 +228,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'vladimir-cerron': {
     id: 'vladimir-cerron',
-    nombre: 'Vladimir Roy Cerron Rojas',
+    nombre: 'Vladimir Cerron',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Politico Nacional Peru Libre',
     partyIcon: '/iconos_partidos/vladimir-cerron.jpg',
@@ -237,7 +237,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'carlos-jaico': {
     id: 'carlos-jaico',
-    nombre: 'Carlos Ernesto Jaico Carranza',
+    nombre: 'Carlos Jaico',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Peru Moderno',
     partyIcon: '/iconos_partidos/carlos-jaico.jpg',
@@ -246,7 +246,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'mario-vizcarra': {
     id: 'mario-vizcarra',
-    nombre: 'Mario Enrique Vizcarra Cornejo',
+    nombre: 'Mario Vizcarra',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Politico Peru Primero',
     partyIcon: '/iconos_partidos/mario-vizcarra.jpg',
@@ -255,7 +255,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'jose-luna': {
     id: 'jose-luna',
-    nombre: 'Jose Leon Luna Galvez',
+    nombre: 'Jose Luna',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Podemos Peru',
     partyIcon: '/iconos_partidos/jose-luna.jpg',
@@ -264,7 +264,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'maria-perez': {
     id: 'maria-perez',
-    nombre: 'Maria Soledad Perez Tello de Rodriguez',
+    nombre: 'Maria Perez Tello',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Primero la Gente - Comunidad, Ecologia, Libertad y Progreso',
     partyIcon: '/iconos_partidos/maria-perez.jpg',
@@ -273,7 +273,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'walter-chirinos': {
     id: 'walter-chirinos',
-    nombre: 'Walter Gilmer Chirinos Purizaga',
+    nombre: 'Walter Chirinos',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Partido Politico Prin',
     partyIcon: '/iconos_partidos/walter-chirinos.jpg',
@@ -282,7 +282,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'paul-jaimes': {
     id: 'paul-jaimes',
-    nombre: 'Paul Davis Jaimes Blanco',
+    nombre: 'Paul Jaimes',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Progresemos',
     partyIcon: '/iconos_partidos/paul-jaimes.jpg',
@@ -291,7 +291,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'rafael-lopez aliaga': {
     id: 'rafael-lopez aliaga',
-    nombre: 'Rafael Bernardo López Aliaga Cazorla',
+    nombre: 'Rafael L. Aliaga ',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Renovacion Popular',
     partyIcon: '/iconos_partidos/rafael-lopez aliaga.jpg',
@@ -300,7 +300,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'antonio-ortiz': {
     id: 'antonio-ortiz',
-    nombre: 'Antonio Ortiz Villano',
+    nombre: 'Antonio Villano',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Salvemos Al Peru',
     partyIcon: '/iconos_partidos/antonio-ortiz.jpg',
@@ -309,7 +309,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'rosario-fernandez': {
     id: 'rosario-fernandez',
-    nombre: 'Rosario del Pilar Fernandez Bazan',
+    nombre: 'Rosario Fernandez',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Un Camino Diferente',
     partyIcon: '/iconos_partidos/rosario-fernandez.jpg',
@@ -318,7 +318,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'roberto-chiabra': {
     id: 'roberto-chiabra',
-    nombre: 'Roberto Enrique Chiabra Leon',
+    nombre: 'Roberto Chiabra',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Unidad Nacional',
     partyIcon: '/iconos_partidos/roberto-chiabra.jpg',
