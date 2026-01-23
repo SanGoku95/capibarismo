@@ -1,6 +1,6 @@
 # Environment Variables Setup Guide
 
-This document describes all environment variables used in Presidential Punch Peru and how to configure them.
+This document describes the environment variables used in Presidential Punch Peru and how to configure them.
 
 ## Quick Setup
 
@@ -34,15 +34,25 @@ VITE_POSTHOG_KEY=phc_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 #### `VITE_USE_API`
-- **Type**: Boolean (optional)
 - **Purpose**: Toggle between real API and mock data in development
-- **Default**: `true` (uses real API)
-- **Development**: Set to `false` to use local mock data
-- **Production**: Should always use real API (don't set this variable)
 
 Example:
 ```bash
 VITE_USE_API=false  # Use mock data in development
+# VITE_USE_API=true # Use real API in development
+```
+
+### Tooling / Local Development
+
+#### `USE_PROD_API`
+- **Type**: Boolean string flag (optional)
+- **Purpose**: In local development, proxy `/api` requests to the production API.
+- **Default**: Unset/empty → no proxy
+- **Enabled values**: `"true"` (recommended)
+
+Example:
+```bash
+USE_PROD_API=true
 ```
 
 ### Server-Side Variables
