@@ -1,15 +1,6 @@
 import type { CandidateBase } from '@/data/types';
 
 export const base: Record<string, CandidateBase> = {
-  'lopez-chau': {
-    id: 'lopez-chau',
-    nombre: 'Alfonso Lopez Chau',
-    ideologia: null, // TODO: Completar manualmente
-    partido: 'Ahora Nacion - An',
-    partyIcon: '/iconos_partidos/AhoraNacion-An.jpg',
-    headshot: '/fotos_candidatos/alfonsolc/alfonsolopezchau_headshot.jpg',
-    fullBody: '/fotos_candidatos/alfonsolc/alfonsolopezchau-anim.webp',
-  },
   'ronald-atencio': {
     id: 'ronald-atencio',
     nombre: 'Ronald Atencio',
@@ -90,6 +81,15 @@ export const base: Record<string, CandidateBase> = {
     partyIcon: '/iconos_partidos/PartidoPoliticoIntegridadDemocratica.jpg',
     headshot: '/fotos_candidatos/grozo/grozo_headshot.jpg',
     fullBody: '/fotos_candidatos/grozo/grozo-anim.webp',
+  },
+    'lopez-chau': {
+    id: 'lopez-chau',
+    nombre: 'Alfonso Lopez Chau',
+    ideologia: null, // TODO: Completar manualmente
+    partido: 'Ahora Nacion - An',
+    partyIcon: '/iconos_partidos/AhoraNacion-An.jpg',
+    headshot: '/fotos_candidatos/alfonsolc/alfonsolopezchau_headshot.jpg',
+    fullBody: '/fotos_candidatos/alfonsolc/alfonsolopezchau-anim.webp',
   },
   'roberto-sanchez': {
     id: 'roberto-sanchez',
