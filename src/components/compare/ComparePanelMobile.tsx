@@ -253,13 +253,11 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
         tipo: p.tipo,
         institucion: p.institucion,
         año: p.año,
-        isPostgrado: true,
       })),
       ...(e.universitaria ?? []).map((u) => ({
         tipo: 'Universitario',
         institucion: u.universidad,
         año: u.año,
-        isPostgrado: false,
       })),
     ].sort((a, b) => Number(b.año || 0) - Number(a.año || 0));
 
@@ -270,7 +268,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
       <div className="space-y-2">
         {allTitles.slice(0, 3).map((title, idx) => (
           <EntryCard
-            key={idx}
+            key={`${title.tipo}-${title.institucion}-${title.año ?? idx}`}
             icon={<GraduationCap size={14} />}
             title={title.tipo}
             subtitle={title.institucion}
@@ -294,7 +292,7 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
       <div className="space-y-2">
         {jobs.slice(0, 3).map((job, idx) => (
           <EntryCard
-            key={idx}
+            key={`${job.puesto}-${job.empresa}-${job.periodo}-${idx}`}
             icon={<Briefcase size={14} />}
             title={job.puesto}
             subtitle={job.empresa}

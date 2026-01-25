@@ -181,7 +181,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                     <div className="pt-2 space-y-3">
                       <div className="space-y-2">
                         {allTitles.slice(0, 3).map((title, idx) => (
-                          <div key={idx} className="rounded-md border border-border/50 bg-muted/10 p-2">
+                          <div key={`${title.tipo}-${title.institucion}-${title.año ?? idx}`} className="rounded-md border border-border/50 bg-muted/10 p-2">
                             <div className="flex items-center justify-between gap-2">
                               <span className="text-xs font-semibold line-clamp-1">{title.tipo}</span>
                               <span className="text-[10px] text-muted-foreground whitespace-nowrap">{title.año || '—'}</span>
@@ -213,7 +213,7 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                       {/* Show up to 3 most recent jobs */}
                       <div className="space-y-2">
                         {jobs.slice(0, 3).map((job, idx) => (
-                          <div key={idx} className="rounded-md border border-border/50 bg-muted/10 p-2">
+                          <div key={`${job.puesto}-${job.empresa}-${job.periodo}-${idx}`} className="rounded-md border border-border/50 bg-muted/10 p-2">
                             <div className="flex items-center justify-between gap-2">
                               <span className="text-xs font-semibold line-clamp-1">{job.puesto}</span>
                               <span className="text-[10px] text-muted-foreground whitespace-nowrap">{job.periodo}</span>

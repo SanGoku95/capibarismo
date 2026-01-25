@@ -5,10 +5,15 @@ import { cn } from '@/lib/utils';
 import { listCandidates } from '@/data';
 import type { CandidateBase } from '@/data/types';
 
+// Scroll detection threshold in pixels - prevents flickering near edges
+const SCROLL_THRESHOLD = 10;
+// Scroll amount per click: ~3 candidates (w-12 = 48px + 8px gap = 56px each)
+const SCROLL_STEP = 168;
+
 export function CandidatePicker() {
   const [isExpanded, setIsExpanded] = useState(true);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [canScrollRight, setCanScrollRight] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const {
     leftCandidate,
@@ -23,10 +28,8 @@ export function CandidatePicker() {
 
     const checkScroll = () => {
       const { scrollLeft, scrollWidth, clientWidth } = container;
-      // Can scroll left if not at the start
-      setCanScrollLeft(scrollLeft > 10);
-      // Can scroll right if not at the end
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+      setCanScrollLeft(scrollLeft > SCROLL_THRESHOLD);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - SCROLL_THRESHOLD);
     };
 
     checkScroll();
@@ -39,12 +42,10 @@ export function CandidatePicker() {
     };
   }, [isExpanded]);
 
-  // Scroll by ~3 candidate widths (smooth scroll)
   const handleScroll = (direction: 'left' | 'right') => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    // Each candidate is ~56px (w-12 = 48px + gap), scroll by ~3 candidates
-    const scrollAmount = direction === 'right' ? 168 : -168;
+    const scrollAmount = direction === 'right' ? SCROLL_STEP : -SCROLL_STEP;
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
@@ -167,7 +168,7 @@ export function CandidatePicker() {
                 // Móvil: grid de 2 filas con scroll horizontal
                 "grid grid-rows-2 grid-flow-col auto-cols-max gap-2 overflow-x-auto pb-1",
                 "scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-                // Desktop: grid de 12 columnas con distribución uniforme (36 candidatos = 3 filas de 12)
+                // Desktop: grid uniforme de 12 columnas
                 "lg:grid-rows-none lg:grid-flow-row lg:auto-cols-auto",
                 "lg:grid-cols-12 lg:gap-2 lg:overflow-x-visible lg:overflow-y-visible lg:justify-items-center"
               )}
@@ -181,15 +182,15 @@ export function CandidatePicker() {
                 className={cn(
                   "absolute left-0 top-0 bottom-1 w-16 transition-opacity duration-300",
                   "bg-gradient-to-r from-background via-background/80 to-transparent",
-                  "flex items-center justify-start",
-                  "lg:hidden" // Only show on mobile since desktop shows all
+                  "flex items-center justify-start pointer-events-none",
+                  "lg:hidden"
                 )}
               >
                 <button
                   type="button"
                   onClick={() => handleScroll('left')}
                   className={cn(
-                    "h-full px-2 flex items-center justify-center",
+                    "h-full px-2 flex items-center justify-center pointer-events-auto",
                     "text-muted-foreground hover:text-foreground active:scale-90",
                     "transition-all duration-150"
                   )}
@@ -208,15 +209,15 @@ export function CandidatePicker() {
                 className={cn(
                   "absolute right-0 top-0 bottom-1 w-16 transition-opacity duration-300",
                   "bg-gradient-to-l from-background via-background/80 to-transparent",
-                  "flex items-center justify-end",
-                  "lg:hidden" // Only show on mobile since desktop shows all
+                  "flex items-center justify-end pointer-events-none",
+                  "lg:hidden"
                 )}
               >
                 <button
                   type="button"
                   onClick={() => handleScroll('right')}
                   className={cn(
-                    "h-full px-2 flex items-center justify-center",
+                    "h-full px-2 flex items-center justify-center pointer-events-auto",
                     "text-muted-foreground hover:text-foreground active:scale-90",
                     "transition-all duration-150"
                   )}
