@@ -101,7 +101,7 @@ export function CandidateInfoOverlay() {
               <DataCard
                 icon={<GraduationCap size={16} />}
                 title="Educación"
-                href={`/candidate/${selectedCandidateId}#educacion`}
+                href={`/candidate/${selectedCandidateId}#tray-educacion`}
                 onNavigate={closeCandidateInfo}
                 lines={[
                   edu
@@ -118,7 +118,7 @@ export function CandidateInfoOverlay() {
               <DataCard
                 icon={<Briefcase size={16} />}
                 title="Experiencia laboral"
-                href={`/candidate/${selectedCandidateId}#experiencia-laboral`}
+                href={`/candidate/${selectedCandidateId}#tray-experiencia`}
                 onNavigate={closeCandidateInfo}
                 lines={[
                   latestJob ? `${latestJob.puesto}` : 'Sin datos',
@@ -129,7 +129,7 @@ export function CandidateInfoOverlay() {
               <DataCard
                 icon={<Banknote size={16} />}
                 title="Ingresos"
-                href={`/candidate/${selectedCandidateId}#ingresos`}
+                href={`/candidate/${selectedCandidateId}#patrimonio`}
                 onNavigate={closeCandidateInfo}
                 lines={[
                   latestIngreso ? `Año ${latestIngreso.año}` : 'Sin datos',
@@ -140,7 +140,7 @@ export function CandidateInfoOverlay() {
               <DataCard
                 icon={<Home size={16} />}
                 title="Propiedades"
-                href={`/candidate/${selectedCandidateId}#propiedades`}
+                href={`/candidate/${selectedCandidateId}#patrimonio`}
                 onNavigate={closeCandidateInfo}
                 lines={[
                   props ? `Inmuebles: ${props.inmuebles} · Vehículos: ${props.vehiculos} · Otros: ${props.otros}` : 'Sin datos',
@@ -200,7 +200,7 @@ export function CandidateInfoOverlay() {
                     </div>
 
                     <Link
-                      to={`/candidate/${selectedCandidateId}#educacion`}
+                      to={`/candidate/${selectedCandidateId}#tray-educacion`}
                       onClick={closeCandidateInfo}
                       className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
                     >
@@ -224,7 +224,7 @@ export function CandidateInfoOverlay() {
                       </div>
                     ))}
                     <Link
-                      to={`/candidate/${selectedCandidateId}#experiencia-laboral`}
+                      to={`/candidate/${selectedCandidateId}#tray-experiencia`}
                       onClick={closeCandidateInfo}
                       className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
                     >
@@ -253,7 +253,7 @@ export function CandidateInfoOverlay() {
                         </div>
                       ))}
                       <Link
-                        to={`/candidate/${selectedCandidateId}#ingresos`}
+                        to={`/candidate/${selectedCandidateId}#patrimonio`}
                         onClick={closeCandidateInfo}
                         className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
                       >
@@ -272,7 +272,7 @@ export function CandidateInfoOverlay() {
                     <div>Vehículos: <span className="font-semibold text-foreground">{props.vehiculos}</span></div>
                     <div>Otros: <span className="font-semibold text-foreground">{props.otros}</span></div>
                     <Link
-                      to={`/candidate/${selectedCandidateId}#propiedades`}
+                      to={`/candidate/${selectedCandidateId}#patrimonio`}
                       onClick={closeCandidateInfo}
                       className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary mt-2"
                     >
