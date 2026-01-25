@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react';
 import { useGameCompletion } from '../useGameCompletion';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { sessionService } from '@/services/sessionService';
-import { COMPLETION_GOAL } from '@/lib/gameConstants';
+import { PRELIMINARY_GOAL, RECOMMENDED_GOAL } from '@/lib/gameConstants';
 
 // Mock PostHog BEFORE other mocks to prevent real initialization
 vi.mock('@/lib/posthog', () => ({
@@ -24,9 +24,12 @@ vi.mock('@/store/useGameUIStore', () => ({
 
 vi.mock('@/services/sessionService', () => ({
   sessionService: {
+    getCompletionTierShown: vi.fn(() => 'none'),
+    markCompletionTierShown: vi.fn(),
+    getSessionId: vi.fn(() => 'test-session-id'),
+    // Legacy compatibility
     isCompletionShown: vi.fn(() => false),
     markCompletionAsShown: vi.fn(),
-    getSessionId: vi.fn(() => 'test-session-id'),
   },
 }));
 
@@ -45,30 +48,23 @@ describe('useGameCompletion', () => {
       completionModalOpen: false,
     } as any);
 
-    vi.mocked(sessionService.isCompletionShown).mockReturnValue(false);
+    vi.mocked(sessionService.getCompletionTierShown).mockReturnValue('none');
     vi.mocked(sessionService.getSessionId).mockReturnValue('test-session-id');
   });
 
-  describe('Completion Goal', () => {
-    it('should not show modal when vote count is below goal', () => {
-      renderHook(() => useGameCompletion(COMPLETION_GOAL - 1));
+  describe('Preliminary Goal (15 votes)', () => {
+    it('should not show modal when vote count is below preliminary goal', () => {
+      renderHook(() => useGameCompletion(PRELIMINARY_GOAL - 1));
 
       expect(mockOpenCompletionModal).not.toHaveBeenCalled();
-      expect(sessionService.markCompletionAsShown).not.toHaveBeenCalled();
+      expect(sessionService.markCompletionTierShown).not.toHaveBeenCalled();
     });
 
-    it('should show modal when vote count reaches goal', () => {
-      renderHook(() => useGameCompletion(COMPLETION_GOAL));
+    it('should show preliminary modal when vote count reaches preliminary goal', () => {
+      renderHook(() => useGameCompletion(PRELIMINARY_GOAL));
 
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
-      expect(sessionService.markCompletionAsShown).toHaveBeenCalledTimes(1);
-    });
-
-    it('should show modal when vote count exceeds goal', () => {
-      renderHook(() => useGameCompletion(COMPLETION_GOAL + 5));
-
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
-      expect(sessionService.markCompletionAsShown).toHaveBeenCalledTimes(1);
+      expect(mockOpenCompletionModal).toHaveBeenCalledWith('preliminary');
+      expect(sessionService.markCompletionTierShown).toHaveBeenCalledWith('preliminary');
     });
 
     it('should not show modal at 0 votes', () => {
@@ -77,169 +73,108 @@ describe('useGameCompletion', () => {
       expect(mockOpenCompletionModal).not.toHaveBeenCalled();
     });
 
-    it('should work with COMPLETION_GOAL of 15', () => {
-      expect(COMPLETION_GOAL).toBe(15);
+    it('should work with PRELIMINARY_GOAL of 15', () => {
+      expect(PRELIMINARY_GOAL).toBe(15);
 
       renderHook(() => useGameCompletion(14));
       expect(mockOpenCompletionModal).not.toHaveBeenCalled();
 
+      vi.clearAllMocks();
       renderHook(() => useGameCompletion(15));
-      expect(mockOpenCompletionModal).toHaveBeenCalled();
+      expect(mockOpenCompletionModal).toHaveBeenCalledWith('preliminary');
     });
   });
 
-  describe('One-Time Display Logic', () => {
-    it('should not show modal if already shown in session', () => {
-      vi.mocked(sessionService.isCompletionShown).mockReturnValue(true);
+  describe('Recommended Goal (30 votes)', () => {
+    it('should show recommended modal when vote count reaches recommended goal', () => {
+      vi.mocked(sessionService.getCompletionTierShown).mockReturnValue('preliminary');
 
-      renderHook(() => useGameCompletion(COMPLETION_GOAL));
+      renderHook(() => useGameCompletion(RECOMMENDED_GOAL));
 
-      expect(mockOpenCompletionModal).not.toHaveBeenCalled();
-      expect(sessionService.markCompletionAsShown).not.toHaveBeenCalled();
+      expect(mockOpenCompletionModal).toHaveBeenCalledWith('recommended');
+      expect(sessionService.markCompletionTierShown).toHaveBeenCalledWith('recommended');
     });
 
-    it('should check completion status before showing modal', () => {
-      renderHook(() => useGameCompletion(COMPLETION_GOAL));
+    it('should show recommended modal when vote count exceeds recommended goal', () => {
+      vi.mocked(sessionService.getCompletionTierShown).mockReturnValue('preliminary');
 
-      expect(sessionService.isCompletionShown).toHaveBeenCalled();
+      renderHook(() => useGameCompletion(RECOMMENDED_GOAL + 5));
+
+      expect(mockOpenCompletionModal).toHaveBeenCalledWith('recommended');
     });
 
-    it('should not show modal multiple times as vote count increases', () => {
-      vi.mocked(sessionService.isCompletionShown).mockReturnValue(false);
-
-      const { rerender } = renderHook(
-        ({ voteCount }) => useGameCompletion(voteCount),
-        { initialProps: { voteCount: COMPLETION_GOAL - 1 } }
-      );
-
-      // First update: reach goal
-      rerender({ voteCount: COMPLETION_GOAL });
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
-
-      // Mark as shown
-      vi.mocked(sessionService.isCompletionShown).mockReturnValue(true);
-
-      // Further updates: should not show again
-      rerender({ voteCount: COMPLETION_GOAL + 1 });
-      rerender({ voteCount: COMPLETION_GOAL + 2 });
-      rerender({ voteCount: COMPLETION_GOAL + 10 });
-
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
+    it('should work with RECOMMENDED_GOAL of 30', () => {
+      expect(RECOMMENDED_GOAL).toBe(30);
     });
   });
 
-  describe('Vote Count Changes', () => {
-    it('should respond to vote count updates', () => {
-      const { rerender } = renderHook(
-        ({ voteCount }) => useGameCompletion(voteCount),
-        { initialProps: { voteCount: 0 } }
-      );
+  describe('Tier Progression Logic', () => {
+    it('should not show preliminary modal if already shown', () => {
+      vi.mocked(sessionService.getCompletionTierShown).mockReturnValue('preliminary');
+
+      renderHook(() => useGameCompletion(PRELIMINARY_GOAL));
 
       expect(mockOpenCompletionModal).not.toHaveBeenCalled();
-
-      // Increment gradually
-      for (let i = 1; i < COMPLETION_GOAL; i++) {
-        rerender({ voteCount: i });
-        expect(mockOpenCompletionModal).not.toHaveBeenCalled();
-      }
-
-      // Hit goal
-      rerender({ voteCount: COMPLETION_GOAL });
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
     });
 
-    it('should show modal immediately if starting at or above goal', () => {
-      renderHook(() => useGameCompletion(COMPLETION_GOAL + 20));
+    it('should not show recommended modal if already shown', () => {
+      vi.mocked(sessionService.getCompletionTierShown).mockReturnValue('recommended');
 
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
-    });
+      renderHook(() => useGameCompletion(RECOMMENDED_GOAL));
 
-    it('should not show modal if vote count decreases after reaching goal', () => {
-      vi.mocked(sessionService.isCompletionShown).mockReturnValue(true);
-
-      const { rerender } = renderHook(
-        ({ voteCount }) => useGameCompletion(voteCount),
-        { initialProps: { voteCount: COMPLETION_GOAL + 5 } }
-      );
-
-      // Somehow vote count decreases (edge case)
-      rerender({ voteCount: COMPLETION_GOAL - 1 });
-
-      // Should not show modal (already shown)
       expect(mockOpenCompletionModal).not.toHaveBeenCalled();
+    });
+
+    it('should show recommended even if preliminary was skipped', () => {
+      // User jumped from 0 to 30 votes (skipped preliminary)
+      vi.mocked(sessionService.getCompletionTierShown).mockReturnValue('none');
+
+      renderHook(() => useGameCompletion(RECOMMENDED_GOAL));
+
+      // Should show recommended directly
+      expect(mockOpenCompletionModal).toHaveBeenCalledWith('recommended');
     });
   });
 
-  describe('Effect Dependencies', () => {
-    it('should re-evaluate when voteCount changes', () => {
-      const { rerender } = renderHook(
-        ({ voteCount }) => useGameCompletion(voteCount),
-        { initialProps: { voteCount: 5 } }
-      );
-
-      expect(mockOpenCompletionModal).not.toHaveBeenCalled();
-
-      // Vote count changes but doesn't reach goal
-      rerender({ voteCount: 6 });
-      expect(mockOpenCompletionModal).not.toHaveBeenCalled();
-
-      // Reach goal
-      rerender({ voteCount: COMPLETION_GOAL });
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
-    });
-
-    it('should use the correct openCompletionModal callback', () => {
-      const firstCallback = vi.fn();
-      const secondCallback = vi.fn();
-
+  describe('Modal Close Behavior', () => {
+    it('should close modal if vote count drops below preliminary goal', () => {
       vi.mocked(useGameUIStore).mockReturnValue({
-        openCompletionModal: firstCallback,
+        openCompletionModal: mockOpenCompletionModal,
+        closeCompletionModal: mockCloseCompletionModal,
+        completionModalOpen: true,
       } as any);
 
-      const { rerender } = renderHook(() => useGameCompletion(COMPLETION_GOAL));
+      renderHook(() => useGameCompletion(PRELIMINARY_GOAL - 5));
 
-      expect(firstCallback).toHaveBeenCalledTimes(1);
-      expect(secondCallback).not.toHaveBeenCalled();
-
-      // Update the store mock
-      vi.mocked(useGameUIStore).mockReturnValue({
-        openCompletionModal: secondCallback,
-      } as any);
-
-      // Mark as not shown for test purposes
-      vi.mocked(sessionService.isCompletionShown).mockReturnValue(false);
-
-      rerender();
-
-      // The new callback should be used
-      expect(secondCallback).toHaveBeenCalled();
+      expect(mockCloseCompletionModal).toHaveBeenCalled();
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle negative vote count', () => {
-      renderHook(() => useGameCompletion(-1));
+      renderHook(() => useGameCompletion(-5));
 
       expect(mockOpenCompletionModal).not.toHaveBeenCalled();
     });
 
     it('should handle very large vote count', () => {
-      renderHook(() => useGameCompletion(999999));
+      vi.mocked(sessionService.getCompletionTierShown).mockReturnValue('none');
 
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
+      renderHook(() => useGameCompletion(1000));
+
+      expect(mockOpenCompletionModal).toHaveBeenCalledWith('recommended');
     });
 
-    it('should handle exactly COMPLETION_GOAL', () => {
-      renderHook(() => useGameCompletion(COMPLETION_GOAL));
+    it('should handle exactly PRELIMINARY_GOAL', () => {
+      renderHook(() => useGameCompletion(PRELIMINARY_GOAL));
 
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
-      expect(sessionService.markCompletionAsShown).toHaveBeenCalledTimes(1);
+      expect(mockOpenCompletionModal).toHaveBeenCalledWith('preliminary');
     });
 
     it('should handle floating point vote count', () => {
-      renderHook(() => useGameCompletion(COMPLETION_GOAL + 0.5));
+      renderHook(() => useGameCompletion(14.9));
 
-      expect(mockOpenCompletionModal).toHaveBeenCalledTimes(1);
+      expect(mockOpenCompletionModal).not.toHaveBeenCalled();
     });
   });
 });

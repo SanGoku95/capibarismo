@@ -1,0 +1,97 @@
+Presidential Punch Peru
+Copyright 2025 Sangoku and Contributors
+
+This project is licensed under the Apache License 2.0.
+See the LICENSE file for the full license text.
+
+================================================================================
+
+This software uses the following open source packages and libraries:
+
+React (MIT License)
+Copyright (c) Meta Platforms, Inc. and affiliates.
+https://github.com/facebook/react
+
+Vite (MIT License)
+Copyright (c) 2019-present, Yuxi (Evan) You and Vite contributors
+https://github.com/vitejs/vite
+
+TypeScript (Apache License 2.0)
+Copyright (c) Microsoft Corporation
+https://github.com/microsoft/TypeScript
+
+Tailwind CSS (MIT License)
+Copyright (c) Tailwind Labs, Inc.
+https://github.com/tailwindlabs/tailwindcss
+
+shadcn/ui Components (MIT License)
+Copyright (c) 2023 shadcn
+https://ui.shadcn.com/
+
+Radix UI (MIT License)
+Copyright (c) 2022 WorkOS
+https://www.radix-ui.com/
+
+React Router (MIT License)
+Copyright (c) Remix Software Inc.
+https://github.com/remix-run/react-router
+
+Zustand (MIT License)
+Copyright (c) 2019 Paul Henschel
+https://github.com/pmndrs/zustand
+
+TanStack Query (MIT License)
+Copyright (c) 2019 Tanner Linsley
+https://github.com/TanStack/query
+
+Lucide Icons (ISC License)
+Copyright (c) Lucide Contributors
+https://lucide.dev/
+
+Framer Motion (MIT License)
+Copyright (c) 2018 Framer B.V.
+https://www.framer.com/motion/
+
+PostHog (MIT License)
+Copyright (c) 2020 PostHog Inc.
+https://posthog.com/
+
+Zod (MIT License)
+Copyright (c) 2020 Colin McDonnell
+https://github.com/colinhacks/zod
+
+And many other open source contributors. Full list available in package.json.
+
+================================================================================
+
+Data Sources and Attribution:
+
+Candidate information in this project is sourced from publicly available,
+verifiable sources including:
+
+- Jurado Nacional de Elecciones (JNE) - Official Peruvian electoral authority
+- Official candidate party platforms and manifestos
+- Verified public statements and media appearances
+- Official government records and voting records
+
+All data follows the Facts Protocol outlined in the CODE_OF_CONDUCT.md and
+CONTRIBUTING.md files, ensuring traceability to primary sources.
+
+Vercel Analytics (@vercel/analytics)
+Copyright (c) Vercel, Inc.
+Licensed under the Mozilla Public License Version 2.0 (MPL-2.0).
+https://github.com/vercel/analytics
+
+This project includes unmodified MPL-2.0 licensed software.
+Modifications to MPL-licensed files, if any, are governed by the MPL-2.0.
+The full license text is available at https://www.mozilla.org/MPL/2.0/.
+
+
+================================================================================
+
+Special Thanks:
+
+This project is developed by volunteers committed to promoting democratic
+transparency in Peru through technology. We are grateful to all contributors
+who have helped make this project possible.
+

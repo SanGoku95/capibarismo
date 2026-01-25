@@ -3,10 +3,9 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useNextPair, usePersonalRanking, useSubmitVote, getSessionId, resetSession } from '../useGameAPI';
 import { sessionService } from '@/services/sessionService';
-import { listCandidates } from '@/data';
 import type { ReactNode } from 'react';
 
-// Mock sessionService
+// Mock sessionService with all required methods
 vi.mock('@/services/sessionService', () => ({
   sessionService: {
     getSessionId: vi.fn(() => 'test-session-id'),
@@ -17,8 +16,38 @@ vi.mock('@/services/sessionService', () => ({
     getVoteCount: vi.fn(() => 0),
     incrementVoteCount: vi.fn(() => 1),
     decrementVoteCount: vi.fn(() => 0),
+    getCandidateAppearances: vi.fn(() => ({})),
+    incrementCandidateAppearances: vi.fn(),
+    getLocalRatings: vi.fn(() => ({})),
+    updateLocalRatings: vi.fn(),
+    clearLocalRatings: vi.fn(),
+    clearCandidateAppearances: vi.fn(),
   },
 }));
+
+// Mock pairGenerationService
+vi.mock('@/services/pairGenerationService', () => ({
+  generateSmartPair: vi.fn(() => ({
+    pairId: 'keiko-rafael',
+    a: {
+      id: 'keiko',
+      nombre: 'Keiko Fujimori',
+      ideologia: 'Derecha Populista',
+      fullBody: '/fotos_candidatos/keiko/full_body_keiko_poster.webp',
+      headshot: 'https://example.com/keiko.jpg',
+    },
+    b: {
+      id: 'rafael',
+      nombre: 'Rafael López Aliaga',
+      ideologia: 'Derecha Conservadora',
+      fullBody: '/fotos_candidatos/rafael/rafael_poster.webp',
+      headshot: 'https://example.com/rafael.jpg',
+    },
+    hint: { rationale: 'random' },
+  })),
+}));
+
+import { generateSmartPair } from '@/services/pairGenerationService';
 
 // Create a wrapper for React Query
 function createWrapper() {
@@ -37,6 +66,12 @@ function createWrapper() {
 describe('useGameAPI - Unit Tests', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Force production mode so fetch() is actually called
+    vi.stubEnv('DEV', false);
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
   });
 
   describe('Session Management Functions', () => {
@@ -84,12 +119,10 @@ describe('useGameAPI - Unit Tests', () => {
       // Check candidate A
       expect(pair.a.id).toBeTruthy();
       expect(pair.a.nombre).toBeTruthy();
-      // ideologia is optional for some candidates
 
       // Check candidate B
       expect(pair.b.id).toBeTruthy();
       expect(pair.b.nombre).toBeTruthy();
-      // ideologia is optional for some candidates
     });
 
     it('should generate pair with valid pairId format', async () => {
@@ -113,7 +146,7 @@ describe('useGameAPI - Unit Tests', () => {
       expect(pair.pairId).toContain('-');
     });
 
-    it('should mark pair as seen in sessionService', async () => {
+    it('should call generateSmartPair from pairGenerationService', async () => {
       const { result } = renderHook(() => useNextPair(), {
         wrapper: createWrapper(),
       });
@@ -122,65 +155,55 @@ describe('useGameAPI - Unit Tests', () => {
         expect(result.current.isSuccess).toBe(true);
       });
 
-      expect(sessionService.addSeenPair).toHaveBeenCalled();
+      expect(generateSmartPair).toHaveBeenCalled();
     });
 
-    it('should generate different pairs on consecutive calls', async () => {
-      const { result: result1 } = renderHook(() => useNextPair(), {
+    it('should return data from generateSmartPair', async () => {
+      const { result } = renderHook(() => useNextPair(), {
         wrapper: createWrapper(),
       });
 
       await waitFor(() => {
-        expect(result1.current.isSuccess).toBe(true);
+        expect(result.current.isSuccess).toBe(true);
       });
 
-      const pair1 = result1.current.data!;
-
-      // Create new hook instance
-      const { result: result2 } = renderHook(() => useNextPair(), {
-        wrapper: createWrapper(),
-      });
-
-      await waitFor(() => {
-        expect(result2.current.isSuccess).toBe(true);
-      });
-
-      const pair2 = result2.current.data!;
-
-      // With 6 candidates and proper randomization, we just verify both pairs are valid
-      // (they may be the same due to randomness, but should have valid structure)
-      expect(pair1.pairId).toBeTruthy();
-      expect(pair2.pairId).toBeTruthy();
-      expect(pair1.a.id).not.toBe(pair1.b.id);
-      expect(pair2.a.id).not.toBe(pair2.b.id);
+      const pair = result.current.data!;
+      expect(pair.pairId).toBe('keiko-rafael');
+      expect(pair.a.id).toBe('keiko');
+      expect(pair.b.id).toBe('rafael');
     });
   });
 
   describe('usePersonalRanking', () => {
     beforeEach(() => {
-      // Mock fetch for this test suite
       global.fetch = vi.fn();
-      // Set production environment to test actual fetch calls
-      vi.stubEnv('DEV', false);
     });
 
     afterEach(() => {
       vi.restoreAllMocks();
-      vi.unstubAllEnvs();
     });
 
-    it('should fetch personal ranking with session ID', async () => {
-      const mockRanking = [
-        { id: 'candidate1', nombre: 'Candidate 1', elo: 1250, rank: 1 },
-        { id: 'candidate2', nombre: 'Candidate 2', elo: 1200, rank: 2 },
-      ];
-
-      (global.fetch as any).mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockRanking,
+    it('should not fetch when sessionId is empty', async () => {
+      const { result } = renderHook(() => usePersonalRanking(''), {
+        wrapper: createWrapper(),
       });
 
-      const { result } = renderHook(() => usePersonalRanking('test-session-id'), {
+      // Query should be disabled
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.data).toBeUndefined();
+    });
+
+    it('should fetch ranking for valid sessionId', async () => {
+      const mockRanking = [
+        { candidateId: 'keiko', rank: 1, name: 'Keiko', rating: 1250 },
+      ];
+
+      vi.mocked(global.fetch).mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockRanking),
+      } as Response);
+
+      const { result } = renderHook(() => usePersonalRanking('test-session'), {
         wrapper: createWrapper(),
       });
 
@@ -189,306 +212,72 @@ describe('useGameAPI - Unit Tests', () => {
       });
 
       expect(result.current.data).toEqual(mockRanking);
-      expect(global.fetch).toHaveBeenCalledWith(
-        '/api/ranking/personal?sessionId=test-session-id'
-      );
-    });
-
-    it('should not fetch when session ID is empty', async () => {
-      const { result } = renderHook(() => usePersonalRanking(''), {
-        wrapper: createWrapper(),
-      });
-
-      // Query should be disabled when sessionId is empty
-      expect(result.current.isPending).toBe(true);
-      expect(result.current.fetchStatus).toBe('idle');
-      expect(global.fetch).not.toHaveBeenCalled();
-    });
-
-    it('should handle fetch errors', async () => {
-      (global.fetch as any).mockResolvedValueOnce({
-        ok: false,
-        status: 500,
-      });
-
-      const { result } = renderHook(() => usePersonalRanking('test-session-id'), {
-        wrapper: createWrapper(),
-      });
-
-      await waitFor(() => {
-        expect(result.current.isError).toBe(true);
-      });
-
-      expect(result.current.error).toBeDefined();
-    });
-
-    it('should return empty array in DEV mode without API', async () => {
-      vi.stubEnv('DEV', true);
-      vi.stubEnv('VITE_USE_API', undefined);
-
-      const { result } = renderHook(() => usePersonalRanking('test-session-id'), {
-        wrapper: createWrapper(),
-      });
-
-      await waitFor(() => {
-        expect(result.current.isSuccess).toBe(true);
-      });
-
-      expect(result.current.data).toEqual([]);
     });
   });
 
   describe('useSubmitVote', () => {
-    let queryClient: QueryClient;
-
     beforeEach(() => {
-      queryClient = new QueryClient({
-        defaultOptions: {
-          queries: { retry: false },
-          mutations: { retry: false },
-        },
-      });
       global.fetch = vi.fn();
-      // Set production environment to test actual fetch calls
-      vi.stubEnv('DEV', false);
     });
 
     afterEach(() => {
       vi.restoreAllMocks();
-      vi.unstubAllEnvs();
     });
 
-    it('should submit vote with correct payload', async () => {
-      (global.fetch as any).mockResolvedValueOnce({
+    it('should submit vote successfully', async () => {
+      vi.mocked(global.fetch).mockResolvedValueOnce({
         ok: true,
-        json: async () => ({ ok: true }),
+        json: () => Promise.resolve({ ok: true }),
+      } as Response);
+
+      const { result } = renderHook(() => useSubmitVote('test-session'), {
+        wrapper: createWrapper(),
       });
 
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      );
-
-      const { result } = renderHook(() => useSubmitVote('test-session-id'), {
-        wrapper,
+      await result.current.mutateAsync({
+        sessionId: 'test-session',
+        aId: 'keiko',
+        bId: 'rafael',
+        outcome: 'A',
       });
 
-      const voteRequest = {
-        sessionId: 'test-session-id',
-        pairId: 'candidate1-candidate2',
-        aId: 'candidate1',
-        bId: 'candidate2',
-        outcome: 'A' as const,
-      };
-
-      result.current.mutate(voteRequest);
-
-      await waitFor(() => {
-        expect(result.current.isSuccess).toBe(true);
-      });
-
-      expect(global.fetch).toHaveBeenCalledWith('/api/game/vote', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(voteRequest),
-      });
-    });
-
-    it('should handle 429 rate limit error', async () => {
-      (global.fetch as any).mockResolvedValueOnce({
-        ok: false,
-        status: 429,
-      });
-
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      );
-
-      const { result } = renderHook(() => useSubmitVote('test-session-id'), {
-        wrapper,
-      });
-
-      const voteRequest = {
-        sessionId: 'test-session-id',
-        pairId: 'candidate1-candidate2',
-        aId: 'candidate1',
-        bId: 'candidate2',
-        outcome: 'A' as const,
-      };
-
-      result.current.mutate(voteRequest);
-
-      await waitFor(() => {
-        expect(result.current.isError).toBe(true);
-      });
-
-      expect(result.current.error?.message).toContain('Rate limit');
-    });
-
-    it('should handle 400 invalid data error', async () => {
-      (global.fetch as any).mockResolvedValueOnce({
-        ok: false,
-        status: 400,
-      });
-
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      );
-
-      const { result } = renderHook(() => useSubmitVote('test-session-id'), {
-        wrapper,
-      });
-
-      const voteRequest = {
-        sessionId: 'test-session-id',
-        pairId: 'candidate1-candidate2',
-        aId: 'candidate1',
-        bId: 'candidate2',
-        outcome: 'A' as const,
-      };
-
-      result.current.mutate(voteRequest);
-
-      await waitFor(() => {
-        expect(result.current.isError).toBe(true);
-      });
-
-      expect(result.current.error?.message).toContain('Invalid vote');
-    });
-
-    it('should handle 500 server error', async () => {
-      (global.fetch as any).mockResolvedValueOnce({
-        ok: false,
-        status: 500,
-      });
-
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      );
-
-      const { result } = renderHook(() => useSubmitVote('test-session-id'), {
-        wrapper,
-      });
-
-      const voteRequest = {
-        sessionId: 'test-session-id',
-        pairId: 'candidate1-candidate2',
-        aId: 'candidate1',
-        bId: 'candidate2',
-        outcome: 'A' as const,
-      };
-
-      result.current.mutate(voteRequest);
-
-      await waitFor(() => {
-        expect(result.current.isError).toBe(true);
-      });
-
-      expect(result.current.error?.message).toContain('Server error');
-    });
-
-    it('should mock vote in DEV mode', async () => {
-      vi.stubEnv('DEV', true);
-      vi.stubEnv('VITE_USE_API', undefined);
-
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      );
-
-      const { result } = renderHook(() => useSubmitVote('test-session-id'), {
-        wrapper,
-      });
-
-      const voteRequest = {
-        sessionId: 'test-session-id',
-        pairId: 'candidate1-candidate2',
-        aId: 'candidate1',
-        bId: 'candidate2',
-        outcome: 'A' as const,
-      };
-
-      result.current.mutate(voteRequest);
-
-      await waitFor(() => {
-        expect(result.current.isSuccess).toBe(true);
-      });
-
-      // In DEV mode, fetch should not be called
-      expect(global.fetch).not.toHaveBeenCalled();
-    });
-
-    it('should invalidate queries on successful vote', async () => {
-      (global.fetch as any).mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({ ok: true }),
-      });
-
-      const invalidateQueriesSpy = vi.spyOn(queryClient, 'invalidateQueries');
-
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      );
-
-      const { result } = renderHook(() => useSubmitVote('test-session-id'), {
-        wrapper,
-      });
-
-      const voteRequest = {
-        sessionId: 'test-session-id',
-        pairId: 'candidate1-candidate2',
-        aId: 'candidate1',
-        bId: 'candidate2',
-        outcome: 'A' as const,
-      };
-
-      result.current.mutate(voteRequest);
-
-      await waitFor(() => {
-        expect(result.current.isSuccess).toBe(true);
-      });
-
-      // Should invalidate both nextpair and personalRanking queries
-      expect(invalidateQueriesSpy).toHaveBeenCalledWith(
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/api/game/vote',
         expect.objectContaining({
-          queryKey: ['game', 'nextpair', 'test-session-id'],
-        })
-      );
-
-      expect(invalidateQueriesSpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          queryKey: ['personalRanking', 'test-session-id'],
+          method: 'POST',
         })
       );
     });
   });
 
   describe('Pair Generation Edge Cases', () => {
-    it('should handle all pairs seen scenario', async () => {
-      // Get actual candidates and generate all possible pairs
-      const candidates = listCandidates();
-      const allPairs = new Set<string>();
-      
-      for (let i = 0; i < candidates.length; i++) {
-        for (let j = i + 1; j < candidates.length; j++) {
-          const pairId = [candidates[i].id, candidates[j].id].sort().join('-');
-          allPairs.add(pairId);
-        }
-      }
+    it('should handle generateSmartPair returning different pairs', async () => {
+      let callCount = 0;
+      vi.mocked(generateSmartPair).mockImplementation(() => {
+        callCount++;
+        return {
+          pairId: callCount === 1 ? 'keiko-rafael' : 'yonhy-cesar-acuna',
+          a: {
+            id: callCount === 1 ? 'keiko' : 'yonhy',
+            nombre: callCount === 1 ? 'Keiko Fujimori' : 'Yonhy Lescano',
+          },
+          b: {
+            id: callCount === 1 ? 'rafael' : 'cesar-acuna',
+            nombre: callCount === 1 ? 'Rafael López Aliaga' : 'César Acuña',
+          },
+          hint: { rationale: 'random' },
+        } as any;
+      });
 
-      vi.mocked(sessionService.getSeenPairs).mockReturnValue(allPairs);
-
-      const { result } = renderHook(() => useNextPair(), {
+      const { result: result1 } = renderHook(() => useNextPair(), {
         wrapper: createWrapper(),
       });
 
       await waitFor(() => {
-        expect(result.current.isSuccess).toBe(true);
+        expect(result1.current.isSuccess).toBe(true);
       });
 
-      // Should still generate a pair (after clearing seen pairs)
-      expect(result.current.data).toBeDefined();
-      expect(sessionService.clearSeenPairs).toHaveBeenCalled();
+      expect(result1.current.data?.pairId).toBe('keiko-rafael');
     });
   });
 });

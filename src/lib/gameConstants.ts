@@ -4,15 +4,27 @@
  */
 
 /**
- * Número de votos requeridos para completar una sesión de juego.
- * Cuando el usuario alcanza este número, se muestra el modal de completado.
+ * Número de votos para mostrar el ranking preliminar.
+ * A los 15 votos, el usuario puede ver un ranking inicial.
  */
-export const COMPLETION_GOAL = 15;
+export const PRELIMINARY_GOAL = 15;
+
+/**
+ * Número de votos recomendados para un ranking confiable.
+ * Con 30 votos y 36 candidatos, cada candidato aparece ~1.7 veces en promedio.
+ */
+export const RECOMMENDED_GOAL = 30;
+
+/**
+ * @deprecated Use PRELIMINARY_GOAL instead
+ * Kept for backward compatibility during migration
+ */
+export const COMPLETION_GOAL = PRELIMINARY_GOAL;
 
 /**
  * Máximo número de intentos para encontrar un par no visto.
  * Previene loops infinitos durante generación de pares.
- * Con 11 candidatos hay 55 pares posibles, 100 intentos es más que suficiente.
+ * Con 36 candidatos hay 630 pares posibles, 100 intentos es más que suficiente.
  */
 export const MAX_PAIR_SELECTION_ATTEMPTS = 100;
 
