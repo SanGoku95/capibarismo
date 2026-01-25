@@ -8,7 +8,7 @@ import { CandidateAvatar } from '../candidate/CandidateAvatar';
 import { PlayerIndicator } from '../common/PlayerIndicator';
 import { PLAYER_INDICATORS, type CandidateSide } from '@/lib/constants';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Briefcase, GraduationCap, Banknote, Home, Car, Package, Gavel, Check, X, ArrowUpRight } from 'lucide-react';
+import { Briefcase, GraduationCap, Banknote, Home, Car, Package, Gavel, ArrowUpRight } from 'lucide-react';
 
 import { educacion } from '@/data/domains/educacion';
 import { experienciaLaboral } from '@/data/domains/experienciaLaboral';
@@ -161,30 +161,37 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
                   const e2 = e;
                   if (!e2) return <div className="pt-2 text-sm text-muted-foreground">Sin datos</div>;
 
-                  const primariaOk = (e2.basica?.primaria ?? '').toLowerCase() === 'sí';
-                  const secundariaOk = (e2.basica?.secundaria ?? '').toLowerCase() === 'sí';
-                  const topPost = e2.postgrado?.[0];
-                  const topUni = e2.universitaria?.[0];
+                  // Combine postgrado and universitaria, sort by year (most recent first)
+                  const allTitles = [
+                    ...(e2.postgrado ?? []).map((p) => ({
+                      tipo: p.tipo,
+                      institucion: p.institucion,
+                      año: p.año,
+                    })),
+                    ...(e2.universitaria ?? []).map((u) => ({
+                      tipo: 'Universitario',
+                      institucion: u.universidad,
+                      año: u.año,
+                    })),
+                  ].sort((a, b) => Number(b.año || 0) - Number(a.año || 0));
+
+                  if (!allTitles.length) return <div className="pt-2 text-sm text-muted-foreground">Sin títulos registrados</div>;
 
                   return (
                     <div className="pt-2 space-y-3">
-                      <div className="grid grid-cols-2 gap-2">
-                        <StatTile
-                          icon={<GraduationCap size={14} />}
-                          label="Primaria"
-                          value={primariaOk ? <Check size={14} className="text-emerald-500" /> : <X size={14} className="text-red-500" />}
-                        />
-                        <StatTile
-                          icon={<GraduationCap size={14} />}
-                          label="Secundaria"
-                          value={secundariaOk ? <Check size={14} className="text-emerald-500" /> : <X size={14} className="text-red-500" />}
-                        />
-                        <StatTile
-                          icon={<GraduationCap size={14} />}
-                          label="Títulos"
-                          value={`${(e2.universitaria?.length ?? 0) + (e2.postgrado?.length ?? 0)}`}
-                          sub={topPost ? `${topPost.tipo}` : topUni ? 'Universitario' : '—'}
-                        />
+                      <div className="space-y-2">
+                        {allTitles.slice(0, 3).map((title, idx) => (
+                          <div key={`${title.tipo}-${title.institucion}-${title.año ?? idx}`} className="rounded-md border border-border/50 bg-muted/10 p-2">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-xs font-semibold line-clamp-1">{title.tipo}</span>
+                              <span className="text-[10px] text-muted-foreground whitespace-nowrap">{title.año || '—'}</span>
+                            </div>
+                            <div className="text-[11px] text-muted-foreground line-clamp-1">{title.institucion}</div>
+                          </div>
+                        ))}
+                        {allTitles.length > 3 && (
+                          <div className="text-[10px] text-muted-foreground text-center">+{allTitles.length - 3} más</div>
+                        )}
                       </div>
                       <ProfileLink candidateId={candidate.id} hash="tray-educacion" />
                     </div>
@@ -199,27 +206,24 @@ export function CandidateFactSheet({ candidate, side, openSection, setOpenSectio
               </AccordionTrigger>
               <AccordionContent>
                 {(() => {
-                  if (!jobs.length) return <div className="pt-2 text-sm text-muted-foreground">Sin datos</div>;
+                  if (!jobs.length) return <div className="pt-2 text-sm text-muted-foreground">Sin experiencia registrada</div>;
 
                   return (
                     <div className="pt-2 space-y-3">
-                      <StatTile
-                        icon={<Briefcase size={14} />}
-                        label="Cargos"
-                        value={jobs.length}
-                      />
-
-                      {/* Últimos 2 cargos */}
+                      {/* Show up to 3 most recent jobs */}
                       <div className="space-y-2">
-                        {jobs.slice(0, 2).map((job, idx) => (
-                          <div key={idx} className="rounded-md border border-border/50 bg-muted/10 p-2">
+                        {jobs.slice(0, 3).map((job, idx) => (
+                          <div key={`${job.puesto}-${job.empresa}-${job.periodo}-${idx}`} className="rounded-md border border-border/50 bg-muted/10 p-2">
                             <div className="flex items-center justify-between gap-2">
                               <span className="text-xs font-semibold line-clamp-1">{job.puesto}</span>
-                              <span className="text-[10px] text-muted-foreground whitespace-nowrap">{job.periodo.slice(-4)}</span>
+                              <span className="text-[10px] text-muted-foreground whitespace-nowrap">{job.periodo}</span>
                             </div>
                             <div className="text-[11px] text-muted-foreground line-clamp-1">{job.empresa}</div>
                           </div>
                         ))}
+                        {jobs.length > 3 && (
+                          <div className="text-[10px] text-muted-foreground text-center">+{jobs.length - 3} más</div>
+                        )}
                       </div>
 
                       <ProfileLink candidateId={candidate.id} hash="tray-experiencia" />

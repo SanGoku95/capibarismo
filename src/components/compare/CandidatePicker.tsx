@@ -1,17 +1,53 @@
-import { useState } from 'react';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCompareStore } from '@/store/useCompareStore';
 import { cn } from '@/lib/utils';
 import { listCandidates } from '@/data';
 import type { CandidateBase } from '@/data/types';
 
+// Scroll detection threshold in pixels - prevents flickering near edges
+const SCROLL_THRESHOLD = 10;
+// Scroll amount per click: ~3 candidates (w-12 = 48px + 8px gap = 56px each)
+const SCROLL_STEP = 168;
+
 export function CandidatePicker() {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const {
     leftCandidate,
     rightCandidate,
     selectCandidate,
   } = useCompareStore();
+
+  // Check if we can scroll in either direction
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const checkScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      setCanScrollLeft(scrollLeft > SCROLL_THRESHOLD);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - SCROLL_THRESHOLD);
+    };
+
+    checkScroll();
+    container.addEventListener('scroll', checkScroll);
+    window.addEventListener('resize', checkScroll);
+
+    return () => {
+      container.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('resize', checkScroll);
+    };
+  }, [isExpanded]);
+
+  const handleScroll = (direction: 'left' | 'right') => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const scrollAmount = direction === 'right' ? SCROLL_STEP : -SCROLL_STEP;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  };
 
   const isSelected = (candidateId: string) => {
     return leftCandidate?.id === candidateId || rightCandidate?.id === candidateId;
@@ -125,17 +161,74 @@ export function CandidatePicker() {
             isExpanded ? "max-h-[200px] opacity-100" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"
           )}
         >
-          <div
-            className={cn(
-              // Móvil: grid de 2 filas con scroll horizontal
-              "grid grid-rows-2 grid-flow-col auto-cols-max gap-2 overflow-x-auto pb-1",
-              "scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-              // Desktop: grid de 12 columnas con distribución uniforme (36 candidatos = 3 filas de 12)
-              "lg:grid-rows-none lg:grid-flow-row lg:auto-cols-auto",
-              "lg:grid-cols-12 lg:gap-2 lg:overflow-x-visible lg:overflow-y-visible lg:justify-items-center"
+          <div className="relative">
+            <div
+              ref={scrollContainerRef}
+              className={cn(
+                // Móvil: grid de 2 filas con scroll horizontal
+                "grid grid-rows-2 grid-flow-col auto-cols-max gap-2 overflow-x-auto pb-1",
+                "scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                // Desktop: grid uniforme de 12 columnas
+                "lg:grid-rows-none lg:grid-flow-row lg:auto-cols-auto",
+                "lg:grid-cols-12 lg:gap-2 lg:overflow-x-visible lg:overflow-y-visible lg:justify-items-center"
+              )}
+            >
+              {listCandidates().map(renderCandidateButton)}
+            </div>
+            
+            {/* Left scroll button */}
+            {canScrollLeft && (
+              <div
+                className={cn(
+                  "absolute left-0 top-0 bottom-1 w-16 transition-opacity duration-300",
+                  "bg-gradient-to-r from-background via-background/80 to-transparent",
+                  "flex items-center justify-start pointer-events-none",
+                  "lg:hidden"
+                )}
+              >
+                <button
+                  type="button"
+                  onClick={() => handleScroll('left')}
+                  className={cn(
+                    "h-full px-2 flex items-center justify-center pointer-events-auto",
+                    "text-muted-foreground hover:text-foreground active:scale-90",
+                    "transition-all duration-150"
+                  )}
+                  aria-label="Ver candidatos anteriores"
+                >
+                  <div className="bg-muted/80 backdrop-blur-sm rounded-full p-1.5 shadow-md border border-border/50">
+                    <ChevronLeft className="w-5 h-5" />
+                  </div>
+                </button>
+              </div>
             )}
-          >
-            {listCandidates().map(renderCandidateButton)}
+
+            {/* Right scroll button */}
+            {canScrollRight && (
+              <div
+                className={cn(
+                  "absolute right-0 top-0 bottom-1 w-16 transition-opacity duration-300",
+                  "bg-gradient-to-l from-background via-background/80 to-transparent",
+                  "flex items-center justify-end pointer-events-none",
+                  "lg:hidden"
+                )}
+              >
+                <button
+                  type="button"
+                  onClick={() => handleScroll('right')}
+                  className={cn(
+                    "h-full px-2 flex items-center justify-center pointer-events-auto",
+                    "text-muted-foreground hover:text-foreground active:scale-90",
+                    "transition-all duration-150"
+                  )}
+                  aria-label="Ver más candidatos"
+                >
+                  <div className="bg-muted/80 backdrop-blur-sm rounded-full p-1.5 shadow-md border border-border/50">
+                    <ChevronRight className="w-5 h-5" />
+                  </div>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

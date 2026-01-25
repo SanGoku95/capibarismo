@@ -20,8 +20,6 @@ import {
   Car,
   Package,
   Gavel,
-  Check,
-  X,
   ArrowUpRight,
 } from 'lucide-react';
 
@@ -97,6 +95,40 @@ function MetricRow({
           {sub}
         </div>
       ) : null}
+    </div>
+  );
+}
+
+// Card optimized for showing job/education entries - title first, stacked layout
+function EntryCard({
+  icon,
+  title,
+  subtitle,
+  meta,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  subtitle: string;
+  meta?: string;
+}) {
+  return (
+    <div className="rounded-md border border-white/10 bg-white/5 px-2.5 py-2 overflow-hidden">
+      <div className="flex items-start gap-2">
+        <span className="text-white/80 flex-shrink-0 mt-0.5">{icon}</span>
+        <div className="flex-1 min-w-0">
+          <div className="text-[12px] font-bold text-white leading-tight line-clamp-2">
+            {title}
+          </div>
+          <div className="text-[11px] text-white/65 leading-snug line-clamp-2 mt-0.5">
+            {subtitle}
+          </div>
+          {meta && (
+            <div className="text-[10px] text-white/50 mt-0.5">
+              {meta}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -215,69 +247,60 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
     const e = educacion[candidateId];
     if (!e) return <div className="text-sm text-white/70">Sin datos</div>;
 
-    const primariaOk = (e.basica?.primaria ?? '').toLowerCase() === 'sí';
-    const secundariaOk = (e.basica?.secundaria ?? '').toLowerCase() === 'sí';
+    // Combine postgrado and universitaria, sort by year (most recent first)
+    const allTitles = [
+      ...(e.postgrado ?? []).map((p) => ({
+        tipo: p.tipo,
+        institucion: p.institucion,
+        año: p.año,
+      })),
+      ...(e.universitaria ?? []).map((u) => ({
+        tipo: 'Universitario',
+        institucion: u.universidad,
+        año: u.año,
+      })),
+    ].sort((a, b) => Number(b.año || 0) - Number(a.año || 0));
 
-    const uniCount = e.universitaria?.length ?? 0;
-    const postCount = e.postgrado?.length ?? 0;
+    if (!allTitles.length) return <div className="text-sm text-white/70">Sin títulos registrados</div>;
 
-    const topPost = e.postgrado?.[0];
-    const topUni = e.universitaria?.[0];
-
+    // Show up to 3 most recent titles
     return (
       <div className="space-y-2">
-        <MetricRow
-          icon={<GraduationCap size={14} />}
-          label="Primaria"
-          value={primariaOk ? <Check size={16} className="text-emerald-400" /> : <X size={16} className="text-red-400" />}
-        />
-        <MetricRow
-          icon={<GraduationCap size={14} />}
-          label="Secundaria"
-          value={secundariaOk ? <Check size={16} className="text-emerald-400" /> : <X size={16} className="text-red-400" />}
-        />
-        <MetricRow
-          icon={<GraduationCap size={14} />}
-          label="Títulos"
-          value={`${uniCount + postCount}`}
-          sub={
-            topPost
-              ? `${topPost.tipo}: ${topPost.institucion} (${formatYear(topPost.año)})`
-              : topUni
-                ? `${topUni.universidad} (${formatYear(topUni.año)})`
-                : '—'
-          }
-        />
+        {allTitles.slice(0, 3).map((title, idx) => (
+          <EntryCard
+            key={`${title.tipo}-${title.institucion}-${title.año ?? idx}`}
+            icon={<GraduationCap size={14} />}
+            title={title.tipo}
+            subtitle={title.institucion}
+            meta={title.año ? `Año ${title.año}` : undefined}
+          />
+        ))}
+        {allTitles.length > 3 && (
+          <div className="text-[10px] text-white/50 text-center">+{allTitles.length - 3} más</div>
+        )}
       </div>
     );
   };
 
   const renderExperiencia = (candidateId: string) => {
     const jobs = experienciaLaboral[candidateId] ?? [];
-    const top = jobs[0];
 
+    if (!jobs.length) return <div className="text-sm text-white/70">Sin experiencia registrada</div>;
+
+    // Show up to 3 most recent jobs
     return (
       <div className="space-y-2">
-        <MetricRow
-          icon={<Briefcase size={14} />}
-          label="Cargos"
-          value={jobs.length}
-        />
-        {top && (
-          <MetricRow
+        {jobs.slice(0, 3).map((job, idx) => (
+          <EntryCard
+            key={`${job.puesto}-${job.empresa}-${job.periodo}-${idx}`}
             icon={<Briefcase size={14} />}
-            label="Más reciente"
-            value={top.periodo.slice(-4)}
-            sub={`${top.puesto} · ${top.empresa}`}
+            title={job.puesto}
+            subtitle={job.empresa}
+            meta={job.periodo}
           />
-        )}
-        {!top && (
-          <MetricRow
-            icon={<Briefcase size={14} />}
-            label="Más reciente"
-            value="—"
-            sub="Sin datos"
-          />
+        ))}
+        {jobs.length > 3 && (
+          <div className="text-[10px] text-white/50 text-center">+{jobs.length - 3} más</div>
         )}
       </div>
     );
