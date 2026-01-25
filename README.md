@@ -47,7 +47,7 @@ We treat this civic tool like a fighting game. To maintain "Game Feel", we adher
 
 - **🥊 "The Punch" (Immediate Feedback)**: <100ms response. Voting feels visceral and instant.
 - **🌊 "The Flow" (Sustained Rhythm)**: <1.0s transitions. Users stay in a "voting trance" without interruption.
-- **📡 "The Reach" (Digital Inclusion)**: Optimized for Rural Peru (3G/High Latency). Democracy is for everyone.
+- **📡 "The Reach" (Digital Inclusion)**: Optimized for Rural Peru (3G/High Latency). Democracy is for all.
 
 ### 🛠️ Tech Stack
 
