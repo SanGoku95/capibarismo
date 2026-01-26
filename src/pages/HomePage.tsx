@@ -292,47 +292,6 @@ export function HomePage() {
 
               {showAllGoals && (
                 <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4 hover:border-border/60 transition-colors duration-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Meta 3
-                      </span>
-                      <span className="text-base font-bold text-foreground/80 font-sans">
-                        S/ 300
-                      </span>
-                    </div>
-                    <p className="text-sm text-foreground/75 font-sans">
-                      Información de Vicepresidentes
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4 hover:border-border/60 transition-colors duration-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Meta 4
-                      </span>
-                      <span className="text-base font-bold text-foreground/80 font-sans">
-                        S/ 500
-                      </span>
-                    </div>
-                    <p className="text-sm text-foreground/75 font-sans">
-                      Completar datos de los candidatos al Senado.
-                    </p>
-                  </div>
-                  
-                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4 hover:border-border/60 transition-colors duration-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Meta 5
-                      </span>
-                      <span className="text-base font-bold text-foreground/80 font-sans">
-                        S/ 700
-                      </span>
-                    </div>
-                    <p className="text-sm text-foreground/75 font-sans">
-                      Completar datos de los candidatos a la cámara de Diputados.
-                    </p>
-                  </div>
 
                   <div className="rounded-2xl bg-muted/40 border border-border/40 p-4 hover:border-border/60 transition-colors duration-200">
                     <div className="flex items-center justify-between mb-2">
