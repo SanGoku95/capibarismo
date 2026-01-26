@@ -34,11 +34,10 @@ export function HomePage() {
     const baseList = listCandidates();
     return baseList.map((c) => {
       const profile = getCandidateProfile(c.id);
-      const resumen = profile?.proyectoPolitico?.resumen;
       return {
         name: c.nombre,
         url: `https://capibarismo.com/candidate/${c.id}`,
-        description: `${c.nombre} - ${c.ideologia}: ${resumen ?? ''}`.trim(),
+        description: `${c.nombre} - ${c.ideologia}`.trim(),
       };
     });
   }, []);
