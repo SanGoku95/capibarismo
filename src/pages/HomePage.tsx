@@ -142,6 +142,21 @@ export function HomePage() {
                     </span>
                     <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                   </Link>
+
+                  {/* WhatsApp Channel Button */}
+                  <a
+                    href="https://whatsapp.com/channel/0029VbCGU56GehESR1UptK3q"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => posthog?.capture('whatsapp_channel_click', { via: 'home_cta' })}
+                    className="group inline-flex items-center justify-between gap-3 rounded-xl border border-green-600 bg-green-500/90 text-white px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg hover:bg-green-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600/60 active:translate-y-0"
+                  >
+                    <span className="flex items-center gap-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" className="shrink-0"><path fill="currentColor" d="M12.04 2.003c-5.52 0-9.997 4.477-9.997 9.997 0 1.76.464 3.48 1.344 4.997L2.04 22.003l5.16-1.34c1.48.81 3.13 1.24 4.84 1.24h.01c5.52 0 9.997-4.477 9.997-9.997 0-2.67-1.04-5.18-2.93-7.07-1.89-1.89-4.4-2.83-7.07-2.83Zm-.01 17.994c-1.52 0-3.01-.39-4.32-1.13l-.31-.18-3.06.8.82-2.98-.2-.31c-.84-1.32-1.28-2.85-1.28-4.43 0-4.42 3.6-8.02 8.02-8.02 2.14 0 4.15.83 5.66 2.34 1.51 1.51 2.34 3.52 2.34 5.66 0 4.42-3.6 8.02-8.02 8.02Zm4.42-6.01c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.42-1.34-1.66-.14-.24-.01-.36.11-.48.12-.12.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.48-.4-.42-.54-.43-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.7 2.6 4.12 3.54.58.2 1.03.32 1.38.41.58.14 1.1.12 1.52.07.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/></svg>
+                      Canal WhatsApp
+                    </span>
+                    <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                  </a>
                 </div>
               </div>
 
