@@ -1,16 +1,53 @@
+import { useState, useRef, useEffect } from 'react';
+import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCompareStore } from '@/store/useCompareStore';
 import { cn } from '@/lib/utils';
 import { listCandidates } from '@/data';
 import type { CandidateBase } from '@/data/types';
-import { Plus } from 'lucide-react';
-import { Link } from 'react-router-dom';
+
+// Scroll detection threshold in pixels - prevents flickering near edges
+const SCROLL_THRESHOLD = 10;
+// Scroll amount per click: ~3 candidates (w-12 = 48px + 8px gap = 56px each)
+const SCROLL_STEP = 168;
 
 export function CandidatePicker() {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const {
     leftCandidate,
     rightCandidate,
     selectCandidate,
   } = useCompareStore();
+
+  // Check if we can scroll in either direction
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const checkScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      setCanScrollLeft(scrollLeft > SCROLL_THRESHOLD);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - SCROLL_THRESHOLD);
+    };
+
+    checkScroll();
+    container.addEventListener('scroll', checkScroll);
+    window.addEventListener('resize', checkScroll);
+
+    return () => {
+      container.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('resize', checkScroll);
+    };
+  }, [isExpanded]);
+
+  const handleScroll = (direction: 'left' | 'right') => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const scrollAmount = direction === 'right' ? SCROLL_STEP : -SCROLL_STEP;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  };
 
   const isSelected = (candidateId: string) => {
     return leftCandidate?.id === candidateId || rightCandidate?.id === candidateId;
@@ -36,95 +73,163 @@ export function CandidatePicker() {
         key={candidate.id}
         onClick={() => handleCandidateButtonClick(candidate)}
         className={cn(
-          "relative aspect-square transition-transform duration-150 ease-out",
+          "relative flex-shrink-0 aspect-square transition-all duration-200 ease-out",
           "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-          "flex-shrink-0 w-20 lg:w-20 overflow-hidden rounded-lg",
-          "min-h-[80px]",
-          !selected && "hover:scale-[1.03] active:scale-[0.98]"
+          "overflow-hidden rounded-lg",
+          // Móvil: tamaño más grande
+          "w-12 h-12",
+          // Desktop: tamaño uniforme
+          "lg:w-16 lg:h-16",
+          // Bordes y sombras
+          "border-2 border-transparent",
+          selected ? (
+            side === 'left'
+              ? "border-team-left ring-2 ring-team-left/50 shadow-[0_0_12px_rgba(239,68,68,0.4)]"
+              : "border-team-right ring-2 ring-team-right/50 shadow-[0_0_12px_rgba(59,130,246,0.4)]"
+          ) : "lg:hover:border-white/30 lg:hover:shadow-lg lg:hover:scale-105 active:scale-95"
         )}
         aria-label={`Seleccionar a ${candidate.nombre} para comparar`}
+        aria-selected={selected}
         tabIndex={0}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center">
-          <div className="text-xs font-bold text-white truncate">
+        <img
+          src={candidate.headshot}
+          alt={`Retrato de ${candidate.nombre}`}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 p-0.5 text-center">
+          <div className="text-[0.5rem] lg:text-xs font-bold text-white truncate leading-tight drop-shadow-md">
             {candidate.nombre.split(' ')[0]}
           </div>
         </div>
         {selected && (
           <div className={cn(
-            "absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center text-white",
+            "absolute top-0.5 right-0.5 lg:-top-1 lg:-right-1 w-4 h-4 lg:w-5 lg:h-5 rounded-full text-[0.6rem] lg:text-xs font-bold flex items-center justify-center text-white shadow-md",
             side === 'left' ? "bg-team-left" : "bg-team-right"
           )}>
             {side === 'left' ? '1' : '2'}
           </div>
         )}
-        
-        <img
-          src={candidate.headshot}
-          alt={`Retrato de ${candidate.nombre}`}
-          className="w-full h-full object-cover"
-        />
       </button>
     );
   };
 
+  const statusText =
+    leftCandidate && rightCandidate ? 'Listo' : leftCandidate || rightCandidate ? 'Falta 1' : 'Elige 2';
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 lg:static w-full border-t-2 border-border bg-background/80 backdrop-blur-sm lg:flex-shrink-0 lg:h-auto">
-      <div className="container mx-auto p-2 lg:p-3">
-        {/* Header with instructions */}
-        <div className="flex items-center justify-between mb-2 lg:mb-3">
-          <div>
-            <h2 className="text-base lg:text-lg font-bold flex items-baseline">
-              <span>Candidatos:</span>
-              <span className="text-xs lg:text-sm text-muted-foreground font-normal ml-2">
-                {!leftCandidate && !rightCandidate 
-                  ? "Elige dos para comparar" 
-                  : leftCandidate && rightCandidate 
-                  ? "Haz clic para cambiar." 
-                  : "Elige el segundo candidato"}
-              </span>
-            </h2>
-          </div>
-          
-          {/* VS Indicator (Desktop) */}
+    <div className="fixed bottom-0 left-0 right-0 z-30 lg:relative lg:z-auto w-full border-t-2 lg:border-t-0 lg:border-b-2 border-border bg-background/95 backdrop-blur-sm">
+      <div className="container mx-auto px-2 py-1 lg:px-3 lg:py-2">
+        {/* Header con toggle en móvil */}
+        <div className="flex items-center justify-between mb-1 lg:mb-2">
+          <button
+            type="button"
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="flex items-center gap-2 lg:pointer-events-none"
+          >
+            <h2 className="text-xs lg:text-sm font-bold">Candidatos</h2>
+            <span className={cn(
+              "text-[10px] lg:text-xs font-semibold rounded-full px-2 py-0.5 border",
+              leftCandidate && rightCandidate
+                ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                : "border-muted-foreground/20 bg-muted/30 text-muted-foreground"
+            )}>
+              {statusText}
+            </span>
+            {/* Flecha solo en móvil */}
+            <span className="lg:hidden text-muted-foreground">
+              {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
+            </span>
+          </button>
+
+          {/* VS solo cuando ambos seleccionados (desktop) */}
           {leftCandidate && rightCandidate && (
-            <div className="hidden lg:flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <img src={leftCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />
-                <span className="text-sm font-semibold">{leftCandidate.nombre.split(' ')[0]}</span>
-              </div>
-              <div className="fighting-game-vs">VS</div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold">{rightCandidate.nombre.split(' ')[0]}</span>
-                <img src={rightCandidate.headshot} alt="" className="w-8 h-8 rounded-full" />
-              </div>
+            <div className="hidden lg:flex items-center gap-3">
+              <img src={leftCandidate.headshot} alt="" className="w-7 h-7 rounded-full" />
+              <div className="fighting-game-vs text-sm">VS</div>
+              <img src={rightCandidate.headshot} alt="" className="w-7 h-7 rounded-full" />
             </div>
           )}
         </div>
 
-        {/* Unified Responsive Candidate Grid */}
-        <div className="grid grid-cols-6 gap-x-3 gap-y-2 max-w-[575px] mx-auto">
-          {listCandidates().map(renderCandidateButton)}
-          
-          {/* Placeholder for upcoming candidates */}
-          <Link
-            to="/#apoyar"
-            className={cn(
-              "relative aspect-square",
-              "flex-shrink-0 w-20 lg:w-20 overflow-hidden rounded-lg",
-              "min-h-[80px]",
-              "bg-muted/30 border-2 border-dashed border-muted-foreground/30",
-              "flex items-center justify-center",
-              "opacity-60 hover:opacity-100 hover:border-muted-foreground/50 transition-all duration-200",
-              "hover:scale-105 active:scale-95",
-              "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        {/* Grid de candidatos - colapsable en móvil */}
+        <div
+          className={cn(
+            "transition-all duration-300 ease-in-out overflow-hidden",
+            isExpanded ? "max-h-[200px] opacity-100" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"
+          )}
+        >
+          <div className="relative">
+            <div
+              ref={scrollContainerRef}
+              className={cn(
+                // Móvil: grid de 2 filas con scroll horizontal
+                "grid grid-rows-2 grid-flow-col auto-cols-max gap-2 overflow-x-auto pb-1",
+                "scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                // Desktop: grid uniforme de 12 columnas
+                "lg:grid-rows-none lg:grid-flow-row lg:auto-cols-auto",
+                "lg:grid-cols-12 lg:gap-2 lg:overflow-x-visible lg:overflow-y-visible lg:justify-items-center"
+              )}
+            >
+              {listCandidates().map(renderCandidateButton)}
+            </div>
+            
+            {/* Left scroll button */}
+            {canScrollLeft && (
+              <div
+                className={cn(
+                  "absolute left-0 top-0 bottom-1 w-16 transition-opacity duration-300",
+                  "bg-gradient-to-r from-background via-background/80 to-transparent",
+                  "flex items-center justify-start pointer-events-none",
+                  "lg:hidden"
+                )}
+              >
+                <button
+                  type="button"
+                  onClick={() => handleScroll('left')}
+                  className={cn(
+                    "h-full px-2 flex items-center justify-center pointer-events-auto",
+                    "text-muted-foreground hover:text-foreground active:scale-90",
+                    "transition-all duration-150"
+                  )}
+                  aria-label="Ver candidatos anteriores"
+                >
+                  <div className="bg-muted/80 backdrop-blur-sm rounded-full p-1.5 shadow-md border border-border/50">
+                    <ChevronLeft className="w-5 h-5" />
+                  </div>
+                </button>
+              </div>
             )}
-            aria-label="Apoya el proyecto - Ayúdanos a agregar más candidatos"
-            title="Apoya el proyecto"
-          >
-            <Plus className="w-8 h-8 text-muted-foreground" />
-          </Link>
+
+            {/* Right scroll button */}
+            {canScrollRight && (
+              <div
+                className={cn(
+                  "absolute right-0 top-0 bottom-1 w-16 transition-opacity duration-300",
+                  "bg-gradient-to-l from-background via-background/80 to-transparent",
+                  "flex items-center justify-end pointer-events-none",
+                  "lg:hidden"
+                )}
+              >
+                <button
+                  type="button"
+                  onClick={() => handleScroll('right')}
+                  className={cn(
+                    "h-full px-2 flex items-center justify-center pointer-events-auto",
+                    "text-muted-foreground hover:text-foreground active:scale-90",
+                    "transition-all duration-150"
+                  )}
+                  aria-label="Ver más candidatos"
+                >
+                  <div className="bg-muted/80 backdrop-blur-sm rounded-full p-1.5 shadow-md border border-border/50">
+                    <ChevronRight className="w-5 h-5" />
+                  </div>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

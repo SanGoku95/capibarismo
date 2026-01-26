@@ -1,289 +1,316 @@
-import { useMemo, useState, useId, useRef, useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useGameUIStore } from '@/store/useGameUIStore';
-import { getCandidateProfile } from '@/data';
-import { trayectorias } from '@/data/domains/trayectorias';
 import { Link } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { 
-  GraduationCap, 
-  Building2, 
-  Landmark, 
-  Flag, 
-  AlertTriangle, 
+
+import { base } from '@/data/domains/base';
+import { educacion } from '@/data/domains/educacion';
+import { experienciaLaboral } from '@/data/domains/experienciaLaboral';
+import { ingresos } from '@/data/domains/ingresos';
+import { propiedades } from '@/data/domains/propiedades';
+import { sentencias } from '@/data/domains/sentencias';
+
+import {
+  GraduationCap,
+  Briefcase,
+  Banknote,
+  Home,
+  Gavel,
   ExternalLink,
-  Sparkles,
-  Shield,
   ChevronRight,
-  Info
 } from 'lucide-react';
+
+const formatYear = (y?: string) => (!y || y === 'None' ? '—' : y);
+
+const formatMoney = (n?: number) => {
+  if (typeof n !== 'number' || Number.isNaN(n)) return '—';
+  return new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 2 }).format(n);
+};
+
+const getLatestIngreso = (candidateId: string) => {
+  const rows = ingresos[candidateId] ?? [];
+  if (!rows.length) return null;
+  return rows
+    .slice()
+    .sort((a, b) => Number(b.año) - Number(a.año))[0] ?? null;
+};
 
 export function CandidateInfoOverlay() {
   const { candidateInfoOpen, selectedCandidateId, closeCandidateInfo } = useGameUIStore();
-  const [activeTab, setActiveTab] = useState('resumen');
-  
-  const profile = useMemo(() => {
+  const [activeTab, setActiveTab] = useState<'resumen' | 'detalle'>('resumen');
+
+  const candidate = useMemo(() => {
     if (!selectedCandidateId) return null;
-    return getCandidateProfile(selectedCandidateId);
+    return base[selectedCandidateId] ?? null;
   }, [selectedCandidateId]);
-  
-  // Reset to summary tab when candidate changes
+
+  // Reset tab on candidate change
   useEffect(() => {
-    if (selectedCandidateId) {
-      setActiveTab('resumen');
-    }
+    if (selectedCandidateId) setActiveTab('resumen');
   }, [selectedCandidateId]);
-  
-  if (!selectedCandidateId || !profile) return null;
-  
-  const trayectoria = trayectorias[selectedCandidateId];
-  const controversies = profile.controversias ?? [];
-  const highPriorityControversies = controversies
-    .filter(c => c.severidad === 'muy-alta' || c.severidad === 'alta')
-    .slice(0, 3);
-  
-  const hasControversies = controversies.length > 0;
-  const hasCreencias = profile.creenciasClave.length > 0;
-  
+
+  if (!selectedCandidateId || !candidate) return null;
+
+  const edu = educacion[selectedCandidateId];
+  const jobs = experienciaLaboral[selectedCandidateId] ?? [];
+  const latestJob = jobs[0] ?? null;
+
+  const latestIngreso = getLatestIngreso(selectedCandidateId);
+  const props = propiedades[selectedCandidateId];
+  const sentences = sentencias[selectedCandidateId] ?? [];
+
   return (
     <Sheet open={candidateInfoOpen} onOpenChange={(open) => !open && closeCandidateInfo()}>
       <SheetContent className="flex flex-col gap-0 p-0 w-full sm:max-w-md">
-        {/* Compact Header with Visual Hierarchy */}
         <SheetHeader className="px-4 pt-4 pb-2 border-b bg-gradient-to-b from-background to-background/95">
           <div className="flex items-center gap-3">
-            {profile.base.headshot && (
+            {candidate.headshot ? (
               <img
-                src={profile.base.headshot}
-                alt={profile.base.nombre}
+                src={candidate.headshot}
+                alt={candidate.nombre}
                 className="w-14 h-14 object-cover rounded-full border-2 border-primary/20 flex-shrink-0"
                 loading="lazy"
               />
-            )}
+            ) : null}
+
             <div className="flex-1 min-w-0">
               <SheetTitle className="text-base font-bold leading-tight mb-1">
-                {profile.base.nombre}
+                {candidate.nombre}
               </SheetTitle>
-              {profile.base.ideologia && (
+              {candidate.ideologia ? (
                 <Badge variant="outline" className="text-[10px] px-2 py-0.5 font-medium">
-                  {profile.base.ideologia}
+                  {candidate.ideologia}
                 </Badge>
-              )}
+              ) : null}
             </div>
           </div>
         </SheetHeader>
-        
-        {/* Chunked Information with Tabs - Reduces Cognitive Load */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
-          <TabsList className="grid grid-cols-3 mx-4 mt-3 h-9">
-            <TabsTrigger value="resumen" className="text-xs">
-              Resumen
-            </TabsTrigger>
-            <TabsTrigger value="trayectoria" className="text-xs">
-              Trayectoria
-            </TabsTrigger>
-            <TabsTrigger value="posiciones" className="text-xs">
-              Posiciones
-            </TabsTrigger>
+
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="flex-1 flex flex-col min-h-0">
+          <TabsList className="grid grid-cols-2 mx-4 mt-3 h-9">
+            <TabsTrigger value="resumen" className="text-xs">Resumen</TabsTrigger>
+            <TabsTrigger value="detalle" className="text-xs">Detalle</TabsTrigger>
           </TabsList>
-          
-          <ScrollArea className="flex-1">
-            {/* Tab 1: Summary - Most Critical Info First (Inverted Pyramid) */}
-            <TabsContent value="resumen" className="px-4 py-3 mt-0 space-y-4">
-              
-              {/* High-Priority Controversies First - Risk Management */}
-              {highPriorityControversies.length > 0 && (
-                <section className="p-3 rounded-lg bg-destructive/5 border border-destructive/20">
-                  <div className="flex items-center gap-2 mb-2">
-                    <AlertTriangle size={14} className="text-destructive" />
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-destructive">
-                      Controversias
-                    </h3>
-                    <Badge variant="destructive" className="text-[9px] px-1.5 py-0 h-4">
-                      {controversies.length}
-                    </Badge>
-                  </div>
-                  <div className="space-y-2">
-                    {highPriorityControversies.map((controversia) => (
-                      <ControversyCard
-                        key={controversia.id}
-                        controversia={controversia}
-                        candidateId={selectedCandidateId}
-                        onNavigate={closeCandidateInfo}
-                      />
-                    ))}
-                    {controversies.length > highPriorityControversies.length && (
-                      <Link
-                        to={`/candidate/${selectedCandidateId}#controversias`}
-                        onClick={closeCandidateInfo}
-                        className="flex items-center justify-center gap-1 py-1.5 text-[10px] font-semibold text-destructive hover:text-destructive/80"
-                      >
-                        Ver {controversies.length - highPriorityControversies.length} más
-                        <ChevronRight size={10} />
-                      </Link>
-                    )}
-                  </div>
-                </section>
-              )}
 
-              {/* Key Beliefs - Pattern Recognition */}
-              {hasCreencias && (
-                <section>
-                  <div className="flex items-center gap-2 mb-2">
-                    <Sparkles size={14} className="text-muted-foreground" />
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      Creencias clave
-                    </h3>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {profile.creenciasClave.slice(0, 6).map((creencia) => (
-                      <CreenciaChip
-                        key={creencia.id}
-                        creencia={creencia}
-                        candidateId={selectedCandidateId}
-                        onNavigate={closeCandidateInfo}
-                      />
-                    ))}
-                    {profile.creenciasClave.length > 6 && (
-                      <Link
-                        to={`/candidate/${selectedCandidateId}#creencias`}
-                        onClick={closeCandidateInfo}
-                        className="inline-flex items-center gap-0.5 px-2 py-1 rounded-full text-[10px] font-medium bg-muted/50 text-muted-foreground hover:bg-muted"
-                      >
-                        +{profile.creenciasClave.length - 6}
-                      </Link>
-                    )}
-                  </div>
-                </section>
-              )}
+          <ScrollArea className="flex-1 min-h-0">
+            <TabsContent value="resumen" className="px-4 py-3 mt-0 space-y-3">
+              <DataCard
+                icon={<GraduationCap size={16} />}
+                title="Educación"
+                href={`/candidate/${selectedCandidateId}#tray-educacion`}
+                onNavigate={closeCandidateInfo}
+                lines={[
+                  edu
+                    ? `Básica: Primaria ${edu.basica?.primaria ?? '—'} · Secundaria ${edu.basica?.secundaria ?? '—'}`
+                    : 'Sin datos',
+                  edu?.postgrado?.length
+                    ? `Postgrado: ${edu.postgrado[0].tipo} — ${edu.postgrado[0].institucion} (${formatYear(edu.postgrado[0].año)})`
+                    : edu?.universitaria?.length
+                      ? `Universitaria: ${edu.universitaria[0].carrera} — ${edu.universitaria[0].universidad} (${formatYear(edu.universitaria[0].año)})`
+                      : '—',
+                ]}
+              />
 
-              {/* Political Agenda - Scannable */}
-              {profile.proyectoPolitico && (
-                <section>
-                  <div className="flex items-center gap-2 mb-2">
-                    <Shield size={14} className="text-muted-foreground" />
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      Agenda
-                    </h3>
-                  </div>
-                  <Link
-                    to={`/candidate/${selectedCandidateId}#proyecto-politico`}
-                    onClick={closeCandidateInfo}
-                    className="flex items-center justify-between p-3 rounded-lg border border-white/10 hover:bg-muted/30 transition-colors group"
-                  >
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-xs mb-1 leading-tight">
-                        {profile.proyectoPolitico.titulo}
-                      </p>
-                      <p className="text-[10px] text-muted-foreground line-clamp-2 leading-relaxed">
-                        {profile.proyectoPolitico.resumen}
-                      </p>
+              <DataCard
+                icon={<Briefcase size={16} />}
+                title="Experiencia laboral"
+                href={`/candidate/${selectedCandidateId}#tray-experiencia`}
+                onNavigate={closeCandidateInfo}
+                lines={[
+                  latestJob ? `${latestJob.puesto}` : 'Sin datos',
+                  latestJob ? `${latestJob.empresa} · ${latestJob.periodo}` : '—',
+                ]}
+              />
+
+              <DataCard
+                icon={<Banknote size={16} />}
+                title="Ingresos"
+                href={`/candidate/${selectedCandidateId}#patrimonio`}
+                onNavigate={closeCandidateInfo}
+                lines={[
+                  latestIngreso ? `Año ${latestIngreso.año}` : 'Sin datos',
+                  latestIngreso ? `Total: ${formatMoney(latestIngreso.total)}` : '—',
+                ]}
+              />
+
+              <DataCard
+                icon={<Home size={16} />}
+                title="Propiedades"
+                href={`/candidate/${selectedCandidateId}#patrimonio`}
+                onNavigate={closeCandidateInfo}
+                lines={[
+                  props ? `Inmuebles: ${props.inmuebles} · Vehículos: ${props.vehiculos} · Otros: ${props.otros}` : 'Sin datos',
+                ]}
+              />
+
+              <DataCard
+                icon={<Gavel size={16} />}
+                title="Sentencias"
+                href={`/candidate/${selectedCandidateId}#sentencias`}
+                onNavigate={closeCandidateInfo}
+                lines={[
+                  `Registros: ${sentences.length}`,
+                  sentences[0] ? `${sentences[0].delito} (${formatYear(sentences[0].año)}) — ${sentences[0].fallo}` : 'Sin sentencias registradas',
+                ]}
+              />
+            </TabsContent>
+
+            <TabsContent value="detalle" className="px-4 py-3 mt-0 space-y-6">
+              <section className="space-y-2">
+                <SectionTitle icon={<GraduationCap size={14} />} title="Educación" />
+                {edu ? (
+                  <div className="text-sm text-muted-foreground space-y-3">
+                    <div>
+                      <div className="font-semibold text-foreground">Básica</div>
+                      <div>Primaria: {edu.basica?.primaria ?? '—'} · Secundaria: {edu.basica?.secundaria ?? '—'}</div>
                     </div>
-                    <ChevronRight size={16} className="flex-shrink-0 ml-2 text-muted-foreground group-hover:text-foreground" />
-                  </Link>
-                </section>
-              )}
 
-            </TabsContent>
+                    <div>
+                      <div className="font-semibold text-foreground">Universitaria</div>
+                      {edu.universitaria?.length ? (
+                        <ul className="list-disc pl-5 space-y-1">
+                          {edu.universitaria.slice(0, 8).map((u, idx) => (
+                            <li key={`${u.universidad}-${idx}`}>
+                              {u.carrera} — {u.universidad} ({formatYear(u.año)})
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div>Sin registros</div>
+                      )}
+                    </div>
 
-            {/* Tab 2: Trayectoria - Visual Grid (Reduces Text Processing) */}
-            <TabsContent value="trayectoria" className="px-4 py-3 mt-0">
-              {trayectoria ? (
-                <div className="grid grid-cols-2 gap-3">
-                  <TrajectoryCard
-                    icon={<GraduationCap size={18} />}
-                    label="Educación"
-                    value={trayectoria.educacion.formacion}
-                    sublabel={trayectoria.educacion.instituciones}
-                    href={`/candidate/${selectedCandidateId}#tray-educacion`}
-                    onNavigate={closeCandidateInfo}
-                  />
-                  <TrajectoryCard
-                    icon={<Building2 size={18} />}
-                    label="Sector Privado"
-                    value={trayectoria.sector_privado.actividad}
-                    sublabel={trayectoria.sector_privado.estrategia_ambito}
-                    href={`/candidate/${selectedCandidateId}#tray-privado`}
-                    onNavigate={closeCandidateInfo}
-                  />
-                  <TrajectoryCard
-                    icon={<Landmark size={18} />}
-                    label="Sector Público"
-                    value={trayectoria.sector_publico.cargos_roles ?? 'Sin registro'}
-                    sublabel={trayectoria.sector_publico.periodo}
-                    href={`/candidate/${selectedCandidateId}#tray-publico`}
-                    onNavigate={closeCandidateInfo}
-                  />
-                  <TrajectoryCard
-                    icon={<Flag size={18} />}
-                    label="Política"
-                    value={trayectoria.politica.rol_accion}
-                    sublabel={trayectoria.politica.resultados_posicionamiento}
-                    href={`/candidate/${selectedCandidateId}#tray-politica`}
-                    onNavigate={closeCandidateInfo}
-                  />
-                </div>
-              ) : (
-                <div className="text-center py-8 text-sm text-muted-foreground">
-                  Sin información de trayectoria disponible
-                </div>
-              )}
-            </TabsContent>
+                    <div>
+                      <div className="font-semibold text-foreground">Postgrado</div>
+                      {edu.postgrado?.length ? (
+                        <ul className="list-disc pl-5 space-y-1">
+                          {edu.postgrado.slice(0, 8).map((p, idx) => (
+                            <li key={`${p.institucion}-${idx}`}>
+                              {p.tipo}: {p.especialidad} — {p.institucion} ({formatYear(p.año)})
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div>Sin registros</div>
+                      )}
+                    </div>
 
-            {/* Tab 3: Posiciones - Detailed View for Deep Dive */}
-            <TabsContent value="posiciones" className="px-4 py-3 mt-0 space-y-4">
-              
-              {hasCreencias && (
-                <section>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
-                    Todas las creencias ({profile.creenciasClave.length})
-                  </h3>
+                    <Link
+                      to={`/candidate/${selectedCandidateId}#tray-educacion`}
+                      onClick={closeCandidateInfo}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
+                    >
+                      Ver en perfil <ChevronRight size={12} />
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="text-sm text-muted-foreground">Sin datos</div>
+                )}
+              </section>
+
+              <section className="space-y-2">
+                <SectionTitle icon={<Briefcase size={14} />} title="Experiencia laboral" />
+                {jobs.length ? (
                   <div className="space-y-2">
-                    {profile.creenciasClave.map((creencia) => (
+                    {jobs.slice(0, 10).map((j, idx) => (
+                      <div key={`${j.empresa}-${idx}`} className="p-2 rounded-md border border-white/10">
+                        <div className="font-semibold text-sm">{j.puesto}</div>
+                        <div className="text-xs text-muted-foreground">{j.empresa}</div>
+                        <div className="text-xs text-muted-foreground">{j.periodo}{j.ubicacion && j.ubicacion !== 'None' ? ` · ${j.ubicacion}` : ''}</div>
+                      </div>
+                    ))}
+                    <Link
+                      to={`/candidate/${selectedCandidateId}#tray-experiencia`}
+                      onClick={closeCandidateInfo}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
+                    >
+                      Ver en perfil <ChevronRight size={12} />
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="text-sm text-muted-foreground">Sin datos</div>
+                )}
+              </section>
+
+              <section className="space-y-2">
+                <SectionTitle icon={<Banknote size={14} />} title="Ingresos" />
+                {(() => {
+                  const rows = ingresos[selectedCandidateId] ?? [];
+                  if (!rows.length) return <div className="text-sm text-muted-foreground">Sin datos</div>;
+                  const sorted = rows.slice().sort((a, b) => Number(b.año) - Number(a.año));
+                  return (
+                    <div className="space-y-2">
+                      {sorted.slice(0, 6).map((r) => (
+                        <div key={r.año} className="p-2 rounded-md border border-white/10 text-sm">
+                          <div className="font-semibold">Año {r.año}</div>
+                          <div className="text-muted-foreground text-xs">Público: {formatMoney(r.publico)}</div>
+                          <div className="text-muted-foreground text-xs">Privado: {formatMoney(r.privado)}</div>
+                          <div className="text-xs font-semibold">Total: {formatMoney(r.total)}</div>
+                        </div>
+                      ))}
                       <Link
-                        key={creencia.id}
-                        to={`/candidate/${selectedCandidateId}#creencia-${creencia.id}`}
+                        to={`/candidate/${selectedCandidateId}#patrimonio`}
                         onClick={closeCandidateInfo}
-                        className="block p-3 rounded-lg border border-white/10 hover:bg-muted/30 transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
                       >
-                        <p className="font-semibold text-xs mb-1">{creencia.nombre}</p>
-                        <p className="text-[10px] text-muted-foreground line-clamp-2 leading-relaxed">
-                          {creencia.resumen}
-                        </p>
+                        Ver en perfil <ChevronRight size={12} />
                       </Link>
-                    ))}
-                  </div>
-                </section>
-              )}
+                    </div>
+                  );
+                })()}
+              </section>
 
-              {hasControversies && (
-                <section>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
-                    Todas las controversias ({controversies.length})
-                  </h3>
+              <section className="space-y-2">
+                <SectionTitle icon={<Home size={14} />} title="Propiedades" />
+                {props ? (
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    <div>Inmuebles: <span className="font-semibold text-foreground">{props.inmuebles}</span></div>
+                    <div>Vehículos: <span className="font-semibold text-foreground">{props.vehiculos}</span></div>
+                    <div>Otros: <span className="font-semibold text-foreground">{props.otros}</span></div>
+                    <Link
+                      to={`/candidate/${selectedCandidateId}#patrimonio`}
+                      onClick={closeCandidateInfo}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary mt-2"
+                    >
+                      Ver en perfil <ChevronRight size={12} />
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="text-sm text-muted-foreground">Sin datos</div>
+                )}
+              </section>
+
+              <section className="space-y-2">
+                <SectionTitle icon={<Gavel size={14} />} title="Sentencias" />
+                {sentences.length ? (
                   <div className="space-y-2">
-                    {controversies.map((controversia) => (
-                      <ControversyCard
-                        key={controversia.id}
-                        controversia={controversia}
-                        candidateId={selectedCandidateId}
-                        onNavigate={closeCandidateInfo}
-                        showDescription
-                      />
+                    {sentences.slice(0, 10).map((s, idx) => (
+                      <div key={`${s.delito}-${idx}`} className="p-2 rounded-md border border-white/10">
+                        <div className="font-semibold text-sm">{s.delito}</div>
+                        <div className="text-xs text-muted-foreground">{formatYear(s.año)} · {s.fallo}</div>
+                        <div className="text-xs text-muted-foreground">{s.organo}</div>
+                      </div>
                     ))}
+                    <Link
+                      to={`/candidate/${selectedCandidateId}#sentencias`}
+                      onClick={closeCandidateInfo}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
+                    >
+                      Ver en perfil <ChevronRight size={12} />
+                    </Link>
                   </div>
-                </section>
-              )}
-
+                ) : (
+                  <div className="text-sm text-muted-foreground">Sin sentencias registradas</div>
+                )}
+              </section>
             </TabsContent>
           </ScrollArea>
         </Tabs>
-        
-        {/* Sticky Footer - Clear Next Actions */}
+
         <div className="flex gap-2 p-3 border-t bg-background/98 backdrop-blur-sm">
           <Button
             variant="outline"
@@ -293,12 +320,7 @@ export function CandidateInfoOverlay() {
           >
             Volver al juego
           </Button>
-          <Button
-            asChild
-            size="sm"
-            className="flex-1 h-9 text-xs font-medium"
-            onClick={closeCandidateInfo}
-          >
+          <Button asChild size="sm" className="flex-1 h-9 text-xs font-medium" onClick={closeCandidateInfo}>
             <Link to={`/candidate/${selectedCandidateId}`} className="flex items-center gap-1">
               Perfil completo
               <ExternalLink size={11} />
@@ -310,284 +332,48 @@ export function CandidateInfoOverlay() {
   );
 }
 
-// Micro-Components for Reusability
+function SectionTitle({ icon, title }: { icon: React.ReactNode; title: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="text-muted-foreground">{icon}</span>
+      <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{title}</h3>
+    </div>
+  );
+}
 
-function TrajectoryCard({ 
-  icon, 
-  label, 
-  value, 
-  sublabel, 
-  href, 
-  onNavigate 
-}: { 
-  icon: React.ReactNode; 
-  label: string; 
-  value: string; 
-  sublabel?: string; 
-  href: string; 
+function DataCard({
+  icon,
+  title,
+  lines,
+  href,
+  onNavigate,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  lines: string[];
+  href: string;
   onNavigate: () => void;
 }) {
   return (
     <Link
       to={href}
       onClick={onNavigate}
-      className="flex flex-col p-3 rounded-lg border border-white/10 hover:bg-muted/30 transition-colors min-h-[100px]"
+      className="flex items-start justify-between gap-3 p-3 rounded-lg border border-white/10 hover:bg-muted/30 transition-colors"
     >
-      <div className="text-primary mb-2">{icon}</div>
-      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium mb-1">
-        {label}
-      </p>
-      <p className="text-xs font-semibold leading-tight line-clamp-2 mb-1">
-        {value}
-      </p>
-      {sublabel && (
-        <p className="text-[9px] text-muted-foreground line-clamp-1 mt-auto">
-          {sublabel}
-        </p>
-      )}
-    </Link>
-  );
-}
-
-function CreenciaChip({ 
-  creencia, 
-  candidateId, 
-  onNavigate 
-}: { 
-  creencia: { id: string; nombre: string; resumen: string }; 
-  candidateId: string; 
-  onNavigate: () => void;
-}) {
-  const [showTooltip, setShowTooltip] = useState(false);
-  const closeTimer = useRef<number | null>(null);
-
-  const clearTimer = () => {
-    if (closeTimer.current !== null) {
-      window.clearTimeout(closeTimer.current);
-      closeTimer.current = null;
-    }
-  };
-
-  const handlePointerEnter = (event: React.PointerEvent) => {
-    if (event.pointerType !== 'touch') {
-      clearTimer();
-      setShowTooltip(true);
-    }
-  };
-
-  const handlePointerLeave = (event: React.PointerEvent) => {
-    if (event.pointerType !== 'touch') {
-      clearTimer();
-      closeTimer.current = window.setTimeout(() => setShowTooltip(false), 150);
-    }
-  };
-
-  useEffect(() => () => clearTimer(), []);
-  
-  return (
-    <Popover open={showTooltip} onOpenChange={setShowTooltip}>
-      <PopoverTrigger asChild>
-        <Link
-          to={`/candidate/${candidateId}#creencia-${creencia.id}`}
-          onClick={onNavigate}
-          onPointerEnter={handlePointerEnter}
-          onPointerLeave={handlePointerLeave}
-          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-        >
-          {creencia.nombre}
-          <Info size={10} className="opacity-60" />
-        </Link>
-      </PopoverTrigger>
-      <PopoverContent
-        side="top"
-        align="center"
-        sideOffset={6}
-        className="max-w-[220px] rounded-lg border border-white/12 bg-popover/95 p-2.5 text-[10px] leading-relaxed backdrop-blur-xl pointer-events-auto"
-        onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
-      >
-        <p className="font-semibold mb-1">{creencia.nombre}</p>
-        <p className="text-muted-foreground">{creencia.resumen}</p>
-      </PopoverContent>
-    </Popover>
-  );
-}
-
-function ControversyCard({ 
-  controversia, 
-  candidateId, 
-  onNavigate,
-  showDescription = false
-}: { 
-  controversia: any; 
-  candidateId: string; 
-  onNavigate: () => void;
-  showDescription?: boolean;
-}) {
-  return (
-    <Link
-      to={`/candidate/${candidateId}#controversia-${controversia.id}`}
-      onClick={onNavigate}
-      className="block p-2.5 rounded-lg border border-destructive/15 bg-destructive/5 hover:bg-destructive/10 transition-colors"
-    >
-      <p className="font-medium text-xs mb-1.5 leading-snug line-clamp-2">
-        {controversia.titulo}
-      </p>
-      {showDescription && (
-        <p className="text-[10px] text-muted-foreground mb-2 line-clamp-2 leading-relaxed">
-          {controversia.descripcion}
-        </p>
-      )}
-      <div className="flex flex-wrap gap-1.5">
-        <StatusChip
-          className={sevProps(controversia.severidad).className}
-          label={sevProps(controversia.severidad).label}
-          description={sevHelp(controversia.severidad)}
-        />
-        <StatusChip
-          className={legProps(controversia.legal).className}
-          label={legProps(controversia.legal).label}
-          description={legHelp(controversia.legal)}
-        />
+      <div className="flex items-start gap-3 min-w-0">
+        <div className="mt-0.5 text-primary">{icon}</div>
+        <div className="min-w-0">
+          <div className="font-semibold text-sm">{title}</div>
+          <div className="mt-1 space-y-0.5">
+            {lines.filter(Boolean).map((t, idx) => (
+              <div key={idx} className="text-[11px] text-muted-foreground leading-snug line-clamp-2">
+                {t}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+      <ChevronRight size={16} className="text-muted-foreground flex-shrink-0 mt-1" />
     </Link>
   );
 }
-
-function StatusChip({
-  label,
-  className,
-  description,
-}: {
-  label: string;
-  className?: string;
-  description: string;
-}) {
-  const [open, setOpen] = useState(false);
-  const closeTimer = useRef<number | null>(null);
-  const contentId = useId();
-
-  const clearTimer = () => {
-    if (closeTimer.current !== null) {
-      window.clearTimeout(closeTimer.current);
-      closeTimer.current = null;
-    }
-  };
-
-  const handlePointerEnter = (event: React.PointerEvent) => {
-    if (event.pointerType !== 'touch') {
-      clearTimer();
-      setOpen(true);
-    }
-  };
-
-  const handlePointerLeave = (event: React.PointerEvent) => {
-    if (event.pointerType !== 'touch') {
-      clearTimer();
-      closeTimer.current = window.setTimeout(() => setOpen(false), 150);
-    }
-  };
-
-  const handleClick = (event: React.MouseEvent | React.TouchEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-    clearTimer();
-    setOpen((prev) => !prev);
-  };
-
-  useEffect(() => () => clearTimer(), []);
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <button
-          type="button"
-          className={cn(
-            'inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider transition-all',
-            'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary',
-            open && 'ring-2 ring-primary',
-            className
-          )}
-          aria-describedby={contentId}
-          onClick={handleClick}
-          onPointerEnter={handlePointerEnter}
-          onPointerLeave={handlePointerLeave}
-        >
-          {label}
-        </button>
-      </PopoverTrigger>
-      <PopoverContent
-        id={contentId}
-        side="top"
-        align="center"
-        sideOffset={6}
-        className="max-w-[200px] rounded-lg border border-white/12 bg-popover/95 p-2.5 text-[10px] leading-relaxed backdrop-blur-xl"
-        onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
-      >
-        {description}
-      </PopoverContent>
-    </Popover>
-  );
-}
-
-// Helper functions
-const sevProps = (sev?: string) => {
-  switch (sev) {
-    case 'muy-alta':
-      return { label: 'Crítica', className: 'bg-red-600 text-white' };
-    case 'alta':
-      return { label: 'Alta', className: 'bg-orange-600 text-white' };
-    case 'media':
-      return { label: 'Media', className: 'bg-amber-400 text-black' };
-    default:
-      return { label: 'N/A', className: 'bg-muted text-muted-foreground' };
-  }
-};
-
-const legProps = (l?: string) => {
-  switch (l) {
-    case 'denuncia_en_medios':
-      return { label: 'Medios', className: 'bg-sky-600 text-white' };
-    case 'en_curso':
-      return { label: 'En curso', className: 'bg-amber-500 text-black' };
-    case 'sancion':
-      return { label: 'Sanción', className: 'bg-rose-600 text-white' };
-    case 'cerrado_sin_sancion':
-      return { label: 'Cerrado', className: 'bg-emerald-600 text-white' };
-    case 'condena':
-      return { label: 'Condena', className: 'bg-red-700 text-white' };
-    default:
-      return { label: 'N/A', className: 'bg-muted text-muted-foreground' };
-  }
-};
-
-const sevHelp = (sev?: string) => {
-  switch (sev) {
-    case 'muy-alta':
-      return 'Impacto crítico en credibilidad pública';
-    case 'alta':
-      return 'Impacto significativo con consecuencias';
-    case 'media':
-      return 'Controversia bajo seguimiento';
-    default:
-      return 'Sin clasificación de severidad';
-  }
-};
-
-const legHelp = (l?: string) => {
-  switch (l) {
-    case 'denuncia_en_medios':
-      return 'Reportado en medios, sin proceso oficial';
-    case 'en_curso':
-      return 'Investigación o juicio activo';
-    case 'sancion':
-      return 'Sanción institucional confirmada';
-    case 'cerrado_sin_sancion':
-      return 'Caso cerrado sin sanción';
-    case 'condena':
-      return 'Condena penal firme';
-    default:
-      return 'Sin información legal disponible';
-  }
-};

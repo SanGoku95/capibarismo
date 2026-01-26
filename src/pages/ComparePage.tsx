@@ -15,8 +15,8 @@ const Index = () => {
     : 'Comparar Candidatos Presidenciales | Perú 2026';
 
   const description = leftCandidate && rightCandidate
-    ? `Compara las propuestas, trayectorias y posiciones de ${leftCandidate.nombre} y ${rightCandidate.nombre} para las elecciones presidenciales de Perú 2026.`
-    : 'Compara candidatos presidenciales de Perú 2026 lado a lado. Analiza sus propuestas, trayectorias y posiciones políticas con información verificada.';
+    ? `Compara educación, experiencia laboral, ingresos, propiedades y sentencias de ${leftCandidate.nombre} y ${rightCandidate.nombre} para las elecciones presidenciales de Perú 2026.`
+    : 'Compara candidatos presidenciales de Perú 2026 lado a lado con educación, experiencia laboral, ingresos, propiedades y sentencias.';
 
   useSEO({
     title,

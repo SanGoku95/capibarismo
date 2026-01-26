@@ -1,11 +1,10 @@
-import { trayectorias } from './domains/trayectorias';
-import type { CandidateProfile, CandidateBase, ProyectoPolitico, Creencia, PresenciaDigital, MapaDePoder, Controversia } from './types';
+import type { CandidateProfile, CandidateBase } from './types';
 import { base as baseRecords } from './domains/base';
-import { proyectos as proyectosOverrides } from './domains/proyectos';
-import { creencias as creenciasOverrides } from './domains/creencias';
-import { presencia as presenciaOverrides } from './domains/presencia';
-import { mapaDePoder as mapaDePoderOverrides } from './domains/mapaDePoder';
-import { controversias as controversiasOverrides } from './domains/controversias';
+import { educacion as educacionData } from './domains/educacion';
+import { experienciaLaboral as experienciaData } from './domains/experienciaLaboral';
+import { sentencias as sentenciasData } from './domains/sentencias';
+import { propiedades as propiedadesData } from './domains/propiedades';
+import { ingresos as ingresosData } from './domains/ingresos';
 
 export function listCandidates(): CandidateBase[] {
   return Object.values(baseRecords);
@@ -15,21 +14,19 @@ export function getCandidateProfile(id: string): CandidateProfile | null {
   const base = baseRecords[id];
   if (!base) return null;
 
-  // Usar exclusivamente dominios migrados (sin fallback al monolito)
-  const proyecto: ProyectoPolitico | undefined = proyectosOverrides[id];
-  const creencias: Creencia[] = creenciasOverrides[id] ?? [];
-  const presencia: PresenciaDigital | undefined = presenciaOverrides[id];
-  const poder: MapaDePoder | undefined = mapaDePoderOverrides[id];
-  const controversias: Controversia[] | undefined = controversiasOverrides[id];
+  const educacion = educacionData[id];
+  const experienciaLaboral = experienciaData[id];
+  const sentencias = sentenciasData[id];
+  const propiedades = propiedadesData[id];
+  const ingresos = ingresosData[id];
 
   return {
     base,
-    trayectoria: trayectorias[id],
-    proyectoPolitico: proyecto,
-    creenciasClave: creencias,
-    presenciaDigital: presencia,
-    mapaDePoder: poder,
-    controversias,
+    educacion,
+    experienciaLaboral,
+    sentencias,
+    propiedades,
+    ingresos,
   };
 }
 
