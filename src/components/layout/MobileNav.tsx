@@ -20,7 +20,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const navItems = [
   { text: 'Inicio', path: '/', icon: <HomeIcon /> },
-  { text: 'Jugar', path: '/jugar', icon: <SportsEsportsIcon /> },
+  { text: 'Jugar', path: '/qualifier', icon: <SportsEsportsIcon /> },
   { text: 'Comparador', path: '/compare', icon: <CompareArrowsIcon /> },
   { text: 'Mapa Político', path: '/compass', icon: <GavelIcon /> },
   { text: 'Acerca de', path: '/about', icon: <InfoOutlinedIcon /> },

@@ -11,7 +11,7 @@ import { ChevronLeft, Zap } from 'lucide-react';
 import { useSEO } from '@/lib/useSEO';
 
 const MINIMUM_QUALIFIED = 3; // Minimum candidates needed for versus mode
-const AUTO_REJECT_TIMEOUT = 3000; // 5 seconds
+const AUTO_REJECT_TIMEOUT = 3000; // 3 seconds
 
 export function QualifierPage() {
   const navigate = useNavigate();
