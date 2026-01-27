@@ -10,17 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Gamepad2, AlertTriangle, Swords } from "lucide-react";
 
 export function OnboardingModal() {
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const hasVisited = localStorage.getItem("visited_intro");
-     if (!hasVisited) {
-      setOpen(true);
-     }
-  }, []);
+  const [open, setOpen] = useState(true);
 
   const handleStart = () => {
-    localStorage.setItem("visited_intro", "true");
     setOpen(false);
   };
 
@@ -55,6 +47,13 @@ export function OnboardingModal() {
             <p className="text-sm text-red-100/90 font-sans">
               <span className="font-bold text-red-400 block mb-1 uppercase text-xs tracking-wider">Regla de Oro</span>
               No hay empates ni votos en blanco. Debes elegir una opción para avanzar.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 border border-purple-500/30 rounded-lg p-4">
+            <p className="text-sm text-purple-100/90 font-sans leading-relaxed">
+              <span className="font-bold text-purple-300 block mb-2">💡 Vota con criterio, no por rechazo</span>
+              Tu voto es tu voz. No votes en contra de todos ni evadas tu responsabilidad. <span className="font-semibold text-white">Infórmate, compara y elige</span> al candidato que mejor represente tus valores. El cambio empieza con decisiones conscientes.
             </p>
           </div>
 

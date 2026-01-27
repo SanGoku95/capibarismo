@@ -15,12 +15,18 @@ interface VSScreenProps {
       nombre: string;
       ideologia?: string;
       fullBody?: string;
+      headshot?: string;
+      partyIcon?: string;
+      partido?: string;
     };
     b: {
       id: string;
       nombre: string;
       ideologia?: string;
       fullBody?: string;
+      headshot?: string;
+      partyIcon?: string;
+      partido?: string;
     };
   };
   onVote: (winner: 'A' | 'B') => void;

@@ -316,15 +316,9 @@ export function CandidateInfoOverlay() {
             variant="outline"
             size="sm"
             onClick={closeCandidateInfo}
-            className="flex-1 h-9 text-xs font-medium"
+            className="w-full h-9 text-xs font-medium"
           >
             Volver al juego
-          </Button>
-          <Button asChild size="sm" className="flex-1 h-9 text-xs font-medium" onClick={closeCandidateInfo}>
-            <Link to={`/candidate/${selectedCandidateId}`} className="flex items-center gap-1">
-              Perfil completo
-              <ExternalLink size={11} />
-            </Link>
           </Button>
         </div>
       </SheetContent>
