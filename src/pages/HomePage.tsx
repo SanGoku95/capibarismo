@@ -200,26 +200,46 @@ export function HomePage() {
                 </div>
               </div>
 
-              {/* Current Goal - Meta 2 */}
+              {/* Achievement Unlocked - Meta 2 */}
+              <div className="rounded-xl bg-gradient-to-r from-amber-900/20 to-yellow-800/20 border border-amber-700/40 p-3 animate-in fade-in slide-in-from-top-2 duration-500">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-amber-400 shrink-0" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs font-semibold text-amber-400/90 uppercase tracking-wide font-sans">
+                        ¡Logrado!
+                      </span>
+                      <span className="text-xs text-amber-200/70 font-sans">
+                        Meta 2: Todos los candidatos presidenciales
+                      </span>
+                    </div>
+                  </div>
+                  <span className="text-sm font-bold text-amber-400 font-sans shrink-0">
+                    S/ 200
+                  </span>
+                </div>
+              </div>
+
+              {/* Current Goal - Meta 3 */}
               <div className="rounded-2xl bg-gradient-to-br from-[#74239C]/10 to-purple-900/10 border-2 border-[#74239C]/60 p-4 shadow-lg shadow-purple-900/20 animate-in fade-in slide-in-from-bottom-2 duration-500">
                 <div className="flex items-start gap-3">
                   <TrendingUp className="w-6 h-6 text-[#74239C] shrink-0 mt-0.5" />
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-bold text-[#74239C] uppercase tracking-wider font-sans">
-                        Siguiente Nivel
+                        Meta Épica 🎮
                       </span>
                     </div>
                     <div className="flex items-baseline justify-between gap-2 flex-wrap mb-2">
                       <span className="text-base sm:text-lg font-bold text-foreground font-sans">
-                        Incluir todos los candidatos presidenciales.
+                        Animación de "Ataques Especiales" de los candidatos.
                       </span>
                       <span className="text-xl sm:text-2xl font-bold text-accent font-sans shrink-0">
-                        S/ 200
+                        S/ 1000
                       </span>
                     </div>
                     <p className="text-xs text-foreground/70 font-sans">
-                      Perfiles completos de los 36 candidatos presidenciales.
+                      Experiencia de juego completa con ataques especiales únicos para cada candidato.
                     </p>
                   </div>
                 </div>
@@ -232,13 +252,13 @@ export function HomePage() {
                     Progreso total
                   </span>
                   <span className="text-xs text-foreground/60 font-sans">
-                    Meta 2 de 5
+                    Meta 3 de 3
                   </span>
                 </div>
                 <div className="h-4 bg-muted/50 rounded-full overflow-hidden shadow-inner">
                   <div
                     className="h-full bg-gradient-to-r from-[#74239C] via-purple-500 to-[#74239C] rounded-full transition-all duration-700 ease-out relative overflow-hidden"
-                    style={{ width: "50%" }}
+                    style={{ width: "34%" }}
                   >
                     {/* Shine animation */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" 
@@ -251,21 +271,21 @@ export function HomePage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-semibold text-foreground font-sans">
-                    S/ 115 de S/ 200
+                    S/ 340 de S/ 1000
                   </span>
                   <span className="text-sm font-bold text-[#74239C] font-sans">
-                    58%
+                    34%
                   </span>
                 </div>
                 <p className="text-xs text-foreground/60 text-center font-sans pt-1">
-                  ¡Ya estamos a mitad de camino del siguiente nivel! 🎯
+                  ¡Ya logramos 2 metas! Vamos por la meta épica 🎮
                 </p>
               </div>
 
               <button
                 onClick={() => {
                   setShowDonationModal(true);
-                  posthog?.capture('home_donation_click', { goal: '200_soles', position: 'main' });
+                  posthog?.capture('home_donation_click', { goal: '1000_soles', position: 'main' });
                 }}
                 className="w-full rounded-2xl bg-gradient-to-r from-[#74239C] to-purple-600 hover:from-[#74239C]/90 hover:to-purple-600/90 text-white font-bold py-4 px-6 transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(116,35,156,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#74239C]/70 flex items-center justify-center gap-2 font-sans relative overflow-hidden group"
               >
@@ -292,19 +312,8 @@ export function HomePage() {
 
               {showAllGoals && (
                 <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
-
-                  <div className="rounded-2xl bg-muted/40 border border-border/40 p-4 hover:border-border/60 transition-colors duration-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wide font-sans">
-                        Meta épica 🎮
-                      </span>
-                      <span className="text-base font-bold text-accent font-sans">
-                        S/ 1000
-                      </span>
-                    </div>
-                    <p className="text-sm text-foreground/75 font-sans">
-                      Incluir animación de "Ataques Especiales" de los candidatos.
-                    </p>
+                  <div className="text-center text-sm text-foreground/70 font-sans py-4">
+                    Esta es nuestra meta final. ¡Ayúdanos a alcanzarla! 🚀
                   </div>
                 </div>
               )}

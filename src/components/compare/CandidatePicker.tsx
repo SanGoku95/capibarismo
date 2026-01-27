@@ -158,7 +158,8 @@ export function CandidatePicker() {
         <div
           className={cn(
             "transition-all duration-300 ease-in-out overflow-hidden",
-            isExpanded ? "max-h-[200px] opacity-100" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"
+            isExpanded ? "max-h-[200px] opacity-100" : "max-h-0 opacity-0",
+            "lg:max-h-none lg:opacity-100"
           )}
         >
           <div className="relative">
@@ -168,9 +169,9 @@ export function CandidatePicker() {
                 // Móvil: grid de 2 filas con scroll horizontal
                 "grid grid-rows-2 grid-flow-col auto-cols-max gap-2 overflow-x-auto pb-1",
                 "scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-                // Desktop: grid uniforme de 12 columnas
+                // Desktop: grid uniforme de 12 columnas con todas las filas visibles
                 "lg:grid-rows-none lg:grid-flow-row lg:auto-cols-auto",
-                "lg:grid-cols-12 lg:gap-2 lg:overflow-x-visible lg:overflow-y-visible lg:justify-items-center"
+                "lg:grid-cols-12 lg:gap-2 lg:overflow-visible lg:justify-items-center"
               )}
             >
               {listCandidates().map(renderCandidateButton)}
