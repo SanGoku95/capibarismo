@@ -317,24 +317,25 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
 
     return (
       <div className="space-y-2">
-        <MetricRow
-          icon={<Banknote size={14} />}
-          label="Total"
-          value={formatMoneyCompact(row.total)}
-          sub={`Año ${row.año}`}
-        />
+        <div className="rounded-md border border-white/10 bg-white/5 px-2.5 py-2">
+          <div className="flex items-center gap-2 mb-1">
+            <Banknote size={14} className="text-white/80 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <div className="text-xs font-bold text-white tabular-nums">{formatMoneyCompact(row.total)}</div>
+              <div className="text-[10px] text-white/60">Total · Año {row.año}</div>
+            </div>
+          </div>
+        </div>
 
         <div className="rounded-md border border-white/10 bg-white/5 px-2.5 py-2">
-          <div className="flex items-center justify-between text-[11px] text-white/65">
-            <span>Púb {pubPct}%</span>
-            <span>Priv {100 - pubPct}%</span>
+          <div className="flex items-center justify-between text-[10px] text-white/65 mb-1.5">
+            <span>Público {pubPct}%</span>
+            <span>Privado {100 - pubPct}%</span>
           </div>
-          <div className="mt-1">
-            <MiniBar a={pub} b={priv} aClass="bg-sky-500/80" bClass="bg-fuchsia-500/80" />
-          </div>
-          <div className="mt-1 flex justify-between text-[11px] text-white/65">
-            <span className="truncate max-w-[48%]">Púb: {formatMoneyCompact(row.publico)}</span>
-            <span className="truncate max-w-[48%] text-right">Priv: {formatMoneyCompact(row.privado)}</span>
+          <MiniBar a={pub} b={priv} aClass="bg-sky-500/80" bClass="bg-fuchsia-500/80" />
+          <div className="mt-1.5 grid grid-cols-2 gap-2 text-[10px] text-white/60">
+            <div className="truncate">{formatMoneyCompact(pub)}</div>
+            <div className="truncate text-right">{formatMoneyCompact(priv)}</div>
           </div>
         </div>
       </div>
