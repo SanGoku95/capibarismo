@@ -399,6 +399,21 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                     <div className="text-xs md:text-sm text-team-left font-medium text-center">
                       {leftCandidate.ideologia ?? '—'}
                     </div>
+                    {leftCandidate.partyIcon && (
+                      <div className="flex flex-col items-center gap-1 mt-2">
+                        <img
+                          src={encodeURI(leftCandidate.partyIcon)}
+                          alt={leftCandidate.partido || 'Partido político'}
+                          className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-lg bg-white/10 p-1.5 border border-white/20"
+                          loading="lazy"
+                        />
+                        {leftCandidate.partido && (
+                          <p className="text-white/60 text-[9px] md:text-[10px] text-center px-2 line-clamp-2">
+                            {leftCandidate.partido}
+                          </p>
+                        )}
+                      </div>
+                    )}
                   </>
                 ) : (
                   <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center">
@@ -426,6 +441,21 @@ export function CandidateComparisonGrid({ leftCandidate, rightCandidate }: Candi
                     <div className="text-xs md:text-sm text-team-right font-medium text-center">
                       {rightCandidate.ideologia ?? '—'}
                     </div>
+                    {rightCandidate.partyIcon && (
+                      <div className="flex flex-col items-center gap-1 mt-2">
+                        <img
+                          src={encodeURI(rightCandidate.partyIcon)}
+                          alt={rightCandidate.partido || 'Partido político'}
+                          className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-lg bg-white/10 p-1.5 border border-white/20"
+                          loading="lazy"
+                        />
+                        {rightCandidate.partido && (
+                          <p className="text-white/60 text-[9px] md:text-[10px] text-center px-2 line-clamp-2">
+                            {rightCandidate.partido}
+                          </p>
+                        )}
+                      </div>
+                    )}
                   </>
                 ) : (
                   <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center">
