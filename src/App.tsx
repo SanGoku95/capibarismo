@@ -16,6 +16,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const About = lazy(() => import("./pages/About").then(module => ({ default: module.About })));
 const Sources = lazy(() => import("./pages/Sources").then(module => ({ default: module.Sources })));
 const PoliticalCompassPage = lazy(() => import("./pages/PoliticalCompassPage"));
+const QualifierPage = lazy(() => import("./pages/QualifierPage").then(module => ({ default: module.QualifierPage })));
 const JugarPage = lazy(() => import("./pages/JugarPage").then(module => ({ default: module.JugarPage })));
 const RankingPage = lazy(() => import("./pages/RankingPage").then(module => ({ default: module.RankingPage })));
 
@@ -77,6 +78,7 @@ const App = () => {
           import("./pages/PoliticalCompassPage"),
           import("./pages/About"),
           import("./pages/CandidateProfile"),
+          import("./pages/QualifierPage"),
           import("./pages/JugarPage"),
         ]);
       } catch {
@@ -96,6 +98,7 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route element={<AppLayout />}>
+                <Route path="/qualifier" element={<QualifierPage />} />
                 <Route path="/" element={<HomePage />} />
                 <Route path="/jugar" element={<JugarPage />} />
                 <Route path="/ranking" element={<RankingPage />} />

@@ -107,13 +107,13 @@ export function HomePage() {
               <div className="mt-4 rounded-2xl border border-border/60 bg-background/55 shadow-[0_10px_26px_rgba(0,0,0,0.35)] backdrop-blur-sm p-4 sm:p-5">
                 <div className="flex flex-col gap-3">
                   <Link
-                    to="/jugar"
-                    onClick={() => posthog?.capture('jugar_click', { via: 'home_cta' })}
+                    to="/qualifier"
+                    onClick={() => posthog?.capture('qualifier_click', { via: 'home_cta' })}
                     className="group inline-flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60 active:translate-y-0"
                   >
                     <span className="flex items-center gap-3">
                       <Gamepad2 size={18} className="shrink-0" />
-                      Jugar: Simulador de 2ª vuelta
+                      Jugar: ¿Quién Va?
                     </span>
                     <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                   </Link>

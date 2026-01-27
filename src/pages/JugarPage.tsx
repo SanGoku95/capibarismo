@@ -14,14 +14,18 @@ import { COMPLETION_GOAL } from '@/lib/gameConstants';
 import { useNavigate } from 'react-router-dom';
 import { sessionService } from '@/services/sessionService';
 import { useTrackJugarView } from '@/lib/posthog';
+import { Zap, Filter } from 'lucide-react';
 
 export function JugarPage() {
   const sessionId = getSessionId();
+  const navigate = useNavigate();
 
   const {
     closeCandidateInfo,
     setReducedMotion,
     completionModalOpen,
+    hasCompletedQualifier,
+    qualifiedCandidateIds,
   } = useGameUIStore();
 
   const {

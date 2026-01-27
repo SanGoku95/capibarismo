@@ -4,6 +4,8 @@
  * Implements a two-phase algorithm:
  * 1. Coverage Phase: Ensures all candidates appear at least once
  * 2. Adaptive Phase: Pairs candidates with similar ratings for better discrimination
+ * 
+ * Now supports qualifier filtering - only generates pairs from qualified candidates.
  */
 
 import { base } from '@/data/domains/base';
@@ -36,11 +38,14 @@ interface PairGenerationContext {
 /**
  * Generates a smart pair of candidates for comparison.
  * Prioritizes coverage first, then adaptive selection based on ratings.
+ * 
+ * @param qualifiedCandidateIds - Optional array of candidate IDs to filter by.
+ *                                If provided, only generates pairs from these candidates.
  */
-export function generateSmartPair(): Pair {
+export function generateSmartPair(qualifiedCandidateIds?: string[]): Pair {
   assertBrowserEnvironment();
 
-  const candidates = listCandidates();
+  const candidates = listCandidates(qualifiedCandidateIds);
   assertMinimumCandidates(candidates);
 
   const context = buildContext(candidates);
@@ -60,8 +65,23 @@ export function generateSmartPair(): Pair {
 // Context Building
 // =============================================================================
 
-function listCandidates(): CandidateBase[] {
-  return Object.values(base);
+function listCandidates(qualifiedCandidateIds?: string[]): CandidateBase[] {
+  const allCandidates = Object.values(base);
+  
+  // If qualifier filter is active, only return qualified candidates
+  if (qualifiedCandidateIds && qualifiedCandidateIds.length > 0) {
+    const qualifiedSet = new Set(qualifiedCandidateIds);
+    const filtered = allCandidates.filter(c => qualifiedSet.has(c.id));
+    console.log('[PairGen] Using qualified candidates:', {
+      total: allCandidates.length,
+      qualified: filtered.length,
+      ids: qualifiedCandidateIds
+    });
+    return filtered;
+  }
+  
+  console.log('[PairGen] Using all candidates:', allCandidates.length);
+  return allCandidates;
 }
 
 function buildContext(candidates: CandidateBase[]): PairGenerationContext {

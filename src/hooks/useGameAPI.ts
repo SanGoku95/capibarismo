@@ -6,6 +6,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { sessionService } from '@/services/sessionService';
 import { generateSmartPair } from '@/services/pairGenerationService';
+import { useGameUIStore } from '@/store/useGameUIStore';
 import type { Pair, VoteRequest, RankingEntry } from '../../api/types';
 
 // =============================================================================
@@ -99,16 +100,24 @@ function createVoteError(status: number): Error {
 /**
  * Hook to get the next pair of candidates for comparison.
  * Uses smart pair selection for optimal ranking convergence.
+ * Respects qualifier filtering if the user has completed the qualifier round.
  */
 export function useNextPair() {
   const sessionId = getSessionId();
   const isClient = typeof window !== 'undefined';
+  const qualifiedCandidateIds = useGameUIStore(state => state.qualifiedCandidateIds);
+  const hasCompletedQualifier = useGameUIStore(state => state.hasCompletedQualifier);
 
   return useQuery({
-    queryKey: ['game', 'nextpair', sessionId],
+    queryKey: ['game', 'nextpair', sessionId, qualifiedCandidateIds],
     enabled: isClient && Boolean(sessionId),
     queryFn: () => {
-      const pair = generateSmartPair();
+      // Only filter by qualified candidates if qualifier has been completed
+      const filterIds = hasCompletedQualifier && qualifiedCandidateIds.length > 0 
+        ? qualifiedCandidateIds 
+        : undefined;
+      
+      const pair = generateSmartPair(filterIds);
       prefetchPairImages(pair);
       return pair;
     },
