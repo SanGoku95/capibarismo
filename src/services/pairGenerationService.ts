@@ -263,6 +263,8 @@ function mapCandidateToPairMember(candidate: CandidateBase) {
     ideologia: candidate.ideologia,
     fullBody: candidate.fullBody,
     headshot: candidate.headshot,
+    partyIcon: candidate.partyIcon,
+    partido: candidate.partido,
   };
 }
 

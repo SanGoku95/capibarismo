@@ -101,8 +101,6 @@ export function CandidateInfoOverlay() {
               <DataCard
                 icon={<GraduationCap size={16} />}
                 title="Educación"
-                href={`/candidate/${selectedCandidateId}#tray-educacion`}
-                onNavigate={closeCandidateInfo}
                 lines={[
                   edu
                     ? `Básica: Primaria ${edu.basica?.primaria ?? '—'} · Secundaria ${edu.basica?.secundaria ?? '—'}`
@@ -118,8 +116,6 @@ export function CandidateInfoOverlay() {
               <DataCard
                 icon={<Briefcase size={16} />}
                 title="Experiencia laboral"
-                href={`/candidate/${selectedCandidateId}#tray-experiencia`}
-                onNavigate={closeCandidateInfo}
                 lines={[
                   latestJob ? `${latestJob.puesto}` : 'Sin datos',
                   latestJob ? `${latestJob.empresa} · ${latestJob.periodo}` : '—',
@@ -129,8 +125,6 @@ export function CandidateInfoOverlay() {
               <DataCard
                 icon={<Banknote size={16} />}
                 title="Ingresos"
-                href={`/candidate/${selectedCandidateId}#patrimonio`}
-                onNavigate={closeCandidateInfo}
                 lines={[
                   latestIngreso ? `Año ${latestIngreso.año}` : 'Sin datos',
                   latestIngreso ? `Total: ${formatMoney(latestIngreso.total)}` : '—',
@@ -140,8 +134,6 @@ export function CandidateInfoOverlay() {
               <DataCard
                 icon={<Home size={16} />}
                 title="Propiedades"
-                href={`/candidate/${selectedCandidateId}#patrimonio`}
-                onNavigate={closeCandidateInfo}
                 lines={[
                   props ? `Inmuebles: ${props.inmuebles} · Vehículos: ${props.vehiculos} · Otros: ${props.otros}` : 'Sin datos',
                 ]}
@@ -150,8 +142,6 @@ export function CandidateInfoOverlay() {
               <DataCard
                 icon={<Gavel size={16} />}
                 title="Sentencias"
-                href={`/candidate/${selectedCandidateId}#sentencias`}
-                onNavigate={closeCandidateInfo}
                 lines={[
                   `Registros: ${sentences.length}`,
                   sentences[0] ? `${sentences[0].delito} (${formatYear(sentences[0].año)}) — ${sentences[0].fallo}` : 'Sin sentencias registradas',
@@ -198,14 +188,6 @@ export function CandidateInfoOverlay() {
                         <div>Sin registros</div>
                       )}
                     </div>
-
-                    <Link
-                      to={`/candidate/${selectedCandidateId}#tray-educacion`}
-                      onClick={closeCandidateInfo}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
-                    >
-                      Ver en perfil <ChevronRight size={12} />
-                    </Link>
                   </div>
                 ) : (
                   <div className="text-sm text-muted-foreground">Sin datos</div>
@@ -223,13 +205,6 @@ export function CandidateInfoOverlay() {
                         <div className="text-xs text-muted-foreground">{j.periodo}{j.ubicacion && j.ubicacion !== 'None' ? ` · ${j.ubicacion}` : ''}</div>
                       </div>
                     ))}
-                    <Link
-                      to={`/candidate/${selectedCandidateId}#tray-experiencia`}
-                      onClick={closeCandidateInfo}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
-                    >
-                      Ver en perfil <ChevronRight size={12} />
-                    </Link>
                   </div>
                 ) : (
                   <div className="text-sm text-muted-foreground">Sin datos</div>
@@ -252,13 +227,6 @@ export function CandidateInfoOverlay() {
                           <div className="text-xs font-semibold">Total: {formatMoney(r.total)}</div>
                         </div>
                       ))}
-                      <Link
-                        to={`/candidate/${selectedCandidateId}#patrimonio`}
-                        onClick={closeCandidateInfo}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
-                      >
-                        Ver en perfil <ChevronRight size={12} />
-                      </Link>
                     </div>
                   );
                 })()}
@@ -271,13 +239,6 @@ export function CandidateInfoOverlay() {
                     <div>Inmuebles: <span className="font-semibold text-foreground">{props.inmuebles}</span></div>
                     <div>Vehículos: <span className="font-semibold text-foreground">{props.vehiculos}</span></div>
                     <div>Otros: <span className="font-semibold text-foreground">{props.otros}</span></div>
-                    <Link
-                      to={`/candidate/${selectedCandidateId}#patrimonio`}
-                      onClick={closeCandidateInfo}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary mt-2"
-                    >
-                      Ver en perfil <ChevronRight size={12} />
-                    </Link>
                   </div>
                 ) : (
                   <div className="text-sm text-muted-foreground">Sin datos</div>
@@ -295,13 +256,6 @@ export function CandidateInfoOverlay() {
                         <div className="text-xs text-muted-foreground">{s.organo}</div>
                       </div>
                     ))}
-                    <Link
-                      to={`/candidate/${selectedCandidateId}#sentencias`}
-                      onClick={closeCandidateInfo}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-primary"
-                    >
-                      Ver en perfil <ChevronRight size={12} />
-                    </Link>
                   </div>
                 ) : (
                   <div className="text-sm text-muted-foreground">Sin sentencias registradas</div>
@@ -316,15 +270,9 @@ export function CandidateInfoOverlay() {
             variant="outline"
             size="sm"
             onClick={closeCandidateInfo}
-            className="flex-1 h-9 text-xs font-medium"
+            className="w-full h-9 text-xs font-medium"
           >
             Volver al juego
-          </Button>
-          <Button asChild size="sm" className="flex-1 h-9 text-xs font-medium" onClick={closeCandidateInfo}>
-            <Link to={`/candidate/${selectedCandidateId}`} className="flex items-center gap-1">
-              Perfil completo
-              <ExternalLink size={11} />
-            </Link>
           </Button>
         </div>
       </SheetContent>
@@ -345,21 +293,13 @@ function DataCard({
   icon,
   title,
   lines,
-  href,
-  onNavigate,
 }: {
   icon: React.ReactNode;
   title: string;
   lines: string[];
-  href: string;
-  onNavigate: () => void;
 }) {
   return (
-    <Link
-      to={href}
-      onClick={onNavigate}
-      className="flex items-start justify-between gap-3 p-3 rounded-lg border border-white/10 hover:bg-muted/30 transition-colors"
-    >
+    <div className="flex items-start gap-3 p-3 rounded-lg border border-white/10 bg-muted/10 select-text">
       <div className="flex items-start gap-3 min-w-0">
         <div className="mt-0.5 text-primary">{icon}</div>
         <div className="min-w-0">
@@ -373,7 +313,6 @@ function DataCard({
           </div>
         </div>
       </div>
-      <ChevronRight size={16} className="text-muted-foreground flex-shrink-0 mt-1" />
-    </Link>
+    </div>
   );
 }

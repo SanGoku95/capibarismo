@@ -33,19 +33,6 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
       className="flex flex-col items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-lg border border-white/20 sm:border-2 bg-black/40 transition-opacity"
       style={{ opacity: isDisabled ? 0.6 : 1 }}
     >
-      {/* Info button - top right */}
-      <div className="w-full flex justify-end mb-2">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-auto py-1.5 px-3 bg-black/40 hover:bg-accent hover:text-black border border-white/20 hover:border-accent rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 group backdrop-blur-sm"
-          onClick={handleInfoClick}
-        >
-          <Info className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1.5 sm:mr-2 text-accent group-hover:text-black transition-colors" />
-          <span className="text-white/90 group-hover:text-black">MÁS INFO</span>
-        </Button>
-      </div>
-
       {/* Image - use same media component as compare */}
       <div className="cursor-pointer w-full flex justify-center" onClick={handleSelect}>
         {candidate.fullBody ? (
@@ -96,6 +83,17 @@ export function CandidateCard({ candidate, side, onSelect, disabled }: Candidate
             )}
           </div>
         )}
+        
+        {/* Info button - above Elegir button, yellow and striking */}
+        <Button
+          variant="outline"
+          size="sm"
+          className="w-full h-8 sm:h-9 bg-yellow-400 hover:bg-yellow-500 text-black border-2 border-yellow-500 hover:border-yellow-600 font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 mb-1 sm:mb-2"
+          onClick={handleInfoClick}
+        >
+          <Info className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1.5 sm:mr-2" />
+          MÁS INFO
+        </Button>
         
         <Button
           onClick={handleSelect}
