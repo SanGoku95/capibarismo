@@ -61,8 +61,8 @@ export function PickFromThree({
         )}
       </div>
 
-      {/* Candidates - 2 top, 1 bottom (equal sizes) */}
-      <div className="w-full max-w-4xl">
+      {/* Candidates - mobile 2+1, desktop 3 across */}
+      <div className="w-full max-w-5xl">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={candidateIds.join('-')}
@@ -70,34 +70,52 @@ export function PickFromThree({
             animate={{ opacity: 1, y: 0 }}
             exit={reducedMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
             transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full flex flex-col items-center gap-4 sm:gap-6"
+            className="w-full"
           >
-            {/* Top two candidates */}
-            {candidates.length >= 2 && (
-              <div className="w-full grid grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                {candidates.slice(0, 2).map((candidate) => (
-                  <div key={candidate.id} className="w-full">
-                    <CandidateCard
-                      candidate={candidate}
-                      side="left"
-                      onSelect={() => handleSelect(candidate.id)}
-                      disabled={disabled || !!selectedId}
-                      voteState={
-                        selectedId === candidate.id ? 'winner'
-                        : selectedId !== null ? 'loser'
-                        : undefined
-                      }
-                      allCandidateIds={candidateIds}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-            
-            {/* Bottom candidate - same size as top cards */}
-            {candidates[2] && (
-              <div className="w-1/2 flex justify-center">
-                <div className="w-full">
+            {/* Desktop: 3 across, equal height */}
+            <div className="hidden md:grid md:grid-cols-3 md:gap-6 md:items-stretch">
+              {candidates.map((candidate) => (
+                <div key={candidate.id} className="w-full h-full flex">
+                  <CandidateCard
+                    candidate={candidate}
+                    side="left"
+                    onSelect={() => handleSelect(candidate.id)}
+                    disabled={disabled || !!selectedId}
+                    voteState={
+                      selectedId === candidate.id ? 'winner'
+                      : selectedId !== null ? 'loser'
+                      : undefined
+                    }
+                    allCandidateIds={candidateIds}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile: 2 top, 1 bottom (equal sizes) */}
+            <div className="md:hidden flex flex-col items-center gap-4 sm:gap-6">
+              {candidates.length >= 2 && (
+                <div className="w-full grid grid-cols-2 gap-3 sm:gap-4">
+                  {candidates.slice(0, 2).map((candidate) => (
+                    <div key={candidate.id} className="w-full">
+                      <CandidateCard
+                        candidate={candidate}
+                        side="left"
+                        onSelect={() => handleSelect(candidate.id)}
+                        disabled={disabled || !!selectedId}
+                        voteState={
+                          selectedId === candidate.id ? 'winner'
+                          : selectedId !== null ? 'loser'
+                          : undefined
+                        }
+                        allCandidateIds={candidateIds}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+              {candidates[2] && (
+                <div className="w-1/2">
                   <CandidateCard
                     candidate={candidates[2]}
                     side="left"
@@ -111,8 +129,8 @@ export function PickFromThree({
                     allCandidateIds={candidateIds}
                   />
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
