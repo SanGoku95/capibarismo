@@ -61,8 +61,8 @@ export function PickFromThree({
         )}
       </div>
 
-      {/* Candidates - Triangle Formation */}
-      <div className="w-full max-w-5xl">
+      {/* Candidates - Triangle on mobile, 3-column on desktop */}
+      <div className="w-full max-w-7xl">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={candidateIds.join('-')}
@@ -70,11 +70,39 @@ export function PickFromThree({
             animate={{ opacity: 1, y: 0 }}
             exit={reducedMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
             transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full flex flex-col items-center gap-3 sm:gap-4 md:gap-6"
+            className="w-full hidden md:grid md:grid-cols-3 md:gap-6 md:items-center md:justify-center"
+          >
+            {/* Desktop: 3 columns */}
+            {candidates.map((candidate) => (
+              <div key={candidate.id} className="w-full">
+                <CandidateCard
+                  candidate={candidate}
+                  side="left"
+                  onSelect={() => handleSelect(candidate.id)}
+                  disabled={disabled || !!selectedId}
+                  voteState={
+                    selectedId === candidate.id ? 'winner'
+                    : selectedId !== null ? 'loser'
+                    : undefined
+                  }
+                  allCandidateIds={candidateIds}
+                />
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Mobile: Triangle formation */}
+          <motion.div
+            key={candidateIds.join('-')}
+            initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reducedMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
+            transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full md:hidden flex flex-col items-center gap-3 sm:gap-4"
           >
             {/* Top candidate */}
             {candidates[0] && (
-              <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
+              <div className="w-full max-w-xs sm:max-w-sm">
                 <CandidateCard
                   candidate={candidates[0]}
                   side="left"
@@ -92,7 +120,7 @@ export function PickFromThree({
             
             {/* Bottom two candidates */}
             {candidates.length > 1 && (
-              <div className="w-full grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 max-w-4xl">
+              <div className="w-full grid grid-cols-2 gap-3 sm:gap-4 max-w-2xl">
                 {candidates.slice(1).map((candidate) => (
                   <div key={candidate.id} className="w-full">
                     <CandidateCard
