@@ -6,7 +6,7 @@ import { CandidateInfoOverlay } from '@/components/game/CandidateInfoOverlay';
 import { BracketTreePage } from '@/components/tournament/BracketTreePage';
 import { PickFromThree } from '@/components/tournament/PickFromThree';
 import { PodiumScreen } from '@/components/tournament/PodiumScreen';
-import { RoundIntroModal } from '@/components/tournament/RoundIntroModal';
+import { RoundIntroPage } from '@/components/tournament/RoundIntroPage';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { useTournamentStore } from '@/store/useTournamentStore';
 import {
@@ -48,8 +48,6 @@ export function JugarPage() {
   // Track if user just entered playing from preview (for overview zoom)
   const [showBracketOverview, setShowBracketOverview] = useState(false);
   const isDesktop = typeof window !== 'undefined' && window.innerWidth >= DESKTOP_BREAKPOINT;
-  // Intro modal state: shown before each round starts (auto-dismissing, no extra clicks)
-  const [introModal, setIntroModal] = useState<{ round: number; pendingFn: () => void } | null>(null);
 
   useTrackJugarView({ sessionId: tournament?.id ?? 'none' });
 
@@ -65,28 +63,22 @@ export function JugarPage() {
 
   const currentMatch = tournament ? getCurrentMatch(tournament) : null;
   const phase = tournament?.phase;
-
-  // Auto-show match overlay after brief bracket flash
+  
+  // Create a stable key for current match to reset overlay state
+  const matchKey = `${tournament?.currentRound}-${tournament?.currentMatchIndex}`;
+  const [lastMatchKey, setLastMatchKey] = useState(matchKey);
+  
+  // Reset overlay when match changes (using setTimeout to avoid cascading setState)
   useEffect(() => {
-    if (phase !== 'playing-pick-three' && phase !== 'playing-1v1') return;
-    if (userViewingBracket) return;
-
-    // Longer delay when showing overview first (1.2s left + 1.2s right + 0.8s zoom = ~3.2s)
-    // On desktop the full bracket is already visible, so use shorter delays
-    const autoShowDelay = isDesktop ? AUTO_SHOW_DELAY_DESKTOP : AUTO_SHOW_DELAY;
-    const delay = showBracketOverview
-      ? (reducedMotion ? 800 : isDesktop ? 1200 : 3500)
-      : (reducedMotion ? 300 : autoShowDelay);
-
-    autoTimerRef.current = setTimeout(() => {
-      setOverlayVisible(true);
-      setShowBracketOverview(false);
-    }, delay);
-
-    return () => {
-      if (autoTimerRef.current) clearTimeout(autoTimerRef.current);
-    };
-  }, [phase, tournament?.currentRound, tournament?.currentMatchIndex, userViewingBracket, reducedMotion, showBracketOverview]);
+    if (matchKey !== lastMatchKey) {
+      const timer = setTimeout(() => {
+        setOverlayVisible(false);
+        setUserViewingBracket(false);
+        setLastMatchKey(matchKey);
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [matchKey, lastMatchKey]);
 
   // Preload ALL images for the current round upfront — fills browser cache for the entire round
   useEffect(() => {
@@ -99,7 +91,7 @@ export function JugarPage() {
         if (candidate?.headshot)  { const img = new Image(); img.src = candidate.headshot; }
       });
     });
-  }, [tournament?.currentRound]);
+  }, [tournament, tournament?.currentRound]);
 
   // Preload next match images while user is playing (belt-and-suspenders for slow connections)
   useEffect(() => {
@@ -112,7 +104,7 @@ export function JugarPage() {
       if (candidate?.fullBody) { const img = new Image(); img.src = candidate.fullBody; }
       if (candidate?.headshot)  { const img = new Image(); img.src = candidate.headshot; }
     });
-  }, [tournament?.currentMatchIndex, tournament?.currentRound]);
+  }, [tournament, currentMatch, tournament?.currentMatchIndex, tournament?.currentRound]);
 
   // Lock body scroll when match overlay is covering the screen (prevents double scrollbar)
   useEffect(() => {
@@ -124,13 +116,13 @@ export function JugarPage() {
   const handleViewBracket = useCallback(() => {
     setOverlayVisible(false);
     setUserViewingBracket(true);
-    if (autoTimerRef.current) clearTimeout(autoTimerRef.current);
   }, []);
 
-  // User returns from bracket view
+  // User clicks "CONTINUAR" to start playing the current match
   const handleContinueFromBracket = useCallback(() => {
     setUserViewingBracket(false);
     setOverlayVisible(true);
+    setShowBracketOverview(false); // Disable overview for subsequent views
   }, []);
 
   // No tournament → create one and go straight to bracket preview
@@ -148,35 +140,19 @@ export function JugarPage() {
 
   const progress = getMatchProgress(tournament);
 
-  // Intercept round-transition advance to show intro modal for rounds 0→1 and 1→2
-  const completedRound = tournament.phase === 'round-transition' ? tournament.currentRound : -1;
-  const handleTransitionAction = useCallback(() => {
-    if (completedRound <= 1) {
-      setIntroModal({ round: completedRound + 1, pendingFn: advanceFromRoundTransition });
-    } else {
-      advanceFromRoundTransition();
-    }
-  }, [completedRound, advanceFromRoundTransition]);
-
   // Phase-based rendering
   switch (tournament.phase) {
     case 'bracket-preview':
       return (
-        <>
-          <BracketTreePage
-            bracket={tournament.bracket}
-            currentRound={tournament.currentRound}
-            currentMatchIndex={tournament.currentMatchIndex}
-            onAction={() => { setShowBracketOverview(true); startPlaying(); }}
-            mode="preview"
-          />
-          <CandidateInfoOverlay />
-          {/* Modal is always rendered in bracket-preview — no useEffect timing gap */}
-          <RoundIntroModal
+        <AnimatePresence mode="wait">
+          <RoundIntroPage
             roundIndex={0}
-            onDismiss={() => { startPlaying(); }}
+            onStart={() => {
+              setShowBracketOverview(true);
+              startPlaying();
+            }}
           />
-        </>
+        </AnimatePresence>
       );
 
     case 'playing-pick-three': {
@@ -186,24 +162,26 @@ export function JugarPage() {
 
       return (
         <>
-          {/* Bracket is the main view */}
-          <BracketTreePage
-            bracket={tournament.bracket}
-            currentRound={tournament.currentRound}
-            currentMatchIndex={tournament.currentMatchIndex}
-            onAction={handleContinueFromBracket}
-            mode="viewing"
-            showOverviewFirst={showBracketOverview}
-          />
+          {/* Bracket - user must click "CONTINUAR" to see match */}
+          {!overlayVisible && (
+            <BracketTreePage
+              bracket={tournament.bracket}
+              currentRound={tournament.currentRound}
+              currentMatchIndex={tournament.currentMatchIndex}
+              onAction={handleContinueFromBracket}
+              mode="viewing"
+              showOverviewFirst={showBracketOverview}
+            />
+          )}
 
-          {/* Pick-from-three as auto-showing overlay */}
+          {/* Pick-from-three overlay - shown only after clicking "CONTINUAR" */}
           <AnimatePresence>
             {overlayVisible && (
               <motion.div
-                initial={reducedMotion ? {} : { scale: 0.9, opacity: 0 }}
+                initial={reducedMotion ? {} : { scale: 1, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={reducedMotion ? {} : { scale: 0.9, opacity: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                exit={reducedMotion ? {} : { scale: 1, opacity: 0 }}
+                transition={{ duration: reducedMotion ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="fixed inset-0 z-40 fighting-game-bg flex flex-col"
               >
                 <GameHUD
@@ -267,24 +245,26 @@ export function JugarPage() {
 
       return (
         <>
-          {/* Bracket is the main view */}
-          <BracketTreePage
-            bracket={tournament.bracket}
-            currentRound={tournament.currentRound}
-            currentMatchIndex={tournament.currentMatchIndex}
-            onAction={handleContinueFromBracket}
-            mode="viewing"
-            showOverviewFirst={showBracketOverview}
-          />
+          {/* Bracket - user must click "CONTINUAR" to see match */}
+          {!overlayVisible && (
+            <BracketTreePage
+              bracket={tournament.bracket}
+              currentRound={tournament.currentRound}
+              currentMatchIndex={tournament.currentMatchIndex}
+              onAction={handleContinueFromBracket}
+              mode="viewing"
+              showOverviewFirst={showBracketOverview}
+            />
+          )}
 
-          {/* VS Screen as auto-showing overlay */}
+          {/* VS Screen overlay - shown only after clicking "CONTINUAR" */}
           <AnimatePresence>
             {overlayVisible && (
               <motion.div
-                initial={reducedMotion ? {} : { scale: 0.9, opacity: 0 }}
+                initial={reducedMotion ? {} : { scale: 1, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={reducedMotion ? {} : { scale: 0.9, opacity: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                exit={reducedMotion ? {} : { scale: 1, opacity: 0 }}
+                transition={{ duration: reducedMotion ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="fixed inset-0 z-40 fighting-game-bg flex flex-col"
               >
                 <GameHUD
@@ -317,6 +297,23 @@ export function JugarPage() {
     }
 
     case 'round-transition': {
+      const completedRound = tournament.currentRound;
+      
+      // Show intro page for rounds 1 and 2, otherwise show transition bracket
+      if (completedRound <= 1) {
+        return (
+          <AnimatePresence mode="wait">
+            <RoundIntroPage
+              roundIndex={(completedRound + 1) as 0 | 1 | 2}
+              onStart={() => {
+                setShowBracketOverview(true);
+                advanceFromRoundTransition();
+              }}
+            />
+          </AnimatePresence>
+        );
+      }
+
       const eliminated = getEliminatedInRound(tournament, completedRound);
       const advancing = getAdvancingFromRound(tournament, completedRound);
 
@@ -326,7 +323,7 @@ export function JugarPage() {
             bracket={tournament.bracket}
             currentRound={tournament.currentRound}
             currentMatchIndex={tournament.currentMatchIndex}
-            onAction={handleTransitionAction}
+            onAction={advanceFromRoundTransition}
             mode="transition"
             completedRoundIndex={completedRound}
             eliminatedCount={eliminated.length}
@@ -334,14 +331,6 @@ export function JugarPage() {
             autoAdvanceDelay={reducedMotion ? 1500 : isDesktop ? TRANSITION_DELAY_DESKTOP : TRANSITION_DELAY}
           />
           <CandidateInfoOverlay />
-          <AnimatePresence>
-            {introModal && (
-              <RoundIntroModal
-                roundIndex={introModal.round as 0 | 1 | 2}
-                onDismiss={() => { const fn = introModal.pendingFn; setIntroModal(null); fn(); }}
-              />
-            )}
-          </AnimatePresence>
         </>
       );
     }
