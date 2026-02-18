@@ -291,7 +291,7 @@ export const base: Record<string, CandidateBase> = {
   },
   'rafael-lopezaliaga': {
     id: 'rafael-lopezaliaga',
-    nombre: 'Rafael LopezAliaga',
+    nombre: 'Rafael Lopez Aliaga',
     ideologia: null, // TODO: Completar manualmente
     partido: 'Renovacion Popular',
     partyIcon: '/iconos_partidos/RenovacionPopular.jpg',

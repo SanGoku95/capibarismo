@@ -12,9 +12,10 @@ interface CandidateCardProps {
   onSelect: () => void;
   disabled?: boolean;
   voteState?: 'winner' | 'loser';
+  allCandidateIds?: string[]; // All candidates in the current match for comparison
 }
 
-export function CandidateCard({ candidate, side, onSelect, disabled, voteState }: CandidateCardProps) {
+export function CandidateCard({ candidate, side, onSelect, disabled, voteState, allCandidateIds }: CandidateCardProps) {
   const { openCandidateInfo, reducedMotion } = useGameUIStore();
   const isDisabled = Boolean(disabled);
 
@@ -22,7 +23,7 @@ export function CandidateCard({ candidate, side, onSelect, disabled, voteState }
 
   const handleInfoClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    openCandidateInfo(candidate.id);
+    openCandidateInfo(candidate.id, allCandidateIds);
   };
 
   const handleSelect = () => {

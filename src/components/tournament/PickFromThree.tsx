@@ -61,7 +61,7 @@ export function PickFromThree({
         )}
       </div>
 
-      {/* Candidates - optimized grid for mobile */}
+      {/* Candidates - Triangle Formation */}
       <div className="w-full max-w-5xl">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
@@ -70,23 +70,47 @@ export function PickFromThree({
             animate={{ opacity: 1, y: 0 }}
             exit={reducedMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
             transition={{ duration: reducedMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-8"
+            className="w-full flex flex-col items-center gap-3 sm:gap-4 md:gap-6"
           >
-            {candidates.map((candidate) => (
-              <div key={candidate.id} className="w-full">
+            {/* Top candidate */}
+            {candidates[0] && (
+              <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
                 <CandidateCard
-                  candidate={candidate}
+                  candidate={candidates[0]}
                   side="left"
-                  onSelect={() => handleSelect(candidate.id)}
+                  onSelect={() => handleSelect(candidates[0].id)}
                   disabled={disabled || !!selectedId}
                   voteState={
-                    selectedId === candidate.id ? 'winner'
+                    selectedId === candidates[0].id ? 'winner'
                     : selectedId !== null ? 'loser'
                     : undefined
                   }
+                  allCandidateIds={candidateIds}
                 />
               </div>
-            ))}
+            )}
+            
+            {/* Bottom two candidates */}
+            {candidates.length > 1 && (
+              <div className="w-full grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 max-w-4xl">
+                {candidates.slice(1).map((candidate) => (
+                  <div key={candidate.id} className="w-full">
+                    <CandidateCard
+                      candidate={candidate}
+                      side="left"
+                      onSelect={() => handleSelect(candidate.id)}
+                      disabled={disabled || !!selectedId}
+                      voteState={
+                        selectedId === candidate.id ? 'winner'
+                        : selectedId !== null ? 'loser'
+                        : undefined
+                      }
+                      allCandidateIds={candidateIds}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>

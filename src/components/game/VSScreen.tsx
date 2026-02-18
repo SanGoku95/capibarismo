@@ -150,6 +150,7 @@ export function VSScreen({ pair, onVote, isSubmitting, roundLabel }: VSScreenPro
                 onSelect={() => handleVote('A')}
                 disabled={isSubmitting || !!voteResult}
                 voteState={voteResult ? (voteResult.winner === 'A' ? 'winner' : 'loser') : undefined}
+                allCandidateIds={[pair.a.id, pair.b.id]}
               />
             </motion.div>
 
@@ -167,6 +168,7 @@ export function VSScreen({ pair, onVote, isSubmitting, roundLabel }: VSScreenPro
                 onSelect={() => handleVote('B')}
                 disabled={isSubmitting || !!voteResult}
                 voteState={voteResult ? (voteResult.winner === 'B' ? 'winner' : 'loser') : undefined}
+                allCandidateIds={[pair.a.id, pair.b.id]}
               />
             </motion.div>
           </motion.div>

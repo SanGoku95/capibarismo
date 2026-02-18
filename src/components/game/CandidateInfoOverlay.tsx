@@ -1,11 +1,7 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useGameUIStore } from '@/store/useGameUIStore';
-import { Link } from 'react-router-dom';
 
 import { base } from '@/data/domains/base';
 import { educacion } from '@/data/domains/educacion';
@@ -20,257 +16,52 @@ import {
   Banknote,
   Home,
   Gavel,
-  ExternalLink,
-  ChevronRight,
 } from 'lucide-react';
 
 const formatYear = (y?: string) => (!y || y === 'None' ? '—' : y);
 
 const formatMoney = (n?: number) => {
   if (typeof n !== 'number' || Number.isNaN(n)) return '—';
-  return new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 2 }).format(n);
-};
-
-const getLatestIngreso = (candidateId: string) => {
-  const rows = ingresos[candidateId] ?? [];
-  if (!rows.length) return null;
-  return rows
-    .slice()
-    .sort((a, b) => Number(b.año) - Number(a.año))[0] ?? null;
+  return new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(n);
 };
 
 export function CandidateInfoOverlay() {
-  const { candidateInfoOpen, selectedCandidateId, closeCandidateInfo } = useGameUIStore();
-  const [activeTab, setActiveTab] = useState<'resumen' | 'detalle'>('resumen');
+  const { candidateInfoOpen, compareCandidateIds, closeCandidateInfo } = useGameUIStore();
 
-  const candidate = useMemo(() => {
-    if (!selectedCandidateId) return null;
-    return base[selectedCandidateId] ?? null;
-  }, [selectedCandidateId]);
+  const candidates = useMemo(() => {
+    return compareCandidateIds
+      .map(id => base[id])
+      .filter(Boolean);
+  }, [compareCandidateIds]);
 
-  // Reset tab on candidate change
-  useEffect(() => {
-    if (selectedCandidateId) setActiveTab('resumen');
-  }, [selectedCandidateId]);
-
-  if (!selectedCandidateId || !candidate) return null;
-
-  const edu = educacion[selectedCandidateId];
-  const jobs = experienciaLaboral[selectedCandidateId] ?? [];
-  const latestJob = jobs[0] ?? null;
-
-  const latestIngreso = getLatestIngreso(selectedCandidateId);
-  const props = propiedades[selectedCandidateId];
-  const sentences = sentencias[selectedCandidateId] ?? [];
+  if (!candidateInfoOpen || candidates.length === 0) return null;
 
   return (
     <Sheet open={candidateInfoOpen} onOpenChange={(open) => !open && closeCandidateInfo()}>
-      <SheetContent className="flex flex-col gap-0 p-0 w-full sm:max-w-md">
-        <SheetHeader className="px-4 pt-4 pb-2 border-b bg-gradient-to-b from-background to-background/95">
-          <div className="flex items-center gap-3">
-            {candidate.headshot ? (
-              <img
-                src={candidate.headshot}
-                alt={candidate.nombre}
-                className="w-14 h-14 object-cover rounded-full border-2 border-primary/20 flex-shrink-0"
-                loading="lazy"
-              />
-            ) : null}
-
-            <div className="flex-1 min-w-0">
-              <SheetTitle className="text-base font-bold leading-tight mb-1">
-                {candidate.nombre}
-              </SheetTitle>
-              {candidate.ideologia ? (
-                <Badge variant="outline" className="text-[10px] px-2 py-0.5 font-medium">
-                  {candidate.ideologia}
-                </Badge>
-              ) : null}
-            </div>
-          </div>
+      <SheetContent 
+        className="flex flex-col gap-0 p-0 w-full h-[90vh] sm:max-w-[98vw]"
+        side="bottom"
+      >
+        <SheetHeader className="px-3 pt-3 pb-2 border-b bg-gradient-to-b from-background to-background/95 flex-shrink-0">
+          <SheetTitle className="text-xs sm:text-sm font-bold text-center">
+            Comparación de Candidatos
+          </SheetTitle>
         </SheetHeader>
 
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="flex-1 flex flex-col min-h-0">
-          <TabsList className="grid grid-cols-2 mx-4 mt-3 h-9">
-            <TabsTrigger value="resumen" className="text-xs">Resumen</TabsTrigger>
-            <TabsTrigger value="detalle" className="text-xs">Detalle</TabsTrigger>
-          </TabsList>
+        <div className="flex-1 overflow-y-auto min-h-0">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 p-2 sm:p-3 h-full">
+            {candidates.map((candidate) => (
+              <CompactCandidateColumn key={candidate.id} candidateId={candidate.id} />
+            ))}
+          </div>
+        </div>
 
-          <ScrollArea className="flex-1 min-h-0">
-            <TabsContent value="resumen" className="px-4 py-3 mt-0 space-y-3">
-              <DataCard
-                icon={<GraduationCap size={16} />}
-                title="Educación"
-                lines={[
-                  edu
-                    ? `Básica: Primaria ${edu.basica?.primaria ?? '—'} · Secundaria ${edu.basica?.secundaria ?? '—'}`
-                    : 'Sin datos',
-                  edu?.postgrado?.length
-                    ? `Postgrado: ${edu.postgrado[0].tipo} — ${edu.postgrado[0].institucion} (${formatYear(edu.postgrado[0].año)})`
-                    : edu?.universitaria?.length
-                      ? `Universitaria: ${edu.universitaria[0].carrera} — ${edu.universitaria[0].universidad} (${formatYear(edu.universitaria[0].año)})`
-                      : '—',
-                ]}
-              />
-
-              <DataCard
-                icon={<Briefcase size={16} />}
-                title="Experiencia laboral"
-                lines={[
-                  latestJob ? `${latestJob.puesto}` : 'Sin datos',
-                  latestJob ? `${latestJob.empresa} · ${latestJob.periodo}` : '—',
-                ]}
-              />
-
-              <DataCard
-                icon={<Banknote size={16} />}
-                title="Ingresos"
-                lines={[
-                  latestIngreso ? `Año ${latestIngreso.año}` : 'Sin datos',
-                  latestIngreso ? `Total: ${formatMoney(latestIngreso.total)}` : '—',
-                ]}
-              />
-
-              <DataCard
-                icon={<Home size={16} />}
-                title="Propiedades"
-                lines={[
-                  props ? `Inmuebles: ${props.inmuebles} · Vehículos: ${props.vehiculos} · Otros: ${props.otros}` : 'Sin datos',
-                ]}
-              />
-
-              <DataCard
-                icon={<Gavel size={16} />}
-                title="Sentencias"
-                lines={[
-                  `Registros: ${sentences.length}`,
-                  sentences[0] ? `${sentences[0].delito} (${formatYear(sentences[0].año)}) — ${sentences[0].fallo}` : 'Sin sentencias registradas',
-                ]}
-              />
-            </TabsContent>
-
-            <TabsContent value="detalle" className="px-4 py-3 mt-0 space-y-6">
-              <section className="space-y-2">
-                <SectionTitle icon={<GraduationCap size={14} />} title="Educación" />
-                {edu ? (
-                  <div className="text-sm text-muted-foreground space-y-3">
-                    <div>
-                      <div className="font-semibold text-foreground">Básica</div>
-                      <div>Primaria: {edu.basica?.primaria ?? '—'} · Secundaria: {edu.basica?.secundaria ?? '—'}</div>
-                    </div>
-
-                    <div>
-                      <div className="font-semibold text-foreground">Universitaria</div>
-                      {edu.universitaria?.length ? (
-                        <ul className="list-disc pl-5 space-y-1">
-                          {edu.universitaria.slice(0, 8).map((u, idx) => (
-                            <li key={`${u.universidad}-${idx}`}>
-                              {u.carrera} — {u.universidad} ({formatYear(u.año)})
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <div>Sin registros</div>
-                      )}
-                    </div>
-
-                    <div>
-                      <div className="font-semibold text-foreground">Postgrado</div>
-                      {edu.postgrado?.length ? (
-                        <ul className="list-disc pl-5 space-y-1">
-                          {edu.postgrado.slice(0, 8).map((p, idx) => (
-                            <li key={`${p.institucion}-${idx}`}>
-                              {p.tipo}: {p.especialidad} — {p.institucion} ({formatYear(p.año)})
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <div>Sin registros</div>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-sm text-muted-foreground">Sin datos</div>
-                )}
-              </section>
-
-              <section className="space-y-2">
-                <SectionTitle icon={<Briefcase size={14} />} title="Experiencia laboral" />
-                {jobs.length ? (
-                  <div className="space-y-2">
-                    {jobs.slice(0, 10).map((j, idx) => (
-                      <div key={`${j.empresa}-${idx}`} className="p-2 rounded-md border border-white/10">
-                        <div className="font-semibold text-sm">{j.puesto}</div>
-                        <div className="text-xs text-muted-foreground">{j.empresa}</div>
-                        <div className="text-xs text-muted-foreground">{j.periodo}{j.ubicacion && j.ubicacion !== 'None' ? ` · ${j.ubicacion}` : ''}</div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-sm text-muted-foreground">Sin datos</div>
-                )}
-              </section>
-
-              <section className="space-y-2">
-                <SectionTitle icon={<Banknote size={14} />} title="Ingresos" />
-                {(() => {
-                  const rows = ingresos[selectedCandidateId] ?? [];
-                  if (!rows.length) return <div className="text-sm text-muted-foreground">Sin datos</div>;
-                  const sorted = rows.slice().sort((a, b) => Number(b.año) - Number(a.año));
-                  return (
-                    <div className="space-y-2">
-                      {sorted.slice(0, 6).map((r) => (
-                        <div key={r.año} className="p-2 rounded-md border border-white/10 text-sm">
-                          <div className="font-semibold">Año {r.año}</div>
-                          <div className="text-muted-foreground text-xs">Público: {formatMoney(r.publico)}</div>
-                          <div className="text-muted-foreground text-xs">Privado: {formatMoney(r.privado)}</div>
-                          <div className="text-xs font-semibold">Total: {formatMoney(r.total)}</div>
-                        </div>
-                      ))}
-                    </div>
-                  );
-                })()}
-              </section>
-
-              <section className="space-y-2">
-                <SectionTitle icon={<Home size={14} />} title="Propiedades" />
-                {props ? (
-                  <div className="text-sm text-muted-foreground space-y-1">
-                    <div>Inmuebles: <span className="font-semibold text-foreground">{props.inmuebles}</span></div>
-                    <div>Vehículos: <span className="font-semibold text-foreground">{props.vehiculos}</span></div>
-                    <div>Otros: <span className="font-semibold text-foreground">{props.otros}</span></div>
-                  </div>
-                ) : (
-                  <div className="text-sm text-muted-foreground">Sin datos</div>
-                )}
-              </section>
-
-              <section className="space-y-2">
-                <SectionTitle icon={<Gavel size={14} />} title="Sentencias" />
-                {sentences.length ? (
-                  <div className="space-y-2">
-                    {sentences.slice(0, 10).map((s, idx) => (
-                      <div key={`${s.delito}-${idx}`} className="p-2 rounded-md border border-white/10">
-                        <div className="font-semibold text-sm">{s.delito}</div>
-                        <div className="text-xs text-muted-foreground">{formatYear(s.año)} · {s.fallo}</div>
-                        <div className="text-xs text-muted-foreground">{s.organo}</div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-sm text-muted-foreground">Sin sentencias registradas</div>
-                )}
-              </section>
-            </TabsContent>
-          </ScrollArea>
-        </Tabs>
-
-        <div className="flex gap-2 p-3 border-t bg-background/98 backdrop-blur-sm">
+        <div className="flex gap-2 p-2 sm:p-3 border-t bg-background/98 backdrop-blur-sm flex-shrink-0">
           <Button
             variant="outline"
             size="sm"
             onClick={closeCandidateInfo}
-            className="w-full h-9 text-xs font-medium"
+            className="w-full h-8 sm:h-9 text-[10px] sm:text-xs font-medium"
           >
             Volver al juego
           </Button>
@@ -280,38 +71,156 @@ export function CandidateInfoOverlay() {
   );
 }
 
-function SectionTitle({ icon, title }: { icon: React.ReactNode; title: string }) {
+function CompactCandidateColumn({ candidateId }: { candidateId: string }) {
+  const candidate = base[candidateId];
+  if (!candidate) return null;
+
+  const edu = educacion[candidateId];
+  const jobs = experienciaLaboral[candidateId] ?? [];
+  const ingresoRows = ingresos[candidateId] ?? [];
+  const props = propiedades[candidateId];
+  const sentences = sentencias[candidateId] ?? [];
+
+  const latestIngreso = ingresoRows.length > 0 
+    ? ingresoRows.sort((a, b) => Number(b.año) - Number(a.año))[0]
+    : null;
+  const latestJob = jobs[0];
+
   return (
-    <div className="flex items-center gap-2">
-      <span className="text-muted-foreground">{icon}</span>
-      <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{title}</h3>
+    <div className="border rounded-lg p-2 sm:p-3 space-y-2 sm:space-y-3 bg-muted/5 flex flex-col">
+      {/* Compact Header */}
+      <div className="flex flex-col items-center gap-1 pb-2 border-b">
+        {candidate.headshot && (
+          <img
+            src={candidate.headshot}
+            alt={candidate.nombre}
+            className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-full border-2 border-primary/20"
+            loading="lazy"
+          />
+        )}
+        <h3 className="text-[10px] sm:text-xs font-bold leading-tight text-center">{candidate.nombre}</h3>
+        {candidate.ideologia && (
+          <p className="text-[8px] sm:text-[9px] text-muted-foreground text-center line-clamp-1">{candidate.ideologia}</p>
+        )}
+      </div>
+
+      {/* Compact sections */}
+      <div className="space-y-2 flex-1 overflow-y-auto">
+        <CompactSection
+          icon={<GraduationCap size={12} className="sm:w-3.5 sm:h-3.5" />}
+          title="Educación"
+        >
+          {edu ? (
+            <div className="space-y-1">
+              <p className="text-[8px] sm:text-[9px]">
+                <span className="font-semibold">Básica:</span> P: {edu.basica?.primaria ?? '—'} / S: {edu.basica?.secundaria ?? '—'}
+              </p>
+              {edu.universitaria?.[0] && (
+                <p className="text-[8px] sm:text-[9px] line-clamp-2">
+                  <span className="font-semibold">Univ:</span> {edu.universitaria[0].carrera}
+                </p>
+              )}
+              {edu.postgrado?.[0] && (
+                <p className="text-[8px] sm:text-[9px] line-clamp-2">
+                  <span className="font-semibold">Post:</span> {edu.postgrado[0].tipo}
+                </p>
+              )}
+            </div>
+          ) : (
+            <p className="text-[8px] sm:text-[9px] text-muted-foreground">Sin datos</p>
+          )}
+        </CompactSection>
+
+        <CompactSection
+          icon={<Briefcase size={12} className="sm:w-3.5 sm:h-3.5" />}
+          title="Experiencia"
+        >
+          {latestJob ? (
+            <div className="space-y-0.5">
+              <p className="text-[8px] sm:text-[9px] font-semibold line-clamp-1">{latestJob.puesto}</p>
+              <p className="text-[8px] sm:text-[9px] text-muted-foreground line-clamp-1">{latestJob.empresa}</p>
+              <p className="text-[7px] sm:text-[8px] text-muted-foreground">{latestJob.periodo}</p>
+            </div>
+          ) : (
+            <p className="text-[8px] sm:text-[9px] text-muted-foreground">Sin datos</p>
+          )}
+        </CompactSection>
+
+        <CompactSection
+          icon={<Banknote size={12} className="sm:w-3.5 sm:h-3.5" />}
+          title="Ingresos"
+        >
+          {latestIngreso ? (
+            <div className="space-y-0.5">
+              <p className="text-[8px] sm:text-[9px]">
+                <span className="font-semibold">Año {latestIngreso.año}</span>
+              </p>
+              <p className="text-[8px] sm:text-[9px] text-muted-foreground">
+                Total: {formatMoney(latestIngreso.total)}
+              </p>
+            </div>
+          ) : (
+            <p className="text-[8px] sm:text-[9px] text-muted-foreground">Sin datos</p>
+          )}
+        </CompactSection>
+
+        <CompactSection
+          icon={<Home size={12} className="sm:w-3.5 sm:h-3.5" />}
+          title="Propiedades"
+        >
+          {props ? (
+            <div className="space-y-0.5">
+              <p className="text-[8px] sm:text-[9px]">Inmuebles: <span className="font-semibold">{props.inmuebles}</span></p>
+              <p className="text-[8px] sm:text-[9px]">Vehículos: <span className="font-semibold">{props.vehiculos}</span></p>
+            </div>
+          ) : (
+            <p className="text-[8px] sm:text-[9px] text-muted-foreground">Sin datos</p>
+          )}
+        </CompactSection>
+
+        <CompactSection
+          icon={<Gavel size={12} className="sm:w-3.5 sm:h-3.5" />}
+          title="Sentencias"
+        >
+          {sentences.length > 0 ? (
+            <div className="space-y-0.5">
+              <p className="text-[8px] sm:text-[9px] font-semibold">
+                {sentences.length} registro{sentences.length !== 1 ? 's' : ''}
+              </p>
+              {sentences[0] && (
+                <p className="text-[8px] sm:text-[9px] text-muted-foreground line-clamp-2">
+                  {sentences[0].delito} ({formatYear(sentences[0].año)})
+                </p>
+              )}
+            </div>
+          ) : (
+            <p className="text-[8px] sm:text-[9px] text-muted-foreground">Sin sentencias</p>
+          )}
+        </CompactSection>
+      </div>
     </div>
   );
 }
 
-function DataCard({
+function CompactSection({
   icon,
   title,
-  lines,
+  children,
 }: {
   icon: React.ReactNode;
   title: string;
-  lines: string[];
+  children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-start gap-3 p-3 rounded-lg border border-white/10 bg-muted/10 select-text">
-      <div className="flex items-start gap-3 min-w-0">
-        <div className="mt-0.5 text-primary">{icon}</div>
-        <div className="min-w-0">
-          <div className="font-semibold text-sm">{title}</div>
-          <div className="mt-1 space-y-0.5">
-            {lines.filter(Boolean).map((t, idx) => (
-              <div key={idx} className="text-[11px] text-muted-foreground leading-snug line-clamp-2">
-                {t}
-              </div>
-            ))}
-          </div>
-        </div>
+    <div className="space-y-1">
+      <div className="flex items-center gap-1">
+        <span className="text-muted-foreground">{icon}</span>
+        <h4 className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-muted-foreground">
+          {title}
+        </h4>
+      </div>
+      <div className="pl-1">
+        {children}
       </div>
     </div>
   );

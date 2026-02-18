@@ -47,6 +47,8 @@ export function JugarPage() {
   const autoTimerRef = useRef<ReturnType<typeof setTimeout>>();
   // Track if user just entered playing from preview (for overview zoom)
   const [showBracketOverview, setShowBracketOverview] = useState(false);
+  // Track if user has started playing (clicked CONTINUAR once)
+  const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
   const isDesktop = typeof window !== 'undefined' && window.innerWidth >= DESKTOP_BREAKPOINT;
 
   useTrackJugarView({ sessionId: tournament?.id ?? 'none' });
@@ -68,17 +70,63 @@ export function JugarPage() {
   const matchKey = `${tournament?.currentRound}-${tournament?.currentMatchIndex}`;
   const [lastMatchKey, setLastMatchKey] = useState(matchKey);
   
-  // Reset overlay when match changes (using setTimeout to avoid cascading setState)
+  // Track current round to detect round changes
+  const currentRound = tournament?.currentRound;
+  const [lastRound, setLastRound] = useState(currentRound);
+  
+  // Reset overlay when round changes (only if user hasn't started playing)
+  useEffect(() => {
+    if (currentRound !== lastRound) {
+      setTimeout(() => {
+        if (!hasStartedPlaying) {
+          setOverlayVisible(false);
+          setUserViewingBracket(false);
+        }
+        setLastRound(currentRound);
+      }, 0);
+    }
+  }, [currentRound, lastRound, hasStartedPlaying]);
+  
+  // Reset overlay when match changes (but keep visible if already playing)
   useEffect(() => {
     if (matchKey !== lastMatchKey) {
-      const timer = setTimeout(() => {
-        setOverlayVisible(false);
-        setUserViewingBracket(false);
+      setTimeout(() => {
+        // Only hide overlay if user hasn't started playing yet
+        if (!hasStartedPlaying) {
+          setOverlayVisible(false);
+          setUserViewingBracket(false);
+        }
         setLastMatchKey(matchKey);
       }, 0);
-      return () => clearTimeout(timer);
     }
-  }, [matchKey, lastMatchKey]);
+  }, [matchKey, lastMatchKey, hasStartedPlaying]);
+
+  // Auto-show overlay after match change (if user has already started playing)
+  useEffect(() => {
+    // Clear any existing timer
+    if (autoTimerRef.current) {
+      clearTimeout(autoTimerRef.current);
+    }
+
+    // Only auto-show if user has started playing and we're in a playing phase
+    if (
+      hasStartedPlaying &&
+      !overlayVisible &&
+      !userViewingBracket &&
+      (phase === 'playing-pick-three' || phase === 'playing-1v1')
+    ) {
+      const delay = isDesktop ? AUTO_SHOW_DELAY_DESKTOP : AUTO_SHOW_DELAY;
+      autoTimerRef.current = setTimeout(() => {
+        setOverlayVisible(true);
+      }, delay);
+    }
+
+    return () => {
+      if (autoTimerRef.current) {
+        clearTimeout(autoTimerRef.current);
+      }
+    };
+  }, [hasStartedPlaying, overlayVisible, userViewingBracket, phase, isDesktop, matchKey]);
 
   // Preload ALL images for the current round upfront — fills browser cache for the entire round
   useEffect(() => {
@@ -123,12 +171,14 @@ export function JugarPage() {
     setUserViewingBracket(false);
     setOverlayVisible(true);
     setShowBracketOverview(false); // Disable overview for subsequent views
+    setHasStartedPlaying(true); // Mark that user has started, enable auto-show
   }, []);
 
   // No tournament → create one and go straight to bracket preview
   if (!tournament) {
     startNewTournament();
     goToBracketPreview();
+    setHasStartedPlaying(false); // Reset on new tournament
     return null;
   }
 
@@ -197,8 +247,12 @@ export function JugarPage() {
                     candidateIds={currentMatch.candidates}
                     onSelect={(winnerId) => {
                       submitVote(winnerId);
-                      setOverlayVisible(false);
-                      setUserViewingBracket(false);
+                      // If playing has started, keep overlay visible (direct transition)
+                      // Otherwise hide it to show bracket
+                      if (!hasStartedPlaying) {
+                        setOverlayVisible(false);
+                        setUserViewingBracket(false);
+                      }
                     }}
                     groupIndex={tournament.currentMatchIndex}
                     totalGroups={roundConfig?.matchCount}
@@ -281,8 +335,12 @@ export function JugarPage() {
                     onVote={(winner) => {
                       const winnerId = winner === 'A' ? candidateA.id : candidateB.id;
                       submitVote(winnerId);
-                      setOverlayVisible(false);
-                      setUserViewingBracket(false);
+                      // If playing has started, keep overlay visible (direct transition)
+                      // Otherwise hide it to show bracket
+                      if (!hasStartedPlaying) {
+                        setOverlayVisible(false);
+                        setUserViewingBracket(false);
+                      }
                     }}
                     roundLabel={progress.arcadeRoundLabel}
                   />
@@ -306,7 +364,10 @@ export function JugarPage() {
             <RoundIntroPage
               roundIndex={(completedRound + 1) as 0 | 1 | 2}
               onStart={() => {
-                setShowBracketOverview(true);
+                // Only show overview on the very first round
+                if (!hasStartedPlaying) {
+                  setShowBracketOverview(true);
+                }
                 advanceFromRoundTransition();
               }}
             />
