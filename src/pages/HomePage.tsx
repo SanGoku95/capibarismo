@@ -5,12 +5,14 @@ import { listCandidates, getCandidateProfile } from "@/data";
 import { useItemListSEO } from '@/lib/useSEO';
 import { DonationModal } from '@/components/common/DonationModal';
 import { usePostHog, useTrackHomeView } from '@/lib/posthog';
+import { useTournamentStore } from '@/store/useTournamentStore';
 
 export function HomePage() {
   const [showAllGoals, setShowAllGoals] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
   const posthog = usePostHog();
   const location = useLocation();
+  const resetTournament = useTournamentStore(s => s.resetTournament);
 
   // Track home view once (handles StrictMode)
   useTrackHomeView();
@@ -108,7 +110,7 @@ export function HomePage() {
                 <div className="flex flex-col gap-3">
                   <Link
                     to="/jugar"
-                    onClick={() => posthog?.capture('jugar_click', { via: 'home_cta' })}
+                    onClick={() => { resetTournament(); posthog?.capture('jugar_click', { via: 'home_cta' }); }}
                     className="group inline-flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/60 active:translate-y-0"
                   >
                     <span className="flex items-center gap-3">
@@ -271,10 +273,10 @@ export function HomePage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-semibold text-foreground font-sans">
-                    S/ 340 de S/ 1000
+                    S/ 410 de S/ 1000
                   </span>
                   <span className="text-sm font-bold text-[#74239C] font-sans">
-                    34%
+                    41%
                   </span>
                 </div>
                 <p className="text-xs text-foreground/60 text-center font-sans pt-1">

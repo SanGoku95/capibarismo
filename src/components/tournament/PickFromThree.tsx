@@ -1,3 +1,4 @@
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CandidateCard } from '@/components/game/CandidateCard';
 import { useGameUIStore } from '@/store/useGameUIStore';
@@ -20,6 +21,18 @@ export function PickFromThree({
   disabled,
 }: PickFromThreeProps) {
   const { reducedMotion } = useGameUIStore();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  // Reset when new group loads
+  useEffect(() => {
+    setSelectedId(null);
+  }, [candidateIds.join('-')]);
+
+  const handleSelect = useCallback((candidateId: string) => {
+    if (selectedId || disabled) return;
+    setSelectedId(candidateId);
+    setTimeout(() => onSelect(candidateId), reducedMotion ? 100 : 800);
+  }, [selectedId, disabled, onSelect, reducedMotion]);
 
   const candidates = candidateIds
     .map((id) => findCandidateBase(id))
@@ -68,8 +81,13 @@ export function PickFromThree({
                   <CandidateCard
                     candidate={candidate}
                     side="left"
-                    onSelect={() => onSelect(candidate.id)}
-                    disabled={disabled}
+                    onSelect={() => handleSelect(candidate.id)}
+                    disabled={disabled || !!selectedId}
+                    voteState={
+                      selectedId === candidate.id ? 'winner'
+                      : selectedId !== null ? 'loser'
+                      : undefined
+                    }
                   />
                 </div>
               </div>

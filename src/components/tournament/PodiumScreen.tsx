@@ -44,10 +44,25 @@ export function PodiumScreen({ podium, onPlayAgain }: PodiumScreenProps) {
     return () => { cancelled = true; };
   }, [reducedMotion]);
 
+  const buildShareText = () => {
+    const first = findCandidateBase(podium.first);
+    const second = findCandidateBase(podium.second);
+    const third = findCandidateBase(podium.third);
+    return [
+      'Mi Ranking Final - Capibarismo',
+      `1. ${first?.nombre ?? podium.first}`,
+      `2. ${second?.nombre ?? podium.second}`,
+      `3. ${third?.nombre ?? podium.third}`,
+    ].join('\n');
+  };
+
   const handleShare = async () => {
     setSharing(true);
+    const shareText = buildShareText();
+    const shareUrl = 'https://capibarismo.com';
+
     try {
-      // Try screenshot sharing first
+      // Try screenshot + file share (iOS 15+, Android, Windows 11)
       if (captureRef.current) {
         try {
           const html2canvas = (await import('html2canvas')).default;
@@ -55,6 +70,7 @@ export function PodiumScreen({ podium, onPlayAgain }: PodiumScreenProps) {
             backgroundColor: '#0f172a',
             scale: 2,
             useCORS: true,
+            allowTaint: false,
           });
 
           const blob = await new Promise<Blob | null>((resolve) =>
@@ -65,44 +81,31 @@ export function PodiumScreen({ podium, onPlayAgain }: PodiumScreenProps) {
             const file = new File([blob], 'mi-torneo-capibarismo.png', { type: 'image/png' });
 
             if (navigator.share && navigator.canShare?.({ files: [file] })) {
-              await navigator.share({
-                text: 'Mi Torneo Capibarismo - Juega en capibarismo.com',
-                files: [file],
-              });
+              await navigator.share({ text: shareText, url: shareUrl, files: [file] });
               return;
             }
 
-            // Fallback: download the image
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'mi-torneo-capibarismo.png';
-            a.click();
-            URL.revokeObjectURL(url);
-            return;
+            // Desktop: download image (only when native share is unavailable)
+            if (!navigator.share) {
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'mi-torneo-capibarismo.png';
+              a.click();
+              URL.revokeObjectURL(url);
+              return;
+            }
           }
         } catch {
-          // html2canvas failed, fall through to text sharing
+          // html2canvas failed — fall through to text share
         }
       }
 
-      // Text fallback
-      const first = findCandidateBase(podium.first);
-      const second = findCandidateBase(podium.second);
-      const third = findCandidateBase(podium.third);
-
-      const text = [
-        'Tu Ranking Final - Capibarismo',
-        `1. ${first?.nombre ?? podium.first}`,
-        `2. ${second?.nombre ?? podium.second}`,
-        `3. ${third?.nombre ?? podium.third}`,
-        'Juega en capibarismo.com',
-      ].join('\n');
-
+      // Text + URL share — works reliably on all mobile browsers
       if (navigator.share) {
-        await navigator.share({ text });
+        await navigator.share({ text: shareText, url: shareUrl });
       } else {
-        await navigator.clipboard.writeText(text);
+        await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
       }
     } catch {
       // User cancelled or not supported
@@ -158,6 +161,7 @@ export function PodiumScreen({ podium, onPlayAgain }: PodiumScreenProps) {
                       src={encodeURI(candidate.headshot)}
                       alt={candidate.nombre}
                       className="w-full h-full object-cover"
+                      crossOrigin="anonymous"
                     />
                   ) : (
                     <div className="w-full h-full bg-white/10 flex items-center justify-center text-white/40">?</div>

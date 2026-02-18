@@ -6,6 +6,7 @@ import { CandidateInfoOverlay } from '@/components/game/CandidateInfoOverlay';
 import { BracketTreePage } from '@/components/tournament/BracketTreePage';
 import { PickFromThree } from '@/components/tournament/PickFromThree';
 import { PodiumScreen } from '@/components/tournament/PodiumScreen';
+import { RoundIntroModal } from '@/components/tournament/RoundIntroModal';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { useTournamentStore } from '@/store/useTournamentStore';
 import {
@@ -47,6 +48,8 @@ export function JugarPage() {
   // Track if user just entered playing from preview (for overview zoom)
   const [showBracketOverview, setShowBracketOverview] = useState(false);
   const isDesktop = typeof window !== 'undefined' && window.innerWidth >= DESKTOP_BREAKPOINT;
+  // Intro modal state: shown before each round starts (auto-dismissing, no extra clicks)
+  const [introModal, setIntroModal] = useState<{ round: number; pendingFn: () => void } | null>(null);
 
   useTrackJugarView({ sessionId: tournament?.id ?? 'none' });
 
@@ -85,6 +88,38 @@ export function JugarPage() {
     };
   }, [phase, tournament?.currentRound, tournament?.currentMatchIndex, userViewingBracket, reducedMotion, showBracketOverview]);
 
+  // Preload ALL images for the current round upfront — fills browser cache for the entire round
+  useEffect(() => {
+    if (!tournament) return;
+    const roundMatches = tournament.bracket.rounds[tournament.currentRound]?.matches ?? [];
+    roundMatches.forEach(match => {
+      match.candidates.forEach(candidateId => {
+        const candidate = findCandidateBase(candidateId);
+        if (candidate?.fullBody) { const img = new Image(); img.src = candidate.fullBody; }
+        if (candidate?.headshot)  { const img = new Image(); img.src = candidate.headshot; }
+      });
+    });
+  }, [tournament?.currentRound]);
+
+  // Preload next match images while user is playing (belt-and-suspenders for slow connections)
+  useEffect(() => {
+    if (!tournament || !currentMatch) return;
+    const nextMatch = tournament.bracket.rounds[tournament.currentRound]
+      ?.matches[tournament.currentMatchIndex + 1];
+    if (!nextMatch) return;
+    nextMatch.candidates.forEach(candidateId => {
+      const candidate = findCandidateBase(candidateId);
+      if (candidate?.fullBody) { const img = new Image(); img.src = candidate.fullBody; }
+      if (candidate?.headshot)  { const img = new Image(); img.src = candidate.headshot; }
+    });
+  }, [tournament?.currentMatchIndex, tournament?.currentRound]);
+
+  // Lock body scroll when match overlay is covering the screen (prevents double scrollbar)
+  useEffect(() => {
+    document.body.style.overflow = overlayVisible ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [overlayVisible]);
+
   // User manually views bracket
   const handleViewBracket = useCallback(() => {
     setOverlayVisible(false);
@@ -113,6 +148,16 @@ export function JugarPage() {
 
   const progress = getMatchProgress(tournament);
 
+  // Intercept round-transition advance to show intro modal for rounds 0→1 and 1→2
+  const completedRound = tournament.phase === 'round-transition' ? tournament.currentRound : -1;
+  const handleTransitionAction = useCallback(() => {
+    if (completedRound <= 1) {
+      setIntroModal({ round: completedRound + 1, pendingFn: advanceFromRoundTransition });
+    } else {
+      advanceFromRoundTransition();
+    }
+  }, [completedRound, advanceFromRoundTransition]);
+
   // Phase-based rendering
   switch (tournament.phase) {
     case 'bracket-preview':
@@ -126,6 +171,11 @@ export function JugarPage() {
             mode="preview"
           />
           <CandidateInfoOverlay />
+          {/* Modal is always rendered in bracket-preview — no useEffect timing gap */}
+          <RoundIntroModal
+            roundIndex={0}
+            onDismiss={() => { startPlaying(); }}
+          />
         </>
       );
 
@@ -164,7 +214,7 @@ export function JugarPage() {
                   onViewBracket={handleViewBracket}
                   onNewGame={resetTournament}
                 />
-                <div className="flex-1 relative overflow-y-auto">
+                <div className="flex-1 relative overflow-y-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
                   <PickFromThree
                     candidateIds={currentMatch.candidates}
                     onSelect={(winnerId) => {
@@ -267,7 +317,6 @@ export function JugarPage() {
     }
 
     case 'round-transition': {
-      const completedRound = tournament.currentRound;
       const eliminated = getEliminatedInRound(tournament, completedRound);
       const advancing = getAdvancingFromRound(tournament, completedRound);
 
@@ -277,7 +326,7 @@ export function JugarPage() {
             bracket={tournament.bracket}
             currentRound={tournament.currentRound}
             currentMatchIndex={tournament.currentMatchIndex}
-            onAction={advanceFromRoundTransition}
+            onAction={handleTransitionAction}
             mode="transition"
             completedRoundIndex={completedRound}
             eliminatedCount={eliminated.length}
@@ -285,6 +334,14 @@ export function JugarPage() {
             autoAdvanceDelay={reducedMotion ? 1500 : isDesktop ? TRANSITION_DELAY_DESKTOP : TRANSITION_DELAY}
           />
           <CandidateInfoOverlay />
+          <AnimatePresence>
+            {introModal && (
+              <RoundIntroModal
+                roundIndex={introModal.round as 0 | 1 | 2}
+                onDismiss={() => { const fn = introModal.pendingFn; setIntroModal(null); fn(); }}
+              />
+            )}
+          </AnimatePresence>
         </>
       );
     }
