@@ -56,7 +56,7 @@ export function PickFromThree({
             initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reducedMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
-            transition={{ duration: reducedMotion ? 0 : 0.15 }}
+            transition={{ duration: reducedMotion ? 0 : 0.35 }}
             className="w-full grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 md:gap-8"
           >
             {candidates.map((candidate, i) => (

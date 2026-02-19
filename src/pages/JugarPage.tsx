@@ -19,8 +19,8 @@ import { findCandidateBase } from '@/data';
 import { useTrackJugarView } from '@/lib/posthog';
 
 // Auto-show overlay delay (ms) — brief bracket flash before match
-const AUTO_SHOW_DELAY = 1000;
-const AUTO_SHOW_DELAY_DESKTOP = 400;
+const AUTO_SHOW_DELAY = 1600;
+const AUTO_SHOW_DELAY_DESKTOP = 900;
 // Round transition auto-advance delay (ms)
 const TRANSITION_DELAY = 3000;
 const TRANSITION_DELAY_DESKTOP = 1500;
