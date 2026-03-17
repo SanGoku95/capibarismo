@@ -1,11 +1,9 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useGameUIStore } from '@/store/useGameUIStore';
-import { Link } from 'react-router-dom';
 
 import { base } from '@/data/domains/base';
 import { educacion } from '@/data/domains/educacion';
@@ -20,8 +18,6 @@ import {
   Banknote,
   Home,
   Gavel,
-  ExternalLink,
-  ChevronRight,
 } from 'lucide-react';
 
 const formatYear = (y?: string) => (!y || y === 'None' ? '—' : y);
@@ -31,35 +27,17 @@ const formatMoney = (n?: number) => {
   return new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 2 }).format(n);
 };
 
-const getLatestIngreso = (candidateId: string) => {
-  const rows = ingresos[candidateId] ?? [];
-  if (!rows.length) return null;
-  return rows
-    .slice()
-    .sort((a, b) => Number(b.año) - Number(a.año))[0] ?? null;
-};
-
 export function CandidateInfoOverlay() {
   const { candidateInfoOpen, selectedCandidateId, closeCandidateInfo } = useGameUIStore();
-  const [activeTab, setActiveTab] = useState<'resumen' | 'detalle'>('resumen');
-
   const candidate = useMemo(() => {
     if (!selectedCandidateId) return null;
     return base[selectedCandidateId] ?? null;
-  }, [selectedCandidateId]);
-
-  // Reset tab on candidate change
-  useEffect(() => {
-    if (selectedCandidateId) setActiveTab('resumen');
   }, [selectedCandidateId]);
 
   if (!selectedCandidateId || !candidate) return null;
 
   const edu = educacion[selectedCandidateId];
   const jobs = experienciaLaboral[selectedCandidateId] ?? [];
-  const latestJob = jobs[0] ?? null;
-
-  const latestIngreso = getLatestIngreso(selectedCandidateId);
   const props = propiedades[selectedCandidateId];
   const sentences = sentencias[selectedCandidateId] ?? [];
 
@@ -90,66 +68,8 @@ export function CandidateInfoOverlay() {
           </div>
         </SheetHeader>
 
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="flex-1 flex flex-col min-h-0">
-          <TabsList className="grid grid-cols-2 mx-4 mt-3 h-9">
-            <TabsTrigger value="resumen" className="text-xs">Resumen</TabsTrigger>
-            <TabsTrigger value="detalle" className="text-xs">Detalle</TabsTrigger>
-          </TabsList>
-
-          <ScrollArea className="flex-1 min-h-0">
-            <TabsContent value="resumen" className="px-4 py-3 mt-0 space-y-3">
-              <DataCard
-                icon={<GraduationCap size={16} />}
-                title="Educación"
-                lines={[
-                  edu
-                    ? `Básica: Primaria ${edu.basica?.primaria ?? '—'} · Secundaria ${edu.basica?.secundaria ?? '—'}`
-                    : 'Sin datos',
-                  edu?.postgrado?.length
-                    ? `Postgrado: ${edu.postgrado[0].tipo} — ${edu.postgrado[0].institucion} (${formatYear(edu.postgrado[0].año)})`
-                    : edu?.universitaria?.length
-                      ? `Universitaria: ${edu.universitaria[0].carrera} — ${edu.universitaria[0].universidad} (${formatYear(edu.universitaria[0].año)})`
-                      : '—',
-                ]}
-              />
-
-              <DataCard
-                icon={<Briefcase size={16} />}
-                title="Experiencia laboral"
-                lines={[
-                  latestJob ? `${latestJob.puesto}` : 'Sin datos',
-                  latestJob ? `${latestJob.empresa} · ${latestJob.periodo}` : '—',
-                ]}
-              />
-
-              <DataCard
-                icon={<Banknote size={16} />}
-                title="Ingresos"
-                lines={[
-                  latestIngreso ? `Año ${latestIngreso.año}` : 'Sin datos',
-                  latestIngreso ? `Total: ${formatMoney(latestIngreso.total)}` : '—',
-                ]}
-              />
-
-              <DataCard
-                icon={<Home size={16} />}
-                title="Propiedades"
-                lines={[
-                  props ? `Inmuebles: ${props.inmuebles} · Vehículos: ${props.vehiculos} · Otros: ${props.otros}` : 'Sin datos',
-                ]}
-              />
-
-              <DataCard
-                icon={<Gavel size={16} />}
-                title="Sentencias"
-                lines={[
-                  `Registros: ${sentences.length}`,
-                  sentences[0] ? `${sentences[0].delito} (${formatYear(sentences[0].año)}) — ${sentences[0].fallo}` : 'Sin sentencias registradas',
-                ]}
-              />
-            </TabsContent>
-
-            <TabsContent value="detalle" className="px-4 py-3 mt-0 space-y-6">
+        <ScrollArea className="flex-1 min-h-0">
+            <div className="px-4 py-3 mt-0 space-y-6">
               <section className="space-y-2">
                 <SectionTitle icon={<GraduationCap size={14} />} title="Educación" />
                 {edu ? (
@@ -261,9 +181,8 @@ export function CandidateInfoOverlay() {
                   <div className="text-sm text-muted-foreground">Sin sentencias registradas</div>
                 )}
               </section>
-            </TabsContent>
-          </ScrollArea>
-        </Tabs>
+            </div>
+        </ScrollArea>
 
         <div className="flex gap-2 p-3 border-t bg-background/98 backdrop-blur-sm">
           <Button
@@ -285,34 +204,6 @@ function SectionTitle({ icon, title }: { icon: React.ReactNode; title: string })
     <div className="flex items-center gap-2">
       <span className="text-muted-foreground">{icon}</span>
       <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{title}</h3>
-    </div>
-  );
-}
-
-function DataCard({
-  icon,
-  title,
-  lines,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  lines: string[];
-}) {
-  return (
-    <div className="flex items-start gap-3 p-3 rounded-lg border border-white/10 bg-muted/10 select-text">
-      <div className="flex items-start gap-3 min-w-0">
-        <div className="mt-0.5 text-primary">{icon}</div>
-        <div className="min-w-0">
-          <div className="font-semibold text-sm">{title}</div>
-          <div className="mt-1 space-y-0.5">
-            {lines.filter(Boolean).map((t, idx) => (
-              <div key={idx} className="text-[11px] text-muted-foreground leading-snug line-clamp-2">
-                {t}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
