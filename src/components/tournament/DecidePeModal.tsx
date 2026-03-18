@@ -1,0 +1,89 @@
+import { findCandidateBase } from '@/data';
+
+interface DecidePeModalProps {
+  candidateIds: string[];
+  onContinue: () => void;
+}
+
+export function DecidePeModal({ candidateIds, onContinue }: DecidePeModalProps) {
+  const candidates = candidateIds.map((id) => findCandidateBase(id)).filter(Boolean);
+
+  return (
+    <div className="min-h-screen fighting-game-bg flex flex-col items-center justify-center p-6">
+      <div className="bg-black/85 border border-white/20 rounded-xl p-8 max-w-md w-full space-y-6">
+
+        {/* Logos */}
+        <div className="flex items-center justify-center gap-5">
+          <picture>
+            <source srcSet="/capi_logo.webp" type="image/webp" />
+            <img src="/capi_logo.png" alt="Capibarismo" className="h-16 w-16" />
+          </picture>
+          <span className="text-white/30 font-bold text-3xl select-none">✕</span>
+          {/*
+            Replace the element below with an <img> once the decide.pe logo is available:
+            <img src="/decide-pe-logo.webp" alt="decide.pe" className="h-12" />
+          */}
+          <span
+            className="text-white font-bold text-xl tracking-wide"
+            style={{ fontFamily: 'system-ui, sans-serif' }}
+          >
+            decide<span className="text-yellow-400">.pe</span>
+          </span>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-white/10" />
+
+        {/* Body */}
+        <div className="space-y-2 text-center">
+          <p className="text-white/80 text-base leading-relaxed">
+            Fuiste redirigido desde <span className="text-yellow-400 font-semibold">decide.pe</span> con una lista de candidatos para competir.
+          </p>
+          <p className="text-white/50 text-sm">
+            Estos son los 4 candidatos que obtuviste allí:
+          </p>
+        </div>
+
+        {/* Candidates grid */}
+        <div className="grid grid-cols-2 gap-4">
+          {candidates.map((candidate) => (
+            <div
+              key={candidate.id}
+              className="flex flex-col items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10"
+            >
+              <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white/20 flex-shrink-0">
+                {candidate.headshot ? (
+                  <img
+                    src={encodeURI(candidate.headshot)}
+                    alt={candidate.nombre}
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-white/10 flex items-center justify-center text-white/30 text-sm">?</div>
+                )}
+              </div>
+              <p className="text-white text-sm text-center font-medium leading-tight line-clamp-2">
+                {candidate.nombre}
+              </p>
+              {candidate.partido && (
+                <p className="text-white/40 text-xs text-center leading-tight line-clamp-1">
+                  {candidate.partido}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <button
+          onClick={onContinue}
+          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
+          style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.55rem, 2vw, 0.75rem)' }}
+        >
+          ¡A LUCHAR!
+        </button>
+      </div>
+    </div>
+  );
+}
