@@ -26,21 +26,13 @@ export const ALLIANCE_CONFIGS: Record<string, AllianceConfig> = {
   dpe: {
     name: 'decide.pe',
     logo: (
-      /*
-        Swap for an <img> once the asset is ready:
-        <img src="/decide-pe-logo.webp" alt="decide.pe" className="h-12" />
-      */
-      <span
-        className="text-white font-bold text-xl tracking-wide"
-        style={{ fontFamily: 'system-ui, sans-serif' }}
-      >
-        decide<span className="text-yellow-400">.pe</span>
-      </span>
+        // Check CORS
+      <img src="https://decide.pe/reverseLogo.svg" alt="decide.pe" className="h-12" />
     ),
     description: (
       <>
         Fuiste redirigido desde{' '}
-        <span className="text-yellow-400 font-semibold">decide.pe</span>{' '}
+        <span className="text-red-700 font-semibold">decide.pe</span>{' '}
         con una lista de candidatos para competir.
       </>
     ),
