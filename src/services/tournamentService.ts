@@ -329,11 +329,12 @@ export function startFromOnboarding(state: TournamentState): TournamentState {
 }
 
 /**
- * Transition from bracket preview to first match (R0 = pick-from-three).
+ * Transition from bracket preview to the first match of the current round.
  */
 export function startFromBracketPreview(state: TournamentState): TournamentState {
   const next = structuredClone(state);
-  next.phase = 'playing-pick-three';
+  const round = next.bracket.rounds[next.currentRound];
+  next.phase = round?.type === '1v1' ? 'playing-1v1' : 'playing-pick-three';
   return next;
 }
 
