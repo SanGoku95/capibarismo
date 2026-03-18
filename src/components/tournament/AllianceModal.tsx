@@ -1,12 +1,66 @@
+import type { ReactNode } from 'react';
 import { findCandidateBase } from '@/data';
 
-interface DecidePeModalProps {
+// =============================================================================
+// Config
+// =============================================================================
+
+export interface AllianceConfig {
+  /** Display name used in alt text and aria labels */
+  name: string;
+  /** Logo rendered next to the Capibarismo logo. Use an <img> once an asset is available. */
+  logo: ReactNode;
+  /** Main body copy — can include JSX for styled highlights */
+  description: ReactNode;
+  /** Secondary line above the candidate grid. Defaults to a generic message. */
+  subtext?: string;
+  /** CTA button label. Defaults to "¡A LUCHAR!" */
+  ctaLabel?: string;
+}
+
+/**
+ * Add a new entry here whenever a partner website integrates the ?ref= redirect.
+ * Key = the value of the ?ref= query param.
+ */
+export const ALLIANCE_CONFIGS: Record<string, AllianceConfig> = {
+  dpe: {
+    name: 'decide.pe',
+    logo: (
+      /*
+        Swap for an <img> once the asset is ready:
+        <img src="/decide-pe-logo.webp" alt="decide.pe" className="h-12" />
+      */
+      <span
+        className="text-white font-bold text-xl tracking-wide"
+        style={{ fontFamily: 'system-ui, sans-serif' }}
+      >
+        decide<span className="text-yellow-400">.pe</span>
+      </span>
+    ),
+    description: (
+      <>
+        Fuiste redirigido desde{' '}
+        <span className="text-yellow-400 font-semibold">decide.pe</span>{' '}
+        con una lista de candidatos para competir.
+      </>
+    ),
+  },
+};
+
+// =============================================================================
+// Component
+// =============================================================================
+
+interface AllianceModalProps {
+  config: AllianceConfig;
   candidateIds: string[];
   onContinue: () => void;
 }
 
-export function DecidePeModal({ candidateIds, onContinue }: DecidePeModalProps) {
+export function AllianceModal({ config, candidateIds, onContinue }: AllianceModalProps) {
   const candidates = candidateIds.map((id) => findCandidateBase(id)).filter(Boolean);
+  const subtext = config.subtext ?? 'Estos son los 4 candidatos que obtuviste allí:';
+  const ctaLabel = config.ctaLabel ?? '¡A LUCHAR!';
 
   return (
     <div className="min-h-screen fighting-game-bg flex flex-col items-center justify-center p-6">
@@ -19,16 +73,7 @@ export function DecidePeModal({ candidateIds, onContinue }: DecidePeModalProps) 
             <img src="/capi_logo.png" alt="Capibarismo" className="h-16 w-16" />
           </picture>
           <span className="text-white/30 font-bold text-3xl select-none">✕</span>
-          {/*
-            Replace the element below with an <img> once the decide.pe logo is available:
-            <img src="/decide-pe-logo.webp" alt="decide.pe" className="h-12" />
-          */}
-          <span
-            className="text-white font-bold text-xl tracking-wide"
-            style={{ fontFamily: 'system-ui, sans-serif' }}
-          >
-            decide<span className="text-yellow-400">.pe</span>
-          </span>
+          {config.logo}
         </div>
 
         {/* Divider */}
@@ -37,11 +82,9 @@ export function DecidePeModal({ candidateIds, onContinue }: DecidePeModalProps) 
         {/* Body */}
         <div className="space-y-2 text-center">
           <p className="text-white/80 text-base leading-relaxed">
-            Fuiste redirigido desde <span className="text-yellow-400 font-semibold">decide.pe</span> con una lista de candidatos para competir.
+            {config.description}
           </p>
-          <p className="text-white/50 text-sm">
-            Estos son los 4 candidatos que obtuviste allí:
-          </p>
+          <p className="text-white/50 text-sm">{subtext}</p>
         </div>
 
         {/* Candidates grid */}
@@ -81,7 +124,7 @@ export function DecidePeModal({ candidateIds, onContinue }: DecidePeModalProps) 
           className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
           style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.55rem, 2vw, 0.75rem)' }}
         >
-          ¡A LUCHAR!
+          {ctaLabel}
         </button>
       </div>
     </div>

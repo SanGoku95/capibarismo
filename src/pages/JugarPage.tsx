@@ -7,7 +7,7 @@ import { CandidateInfoOverlay } from '@/components/game/CandidateInfoOverlay';
 import { BracketTreePage } from '@/components/tournament/BracketTreePage';
 import { PickFromThree } from '@/components/tournament/PickFromThree';
 import { PodiumScreen } from '@/components/tournament/PodiumScreen';
-import { DecidePeModal } from '@/components/tournament/DecidePeModal';
+import { AllianceModal, ALLIANCE_CONFIGS } from '@/components/tournament/AllianceModal';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { useTournamentStore } from '@/store/useTournamentStore';
 import {
@@ -66,7 +66,7 @@ export function JugarPage() {
     if (refChecked.current) return;
     refChecked.current = true;
 
-    if (initialRefParam !== 'dpe' || !initialSemifinalParam) return;
+    if (!initialRefParam || !ALLIANCE_CONFIGS[initialRefParam] || !initialSemifinalParam) return;
 
     const ids = initialSemifinalParam.split(',').map((s) => s.trim());
     if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
@@ -180,9 +180,10 @@ export function JugarPage() {
   }, []);
 
   // Referral modal: shown first, before any conflict check
-  if (refModalIds) {
+  if (refModalIds && initialRefParam) {
     return (
-      <DecidePeModal
+      <AllianceModal
+        config={ALLIANCE_CONFIGS[initialRefParam]}
         candidateIds={refModalIds}
         onContinue={() => setRefModalIds(null)}
       />
