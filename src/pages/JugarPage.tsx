@@ -335,11 +335,17 @@ export function JugarPage() {
     case 'podium': {
       if (!tournament.podium) return null;
 
+      const isSemifinalTournament = tournament.bracket.rounds[0].matches.length === 0;
+
       return (
         <>
           <PodiumScreen
             podium={tournament.podium}
             onPlayAgain={resetTournament}
+            onPlayFull={isSemifinalTournament ? () => {
+              startNewTournament();
+              goToBracketPreview();
+            } : undefined}
           />
           <CandidateInfoOverlay />
         </>
