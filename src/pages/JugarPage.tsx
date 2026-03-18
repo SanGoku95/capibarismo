@@ -44,6 +44,26 @@ export function JugarPage() {
 
   const { setReducedMotion, reducedMotion } = useGameUIStore();
 
+  // Conflict: existing tournament + incoming ?semifinal= param
+  const [pendingSemifinalIds, setPendingSemifinalIds] = useState<string[] | null>(null);
+  const conflictChecked = useRef(false);
+
+  useEffect(() => {
+    if (conflictChecked.current) return;
+    conflictChecked.current = true;
+
+    const semifinalParam = searchParams.get('semifinal');
+    if (!semifinalParam || !tournament) return;
+    // Already running a semifinal tournament — no conflict
+    if (tournament.bracket.rounds[0].matches.length === 0) return;
+
+    const ids = semifinalParam.split(',').map((s) => s.trim());
+    if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
+      setPendingSemifinalIds(ids);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Overlay state for match screen
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [userViewingBracket, setUserViewingBracket] = useState(false);
@@ -128,6 +148,44 @@ export function JugarPage() {
     setUserViewingBracket(false);
     setOverlayVisible(true);
   }, []);
+
+  // Conflict modal: existing tournament vs incoming semifinal param
+  if (pendingSemifinalIds) {
+    return (
+      <div className="min-h-screen fighting-game-bg flex flex-col items-center justify-center p-6">
+        <div className="bg-black/80 border border-white/20 rounded-xl p-6 max-w-sm w-full space-y-5">
+          <h2
+            className="text-center text-white font-bold text-[10px] uppercase tracking-wider leading-relaxed"
+            style={{ fontFamily: "'Press Start 2P', cursive" }}
+          >
+            TORNEO EN CURSO
+          </h2>
+          <p className="text-white/60 text-sm text-center leading-relaxed">
+            Ya tienes un torneo activo. ¿Quieres continuar o iniciar el modo semifinal?
+          </p>
+          <div className="space-y-3 pt-1">
+            <button
+              onClick={() => setPendingSemifinalIds(null)}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-3 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
+              style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.45rem, 2vw, 0.65rem)' }}
+            >
+              CONTINUAR MI TORNEO
+            </button>
+            <button
+              onClick={() => {
+                startSemifinalTournament(pendingSemifinalIds);
+                setPendingSemifinalIds(null);
+              }}
+              className="w-full bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-3 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
+              style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.45rem, 2vw, 0.65rem)' }}
+            >
+              INICIAR TORNEO RAPIDO
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // No tournament → create one (normal or semifinal) and go to bracket preview
   if (!tournament) {
