@@ -29,7 +29,7 @@ const TRANSITION_DELAY_DESKTOP = 1500;
 const DESKTOP_BREAKPOINT = 1500;
 
 export function JugarPage() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     state: tournament,
@@ -165,7 +165,7 @@ export function JugarPage() {
           </p>
           <div className="space-y-3 pt-1">
             <button
-              onClick={() => setPendingSemifinalIds(null)}
+              onClick={() => { setSearchParams({}, { replace: true }); setPendingSemifinalIds(null); }}
               className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-3 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
               style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.45rem, 2vw, 0.65rem)' }}
             >
@@ -174,6 +174,7 @@ export function JugarPage() {
             <button
               onClick={() => {
                 startSemifinalTournament(pendingSemifinalIds);
+                setSearchParams({}, { replace: true });
                 setPendingSemifinalIds(null);
               }}
               className="w-full bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-3 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
@@ -191,6 +192,7 @@ export function JugarPage() {
   if (!tournament) {
     const semifinalParam = searchParams.get('semifinal');
     if (semifinalParam) {
+      setSearchParams({}, { replace: true });
       const ids = semifinalParam.split(',').map((s) => s.trim());
       if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
         startSemifinalTournament(ids);
