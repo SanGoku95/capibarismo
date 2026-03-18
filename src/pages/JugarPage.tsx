@@ -7,6 +7,7 @@ import { CandidateInfoOverlay } from '@/components/game/CandidateInfoOverlay';
 import { BracketTreePage } from '@/components/tournament/BracketTreePage';
 import { PickFromThree } from '@/components/tournament/PickFromThree';
 import { PodiumScreen } from '@/components/tournament/PodiumScreen';
+import { DecidePeModal } from '@/components/tournament/DecidePeModal';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { useTournamentStore } from '@/store/useTournamentStore';
 import {
@@ -31,6 +32,19 @@ const DESKTOP_BREAKPOINT = 1500;
 export function JugarPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // Capture initial params once — before any effect or render side-effect changes them.
+  // Using lazy useState so the values are frozen at component mount time.
+  const [initialSemifinalParam] = useState(() => searchParams.get('semifinal'));
+  const [initialRefParam] = useState(() => searchParams.get('ref'));
+
+  // Clean up the URL immediately after mount so params never linger in the address bar.
+  useEffect(() => {
+    if (initialSemifinalParam || initialRefParam) {
+      setSearchParams({}, { replace: true });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const {
     state: tournament,
     startNewTournament,
@@ -44,6 +58,23 @@ export function JugarPage() {
 
   const { setReducedMotion, reducedMotion } = useGameUIStore();
 
+  // Referral modal: ?ref=dpe + valid ?semifinal= param
+  const [refModalIds, setRefModalIds] = useState<string[] | null>(null);
+  const refChecked = useRef(false);
+
+  useEffect(() => {
+    if (refChecked.current) return;
+    refChecked.current = true;
+
+    if (initialRefParam !== 'dpe' || !initialSemifinalParam) return;
+
+    const ids = initialSemifinalParam.split(',').map((s) => s.trim());
+    if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
+      setRefModalIds(ids);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Conflict: existing tournament + incoming ?semifinal= param
   const [pendingSemifinalIds, setPendingSemifinalIds] = useState<string[] | null>(null);
   const conflictChecked = useRef(false);
@@ -52,12 +83,11 @@ export function JugarPage() {
     if (conflictChecked.current) return;
     conflictChecked.current = true;
 
-    const semifinalParam = searchParams.get('semifinal');
-    if (!semifinalParam || !tournament) return;
+    if (!initialSemifinalParam || !tournament) return;
     // Already running a semifinal tournament — no conflict
     if (tournament.bracket.rounds[0].matches.length === 0) return;
 
-    const ids = semifinalParam.split(',').map((s) => s.trim());
+    const ids = initialSemifinalParam.split(',').map((s) => s.trim());
     if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
       setPendingSemifinalIds(ids);
     }
@@ -149,6 +179,16 @@ export function JugarPage() {
     setOverlayVisible(true);
   }, []);
 
+  // Referral modal: shown first, before any conflict check
+  if (refModalIds) {
+    return (
+      <DecidePeModal
+        candidateIds={refModalIds}
+        onContinue={() => setRefModalIds(null)}
+      />
+    );
+  }
+
   // Conflict modal: existing tournament vs incoming semifinal param
   if (pendingSemifinalIds) {
     return (
@@ -165,7 +205,7 @@ export function JugarPage() {
           </p>
           <div className="space-y-3 pt-1">
             <button
-              onClick={() => { setSearchParams({}, { replace: true }); setPendingSemifinalIds(null); }}
+              onClick={() => setPendingSemifinalIds(null)}
               className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-3 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
               style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.45rem, 2vw, 0.65rem)' }}
             >
@@ -174,7 +214,6 @@ export function JugarPage() {
             <button
               onClick={() => {
                 startSemifinalTournament(pendingSemifinalIds);
-                setSearchParams({}, { replace: true });
                 setPendingSemifinalIds(null);
               }}
               className="w-full bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-3 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
@@ -190,10 +229,8 @@ export function JugarPage() {
 
   // No tournament → create one (normal or semifinal) and go to bracket preview
   if (!tournament) {
-    const semifinalParam = searchParams.get('semifinal');
-    if (semifinalParam) {
-      setSearchParams({}, { replace: true });
-      const ids = semifinalParam.split(',').map((s) => s.trim());
+    if (initialSemifinalParam) {
+      const ids = initialSemifinalParam.split(',').map((s) => s.trim());
       if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
         startSemifinalTournament(ids);
       } else {
