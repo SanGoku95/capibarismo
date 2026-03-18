@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VSScreen } from '@/components/game/VSScreen';
 import { GameHUD } from '@/components/game/GameHUD';
@@ -28,9 +29,12 @@ const TRANSITION_DELAY_DESKTOP = 1500;
 const DESKTOP_BREAKPOINT = 1500;
 
 export function JugarPage() {
+  const [searchParams] = useSearchParams();
+
   const {
     state: tournament,
     startNewTournament,
+    startSemifinalTournament,
     submitVote,
     advanceFromRoundTransition,
     goToBracketPreview,
@@ -125,10 +129,21 @@ export function JugarPage() {
     setOverlayVisible(true);
   }, []);
 
-  // No tournament → create one and go straight to bracket preview
+  // No tournament → create one (normal or semifinal) and go to bracket preview
   if (!tournament) {
-    startNewTournament();
-    goToBracketPreview();
+    const semifinalParam = searchParams.get('semifinal');
+    if (semifinalParam) {
+      const ids = semifinalParam.split(',').map((s) => s.trim());
+      if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
+        startSemifinalTournament(ids);
+      } else {
+        startNewTournament();
+        goToBracketPreview();
+      }
+    } else {
+      startNewTournament();
+      goToBracketPreview();
+    }
     return null;
   }
 

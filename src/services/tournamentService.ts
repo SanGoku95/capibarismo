@@ -46,6 +46,47 @@ export function createTournamentState(candidates: CandidateBase[]): TournamentSt
 }
 
 /**
+ * Create a tournament state starting at R2 (semifinals) with 4 pre-selected candidates.
+ * R0 and R1 are empty stub rounds (completed). R3 is a stub awaiting R2 winners.
+ */
+export function createSemifinalTournament(candidates: CandidateBase[]): TournamentState {
+  if (candidates.length !== 4) {
+    throw new Error(`Expected 4 candidates for semifinal, got ${candidates.length}`);
+  }
+
+  const round0: TournamentRound = { roundIndex: 0, type: 'pick-one-from-three', matches: [], completed: true };
+  const round1: TournamentRound = { roundIndex: 1, type: 'pick-one-from-three', matches: [], completed: true };
+
+  const round2: TournamentRound = {
+    roundIndex: 2,
+    type: '1v1',
+    matches: [
+      { id: 'r2-m0', candidates: [candidates[0].id, candidates[1].id], winner: null, eliminated: [] },
+      { id: 'r2-m1', candidates: [candidates[2].id, candidates[3].id], winner: null, eliminated: [] },
+    ],
+    completed: false,
+  };
+
+  // Stub required so propagateWinner (R2→R3) and BracketTree don't crash
+  const round3: TournamentRound = {
+    roundIndex: 3,
+    type: '1v1',
+    matches: [{ id: 'r3-m0', candidates: [], winner: null, eliminated: [] }],
+    completed: false,
+  };
+
+  return {
+    id: nanoid(),
+    bracket: { rounds: [round0, round1, round2, round3] },
+    currentRound: 2,
+    currentMatchIndex: 0,
+    phase: 'bracket-preview',
+    podium: null,
+    createdAt: Date.now(),
+  };
+}
+
+/**
  * Advance the tournament by recording a vote. Returns a new TournamentState.
  */
 export function advanceTournament(
