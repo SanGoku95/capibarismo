@@ -201,7 +201,7 @@ export function JugarPage() {
             TORNEO EN CURSO
           </h2>
           <p className="text-white/60 text-sm text-center leading-relaxed">
-            Ya tienes un torneo activo. ¿Quieres continuar o iniciar el modo semifinal?
+            Ya tienes un torneo activo. ¿Quieres continuar o iniciar el modo rápido?
           </p>
           <div className="space-y-3 pt-1">
             <button
