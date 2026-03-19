@@ -179,13 +179,24 @@ export function JugarPage() {
     setOverlayVisible(true);
   }, []);
 
-  // Referral modal: shown first, before any conflict check
+  // Referral modal: shown first, before any conflict check.
+  // When an active non-semifinal tournament exists, expose the "keep current" option
+  // directly inside the modal so the user doesn't need a separate conflict modal.
   if (refModalIds && initialRefParam) {
+    const hasConflict = !!tournament && tournament.bracket.rounds[0].matches.length > 0;
     return (
       <AllianceModal
         config={ALLIANCE_CONFIGS[initialRefParam]}
         candidateIds={refModalIds}
-        onContinue={() => setRefModalIds(null)}
+        onStart={() => {
+          startSemifinalTournament(refModalIds);
+          setRefModalIds(null);
+          setPendingSemifinalIds(null);
+        }}
+        onKeepCurrent={hasConflict ? () => {
+          setRefModalIds(null);
+          setPendingSemifinalIds(null);
+        } : undefined}
       />
     );
   }

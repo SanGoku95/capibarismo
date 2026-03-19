@@ -46,10 +46,16 @@ export const ALLIANCE_CONFIGS: Record<string, AllianceConfig> = {
 interface AllianceModalProps {
   config: AllianceConfig;
   candidateIds: string[];
-  onContinue: () => void;
+  /** Always called when the user chooses to start the semifinal with these candidates. */
+  onStart: () => void;
+  /**
+   * When provided, a "keep current tournament" secondary button is shown.
+   * Pass this only when an active non-semifinal tournament already exists.
+   */
+  onKeepCurrent?: () => void;
 }
 
-export function AllianceModal({ config, candidateIds, onContinue }: AllianceModalProps) {
+export function AllianceModal({ config, candidateIds, onStart, onKeepCurrent }: AllianceModalProps) {
   const candidates = candidateIds.map((id) => findCandidateBase(id)).filter(Boolean);
   const subtext = config.subtext ?? 'Estos son los 4 candidatos que obtuviste allí:';
   const ctaLabel = config.ctaLabel ?? '¡A LUCHAR!';
@@ -110,14 +116,25 @@ export function AllianceModal({ config, candidateIds, onContinue }: AllianceModa
           ))}
         </div>
 
-        {/* CTA */}
-        <button
-          onClick={onContinue}
-          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
-          style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.55rem, 2vw, 0.75rem)' }}
-        >
-          {ctaLabel}
-        </button>
+        {/* CTAs */}
+        <div className="space-y-3">
+          <button
+            onClick={onStart}
+            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
+            style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.55rem, 2vw, 0.75rem)' }}
+          >
+            {ctaLabel}
+          </button>
+          {onKeepCurrent && (
+            <button
+              onClick={onKeepCurrent}
+              className="w-full bg-transparent hover:bg-white/5 text-white/50 hover:text-white/80 font-bold py-3 border border-white/15 hover:border-white/30 rounded transition-all uppercase tracking-wider"
+              style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.45rem, 2vw, 0.6rem)' }}
+            >
+              CONTINUAR MI TORNEO
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
