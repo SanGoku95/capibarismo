@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VSScreen } from '@/components/game/VSScreen';
 import { GameHUD } from '@/components/game/GameHUD';
@@ -6,6 +7,7 @@ import { CandidateInfoOverlay } from '@/components/game/CandidateInfoOverlay';
 import { BracketTreePage } from '@/components/tournament/BracketTreePage';
 import { PickFromThree } from '@/components/tournament/PickFromThree';
 import { PodiumScreen } from '@/components/tournament/PodiumScreen';
+import { AllianceModal, ALLIANCE_CONFIGS } from '@/components/tournament/AllianceModal';
 import { useGameUIStore } from '@/store/useGameUIStore';
 import { useTournamentStore } from '@/store/useTournamentStore';
 import {
@@ -28,9 +30,25 @@ const TRANSITION_DELAY_DESKTOP = 1500;
 const DESKTOP_BREAKPOINT = 1500;
 
 export function JugarPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Capture initial params once — before any effect or render side-effect changes them.
+  // Using lazy useState so the values are frozen at component mount time.
+  const [initialSemifinalParam] = useState(() => searchParams.get('semifinal'));
+  const [initialRefParam] = useState(() => searchParams.get('ref'));
+
+  // Clean up the URL immediately after mount so params never linger in the address bar.
+  useEffect(() => {
+    if (initialSemifinalParam || initialRefParam) {
+      setSearchParams({}, { replace: true });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const {
     state: tournament,
     startNewTournament,
+    startSemifinalTournament,
     submitVote,
     advanceFromRoundTransition,
     goToBracketPreview,
@@ -39,6 +57,42 @@ export function JugarPage() {
   } = useTournamentStore();
 
   const { setReducedMotion, reducedMotion } = useGameUIStore();
+
+  // Referral modal: ?ref=dpe + valid ?semifinal= param
+  const [refModalIds, setRefModalIds] = useState<string[] | null>(null);
+  const refChecked = useRef(false);
+
+  useEffect(() => {
+    if (refChecked.current) return;
+    refChecked.current = true;
+
+    if (!initialRefParam || !ALLIANCE_CONFIGS[initialRefParam] || !initialSemifinalParam) return;
+
+    const ids = initialSemifinalParam.split(',').map((s) => s.trim());
+    if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
+      setRefModalIds(ids);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Conflict: existing tournament + incoming ?semifinal= param
+  const [pendingSemifinalIds, setPendingSemifinalIds] = useState<string[] | null>(null);
+  const conflictChecked = useRef(false);
+
+  useEffect(() => {
+    if (conflictChecked.current) return;
+    conflictChecked.current = true;
+
+    if (!initialSemifinalParam || !tournament) return;
+    // Already running a semifinal tournament — no conflict
+    if (tournament.bracket.rounds[0].matches.length === 0) return;
+
+    const ids = initialSemifinalParam.split(',').map((s) => s.trim());
+    if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
+      setPendingSemifinalIds(ids);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Overlay state for match screen
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -125,10 +179,80 @@ export function JugarPage() {
     setOverlayVisible(true);
   }, []);
 
-  // No tournament → create one and go straight to bracket preview
+  // Referral modal: shown first, before any conflict check.
+  // When an active non-semifinal tournament exists, expose the "keep current" option
+  // directly inside the modal so the user doesn't need a separate conflict modal.
+  if (refModalIds && initialRefParam) {
+    const hasConflict = !!tournament && tournament.bracket.rounds[0].matches.length > 0;
+    return (
+      <AllianceModal
+        config={ALLIANCE_CONFIGS[initialRefParam]}
+        candidateIds={refModalIds}
+        onStart={() => {
+          startSemifinalTournament(refModalIds);
+          setRefModalIds(null);
+          setPendingSemifinalIds(null);
+        }}
+        onKeepCurrent={hasConflict ? () => {
+          setRefModalIds(null);
+          setPendingSemifinalIds(null);
+        } : undefined}
+      />
+    );
+  }
+
+  // Conflict modal: existing tournament vs incoming semifinal param
+  if (pendingSemifinalIds) {
+    return (
+      <div className="min-h-screen fighting-game-bg flex flex-col items-center justify-center p-6">
+        <div className="bg-black/80 border border-white/20 rounded-xl p-6 max-w-sm w-full space-y-5">
+          <h2
+            className="text-center text-white font-bold text-[10px] uppercase tracking-wider leading-relaxed"
+            style={{ fontFamily: "'Press Start 2P', cursive" }}
+          >
+            TORNEO EN CURSO
+          </h2>
+          <p className="text-white/60 text-sm text-center leading-relaxed">
+            Ya tienes un torneo activo. ¿Quieres continuar o iniciar el modo rápido?
+          </p>
+          <div className="space-y-3 pt-1">
+            <button
+              onClick={() => setPendingSemifinalIds(null)}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-3 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
+              style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.45rem, 2vw, 0.65rem)' }}
+            >
+              CONTINUAR MI TORNEO
+            </button>
+            <button
+              onClick={() => {
+                startSemifinalTournament(pendingSemifinalIds);
+                setPendingSemifinalIds(null);
+              }}
+              className="w-full bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-3 border-2 border-white/20 hover:border-white/50 rounded shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
+              style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.45rem, 2vw, 0.65rem)' }}
+            >
+              INICIAR TORNEO RAPIDO
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // No tournament → create one (normal or semifinal) and go to bracket preview
   if (!tournament) {
-    startNewTournament();
-    goToBracketPreview();
+    if (initialSemifinalParam) {
+      const ids = initialSemifinalParam.split(',').map((s) => s.trim());
+      if (ids.length === 4 && ids.every((id) => findCandidateBase(id))) {
+        startSemifinalTournament(ids);
+      } else {
+        startNewTournament();
+        goToBracketPreview();
+      }
+    } else {
+      startNewTournament();
+      goToBracketPreview();
+    }
     return null;
   }
 
@@ -320,11 +444,17 @@ export function JugarPage() {
     case 'podium': {
       if (!tournament.podium) return null;
 
+      const isSemifinalTournament = tournament.bracket.rounds[0].matches.length === 0;
+
       return (
         <>
           <PodiumScreen
             podium={tournament.podium}
             onPlayAgain={resetTournament}
+            onPlayFull={isSemifinalTournament ? () => {
+              startNewTournament();
+              goToBracketPreview();
+            } : undefined}
           />
           <CandidateInfoOverlay />
         </>

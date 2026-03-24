@@ -33,6 +33,11 @@ const HALF_W = 3 * COL_W + 2 * CONNECTOR_W; // one half (R0→R1→R2)
 const CENTER_START = HALF_W + CONNECTOR_W;    // where R3 column starts
 const RIGHT_START = CENTER_START + COL_W + CONNECTOR_W; // where right half starts
 
+// Semifinal-only layout (used when R0/R1 are empty stubs)
+const SEMI_COL_W = 260;
+const SEMI_MATCH_H = 160;
+const SEMI_CONNECTOR_W = 56;
+
 // =============================================================================
 // Helpers
 // =============================================================================
@@ -127,43 +132,53 @@ function MatchSlot({
   match,
   status,
   isCurrent,
+  colW = COL_W,
+  matchH = MATCH_H,
 }: {
   match: TournamentMatch;
   status: MatchStatus;
   isCurrent: boolean;
+  colW?: number;
+  matchH?: number;
 }) {
   const isEmpty = match.candidates.length === 0;
+  const isLarge = colW >= 240;
 
   return (
     <div
       className={cn(
-        'relative rounded border bg-black/70 text-[10px] sm:text-[13px] transition-all',
+        'relative rounded border bg-black/70 transition-all',
+        isLarge ? 'text-sm' : 'text-[10px] sm:text-[13px]',
         status === 'completed' && 'border-green-500/30',
         isCurrent && 'border-yellow-400/80 shadow-[0_0_12px_rgba(255,193,7,0.5)]',
         status === 'upcoming' && !isCurrent && 'border-white/10 opacity-50',
       )}
-      style={{ width: COL_W, height: MATCH_H }}
+      style={{ width: colW, height: matchH }}
     >
       {isEmpty ? (
         <div className="flex items-center justify-center h-full gap-1">
-          <Lock className="w-3 h-3 text-white/20" />
-          <span className="text-white/15" style={{ fontFamily: "'Press Start 2P', cursive", fontSize: '6px' }}>¿?</span>
+          <Lock className={cn(isLarge ? 'w-5 h-5' : 'w-3 h-3', 'text-white/20')} />
+          <span className="text-white/15" style={{ fontFamily: "'Press Start 2P', cursive", fontSize: isLarge ? '8px' : '6px' }}>¿?</span>
         </div>
       ) : (
-        <div className="flex flex-col justify-center h-full px-2">
+        <div className={cn('flex flex-col justify-center h-full', isLarge ? 'px-3' : 'px-2')}>
           {match.candidates.map((cId, i) => {
             const candidate = findCandidateBase(cId);
             const isWinner = match.winner === cId;
             const isEliminated = match.eliminated.includes(cId);
+            const avatarCls = isLarge
+              ? (match.candidates.length <= 2 ? 'w-14 h-14' : 'w-10 h-10')
+              : (match.candidates.length <= 2 ? 'w-8 h-8' : 'w-6 h-6');
 
             return (
               <div key={cId} className={cn(
-                'flex items-center gap-1.5 px-1.5',
+                'flex items-center px-1.5',
+                isLarge ? 'gap-3' : 'gap-1.5',
                 i > 0 && 'border-t border-white/10',
               )} style={{ height: match.candidates.length <= 2 ? '50%' : '33.33%' }}>
                 <div className={cn(
                   'rounded-full overflow-hidden border flex-shrink-0',
-                  match.candidates.length <= 2 ? 'w-8 h-8' : 'w-6 h-6',
+                  avatarCls,
                   isWinner && 'border-yellow-400/80',
                   isEliminated && 'border-red-500/50 opacity-40',
                   !isWinner && !isEliminated && 'border-white/20',
@@ -272,6 +287,91 @@ function CenterConnector({
     >
       <path d={d} fill="none" stroke={color} strokeWidth={1.5} />
     </svg>
+  );
+}
+
+// =============================================================================
+// Semifinal-only Layout (when R0/R1 are empty stubs)
+// =============================================================================
+
+function SemifinalBracketLayout({
+  bracket,
+  currentRound,
+  currentMatchIndex,
+  currentMatchRef,
+}: {
+  bracket: TournamentBracket;
+  currentRound: number;
+  currentMatchIndex: number;
+  currentMatchRef: React.RefObject<HTMLDivElement | null>;
+}) {
+  const r2Match0 = bracket.rounds[2].matches[0];
+  const r2Match1 = bracket.rounds[2].matches[1];
+  const r3Match = bracket.rounds[3].matches[0];
+
+  const centerY = SEMI_MATCH_H / 2;
+  const connectorColor = currentRound > 2 ? 'rgba(34,197,94,0.35)' : 'rgba(255,255,255,0.15)';
+
+  const r2_0_status = getMatchStatus(2, 0, currentRound, currentMatchIndex);
+  const r2_1_status = getMatchStatus(2, 1, currentRound, currentMatchIndex);
+  const r3Status = getMatchStatus(3, 0, currentRound, currentMatchIndex);
+  const r2_0_isCurrent = currentRound === 2 && currentMatchIndex === 0;
+  const r2_1_isCurrent = currentRound === 2 && currentMatchIndex === 1;
+  const r3IsCurrent = currentRound === 3 && currentMatchIndex === 0;
+
+  const colLabel = (text: string, gold?: boolean) => (
+    <div className="text-center absolute -top-6 left-0 right-0">
+      <span
+        className={cn(
+          'text-[8px] sm:text-[10px] uppercase tracking-wider',
+          gold ? 'text-yellow-400/60' : 'text-white/40',
+        )}
+        style={{ fontFamily: "'Press Start 2P', cursive" }}
+      >
+        {text}
+      </span>
+    </div>
+  );
+
+  return (
+    <div className="flex items-center px-4 py-16">
+      {/* Left semifinal */}
+      <div className="flex-shrink-0 relative">
+        {colLabel(ROUND_CONFIG[2]?.label ?? 'Semifinal')}
+        <div ref={r2_0_isCurrent ? currentMatchRef : undefined}>
+          <MatchSlot match={r2Match0} status={r2_0_status} isCurrent={r2_0_isCurrent} colW={SEMI_COL_W} matchH={SEMI_MATCH_H} />
+        </div>
+      </div>
+
+      {/* Left → final connector */}
+      <svg width={SEMI_CONNECTOR_W} height={SEMI_MATCH_H} className="flex-shrink-0">
+        <line x1={0} y1={centerY} x2={SEMI_CONNECTOR_W} y2={centerY} stroke={connectorColor} strokeWidth={1.5} />
+      </svg>
+
+      {/* Final */}
+      <div className="flex-shrink-0 relative">
+        {colLabel(ROUND_CONFIG[3]?.label ?? 'Final', true)}
+        <div className="absolute -top-14 left-0 right-0 flex justify-center">
+          <Crown className="w-8 h-8 text-yellow-400 drop-shadow-[0_0_12px_rgba(255,200,0,0.6)]" />
+        </div>
+        <div ref={r3IsCurrent ? currentMatchRef : undefined}>
+          <MatchSlot match={r3Match} status={r3Status} isCurrent={r3IsCurrent} colW={SEMI_COL_W} matchH={SEMI_MATCH_H} />
+        </div>
+      </div>
+
+      {/* Final → right connector */}
+      <svg width={SEMI_CONNECTOR_W} height={SEMI_MATCH_H} className="flex-shrink-0">
+        <line x1={0} y1={centerY} x2={SEMI_CONNECTOR_W} y2={centerY} stroke={connectorColor} strokeWidth={1.5} />
+      </svg>
+
+      {/* Right semifinal */}
+      <div className="flex-shrink-0 relative">
+        {colLabel(ROUND_CONFIG[2]?.label ?? 'Semifinal')}
+        <div ref={r2_1_isCurrent ? currentMatchRef : undefined}>
+          <MatchSlot match={r2Match1} status={r2_1_status} isCurrent={r2_1_isCurrent} colW={SEMI_COL_W} matchH={SEMI_MATCH_H} />
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -429,6 +529,8 @@ export function BracketTree({ bracket, currentRound, currentMatchIndex, showOver
   const scrollRef = useRef<HTMLDivElement>(null);
   const currentMatchRef = useRef<HTMLDivElement>(null);
 
+  const isSemifinalMode = bracket.rounds[0].matches.length === 0;
+
   const layout = useMemo(() => computeHalfLayout(), []);
   const totalH = layout.totalH;
 
@@ -468,6 +570,32 @@ export function BracketTree({ bracket, currentRound, currentMatchIndex, showOver
     if (!isMobile) return undefined;
 
     const availH = window.innerHeight - 100;
+
+    // Semifinal layout: pan into the active match card
+    if (isSemifinalMode) {
+      // Pixel positions of match centers inside SemifinalBracketLayout (px-4 py-16)
+      const px = 16; // px-4
+      const py = 64; // py-16
+      const focusY = py + SEMI_MATCH_H / 2;
+      let focusX: number;
+      if (currentRound === 2 && currentMatchIndex === 0) {
+        focusX = px + SEMI_COL_W / 2;
+      } else if (currentRound === 3) {
+        focusX = px + SEMI_COL_W + SEMI_CONNECTOR_W + SEMI_COL_W / 2;
+      } else {
+        // R2 match 1 (right semifinal)
+        focusX = px + 2 * (SEMI_COL_W + SEMI_CONNECTOR_W) + SEMI_COL_W / 2;
+      }
+      const zoom = Math.min((viewportW * 0.85) / SEMI_COL_W, 2.0);
+      const tx = viewportW / 2 / zoom - focusX;
+      const ty = availH / 2 / zoom - focusY;
+      return {
+        transform: `scale(${zoom}) translate(${tx}px, ${ty}px)`,
+        transformOrigin: '0 0' as const,
+        transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+      };
+    }
+
     // Fill height: zoom so all 6 R0 matches fill the viewport vertically
     const panZoom = availH / (totalH + 10);
 
@@ -509,7 +637,7 @@ export function BracketTree({ bracket, currentRound, currentMatchIndex, showOver
       transformOrigin: '0 0' as const,
       transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
     };
-  }, [isMobile, viewportW, currentRound, currentMatchIndex, layout, overviewStep, totalH]);
+  }, [isMobile, isSemifinalMode, viewportW, currentRound, currentMatchIndex, layout, overviewStep, totalH]);
 
   // Desktop: auto-scroll to current match
   useEffect(() => {
@@ -523,6 +651,22 @@ export function BracketTree({ bracket, currentRound, currentMatchIndex, showOver
     }, 100);
     return () => clearTimeout(timer);
   }, [currentRound, currentMatchIndex, isMobile]);
+
+  // Simplified view for external semifinal tournaments
+  if (isSemifinalMode) {
+    return (
+      <div ref={scrollRef} className={cn('flex-1', isMobile ? 'overflow-hidden' : 'overflow-auto flex items-center justify-center')}>
+        <div style={{ ...(mobileTransform ?? {}) }}>
+          <SemifinalBracketLayout
+            bracket={bracket}
+            currentRound={currentRound}
+            currentMatchIndex={currentMatchIndex}
+            currentMatchRef={currentMatchRef}
+          />
+        </div>
+      </div>
+    );
+  }
 
   const r3Match = bracket.rounds[3].matches[0];
   const r3Status = getMatchStatus(3, 0, currentRound, currentMatchIndex);

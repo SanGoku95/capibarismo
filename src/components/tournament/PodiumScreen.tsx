@@ -9,6 +9,7 @@ import type { PodiumResult } from '@/lib/tournamentTypes';
 interface PodiumScreenProps {
   podium: PodiumResult;
   onPlayAgain: () => void;
+  onPlayFull?: () => void;
 }
 
 const PODIUM_CONFIG = [
@@ -17,7 +18,7 @@ const PODIUM_CONFIG = [
   { key: 'third' as const,  label: 'TERCER LUGAR', rank: '3', color: 'text-amber-600', borderColor: 'border-amber-600/60', glow: 'shadow-[0_0_12px_rgba(180,130,50,0.3)]', size: 'w-16 h-16 sm:w-20 sm:h-20' },
 ] as const;
 
-export function PodiumScreen({ podium, onPlayAgain }: PodiumScreenProps) {
+export function PodiumScreen({ podium, onPlayAgain, onPlayFull }: PodiumScreenProps) {
   const { reducedMotion } = useGameUIStore();
   const captureRef = useRef<HTMLDivElement>(null);
   const [sharing, setSharing] = useState(false);
@@ -211,6 +212,15 @@ export function PodiumScreen({ podium, onPlayAgain }: PodiumScreenProps) {
         >
           JUGAR DE NUEVO
         </Button>
+        {onPlayFull && (
+          <Button
+            onClick={onPlayFull}
+            className="w-full bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-4 text-sm border-2 border-white/20 hover:border-white/50 shadow-[0_4px_0_rgb(0,0,0,0.5)] hover:shadow-[0_2px_0_rgb(0,0,0,0.5)] hover:translate-y-[2px] transition-all uppercase tracking-wider"
+            style={{ fontFamily: "'Press Start 2P', cursive", fontSize: 'clamp(0.5rem, 2vw, 0.7rem)' }}
+          >
+            JUGAR MODO COMPLETO
+          </Button>
+        )}
         <Button
           onClick={handleShare}
           disabled={sharing}

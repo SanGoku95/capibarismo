@@ -1,10 +1,11 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { listCandidates } from '@/data';
+import { listCandidates, findCandidateBase } from '@/data';
 import { TOURNAMENT_STORAGE_KEY } from '@/lib/tournamentConstants';
 import type { TournamentState, MatchProgress, TournamentMatch } from '@/lib/tournamentTypes';
 import {
   createTournamentState,
+  createSemifinalTournament,
   advanceTournament,
   advanceFromTransition,
   startFromOnboarding,
@@ -22,6 +23,7 @@ interface TournamentStore {
 
   // Actions
   startNewTournament: () => void;
+  startSemifinalTournament: (candidateIds: string[]) => void;
   submitVote: (winnerId: string) => void;
   advanceFromRoundTransition: () => void;
   goToBracketPreview: () => void;
@@ -53,6 +55,13 @@ export const useTournamentStore = create<TournamentStore>()(
       startNewTournament: () => {
         const candidates = listCandidates();
         const tournament = createTournamentState(candidates);
+        set({ state: tournament });
+      },
+
+      startSemifinalTournament: (candidateIds) => {
+        const candidates = candidateIds.map((id) => findCandidateBase(id)).filter(Boolean);
+        if (candidates.length !== 4) return;
+        const tournament = createSemifinalTournament(candidates);
         set({ state: tournament });
       },
 
