@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DatumEncuesta",
+  "description": "Schema para encuestas Datum con desglose por candidato",
+  "type": "object",
+  "required": ["nroDeRegistro", "muestra", "resultados"],
+  "properties": {
+    "nroDeRegistro": {
+      "type": "string",
+      "description": "Número de registro JNE"
+    },
+    "muestra": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Tamaño de la muestra"
+    },
+    "lugares": {
+      "type": "string",
+      "description": "Lugares donde se aplicó la encuesta"
+    },
+    "margenError": {
+      "type": "string",
+      "description": "Margen de error"
+    },
+    "porcentajeNivelConfianza": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Nivel de confianza en porcentaje"
+    },
+    "universo": {
+      "type": "string",
+      "description": "Universo de la encuesta"
+    },
+    "fechaAplicacion": {
+      "type": "string",
+      "description": "Fecha de aplicación de la encuesta"
+    },
+    "resultados": {
+      "type": "array",
+      "description": "Resultados por fecha",
+      "items": {
+        "type": "object",
+        "required": ["fecha", "candidatos"],
+        "properties": {
+          "fecha": {
+            "type": "string",
+            "description": "Fecha del resultado en formato YYYY-MM-DD"
+          },
+          "candidatos": {
+            "type": "array",
+            "description": "Datos por candidato",
+            "items": {
+              "type": "object",
+              "required": ["nombre", "total"],
+              "properties": {
+                "nombre": {
+                  "type": "string",
+                  "description": "Nombre completo del candidato"
+                },
+                "total": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100,
+                  "description": "Porcentaje total a nivel nacional"
+                },
+                "sexo": {
+                  "type": "object",
+                  "description": "Desglose por sexo",
+                  "properties": {
+                    "hombre": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "mujer": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "region": {
+                  "type": "object",
+                  "description": "Desglose por región",
+                  "properties": {
+                    "lima_callao": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "norte": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "centro": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "sur": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "oriente": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "zona": {
+                  "type": "object",
+                  "description": "Desglose por zona",
+                  "properties": {
+                    "urbana": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "rural": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "IpsosEncuestaSimple",
+  "description": "Schema simplificado para encuestas IPSOS con datos anidados por candidato",
+  "type": "object",
+  "required": ["nroDeRegistro", "muestra", "resultados"],
+  "properties": {
+    "nroDeRegistro": {
+      "type": "string"
+    },
+    "muestra": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "lugares": {
+      "type": "string"
+    },
+    "margenError": {
+      "type": "string"
+    },
+    "porcentajeNivelConfianza": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "universo": {
+      "type": "string"
+    },
+    "fechaAplicacion": {
+      "type": "string"
+    },
+    "resultados": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fecha", "candidatos"],
+        "properties": {
+          "fecha": {
+            "type": "string"
+          },
+          "candidatos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["nombre", "total"],
+              "properties": {
+                "nombre": {
+                  "type": "string"
+                },
+                "total": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "lima": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "interior": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "urbano": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "rural": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "norte": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "centro": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "sur": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "oriente": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "nse": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "A": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "B": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "C": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "D": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "E": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "genero": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "masculino": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "femenino": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "edad": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "18-25": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "26-42": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "43-mas": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

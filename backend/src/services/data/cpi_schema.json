@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CPIEncuesta",
+  "description": "Schema para encuestas CPI con desglose por candidato",
+  "type": "object",
+  "required": ["nroDeRegistro", "muestra", "resultados"],
+  "properties": {
+    "nroDeRegistro": {
+      "type": "string",
+      "description": "Número de registro JNE"
+    },
+    "muestra": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Tamaño de la muestra"
+    },
+    "lugares": {
+      "type": "string",
+      "description": "Lugares donde se aplicó la encuesta"
+    },
+    "margenError": {
+      "type": "string",
+      "description": "Margen de error"
+    },
+    "porcentajeNivelConfianza": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Nivel de confianza en porcentaje"
+    },
+    "universo": {
+      "type": "string",
+      "description": "Universo de la encuesta"
+    },
+    "fechaAplicacion": {
+      "type": "string",
+      "description": "Fecha de aplicación de la encuesta"
+    },
+    "resultados": {
+      "type": "array",
+      "description": "Resultados por fecha",
+      "items": {
+        "type": "object",
+        "required": ["fecha", "candidatos"],
+        "properties": {
+          "fecha": {
+            "type": "string",
+            "description": "Fecha del resultado en formato YYYY-MM-DD"
+          },
+          "candidatos": {
+            "type": "array",
+            "description": "Datos por candidato",
+            "items": {
+              "type": "object",
+              "required": ["nombre", "peru_urbano_rural"],
+              "properties": {
+                "nombre": {
+                  "type": "string",
+                  "description": "Nombre completo del candidato"
+                },
+                "peru_urbano_rural": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100,
+                  "description": "Porcentaje total Perú urbano y rural"
+                },
+                "ambito": {
+                  "type": "object",
+                  "description": "Desglose por ámbito",
+                  "properties": {
+                    "lima_metropolitana_lima_provincias_callao": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "interior_del_pais": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "macrozonas_cpi": {
+                  "type": "object",
+                  "description": "Desglose por macrozonas CPI",
+                  "properties": {
+                    "costa_y_sierra_norte": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "costa_sur": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "sierra_centro_y_sur": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "oriente": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "area": {
+                  "type": "object",
+                  "description": "Desglose por área",
+                  "properties": {
+                    "urbano": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "rural": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "sexo": {
+                  "type": "object",
+                  "description": "Desglose por sexo",
+                  "properties": {
+                    "hombres": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "mujeres": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "grupo_de_edad": {
+                  "type": "object",
+                  "description": "Desglose por grupo de edad",
+                  "properties": {
+                    "18_24": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "25_39": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    "40_70": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
