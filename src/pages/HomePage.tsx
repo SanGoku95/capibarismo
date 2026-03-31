@@ -4,11 +4,13 @@ import { ArrowRight, Compass, Scale, Gamepad2, ChevronDown, ChevronUp, Target, C
 import { listCandidates, getCandidateProfile } from "@/data";
 import { useItemListSEO } from '@/lib/useSEO';
 import { DonationModal } from '@/components/common/DonationModal';
+import { AllianceInfoModal } from '@/components/common/AllianceInfoModal';
 import { usePostHog, useTrackHomeView } from '@/lib/posthog';
 
 export function HomePage() {
   const [showAllGoals, setShowAllGoals] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
+  const [showAllianceModal, setShowAllianceModal] = useState(false);
   const posthog = usePostHog();
   const location = useLocation();
 
@@ -141,6 +143,22 @@ export function HomePage() {
                     </span>
                     <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                   </Link>
+
+                  {/* Alliance Button - decide.pe */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAllianceModal(true);
+                      posthog?.capture('alliance_click', { partner: 'decide.pe', via: 'home_cta' });
+                    }}
+                    className="group inline-flex items-center justify-between gap-3 rounded-xl border border-red-700/60 bg-red-700/20 text-white px-3.5 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-lg hover:bg-red-700/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-700/60 active:translate-y-0"
+                  >
+                    <span className="flex items-center gap-3">
+                      <img src="https://decide.pe/reverseLogo.svg" alt="decide.pe" className="h-5 w-auto shrink-0" />
+                      Torneo Personalizado
+                    </span>
+                    <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                  </button>
 
                   {/* WhatsApp Channel Button */}
                   <a
@@ -332,6 +350,7 @@ export function HomePage() {
         </div>
 
         <DonationModal isOpen={showDonationModal} onClose={() => setShowDonationModal(false)} />
+        <AllianceInfoModal isOpen={showAllianceModal} onClose={() => setShowAllianceModal(false)} />
       </main>
     </div>
   );
